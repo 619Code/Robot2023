@@ -1,1 +1,2 @@
-My readme file test
+My readme CHANGED TEXT HERE
+THIS IS A TEST FUNCTION
