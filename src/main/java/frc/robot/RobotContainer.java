@@ -1,7 +1,7 @@
 package frc.robot;
 
-import frc.robot.Constants;
 import frc.robot.commands.DriveCommand;
+import frc.robot.helpers.AutoCommandSwitcher;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -29,6 +29,12 @@ public class RobotContainer {
 	}
 
 	public Command getAutonomousCommand() {
+		AutoCommandSwitcher.setAutoCommands(new Command[] {
+			//PUT COMMANDS HERE
+			null //MAKE SURE OPTION 0 IS NULL.
+		});
+		//return AutoCommandSwitcher.getAutoCommand(); //UNCOMMENT WHEN COMMANDS INTRODUCED. THANKS.
 		return null;
+
 	}
 }

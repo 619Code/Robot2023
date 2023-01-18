@@ -1,5 +1,6 @@
 package frc.robot.helpers;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Crashboard {
