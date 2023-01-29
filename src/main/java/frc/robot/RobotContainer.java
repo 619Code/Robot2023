@@ -3,6 +3,7 @@ package frc.robot;
 import frc.robot.commands.DriveCommand;
 import frc.robot.helpers.AutoCommandSwitcher;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Limelight;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -14,6 +15,7 @@ public class RobotContainer {
 	private XboxController driver;
 	private DriveCommand driveCommand;
 	private Drivetrain drive;
+	private Limelight limelight;
 
 	public RobotContainer() {
 		driver = new XboxController(0);
@@ -21,6 +23,7 @@ public class RobotContainer {
         drive = new Drivetrain();
         driveCommand = new DriveCommand(drive, driver);
         drive.setDefaultCommand(driveCommand);
+		limelight = new Limelight();
 		configureBindings();
 	}
 
