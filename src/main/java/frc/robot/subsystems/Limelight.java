@@ -9,6 +9,7 @@ import frc.robot.helpers.Crashboard;
 public class Limelight extends SubsystemBase {
     NetworkTable table;
     NetworkTableEntry pipeline;
+    NetworkTableEntry json;
     NetworkTableEntry tv;
     NetworkTableEntry tx;
     NetworkTableEntry ty;
@@ -17,6 +18,7 @@ public class Limelight extends SubsystemBase {
     NetworkTableEntry camtran;
 
     double pipe;
+    String jason;
     double x;
     double y;
     double a;
@@ -40,23 +42,25 @@ public class Limelight extends SubsystemBase {
         // checks for valid target
         tv = table.getEntry("tv");
         vt = tv.getInteger(0);
-        Crashboard.toDashboard("valit target", vt);
-        setPipeline();
+        //Crashboard.toDashboard("valit target", vt);
+        //setPipeline();
+
 
         if (vt == 1) {
-            RelativeToDashboard();
-            Crashboard.toDashboard("valit target", vt);
-            setPipeline();
+            //RelativeToDashboard();
+            //Crashboard.toDashboard("valit target", vt);
+            //setPipeline();
+            dumpJson();
         }
         else {
-            Crashboard.toDashboard("valit target", vt);
-            setPipeline();
+            //Crashboard.toDashboard("valit target", vt);
+            //setPipeline();
         }
 
 
     }
 
-    public void SimplePositionToDashboard(){
+    private void SimplePositionToDashboard(){
 
             tx = table.getEntry("tx");
             ty = table.getEntry("ty");
@@ -73,7 +77,7 @@ public class Limelight extends SubsystemBase {
 
     }
 
-    public void RelativeToDashboard() {
+    private void RelativeToDashboard() {
 
         camtran = table.getEntry("camtran");
         ct = camtran.getDoubleArray(new double[6]);
@@ -87,7 +91,7 @@ public class Limelight extends SubsystemBase {
         Crashboard.toDashboard("Z rotation", ct[5]);     
     }
 
-    public void ExactToDashboard() {
+    private void ExactToDashboard() {
         
         botpose = table.getEntry("botpose");
         bp = botpose.getDoubleArray(new double[6]);
@@ -102,7 +106,7 @@ public class Limelight extends SubsystemBase {
 
     }
 
-    public void setPipeline() {
+    private void setPipeline() {
         pipeline = table.getEntry("pipeline");
         pipe = pipeline.getDouble(0);
 
@@ -114,6 +118,15 @@ public class Limelight extends SubsystemBase {
         else {
             pipeline.setDouble(0);
         }
+
+
+    }
+
+    private void dumpJson() {
+        json = table.getEntry("json");
+        jason = json.getString("");
+
+        System.out.println(jason);
 
 
     }
