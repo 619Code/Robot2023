@@ -23,7 +23,7 @@ public class RobotContainer {
         drive = new Drivetrain();
         driveCommand = new DriveCommand(drive, driver);
         drive.setDefaultCommand(driveCommand);
-		limelight = new Limelight();
+		limelight = new Limelight(driver);
 		configureBindings();
 	}
 

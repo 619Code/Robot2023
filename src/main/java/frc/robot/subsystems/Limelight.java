@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.helpers.Crashboard;
 
@@ -23,7 +24,11 @@ public class Limelight extends SubsystemBase {
     double[] bp;
     double[] ct;
 
-    public Limelight() {
+    private XboxController controller;
+
+    public Limelight(XboxController controller) {
+
+        this.controller = controller;
 
         table = NetworkTableInstance.getDefault().getTable("limelight");
         
@@ -36,10 +41,18 @@ public class Limelight extends SubsystemBase {
         tv = table.getEntry("tv");
         vt = tv.getInteger(0);
         Crashboard.toDashboard("valit target", vt);
+        setPipeline();
 
-        while (vt == 1) {
+        if (vt == 1) {
             RelativeToDashboard();
+            Crashboard.toDashboard("valit target", vt);
+            setPipeline();
         }
+        else {
+            Crashboard.toDashboard("valit target", vt);
+            setPipeline();
+        }
+
 
     }
 
@@ -88,6 +101,24 @@ public class Limelight extends SubsystemBase {
         Crashboard.toDashboard("Z rotation", bp[5]);
 
     }
+
+    public void setPipeline() {
+        pipeline = table.getEntry("pipeline");
+        pipe = pipeline.getDouble(0);
+
+        Crashboard.toDashboard("pipeline", pipe);
+
+        if (controller.getYButton()) {
+            pipeline.setDouble(1);
+        }
+        else {
+            pipeline.setDouble(0);
+        }
+
+
+    }
+
+    
 
 
 
