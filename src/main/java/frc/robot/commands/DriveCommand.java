@@ -25,7 +25,7 @@ public class DriveCommand extends CommandBase {
     public void execute() {
         leftY = -controller.getLeftY();
         rightX = controller.getRightX();
-
+        
         setVals();
         //System.out.println("Speed: " + throttle);
         //System.out.println("Rotation: " + rotation);
