@@ -52,9 +52,4 @@ public final class Constants {
 
     public static final double kRamseteB = 2;
     //public static final double kRamseteZeta = 0.7;
-
-    //public static boolean kLeftEncoderReversed = false;
-
-    // Shot finding constants
-    //public static final double GRAVITY = 9.81; // m/s^2
 }

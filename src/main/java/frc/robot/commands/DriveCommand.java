@@ -1,8 +1,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.helpers.Crashboard;
 import frc.robot.subsystems.Drivetrain;
 
 public class DriveCommand extends CommandBase {
@@ -25,6 +27,10 @@ public class DriveCommand extends CommandBase {
     public void execute() {
         leftY = -controller.getLeftY();
         rightX = controller.getRightX();
+
+        //dashboard read/write works!
+        Crashboard.toDashboard("Forward Speed", leftY);
+        Crashboard.toDashboard("Turn Speed", Crashboard.snagDouble("Forward Speed"));
         
         setVals();
         //System.out.println("Speed: " + throttle);
