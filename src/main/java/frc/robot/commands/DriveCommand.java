@@ -32,7 +32,6 @@ public class DriveCommand extends CommandBase {
         Crashboard.toDashboard("Forward Speed", leftY);
         Crashboard.toDashboard("Turn Speed", Crashboard.snagDouble("Forward Speed"));
         
-
         setVals();
         //System.out.println("Speed: " + throttle);
         //System.out.println("Rotation: " + rotation);
