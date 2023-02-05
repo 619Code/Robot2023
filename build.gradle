@@ -51,6 +51,10 @@ dependencies {
     implementation wpi.java.deps.wpilib()
     implementation wpi.java.vendor.java()
 
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.0.1'
+    //implementation 'com.fasterxml.jackson.core:jackson-annotations:2.0.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.0.1'
+
     roborioDebug wpi.java.deps.wpilibJniDebug(wpi.platforms.roborio)
     roborioDebug wpi.java.vendor.jniDebug(wpi.platforms.roborio)
 

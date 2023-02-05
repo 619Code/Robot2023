@@ -1,12 +1,18 @@
 package frc.robot.subsystems;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.LimelightHelpers;
 import frc.robot.helpers.Crashboard;
+import frc.robot.helpers.LimelightInformation;
 
 public class Limelight extends SubsystemBase {
+    LimelightHelpers limelight;
     NetworkTable table;
     NetworkTableEntry pipeline;
     NetworkTableEntry json;
@@ -26,6 +32,8 @@ public class Limelight extends SubsystemBase {
     double[] bp;
     double[] ct;
 
+    ObjectMapper mapper;
+
     private XboxController controller;
 
     public Limelight(XboxController controller) {
@@ -33,6 +41,8 @@ public class Limelight extends SubsystemBase {
         this.controller = controller;
 
         table = NetworkTableInstance.getDefault().getTable("limelight");
+        limelight = new LimelightHelpers();
+        mapper = new ObjectMapper();
         
 
     }
@@ -91,8 +101,8 @@ public class Limelight extends SubsystemBase {
         Crashboard.toDashboard("Z rotation", ct[5]);     
     }
 
-    private void ExactToDashboard() {
-        
+    private void ExactToDashboard() {      
+
         botpose = table.getEntry("botpose");
         bp = botpose.getDoubleArray(new double[6]);
 
@@ -123,11 +133,19 @@ public class Limelight extends SubsystemBase {
     }
 
     private void dumpJson() {
+
         json = table.getEntry("json");
         jason = json.getString("");
+       // System.out.println(jason);
 
-        System.out.println(jason);
-
+        //JSON string to Java Object
+        try {
+          LimelightInformation obj = mapper.readValue(jason, LimelightInformation.class);
+        System.out.println(obj);
+        }
+        catch (JsonProcessingException exp) {
+         System.out.println(exp.getMessage());
+        }
 
     }
 
