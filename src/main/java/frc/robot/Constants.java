@@ -11,7 +11,6 @@ public final class Constants {
     public static final int LEFT_FOLLOWER_0 = 2;
     public static final int RIGHT_FOLLOWER_0 = 4;
 
-
     //Drive constants
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(5.827); //meters
     public static final int NEO_LIMIT = 45; //amps
@@ -27,16 +26,8 @@ public final class Constants {
     public static final int DRIVE_SOLENOID_FORWARD = 0;
     public static final int DRIVE_SOLENOID_BACK = 7;
 
-
     //Controller constants
     public static final double JOYSTICK_DEADZONE = 0.075;
-  
-    // Vision system
-    public static final double LIMELIGHT_HEIGHT = 29; // inches, altitude of LL on robot above ground
-    public static final double LIMELIGHT_ANGLE = 30; // degrees, angle of LL above ground
-    public static final double TOP_HUB_HEIGHT = 104; //inches
-    public static final double TOP_HUB_RADIUS = (5+(3/8)+4*12)/2; // inches, accurate is (5+(3.0/8.0)+4*12)/2.0
-    public static final double TARGET_THICKNESS = 2; // inches, thickness of target tape
 
     // Kinematics/Auto Constants
     public static final double ksVolts = 0.34791;
