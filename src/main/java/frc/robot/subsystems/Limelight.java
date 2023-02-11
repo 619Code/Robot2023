@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.LimelightInformation;
+import frc.robot.helpers.LimelightFiducial;
 
 public class Limelight extends SubsystemBase {
     LimelightHelpers limelight;
@@ -141,7 +142,7 @@ public class Limelight extends SubsystemBase {
         //JSON string to Java Object
         try {
           LimelightInformation obj = mapper.readValue(jason, LimelightInformation.class);
-        System.out.println(obj);
+        System.out.println(obj.gResults().getFiducial().getFID());
         }
         catch (JsonProcessingException exp) {
          System.out.println(exp.getMessage());
