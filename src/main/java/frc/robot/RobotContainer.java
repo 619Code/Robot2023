@@ -3,6 +3,7 @@ package frc.robot;
 import frc.robot.commands.DriveCommand;
 import frc.robot.helpers.AutoCommandSwitcher;
 import frc.robot.subsystems.Drivetrain;
+import io.github.oblarg.oblog.annotations.Log;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -12,6 +13,7 @@ public class RobotContainer {
 
 
 	private XboxController driver;
+	@Log
 	private DriveCommand driveCommand;
 	private Drivetrain drive;
 
