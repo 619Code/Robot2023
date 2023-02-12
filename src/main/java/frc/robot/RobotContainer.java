@@ -15,6 +15,8 @@ public class RobotContainer {
 	private DriveCommand driveCommand;
 	private Drivetrain drive;
 
+	private String gameData;
+
 	public RobotContainer() {
 		driver = new XboxController(0);
 

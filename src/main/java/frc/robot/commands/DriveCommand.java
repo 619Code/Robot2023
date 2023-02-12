@@ -32,7 +32,6 @@ public class DriveCommand extends CommandBase {
         Crashboard.toDashboard("Forward Speed", leftY);
         Crashboard.toDashboard("Turn Speed", Crashboard.snagDouble("Forward Speed"));
         
-
         setVals();
         //System.out.println("Speed: " + throttle);
         //System.out.println("Rotation: " + rotation);
@@ -41,10 +40,11 @@ public class DriveCommand extends CommandBase {
 
     public void setVals() {
         throttle = (Math.abs(leftY) > Constants.JOYSTICK_DEADZONE) ? leftY : 0;
-        throttle = -throttle;
+        throttle = throttle;
         rotation = (Math.abs(rightX) > Constants.JOYSTICK_DEADZONE) ? rightX : 0;
+        rotation = -rotation;
 
-        if(controller.getRightTriggerAxis() < 0.5) { //UNDO
+        if(controller.getRightTriggerAxis() > 0.5) { //UNDO
             throttle *= 0.5;
         }
 

@@ -33,11 +33,10 @@ public class Drivetrain extends SubsystemBase {
         leftLeader = new CANSparkMax(Constants.LEFT_LEADER, MotorType.kBrushless);
         CANSparkMax leftMotorArray[] = {
             leftLeader,
-            new CANSparkMax(Constants.LEFT_FOLLOWER_0, MotorType.kBrushless),
-            new CANSparkMax(Constants.LEFT_FOLLOWER_1, MotorType.kBrushless)
+            new CANSparkMax(Constants.LEFT_FOLLOWER_0, MotorType.kBrushless)
         }; 
         for(CANSparkMax spark : leftMotorArray) {
-            spark.setIdleMode(IdleMode.kCoast);
+            spark.setIdleMode(IdleMode.kBrake);
             //spark.setSmartCurrentLimit(45);
         }
         leftLeader.setIdleMode(IdleMode.kBrake); //experimental
@@ -45,11 +44,10 @@ public class Drivetrain extends SubsystemBase {
         rightLeader = new CANSparkMax(Constants.RIGHT_LEADER, MotorType.kBrushless);
         CANSparkMax rightMotorArray[] = {
             rightLeader,
-            new CANSparkMax(Constants.RIGHT_FOLLOWER_0, MotorType.kBrushless),
-            new CANSparkMax(Constants.RIGHT_FOLLOWER_1, MotorType.kBrushless)
+            new CANSparkMax(Constants.RIGHT_FOLLOWER_0, MotorType.kBrushless)
         };
         for(CANSparkMax spark : rightMotorArray) {
-            spark.setIdleMode(IdleMode.kCoast);
+            spark.setIdleMode(IdleMode.kBrake);
             //spark.setSmartCurrentLimit(45);
         }
         rightLeader.setIdleMode(IdleMode.kBrake); //experimental

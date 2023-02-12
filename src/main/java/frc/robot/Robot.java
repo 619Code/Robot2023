@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -31,6 +32,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autonomousCommand = robotContainer.getAutonomousCommand();
 
+    
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
@@ -47,7 +50,33 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    String gameData;
+    gameData = DriverStation.getGameSpecificMessage();
+if(gameData.length() > 0)
+{
+  switch (gameData.charAt(0))
+  {
+    case 'B' :
+      System.out.println("Blue Team");
+      break;
+    case 'G' :
+      System.out.println("Oopsies! (>/////<) Something bwoke :'{ Check yuow cOwOde and twy again~! (^w^)");
+      break;
+    case 'R' :
+      System.out.println("Red Team");
+      break;
+    case 'Y' :
+      System.out.println("Oopsies! (>/////<) Something bwoke :'{ Check yuow cOwOde and twy again~! (^w^)");
+      break;
+    default :
+      System.out.println("Oopsies! (>/////<) Something bwoke :'{ Check yuow cOwOde and twy again~! (^w^)");
+      break;
+  }
+} else {
+  System.out.println("no cowde wecieved!!11!!1 twy again lateww (>//////<)");
+}
+  }
 
   @Override
   public void testInit() {
