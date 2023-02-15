@@ -1,4 +1,5 @@
 package frc.robot.subsystems;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -21,100 +22,86 @@ public class Limelight extends SubsystemBase {
     NetworkTableEntry tx;
     NetworkTableEntry ty;
     NetworkTableEntry ta;
-    NetworkTableEntry botpose;
-    NetworkTableEntry camtran;
+    NetworkTableEntry botPose;
+    NetworkTableEntry translation;
 
     double pipe;
-    String jason;
-    double x;
-    double y;
-    double a;
-    double vt;
-    double[] bp;
-    double[] ct;
+    String jsonString;
+
+    boolean validTarget;
+    double[] botPoseData;
+    double[] translationData;
 
     ObjectMapper mapper;
 
     private XboxController controller;
 
     public Limelight(XboxController controller) {
-
         this.controller = controller;
 
         table = NetworkTableInstance.getDefault().getTable("limelight");
         limelight = new LimelightHelpers();
         mapper = new ObjectMapper();
-        
-
     }
 
     @Override
     public void periodic() {
         // checks for valid target
         tv = table.getEntry("tv");
-        vt = tv.getInteger(0);
-        //Crashboard.toDashboard("valit target", vt);
-        //setPipeline();
+        validTarget = tv.getInteger(0) == 1;
 
+        Crashboard.toDashboard("valid target", validTarget);
 
-        if (vt == 1) {
-            //RelativeToDashboard();
-            //Crashboard.toDashboard("valit target", vt);
-            //setPipeline();
-            dumpJson();
+        setPipeline();
+        updateRelativePose();
+        updateSimplePose();
+
+        if (validTarget) {
+            // setPipeline();
+        } else {
+            // setPipeline();
         }
-        else {
-            //Crashboard.toDashboard("valit target", vt);
-            //setPipeline();
-        }
-
-
     }
 
-    private void SimplePositionToDashboard(){
+    private void updateSimplePose() {
+        tx = table.getEntry("tx");
+        ty = table.getEntry("ty");
+        ta = table.getEntry("ta");
 
-            tx = table.getEntry("tx");
-            ty = table.getEntry("ty");
-            ta = table.getEntry("ta");
+        double x = tx.getDouble(0.0);
+        double y = ty.getDouble(0.0);
+        double area = ta.getDouble(0.0);
 
-            x = tx.getDouble(0.0);
-            y = ty.getDouble(0.0);
-            a = ta.getDouble(0.0);
- 
-            //simple position
-            Crashboard.toDashboard("X Position", x);
-            Crashboard.toDashboard("Y Position", y);
-            Crashboard.toDashboard("Area", a);
-
+        // simple position
+        Crashboard.toDashboard("tx", x);
+        Crashboard.toDashboard("ty", y);
+        Crashboard.toDashboard("Area", area);
     }
 
-    private void RelativeToDashboard() {
+    private void updateRelativePose() {
+        translation = table.getEntry("camtran");
+        translationData = translation.getDoubleArray(new double[6]);
 
-        camtran = table.getEntry("camtran");
-        ct = camtran.getDoubleArray(new double[6]);
-
-        //relative 3d position to april tag
-        Crashboard.toDashboard("X pos", ct[0]);
-        Crashboard.toDashboard("Y pos", ct[1]);
-        Crashboard.toDashboard("Z pos", ct[2]);
-        Crashboard.toDashboard("X rotation", ct[3]);
-        Crashboard.toDashboard("Y rotation", ct[4]);
-        Crashboard.toDashboard("Z rotation", ct[5]);     
+        // relative 3d position to april tag
+        Crashboard.toDashboard("X pos", translationData[0]);
+        Crashboard.toDashboard("Y pos", translationData[1]);
+        Crashboard.toDashboard("Z pos", translationData[2]);
+        Crashboard.toDashboard("Roll", translationData[5]);
+        Crashboard.toDashboard("Pitch", translationData[3]);
+        Crashboard.toDashboard("Yaw", translationData[4]);
     }
 
-    private void ExactToDashboard() {      
+    private void updateExactPose() {
+        botPose = table.getEntry("botpose");
+        botPoseData = botPose.getDoubleArray(new double[6]);
 
-        botpose = table.getEntry("botpose");
-        bp = botpose.getDoubleArray(new double[6]);
-
-        //exact 3d position
-        Crashboard.toDashboard("X pos", bp[0]);
-        Crashboard.toDashboard("Y pos", bp[1]);
-        Crashboard.toDashboard("Z pos", bp[2]);
-        Crashboard.toDashboard("X rotation", bp[3]);
-        Crashboard.toDashboard("Y rotation", bp[4]);
-        Crashboard.toDashboard("Z rotation", bp[5]);
-
+        // exact 3d position
+        Crashboard.toDashboard("X pos", botPoseData[0]);
+        Crashboard.toDashboard("Y pos", botPoseData[1]);
+        Crashboard.toDashboard("Z pos", botPoseData[2]);
+        Crashboard.toDashboard("Roll", botPoseData[5]);
+        Crashboard.toDashboard("Pitch", botPoseData[3]);
+        Crashboard.toDashboard("Yaw", botPoseData[4]);
     }
 
     private void setPipeline() {
@@ -125,35 +112,21 @@ public class Limelight extends SubsystemBase {
 
         if (controller.getYButton()) {
             pipeline.setDouble(1);
-        }
-        else {
+        } else {
             pipeline.setDouble(0);
         }
-
-
     }
 
     private void dumpJson() {
-
         json = table.getEntry("json");
-        jason = json.getString("");
-       // System.out.println(jason);
+        jsonString = json.getString("");
 
-        //JSON string to Java Object
+        // JSON string to Java Object
         try {
-          LimelightInformation obj = mapper.readValue(jason, LimelightInformation.class);
-        System.out.println(obj.gResults().getFiducial().getFID());
+            LimelightInformation obj = mapper.readValue(jsonString, LimelightInformation.class);
+            System.out.println(obj.gResults().getFiducial().getFID());
+        } catch (JsonProcessingException exp) {
+            System.out.println(exp.getMessage());
         }
-        catch (JsonProcessingException exp) {
-         System.out.println(exp.getMessage());
-        }
-
     }
-
-    
-
-
-
-
-    
 }
