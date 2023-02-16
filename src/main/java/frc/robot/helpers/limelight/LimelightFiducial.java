@@ -1,4 +1,4 @@
-package frc.robot.helpers;
+package frc.robot.helpers.limelight;
 
 public class LimelightFiducial {
     private long fID;
