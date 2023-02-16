@@ -121,17 +121,17 @@ public class LimelightDataStorer {
     }
 
     //lots of getters
-    public boolean hasValidTarget() { return validTargetAverage; }
+    public static boolean hasValidTarget() { return validTargetAverage; }
 
-    public double tx() { return simplePoseAverage[0]; }
-    public double ty() { return simplePoseAverage[1]; }
-    public double area() { return simplePoseAverage[2]; }
+    public static double tx() { return simplePoseAverage[0]; }
+    public static double ty() { return simplePoseAverage[1]; }
+    public static double area() { return simplePoseAverage[2]; }
 
-    public double x() { return relativePoseAverage[0]; }
-    public double y() { return relativePoseAverage[1]; }
-    public double z() { return relativePoseAverage[2]; }
+    public static double x() { return relativePoseAverage[0]; }
+    public static double y() { return relativePoseAverage[1]; }
+    public static double z() { return relativePoseAverage[2]; }
 
-    public double roll() { return relativePoseAverage[5]; }
-    public double pitch() { return relativePoseAverage[3]; }
-    public double yaw() { return relativePoseAverage[4]; }
+    public static double roll() { return relativePoseAverage[5]; }
+    public static double pitch() { return relativePoseAverage[3]; }
+    public static double yaw() { return relativePoseAverage[4]; }
 }
