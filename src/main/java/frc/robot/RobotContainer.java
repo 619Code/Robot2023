@@ -6,6 +6,7 @@ import frc.robot.commands.masters.GrabMasterCommand;
 import frc.robot.commands.masters.ZeroMasterCommand;
 import frc.robot.helpers.AutoCommandSwitcher;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Grabber;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,6 +23,7 @@ public class RobotContainer {
 	private GrabManualCommand grabManualCommand;
 
 	private Drivetrain drive;
+	private Limelight limelight;
 	private Grabber grabber;
 
 	private String gameData;
@@ -33,11 +35,12 @@ public class RobotContainer {
         drive = new Drivetrain();
         driveCommand = new DriveCommand(drive, driver);
         drive.setDefaultCommand(driveCommand);
+		
+		limelight = new Limelight(driver);
 
 		/*grabber = new Grabber();
 		grabManualCommand = new GrabManualCommand(grabber, operator);
         grabber.setDefaultCommand(grabManualCommand);*/
-
 		configureBindings();
 	}
 
