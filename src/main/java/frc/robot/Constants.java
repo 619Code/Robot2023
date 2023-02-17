@@ -11,6 +11,12 @@ public final class Constants {
     public static final int LEFT_FOLLOWER_0 = 2;
     public static final int RIGHT_FOLLOWER_0 = 4;
 
+    //Grabber CANS
+    public static final int GRABBER_MOTOR = -1;
+
+    //Sensor ports
+    public static final int GRABBER_SWITCH = -1;
+
     //Drive constants
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(5.827); //meters
     public static final int NEO_LIMIT = 45; //amps
@@ -43,4 +49,11 @@ public final class Constants {
 
     public static final double kRamseteB = 2;
     //public static final double kRamseteZeta = 0.7;
+
+    //Grabber constants
+    public static final double MAX_GRABBER_SPEED = 0.6;
+
+	public static final double CUBE_POSITION = 70.0;
+	public static final double CONE_POSITION = 100.0;
+	public static final double ZERO_POSITION = 103.0;
 }
