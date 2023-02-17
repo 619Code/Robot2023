@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
 
 
-	private XboxController driver;
+	private CommandXboxController driver;
 	@Log
 	private DriveCommand driveCommand;
 	private Drivetrain drive;
@@ -20,7 +20,7 @@ public class RobotContainer {
 	private String gameData;
 
 	public RobotContainer() {
-		driver = new XboxController(0);
+		driver = new CommandXboxController(0);
 
         drive = new Drivetrain();
         driveCommand = new DriveCommand(drive, driver);
