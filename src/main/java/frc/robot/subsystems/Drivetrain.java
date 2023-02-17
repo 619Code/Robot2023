@@ -38,14 +38,10 @@ public class Drivetrain extends SubsystemBase implements Loggable {
     public PIDController leftController;
     public PIDController rightController;
 
-    @Log
     double leftPos;
-    @Log
     double rightPos;
 
-    @Log
     double leftVel;
-    @Log
     double rightVel;
 
     double leftSetpoint;
