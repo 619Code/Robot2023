@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.wpi.first.networktables.NetworkTable;
@@ -57,6 +58,7 @@ public class Limelight extends SubsystemBase {
         updateSimplePose();
 
         if (validTarget) {
+            dumpJson();
             // setPipeline();
         } else {
             // setPipeline();
@@ -124,7 +126,7 @@ public class Limelight extends SubsystemBase {
         // JSON string to Java Object
         try {
             LimelightInformation obj = mapper.readValue(jsonString, LimelightInformation.class);
-            System.out.println(obj.gResults().getFiducial().getFID());
+            System.out.println("" + obj.gResults().getFiducial()[0].getTx());
         } catch (JsonProcessingException exp) {
             System.out.println(exp.getMessage());
         }

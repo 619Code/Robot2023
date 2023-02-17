@@ -1,20 +1,20 @@
 package frc.robot.helpers;
 
 public class LimelightFiducial {
-    private long fID;
-    private String fam;
-    private Object[] pts;
-    private Object[] skew;
-    private double[] t6CTs;
-    private double[] t6RFS;
-    private double[] t6RTs;
-    private double[] t6TCS;
-    private double[] t6TRs;
-    private double ta;
-    private double tx;
-    private double txp;
-    private double ty;
-    private double typ;
+    public long fID;
+    public String fam;
+    public Object[] pts;
+    public Object[] skew;
+    public double[] t6c_ts;
+    public double[] t6r_fs;
+    public double[] t6r_ts;
+    public double[] t6t_cs;
+    public double[] t6t_rs;
+    public double ta;
+    public double tx;
+    public double txp;
+    public double ty;
+    public double typ;
 
     public long getFID() { return fID; }
     public void setFID(long value) { this.fID = value; }
@@ -28,20 +28,20 @@ public class LimelightFiducial {
     public Object[] getSkew() { return skew; }
     public void setSkew(Object[] value) { this.skew = value; }
 
-    public double[] getT6CTs() { return t6CTs; }
-    public void setT6CTs(double[] value) { this.t6CTs = value; }
+    public double[] getT6CTs() { return t6c_ts; }
+    public void setT6CTs(double[] value) { this.t6c_ts = value; }
 
-    public double[] getT6RFS() { return t6RFS; }
-    public void setT6RFS(double[] value) { this.t6RFS = value; }
+    public double[] getT6r_fs() { return t6r_fs; }
+    public void setT6r_fs(double[] value) { this.t6r_fs = value; }
 
-    public double[] getT6RTs() { return t6RTs; }
-    public void setT6RTs(double[] value) { this.t6RTs = value; }
+    public double[] getT6r_ts() { return t6r_ts; }
+    public void setT6r_ts(double[] value) { this.t6r_ts = value; }
 
-    public double[] getT6TCS() { return t6TCS; }
-    public void setT6TCS(double[] value) { this.t6TCS = value; }
+    public double[] getT6t_cs() { return t6t_cs; }
+    public void setT6t_cs(double[] value) { this.t6t_cs = value; }
 
-    public double[] getT6TRs() { return t6TRs; }
-    public void setT6TRs(double[] value) { this.t6TRs = value; }
+    public double[] getT6t_rs() { return t6t_rs; }
+    public void setT6t_rs(double[] value) { this.t6t_rs = value; }
 
     public double getTa() { return ta; }
     public void setTa(double value) { this.ta = value; }
