@@ -6,6 +6,7 @@ import frc.robot.commands.masters.GrabMasterCommand;
 import frc.robot.commands.masters.ZeroMasterCommand;
 import frc.robot.helpers.AutoCommandSwitcher;
 import frc.robot.subsystems.Drivetrain;
+import io.github.oblarg.oblog.annotations.Log;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Grabber;
 import edu.wpi.first.wpilibj.XboxController;
@@ -14,8 +15,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
-
-
+	private CommandXboxController driver;
+	@Log
 	private XboxController driver;
 	private CommandXboxController operator;
 	
@@ -29,6 +30,7 @@ public class RobotContainer {
 	private String gameData;
 
 	public RobotContainer() {
+		driver = new CommandXboxController(0);
 		driver = new XboxController(0);
 		operator = new CommandXboxController(1);
 
