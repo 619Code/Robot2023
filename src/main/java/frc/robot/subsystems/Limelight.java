@@ -126,7 +126,7 @@ public class Limelight extends SubsystemBase {
         // JSON string to Java Object
         try {
             LimelightInformation obj = mapper.readValue(jsonString, LimelightInformation.class);
-            System.out.println("" + obj.gResults().getFiducial()[0].getTx());
+            System.out.println("" + obj.gResults().getFiducial().length);
         } catch (JsonProcessingException exp) {
             System.out.println(exp.getMessage());
         }
