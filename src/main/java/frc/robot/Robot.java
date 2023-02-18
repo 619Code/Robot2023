@@ -74,7 +74,7 @@ if(gameData.length() > 0)
       break;
   }
 } else {
-  System.out.println("no cowde wecieved!!11!!1 twy again lateww (>//////<)");
+  //System.out.println("no cowde wecieved!!11!!1 twy again lateww (>//////<)");
 }
   }
 

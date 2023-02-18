@@ -48,7 +48,7 @@ public class AutoCommandSwitcher {
 
 
 
-    public static int FunnyAuto() {
+    public static double FunnyAuto() {
         return 1/0;
     }
 }

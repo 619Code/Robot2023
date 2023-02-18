@@ -36,7 +36,7 @@ public class Limelight extends SubsystemBase {
     private double[] relativePoseData; //x, y, z, roll, pitch, yaw
     private double[] absolutePoseData; //x, y, z, roll, pitch, yaw
 
-    public Limelight(XboxController controller) {
+    public Limelight() {
         this.controller = controller;
 
         table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -60,8 +60,6 @@ public class Limelight extends SubsystemBase {
         validTarget = tv.getInteger(0) == 1;
 
         Crashboard.toDashboard("valid target", validTarget);
-
-        setPipeline();
 
         if(getSimplePose) {
             updateSimplePose();
@@ -117,17 +115,12 @@ public class Limelight extends SubsystemBase {
         Crashboard.toDashboard("Yaw", absolutePoseData[4]);*/
     }
 
-    private void setPipeline() {
+    public void setPipeline(double pipelinenumber) {
         pipeline = table.getEntry("pipeline");
         pipe = pipeline.getDouble(0);
 
-        Crashboard.toDashboard("pipeline", pipe);
+        pipeline.setDouble(pipelinenumber);
 
-        if (controller.getYButton()) {
-            pipeline.setDouble(1);
-        } else {
-            pipeline.setDouble(0);
-        }
     }
 
     private void dumpJson() {
