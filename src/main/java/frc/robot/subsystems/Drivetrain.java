@@ -118,7 +118,7 @@ public class Drivetrain extends SubsystemBase implements Loggable {
         resetPIDs();
     }
 
-    public void curve(double speed, double rotation, boolean isLowGear) {
+    public void curve(double speed, double rotation) {
         drive.curvatureDrive(Constants.SPEED_ADJUST * speed, Constants.SPEED_ADJUST * -rotation, true);
     }
 

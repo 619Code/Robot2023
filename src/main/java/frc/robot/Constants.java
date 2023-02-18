@@ -20,7 +20,7 @@ public final class Constants {
     //Drive constants
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(5.827); //meters
     public static final int NEO_LIMIT = 45; //amps
-    public static final double SPEED_ADJUST = 0.4; //how much to adjust speed of drive //0.5 //UNDO
+    public static final double SPEED_ADJUST = 0.4; //how much to adjust speed of drive
     public static final double DRIVE_RATIO = (13.0/60.0) * (18.0/34.0); // gear ratio
     public static final double TRACK_WIDTH = Units.inchesToMeters(23); //REMEASURE
     public static final String SHUFFLEBOARD_DRIVE_TAB_NAME = "Drive";

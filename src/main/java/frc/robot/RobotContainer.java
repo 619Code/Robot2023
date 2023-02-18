@@ -1,5 +1,6 @@
 package frc.robot;
 
+import frc.robot.commands.AutoLineupCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GrabManualCommand;
 import frc.robot.commands.masters.GrabMasterCommand;
@@ -44,8 +45,10 @@ public class RobotContainer {
 	}
 
 	private void configureBindings() {
-		/*
-		Trigger zeroButton = operator.a();
+		/*Trigger driveButton = driver.b();
+		driveButton.whileTrue(new AutoLineupCommand(drive));*/
+
+		/*Trigger zeroButton = operator.a();
         zeroButton.onTrue(new ZeroMasterCommand(grabber));
         Trigger coneButton = operator.y();
         coneButton.onTrue(new GrabMasterCommand(grabber, false));
