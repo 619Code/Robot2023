@@ -1,7 +1,6 @@
-package frc.robot.helpers;
+package frc.robot.helpers.limelight;
 
 import java.util.Properties;
-import frc.robot.helpers.LimelightResults;
 
 public class LimelightInformation {
     public LimelightResults Results; 

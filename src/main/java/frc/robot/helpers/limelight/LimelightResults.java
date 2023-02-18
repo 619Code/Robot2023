@@ -1,6 +1,4 @@
-package frc.robot.helpers;
-
-import frc.robot.helpers.LimelightFiducial;
+package frc.robot.helpers.limelight;
 
 public class LimelightResults {
     public Object[] Classifier;
