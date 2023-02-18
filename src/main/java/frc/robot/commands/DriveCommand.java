@@ -33,7 +33,7 @@ public class DriveCommand extends CommandBase implements Loggable {
         Crashboard.toDashboard("Turn Speed", Crashboard.snagDouble("Forward Speed"));
         
         setVals();
-        drive.curve(throttle, rotation, isLowGear);
+        drive.curve(throttle, rotation);
     }
 
     public void setVals() {
