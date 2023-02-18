@@ -12,10 +12,18 @@ public final class Constants {
     public static final int RIGHT_FOLLOWER_0 = 4;
 
     //Grabber CANS
-    public static final int GRABBER_MOTOR = -1;
+    public static final int GRABBER_MOTOR = 8;
+
+    //Arm CANS
+    public static final int HINGE_MOTOR = 10;
+    public static final int TELESCOPE_MOTOR = 9;
 
     //Sensor ports
     public static final int GRABBER_SWITCH = -1;
+    public static final int HINGE_LOW_SWITCH = -1;
+    public static final int HINGE_HIGH_SWITCH = -1;
+    public static final int TELESCOPE_CONTRACTED_SWITCH = -1;
+    public static final int TELESCOPE_EXTENDED_SWITCH = -1;
 
     //Drive constants
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(5.827); //meters
