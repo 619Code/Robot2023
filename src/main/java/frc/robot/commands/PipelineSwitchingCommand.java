@@ -13,15 +13,19 @@ public class PipelineSwitchingCommand extends CommandBase {
         switch (pipeline) {
             case 0:
                 PipelineHelper.SetLeftPipeline();
+                System.out.println("weeeeee");
                 break;
             case 1:
                 PipelineHelper.SetCenterPipeline();
+                System.out.println("wooooooooo");
                 break;
             case 2:
                 PipelineHelper.SetRightPipeline();
+                System.out.println("waaaaaaaa");
                 break;
             default:
                 System.out.println(":3c");
+                System.out.println("swigglehhust");
                 break;
         }
         

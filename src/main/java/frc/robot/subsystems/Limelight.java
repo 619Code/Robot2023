@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.wpi.first.networktables.NetworkTable;
@@ -12,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.limelight.LimelightDataStorer;
-import frc.robot.helpers.limelight.LimelightFiducial;
 import frc.robot.helpers.limelight.LimelightInformation;
 
 public class Limelight extends SubsystemBase {
@@ -21,7 +19,7 @@ public class Limelight extends SubsystemBase {
 
     LimelightHelpers limelight;
     NetworkTable table;
-    NetworkTableEntry pipeline;
+    NetworkTableInstance pipeline;
     NetworkTableEntry json;
 
     double pipe;
@@ -60,6 +58,7 @@ public class Limelight extends SubsystemBase {
         validTarget = tv.getInteger(0) == 1;
 
         Crashboard.toDashboard("valid target", validTarget);
+        Crashboard.toDashboard("pipeline", (double)table.getEntry("pipeline").getNumber(-1));
 
         if(getSimplePose) {
             updateSimplePose();
@@ -115,12 +114,8 @@ public class Limelight extends SubsystemBase {
         Crashboard.toDashboard("Yaw", absolutePoseData[4]);*/
     }
 
-    public void setPipeline(double pipelinenumber) {
-        pipeline = table.getEntry("pipeline");
-        pipe = pipeline.getDouble(0);
-
-        pipeline.setDouble(pipelinenumber);
-
+    public void setPipeline(int pipelinenumber) {
+        table.getEntry("pipeline").setNumber(pipelinenumber);
     }
 
     private void dumpJson() {
