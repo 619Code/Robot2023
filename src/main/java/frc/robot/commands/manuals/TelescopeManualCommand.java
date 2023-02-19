@@ -1,6 +1,7 @@
 package frc.robot.commands.manuals;
 
 import frc.robot.Constants;
+import frc.robot.helpers.Crashboard;
 import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.arm.Hinge;
 import frc.robot.subsystems.arm.Telescope;
@@ -23,9 +24,10 @@ public class TelescopeManualCommand extends CommandBase {
 
     @Override
     public void execute() {
-        telescopeSpeed = controller.getRightY();
+        telescopeSpeed = -controller.getRightY();
+        Crashboard.toDashboard("Telescope Speed", telescopeSpeed);
         if(Math.abs(telescopeSpeed) > 0.05) {
-            telescope.move(telescopeSpeed*0.1);
+            telescope.move(telescopeSpeed * Constants.TELESCOPE_SPEED);
         } else {
             telescope.stop();
         }

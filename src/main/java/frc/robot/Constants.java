@@ -12,7 +12,7 @@ public final class Constants {
     public static final int RIGHT_FOLLOWER_0 = 4;
 
     //Grabber CANS
-    public static final int GRABBER_MOTOR = 8;
+    public static final int GRABBER_MOTOR = 11;
 
     //Arm CANS
     public static final int HINGE_MOTOR = 10;
@@ -22,8 +22,8 @@ public final class Constants {
     public static final int GRABBER_SWITCH = -1;
     public static final int HINGE_LOW_SWITCH = -1;
     public static final int HINGE_HIGH_SWITCH = -1;
-    public static final int TELESCOPE_CONTRACTED_SWITCH = -1;
-    public static final int TELESCOPE_EXTENDED_SWITCH = -1;
+    public static final int TELESCOPE_CONTRACTED_SWITCH = 0;
+    public static final int TELESCOPE_EXTENDED_SWITCH = 1;
 
     //Drive constants
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(5.827); //meters
@@ -34,11 +34,6 @@ public final class Constants {
     public static final String SHUFFLEBOARD_DRIVE_TAB_NAME = "Drive";
     public static final double POSITION_CONVERSION_FACTOR = Constants.DRIVE_RATIO * WHEEL_DIAMETER * Math.PI; //conversion factor for position
     public static final double VELOCITY_CONVERSION_FACTOR = Constants.DRIVE_RATIO * WHEEL_DIAMETER * Math.PI / 60.0; //conversion factor for velocity
-
-    //Drive solenoids
-    public static final int PCM_CAN_ID = 0;
-    public static final int DRIVE_SOLENOID_FORWARD = 0;
-    public static final int DRIVE_SOLENOID_BACK = 7;
 
     //Controller constants
     public static final double JOYSTICK_DEADZONE = 0.075;
@@ -63,5 +58,22 @@ public final class Constants {
 
 	public static final double CUBE_POSITION = 70.0;
 	public static final double CONE_POSITION = 100.0;
-	public static final double ZERO_POSITION = 103.0;
+	public static final double GRABBER_ZERO_POSITION = 103.0;
+
+    //Telescope constants
+    public static final double TELESCOPE_CONTRACTED_SWITCH_POSITION = 0.0;
+    public static final double TELESCOPE_EXTENDED_SWITCH_POSITION = 260.0;
+    public static final double EXTENSION_TOLERANCE = 10.0;
+    public static final double MINIMUM_EXTENSION = TELESCOPE_CONTRACTED_SWITCH_POSITION + EXTENSION_TOLERANCE;
+    public static final double MAXIMUM_EXTENSION = TELESCOPE_EXTENDED_SWITCH_POSITION - EXTENSION_TOLERANCE;
+
+    public static final double TELESCOPE_SPEED = 0.2;
+    public static final double TELESCOPE_ZERO_SPEED = 0.02;
+    public static final double TELESCOPE_P = 0.02;
+
+    //Arm cases - {hinge value, telescope value}
+    public static final double[] START_POSITION = {0.0, 5.0};
+    public static final double[] PICKUP_POSITION = {0.0, 5.0};
+    public static final double[] GRID_MID_POSITION = {0.0, 150.0};
+    public static final double[] GRID_HIGH_POSITION = {0.0, 255.0};
 }

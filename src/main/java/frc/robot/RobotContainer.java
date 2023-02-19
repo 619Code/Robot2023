@@ -2,11 +2,12 @@ package frc.robot;
 
 import frc.robot.commands.AutoLineupCommand;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.GrabMasterCommand;
 import frc.robot.commands.manuals.GrabManualCommand;
 import frc.robot.commands.manuals.HingeManualCommand;
 import frc.robot.commands.manuals.TelescopeManualCommand;
-import frc.robot.commands.masters.GrabMasterCommand;
-import frc.robot.commands.masters.ZeroMasterCommand;
+import frc.robot.commands.zeroers.GrabberZeroMasterCommand;
+import frc.robot.commands.zeroers.TelescopeZeroCommand;
 import frc.robot.helpers.AutoCommandSwitcher;
 import frc.robot.subsystems.Drivetrain;
 import io.github.oblarg.oblog.annotations.Log;
@@ -40,9 +41,9 @@ public class RobotContainer {
 		driver = new CommandXboxController(0);
 		operator = new CommandXboxController(1);
 
-        drive = new Drivetrain();
+        /*drive = new Drivetrain();
         driveCommand = new DriveCommand(drive, driver);
-        drive.setDefaultCommand(driveCommand);
+        drive.setDefaultCommand(driveCommand);*/
 		
 		//limelight = new Limelight(driver);
 
@@ -62,11 +63,14 @@ public class RobotContainer {
 	}
 
 	private void configureBindings() {
+		Trigger zeroTelescopeButton = operator.a();
+		zeroTelescopeButton.whileTrue(new TelescopeZeroCommand(telescope));
+
 		/*Trigger driveButton = driver.b();
 		driveButton.whileTrue(new AutoLineupCommand(drive));*/
 
-		/*Trigger zeroButton = operator.a();
-        zeroButton.onTrue(new ZeroMasterCommand(grabber));
+		/*Trigger zeroGrabberButton = operator.a();
+        zeroGrabberButton.onTrue(new ZeroMasterCommand(grabber));
         Trigger coneButton = operator.y();
         coneButton.onTrue(new GrabMasterCommand(grabber, false));
         Trigger cubeButton = operator.x();

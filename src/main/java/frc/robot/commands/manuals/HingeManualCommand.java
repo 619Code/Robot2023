@@ -1,6 +1,7 @@
 package frc.robot.commands.manuals;
 
 import frc.robot.Constants;
+import frc.robot.helpers.Crashboard;
 import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.arm.Hinge;
 import frc.robot.subsystems.arm.Telescope;
@@ -24,6 +25,7 @@ public class HingeManualCommand extends CommandBase {
     @Override
     public void execute() {
         hingeSpeed = controller.getLeftY();
+        Crashboard.toDashboard("Hinge Speed", hingeSpeed);
         if(Math.abs(hingeSpeed) > 0.05) {
             hinge.move(hingeSpeed*0.1);
         } else {

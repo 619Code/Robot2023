@@ -29,7 +29,7 @@ public class GrabManualCommand extends CommandBase {
         }
 
         if(grabber.switchIsPressed()) {
-            grabber.zeroAtPosition(Constants.ZERO_POSITION);
+            grabber.zeroAtPosition(Constants.GRABBER_ZERO_POSITION);
         }
     }
 

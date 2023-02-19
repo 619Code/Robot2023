@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.zeroers;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.Grabber;
@@ -23,7 +23,7 @@ public class GrabZeroCommand extends CommandBase {
     public void execute() {
         if(grabber.switchIsPressed()) {
             grabber.stop();
-            grabber.zeroAtPosition(Constants.ZERO_POSITION);
+            grabber.zeroAtPosition(Constants.GRABBER_ZERO_POSITION);
             grabber.zeroed = true;
         } else {
             grabber.spinMotor(1, 0.1);

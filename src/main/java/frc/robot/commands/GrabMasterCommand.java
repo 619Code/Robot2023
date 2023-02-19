@@ -1,9 +1,7 @@
-package frc.robot.commands.masters;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.GrabCommand;
-import frc.robot.commands.ReleaseCommand;
 import frc.robot.subsystems.Grabber;
 
 public class GrabMasterCommand extends CommandBase {
