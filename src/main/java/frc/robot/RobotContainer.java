@@ -54,14 +54,14 @@ public class RobotContainer {
         Trigger cubeButton = operator.x();
         cubeButton.onTrue(new GrabMasterCommand(grabber, true));
 		*/
-		// Trigger lefTrigger = operator.x();
-		// lefTrigger.toggleOnTrue(new PipelineSwitchingCommand(0));
+		Trigger lefTrigger = operator.x();
+		lefTrigger.toggleOnTrue(new PipelineSwitchingCommand(0));
 
-		// Trigger cenTrigger = operator.y();
-		// cenTrigger.toggleOnTrue(new PipelineSwitchingCommand(1));
+		Trigger cenTrigger = operator.y();
+		cenTrigger.toggleOnTrue(new PipelineSwitchingCommand(1));
 
-		// Trigger righTrigger = operator.b();
-		// righTrigger.toggleOnTrue(new PipelineSwitchingCommand(2));
+		Trigger righTrigger = operator.b();
+		righTrigger.toggleOnTrue(new PipelineSwitchingCommand(2));
 	}
 
 	public Command getAutonomousCommand() {
