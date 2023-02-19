@@ -1,26 +1,26 @@
 package frc.robot.helpers.limelight;
 
 public class LimelightResults {
-    private Object[] classifier;
-    private Object[] detector;
-    private LimelightFiducial fiducial;
-    private Object[] retro;
-    private long pID;
-    private double tl;
-    private double ts;
-    private long v;
+    public Object[] Classifier;
+    public Object[] Detector;
+    public LimelightFiducial[] Fiducial;
+    public Object[] Retro;
+    public long pID;
+    public double tl;
+    public double ts;
+    public long v;
 
-    public Object[] getClassifier() { return classifier; }
-    public void setClassifier(Object[] value) { this.classifier = value; }
+    public Object[] getClassifier() { return Classifier; }
+    public void setClassifier(Object[] value) { this.Classifier = value; }
 
-    public Object[] getDetector() { return detector; }
-    public void setDetector(Object[] value) { this.detector = value; }
+    public Object[] getDetector() { return Detector; }
+    public void setDetector(Object[] value) { this.Detector = value; }
 
-    public LimelightFiducial getFiducial() { return fiducial; }
-    public void setFiducial(LimelightFiducial value) { this.fiducial = value; }
+    public LimelightFiducial[] getFiducial() { return Fiducial; }
+    public void setFiducial(LimelightFiducial[] value) { this.Fiducial = value; }
 
-    public Object[] getRetro() { return retro; }
-    public void setRetro(Object[] value) { this.retro = value; }
+    public Object[] getRetro() { return Retro; }
+    public void setRetro(Object[] value) { this.Retro = value; }
 
     public long getPID() { return pID; }
     public void setPID(long value) { this.pID = value; }

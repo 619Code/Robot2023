@@ -3,6 +3,7 @@ package frc.robot;
 import frc.robot.commands.AutoLineupCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GrabManualCommand;
+import frc.robot.commands.PipelineSwitchingCommand;
 import frc.robot.commands.masters.GrabMasterCommand;
 import frc.robot.commands.masters.ZeroMasterCommand;
 import frc.robot.helpers.AutoCommandSwitcher;
@@ -36,7 +37,7 @@ public class RobotContainer {
         driveCommand = new DriveCommand(drive, driver);
         drive.setDefaultCommand(driveCommand);
 		
-		limelight = new Limelight(driver);
+		limelight = new Limelight();
 
 		/*grabber = new Grabber();
 		grabManualCommand = new GrabManualCommand(grabber, operator);
@@ -55,6 +56,14 @@ public class RobotContainer {
         Trigger cubeButton = operator.x();
         cubeButton.onTrue(new GrabMasterCommand(grabber, true));
 		*/
+		Trigger lefTrigger = operator.x();
+		lefTrigger.toggleOnTrue(new PipelineSwitchingCommand(0));
+
+		Trigger cenTrigger = operator.y();
+		cenTrigger.toggleOnTrue(new PipelineSwitchingCommand(1));
+
+		Trigger righTrigger = operator.b();
+		righTrigger.toggleOnTrue(new PipelineSwitchingCommand(2));
 	}
 
 	public Command getAutonomousCommand() {

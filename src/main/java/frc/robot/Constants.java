@@ -56,4 +56,9 @@ public final class Constants {
 	public static final double CUBE_POSITION = 70.0;
 	public static final double CONE_POSITION = 100.0;
 	public static final double ZERO_POSITION = 103.0;
+
+    //Limelight Constants
+    public static final int LEFT_PIPELINE = 2;
+    public static final int CENTER_PIPELINE = 0;
+    public static final int RIGHT_PIPELINE = 1;
 }
