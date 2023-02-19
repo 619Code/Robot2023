@@ -2,31 +2,42 @@ package frc.robot.commands;
 
 import frc.robot.Constants;
 import frc.robot.helpers.ArmPositionHelper;
+import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.Position;
 import frc.robot.subsystems.arm.Hinge;
+import frc.robot.subsystems.arm.Telescope;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
-public class HoldArmCommand extends CommandBase {
+public class MoveHingeCommand extends CommandBase {
     private Hinge hinge;
-    private Position currentPosition;
+    private Position state;
+    
     private double hingeGoal;
+    private boolean atHingeGoal;
 
-    public HoldArmCommand(Hinge hinge) {
+    public MoveHingeCommand(Hinge hinge, Position state) {
         this.hinge = hinge;
+        this.state = state;
+
+        hingeGoal = ArmPositionHelper.fetchHingeValue(state);
 
         addRequirements(hinge);
     }
 
     @Override
     public void initialize() {
+        atHingeGoal = false;
+        ArmPositionHelper.currentPosition = state;
     }
 
     @Override
     public void execute() {
-        currentPosition = ArmPositionHelper.currentPosition;
-        hingeGoal = ArmPositionHelper.fetchHingeValue(currentPosition);
-        hinge.moveToPosition(hingeGoal);
+        if(hinge.moveToPosition(hingeGoal)) {
+            atHingeGoal = true;
+        }
+
+        Crashboard.toDashboard("At Hinge Goal", atHingeGoal);
     }
 
     @Override
@@ -36,6 +47,6 @@ public class HoldArmCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return atHingeGoal;
     }
 }

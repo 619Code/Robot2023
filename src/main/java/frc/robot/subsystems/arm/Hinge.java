@@ -23,9 +23,11 @@ public class Hinge extends SubsystemBase {
         hingeMotor.restoreFactoryDefaults();
         hingeMotor.setIdleMode(IdleMode.kBrake);
         hingeMotor.setSmartCurrentLimit(40);
+        hingeMotor.setInverted(true);
 
         hingeEncoder = hingeMotor.getEncoder();
-        zero(); //zero positions
+        hingeEncoder.setPosition(40);
+        //zero(); //zero positions
 
         //lowSwitch = new DigitalInput(Constants.HINGE_LOW_SWITCH);
         //highSwitch = new DigitalInput(Constants.HINGE_HIGH_SWITCH);
@@ -33,11 +35,38 @@ public class Hinge extends SubsystemBase {
 
     @Override
     public void periodic() {
-        Crashboard.toDashboard("Amps", hingeMotor.getOutputCurrent());
+        Crashboard.toDashboard("Hinge Position", getPosition());
+        Crashboard.toDashboard("Hinge Amps", hingeMotor.getOutputCurrent());
     }
 
     public void move(double speed) {
         hingeMotor.set(speed);
+    }
+
+    //boolean return says if it's at that position
+    public boolean moveToPosition(double goal) {
+        /*if(!zeroed) {
+            stop();
+            return false;
+        }*/
+
+        goal = Math.min(goal,Constants.MAXIMUM_POSITION);
+        goal = Math.max(goal,Constants.MINIMUM_POSITION);
+
+        double speed = Math.abs(getPosition() - goal) * Constants.HINGE_P; //proportional control
+        speed = Math.min(speed, Constants.HINGE_SPEED);
+
+        if(getPosition() < goal) {
+            move(speed);
+        } else {
+            move(-speed);
+        }
+
+        if(Math.abs(getPosition() - goal) < 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void stop() {

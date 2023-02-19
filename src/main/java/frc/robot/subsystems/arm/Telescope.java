@@ -40,10 +40,9 @@ public class Telescope extends SubsystemBase {
     public void periodic() {
         checkSafety();
 
-        Crashboard.toDashboard("Contracted Switch", contractedSwitchIsPressed());
-        Crashboard.toDashboard("Extended Switch", extendedSwitchIsPressed());
+        //Crashboard.toDashboard("Contracted Switch", contractedSwitchIsPressed());
+        //Crashboard.toDashboard("Extended Switch", extendedSwitchIsPressed());
         Crashboard.toDashboard("Telescope Position", getPosition());
-        Crashboard.toDashboard("Telescope Velocity", getVelocity());
         Crashboard.toDashboard("Zeroed", zeroed);
     }
 
@@ -93,6 +92,10 @@ public class Telescope extends SubsystemBase {
             move(-speed);
             return false;
         }
+    }
+
+    public boolean retractFull() {
+        return moveToPosition(Constants.MINIMUM_EXTENSION);
     }
 
     public void checkSafety() {

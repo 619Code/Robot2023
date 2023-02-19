@@ -3,12 +3,16 @@ package frc.robot;
 import frc.robot.commands.AutoLineupCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GrabMasterCommand;
+import frc.robot.commands.HoldArmCommand;
+import frc.robot.commands.MoveHingeCommand;
+import frc.robot.commands.MoveTelescopeCommand;
 import frc.robot.commands.manuals.GrabManualCommand;
 import frc.robot.commands.manuals.HingeManualCommand;
 import frc.robot.commands.manuals.TelescopeManualCommand;
 import frc.robot.commands.zeroers.GrabberZeroMasterCommand;
 import frc.robot.commands.zeroers.TelescopeZeroCommand;
 import frc.robot.helpers.AutoCommandSwitcher;
+import frc.robot.helpers.Position;
 import frc.robot.subsystems.Drivetrain;
 import io.github.oblarg.oblog.annotations.Log;
 import frc.robot.subsystems.Limelight;
@@ -17,6 +21,7 @@ import frc.robot.subsystems.arm.Telescope;
 import frc.robot.subsystems.Grabber;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -26,6 +31,7 @@ public class RobotContainer {
 	
 	private DriveCommand driveCommand;
 	private GrabManualCommand grabManualCommand;
+	private HoldArmCommand holdArmCommand;
 	private HingeManualCommand hingeManualCommand;
 	private TelescopeManualCommand telescopeManualCommand;
 
@@ -52,8 +58,10 @@ public class RobotContainer {
         grabber.setDefaultCommand(grabManualCommand);*/
 
 		hinge = new Hinge();
-		hingeManualCommand = new HingeManualCommand(hinge, operator);
-		hinge.setDefaultCommand(hingeManualCommand);
+		holdArmCommand = new HoldArmCommand(hinge);
+		hinge.setDefaultCommand(holdArmCommand);
+		/*hingeManualCommand = new HingeManualCommand(hinge, operator);
+		hinge.setDefaultCommand(hingeManualCommand);*/
 
 		telescope = new Telescope();
 		telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
@@ -63,18 +71,47 @@ public class RobotContainer {
 	}
 
 	private void configureBindings() {
+		//armTesting();
+		//lineupTesting();
+		//grabberTesting();
+	}
+
+	public void armTesting() {
 		Trigger zeroTelescopeButton = operator.a();
 		zeroTelescopeButton.whileTrue(new TelescopeZeroCommand(telescope));
 
-		/*Trigger driveButton = driver.b();
-		driveButton.whileTrue(new AutoLineupCommand(drive));*/
+		Trigger positionOneButton = operator.x();
+		positionOneButton.onTrue(moveCommandFactory(Position.START));
 
-		/*Trigger zeroGrabberButton = operator.a();
-        zeroGrabberButton.onTrue(new ZeroMasterCommand(grabber));
+		Trigger positionTwoButton = operator.b();
+		positionTwoButton.onTrue(moveCommandFactory(Position.GRID_MID));
+
+		Trigger positionThreeButton = operator.y();
+		positionThreeButton.onTrue(moveCommandFactory(Position.GRID_HIGH));
+	}
+
+	public void lineupTesting() {
+		Trigger driveButton = driver.b();
+		driveButton.whileTrue(new AutoLineupCommand(drive));
+	}
+
+	public void grabberTesting() {
+		Trigger zeroGrabberButton = operator.a();
+        zeroGrabberButton.onTrue(new GrabberZeroMasterCommand(grabber));
+
         Trigger coneButton = operator.y();
         coneButton.onTrue(new GrabMasterCommand(grabber, false));
+
         Trigger cubeButton = operator.x();
-        cubeButton.onTrue(new GrabMasterCommand(grabber, true));*/
+        cubeButton.onTrue(new GrabMasterCommand(grabber, true));
+	}
+
+	public Command moveCommandFactory(Position position) {
+		return new SequentialCommandGroup(
+			new MoveTelescopeCommand(hinge, telescope, position, true),
+			new MoveHingeCommand(hinge, position),
+			new MoveTelescopeCommand(hinge, telescope, position, false)
+		);
 	}
 
 	public Command getAutonomousCommand() {

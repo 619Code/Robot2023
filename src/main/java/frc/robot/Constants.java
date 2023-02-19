@@ -60,20 +60,34 @@ public final class Constants {
 	public static final double CONE_POSITION = 100.0;
 	public static final double GRABBER_ZERO_POSITION = 103.0;
 
+    //Hinge constants
+    public static final double MINIMUM_POSITION = 0.0;
+    public static final double MAXIMUM_POSITION = 80.0;
+
+    public static final double HINGE_SPEED = 0.4;
+    public static final double HINGE_P = 0.04;
+
     //Telescope constants
     public static final double TELESCOPE_CONTRACTED_SWITCH_POSITION = 0.0;
-    public static final double TELESCOPE_EXTENDED_SWITCH_POSITION = 260.0;
-    public static final double EXTENSION_TOLERANCE = 10.0;
+    public static final double TELESCOPE_EXTENDED_SWITCH_POSITION = 65.0;
+    public static final double EXTENSION_TOLERANCE = 5.0;
     public static final double MINIMUM_EXTENSION = TELESCOPE_CONTRACTED_SWITCH_POSITION + EXTENSION_TOLERANCE;
     public static final double MAXIMUM_EXTENSION = TELESCOPE_EXTENDED_SWITCH_POSITION - EXTENSION_TOLERANCE;
 
-    public static final double TELESCOPE_SPEED = 0.2;
-    public static final double TELESCOPE_ZERO_SPEED = 0.02;
-    public static final double TELESCOPE_P = 0.02;
+    public static final double TELESCOPE_SPEED = 0.8;
+    public static final double TELESCOPE_ZERO_SPEED = 0.08;
+    public static final double TELESCOPE_P = 0.04;
 
     //Arm cases - {hinge value, telescope value}
-    public static final double[] START_POSITION = {0.0, 5.0};
-    public static final double[] PICKUP_POSITION = {0.0, 5.0};
-    public static final double[] GRID_MID_POSITION = {0.0, 150.0};
-    public static final double[] GRID_HIGH_POSITION = {0.0, 255.0};
+    public static final double START_POSITION_HINGE = 10.0;
+    public static final double START_POSITION_TELESCOPE = 5.0;
+
+    public static final double PICKUP_POSITION_HINGE = 10.0;
+    public static final double PICKUP_POSITION_TELESCOPE = 5.0;
+
+    public static final double GRID_MID_POSITION_HINGE = 40.0;
+    public static final double GRID_MID_POSITION_TELESCOPE = 30.0;
+
+    public static final double GRID_HIGH_POSITION_HINGE = 70.0;
+    public static final double GRID_HIGH_POSITION_TELESCOPE = 60.0;
 }
