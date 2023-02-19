@@ -8,6 +8,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.LimelightHelpers;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.limelight.LimelightDataStorer;
@@ -15,7 +16,6 @@ import frc.robot.helpers.limelight.LimelightInformation;
 
 public class Limelight extends SubsystemBase {
     ObjectMapper mapper;
-    private XboxController controller;
 
     LimelightHelpers limelight;
     NetworkTable table;
@@ -35,8 +35,6 @@ public class Limelight extends SubsystemBase {
     private double[] absolutePoseData; //x, y, z, roll, pitch, yaw
 
     public Limelight() {
-        this.controller = controller;
-
         table = NetworkTableInstance.getDefault().getTable("limelight");
         limelight = new LimelightHelpers();
         mapper = new ObjectMapper();

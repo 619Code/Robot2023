@@ -1,5 +1,6 @@
 package frc.robot;
 
+import frc.robot.commands.AutoLineupCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GrabManualCommand;
 import frc.robot.commands.PipelineSwitchingCommand;
@@ -7,6 +8,7 @@ import frc.robot.commands.masters.GrabMasterCommand;
 import frc.robot.commands.masters.ZeroMasterCommand;
 import frc.robot.helpers.AutoCommandSwitcher;
 import frc.robot.subsystems.Drivetrain;
+import io.github.oblarg.oblog.annotations.Log;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Grabber;
 import edu.wpi.first.wpilibj.XboxController;
@@ -15,9 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
-
-
-	private XboxController driver;
+	private CommandXboxController driver;
 	private CommandXboxController operator;
 	
 	private DriveCommand driveCommand;
@@ -30,7 +30,7 @@ public class RobotContainer {
 	private String gameData;
 
 	public RobotContainer() {
-		driver = new XboxController(0);
+		driver = new CommandXboxController(0);
 		operator = new CommandXboxController(1);
 
         drive = new Drivetrain();
@@ -46,8 +46,10 @@ public class RobotContainer {
 	}
 
 	private void configureBindings() {
-		/*
-		Trigger zeroButton = operator.a();
+		/*Trigger driveButton = driver.b();
+		driveButton.whileTrue(new AutoLineupCommand(drive));*/
+
+		/*Trigger zeroButton = operator.a();
         zeroButton.onTrue(new ZeroMasterCommand(grabber));
         Trigger coneButton = operator.y();
         coneButton.onTrue(new GrabMasterCommand(grabber, false));

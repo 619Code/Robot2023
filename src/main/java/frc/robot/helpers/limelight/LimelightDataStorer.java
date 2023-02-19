@@ -109,29 +109,44 @@ public class LimelightDataStorer {
 
     private static void postData() {
         Crashboard.toDashboard("tx", simplePoseAverage[0]);
-        Crashboard.toDashboard("ty", simplePoseAverage[1]);
-        Crashboard.toDashboard("Area", simplePoseAverage[2]);
+        /*Crashboard.toDashboard("ty", simplePoseAverage[1]);
+        Crashboard.toDashboard("Area", simplePoseAverage[2]);*/
 
         Crashboard.toDashboard("X pos", relativePoseAverage[0]);
         Crashboard.toDashboard("Y pos", relativePoseAverage[1]);
         Crashboard.toDashboard("Z pos", relativePoseAverage[2]);
-        Crashboard.toDashboard("Roll", relativePoseAverage[5]);
+        /*Crashboard.toDashboard("Roll", relativePoseAverage[5]);
         Crashboard.toDashboard("Pitch", relativePoseAverage[3]);
-        Crashboard.toDashboard("Yaw", relativePoseAverage[4]);
+        Crashboard.toDashboard("Yaw", relativePoseAverage[4]);*/
     }
 
-    //lots of getters
-    public boolean hasValidTarget() { return validTargetAverage; }
+    //average variable getters
+    public static boolean hasValidTarget() { return validTargetAverage; }
 
-    public double tx() { return simplePoseAverage[0]; }
-    public double ty() { return simplePoseAverage[1]; }
-    public double area() { return simplePoseAverage[2]; }
+    public static double tx() { return simplePoseAverage[0]; }
+    public static double ty() { return simplePoseAverage[1]; }
+    public static double area() { return simplePoseAverage[2]; }
 
-    public double x() { return relativePoseAverage[0]; }
-    public double y() { return relativePoseAverage[1]; }
-    public double z() { return relativePoseAverage[2]; }
+    public static double x() { return relativePoseAverage[0]; }
+    public static double y() { return relativePoseAverage[1]; }
+    public static double z() { return relativePoseAverage[2]; }
 
-    public double roll() { return relativePoseAverage[5]; }
-    public double pitch() { return relativePoseAverage[3]; }
-    public double yaw() { return relativePoseAverage[4]; }
+    public static double roll() { return relativePoseAverage[5]; }
+    public static double pitch() { return relativePoseAverage[3]; }
+    public static double yaw() { return relativePoseAverage[4]; }
+
+    //new variable getters
+    public static boolean hasValidTargetNew() { return validTarget; }
+
+    public static double txNew() { return simplePosition[0]; }
+    public static double tyNew() { return simplePosition[1]; }
+    public static double areaNew() { return simplePosition[2]; }
+
+    public static double xNew() { return relativePosition[0]; }
+    public static double yNew() { return relativePosition[1]; }
+    public static double zNew() { return relativePosition[2]; }
+
+    public static double rollNew() { return relativePosition[5]; }
+    public static double pitchNew() { return relativePosition[3]; }
+    public static double yawNew() { return relativePosition[4]; }
 }

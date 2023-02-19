@@ -20,12 +20,12 @@ public final class Constants {
     //Drive constants
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(5.827); //meters
     public static final int NEO_LIMIT = 45; //amps
-    public static final double SPEED_ADJUST = 0.4; //how much to adjust speed of drive //0.5 //UNDO
-    public static final double DRIVE_RATIO_HIGH = (10.0/66.0) * (40.0/44.0); // gear ratio for high gear
-    public static final double DRIVE_RATIO_LOW = (10.0/66.0) * (24.0/60.0); // gear ratio for low gear
-    public static final double TRACK_WIDTH = Units.inchesToMeters(23); //distance between wheels in meters
+    public static final double SPEED_ADJUST = 0.4; //how much to adjust speed of drive
+    public static final double DRIVE_RATIO = (13.0/60.0) * (18.0/34.0); // gear ratio
+    public static final double TRACK_WIDTH = Units.inchesToMeters(23); //REMEASURE
     public static final String SHUFFLEBOARD_DRIVE_TAB_NAME = "Drive";
-    public static final double RPM_TO_VELOCITY_CONVERSION_FACTOR = WHEEL_DIAMETER * Math.PI / 60; //conversion factor for rpm to velocity
+    public static final double POSITION_CONVERSION_FACTOR = Constants.DRIVE_RATIO * WHEEL_DIAMETER * Math.PI; //conversion factor for position
+    public static final double VELOCITY_CONVERSION_FACTOR = Constants.DRIVE_RATIO * WHEEL_DIAMETER * Math.PI / 60.0; //conversion factor for velocity
 
     //Drive solenoids
     public static final int PCM_CAN_ID = 0;
