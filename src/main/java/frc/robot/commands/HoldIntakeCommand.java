@@ -15,14 +15,14 @@ public class HoldIntakeCommand extends CommandBase {
         addRequirements(intake);
     }
 
-    @Override
-    public void execute() {
-        if (States.intakeDeployed) {
-            intake.moveToPosition(Constants.INTAKE_DEPLOYED_POSITION);
-        } else {
-            intake.moveToPosition(Constants.INTAKE_RETRACTED_POSITION);
-        }
-    }
+    // @Override
+    // public void execute() {
+    //     if (States.intakeDeployed) {
+    //         intake.moveToPosition(Constants.INTAKE_DEPLOYED_POSITION);
+    //     } else {
+    //         intake.moveToPosition(Constants.INTAKE_RETRACTED_POSITION);
+    //     }
+    // }
 
     
     

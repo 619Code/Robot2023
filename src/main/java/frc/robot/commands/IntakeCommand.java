@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import frc.robot.helpers.IntakeArm;
 import frc.robot.subsystems.IntakeSub;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -24,9 +25,9 @@ public class IntakeCommand extends CommandBase {
     double leftRaw = controller.getLeftTriggerAxis();
     double rightRaw = controller.getRightTriggerAxis();
 
-    subsystem.moveMotor(leftRaw,false);
-    subsystem.moveMotor(rightRaw,true);
-
+    subsystem.setSpeed(leftRaw, IntakeArm.LeftArm);
+    subsystem.setSpeed(rightRaw,IntakeArm.RightArm);
+    
     if (this.controller.getRightX() > 0.15) {
       this.subsystem.ActivateWheels(0.2);
     } else { 

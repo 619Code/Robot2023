@@ -15,8 +15,6 @@ public class MoveBySpeedCommand extends CommandBase {
         this.addRequirements(intakeSub);
     }
 
-    
-
     @Override
     public void execute() {
         
@@ -29,13 +27,13 @@ public class MoveBySpeedCommand extends CommandBase {
     public boolean isFinished() {
 
         var targetPosition = States.intakeDeployed ? Constants.INTAKE_DEPLOYED_POSITION : Constants.INTAKE_RETRACTED_POSITION;
-        // TODO Auto-generated method stub
+        
         if (States.intakeDeployed && intakeSub.getPosition(IntakeArm.LeftArm) >= targetPosition)
         {
             intakeSub.setSpeed(0, IntakeArm.LeftArm);
             return true;
         }
-        else if (!States.intakeDeployed && intakesub.getPosition(Intake.LeftArm) <= targetPosition)
+        else if (!States.intakeDeployed && intakeSub.getPosition(IntakeArm.LeftArm) <= targetPosition)
         {
             intakeSub.setSpeed(0, IntakeArm.LeftArm);
             return true;
