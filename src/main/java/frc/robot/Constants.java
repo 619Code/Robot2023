@@ -57,8 +57,12 @@ public final class Constants {
 	public static final double CONE_POSITION = 100.0;
 	public static final double ZERO_POSITION = 103.0;
 
-    //Limelight Constants
+    //Limelight constants
     public static final int LEFT_PIPELINE = 2;
     public static final int CENTER_PIPELINE = 0;
     public static final int RIGHT_PIPELINE = 1;
+
+    //LED constants
+    public static final int LED_PWM_PORT = 9; //change
+    public static final int LED_STRIP_LENGTH = 100; //change
 }
