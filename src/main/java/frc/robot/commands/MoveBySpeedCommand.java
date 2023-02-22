@@ -20,23 +20,23 @@ public class MoveBySpeedCommand extends CommandBase {
     @Override
     public void execute() {
         
-        var speed = States.intakeDeployed ? .1 : -.1;
+        double speed = States.intakeDeployed ? .1 : -.1;
         intakeSub.setSpeed(speed, IntakeArm.LeftArm);
+        intakeSub.setSpeed(speed, IntakeArm.RightArm);
         super.execute();
     }
 
     @Override
     public boolean isFinished() {
 
-        var targetPosition = States.intakeDeployed ? Constants.INTAKE_DEPLOYED_POSITION : Constants.INTAKE_RETRACTED_POSITION;
+        double targetPosition = States.intakeDeployed ? Constants.INTAKE_DEPLOYED_POSITION : Constants.INTAKE_RETRACTED_POSITION;
         // TODO Auto-generated method stub
-        if (intakeSub.getPosition(IntakeArm.LeftArm) >= targetPosition)
-        {
+        if (intakeSub.getPosition(IntakeArm.LeftArm) >= targetPosition && intakeSub.getPosition(IntakeArm.RightArm) >= targetPosition) {
             intakeSub.setSpeed(0, IntakeArm.LeftArm);
+            intakeSub.setSpeed(0, IntakeArm.RightArm);
             return true;
         }
-        else
-        {
+        else {
             return false;
         }
     }
@@ -52,6 +52,7 @@ public class MoveBySpeedCommand extends CommandBase {
         // TODO Auto-generated method stub
         super.finalize();
         this.intakeSub.setSpeed(0, IntakeArm.LeftArm);
+        this.intakeSub.setSpeed(0, IntakeArm.RightArm);
     }
 
     @Override
@@ -59,5 +60,6 @@ public class MoveBySpeedCommand extends CommandBase {
         // TODO Auto-generated method stub
         super.end(interrupted);
         this.intakeSub.setSpeed(0, IntakeArm.LeftArm);
+        this.intakeSub.setSpeed(0, IntakeArm.RightArm);
     }
 }
