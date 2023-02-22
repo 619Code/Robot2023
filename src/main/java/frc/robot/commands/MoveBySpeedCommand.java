@@ -40,6 +40,7 @@ public class MoveBySpeedCommand extends CommandBase {
         else if (!States.intakeDeployed && intakeSub.getPosition(IntakeArm.LeftArm) <= targetPosition)
         {
             intakeSub.setSpeed(0, IntakeArm.LeftArm);
+            intakeSub.setSpeed(0, IntakeArm.RightArm);
             return true;
         }            
         else

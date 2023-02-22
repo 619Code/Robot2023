@@ -44,7 +44,7 @@ public class RobotContainer {
 		
 		limelight = new Limelight(driver);
 		intake = new IntakeSub();
-		//intake.setDefaultCommand(new HoldIntakeCommand(intake));
+		intake.setDefaultCommand(new HoldIntakeCommand(intake));
 
 		/*grabber = new Grabber();
 		grabManualCommand = new GrabManualCommand(grabber, operator);
@@ -64,7 +64,7 @@ public class RobotContainer {
         cubeButton.onTrue(new GrabMasterCommand(grabber, true));
 		*/
 		Trigger swingtake = operator.b();
-		swingtake.onTrue(new MoveBySpeedCommand(intake));
+		swingtake.onTrue(new ToggleDeployIntakeCommand());
 		//swingtake.toggleOnTrue(new ToggleDeployIntakeCommand());
 
 	}

@@ -118,13 +118,14 @@ public class IntakeSub extends SubsystemBase {
     PID.setOutputRange(-0.2, 0.2);
     
 
+    PID.setP(pVal);
     if (PID.getP() != pVal) {
       PID.setP(pVal);
     }
     PID.setI(0);
     PID.setD(0);
     
-
+    System.out.println("POS = " + pos + ", AND MOVE BEING CALLED.");
     PID.setReference(pos, ControlType.kPosition);
 
     
