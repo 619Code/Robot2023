@@ -44,7 +44,7 @@ public class RobotContainer {
 		
 		limelight = new Limelight(driver);
 		intake = new IntakeSub();
-		intake.setDefaultCommand(new HoldIntakeCommand(intake));
+		intake.setDefaultCommand(new MoveBySpeedCommand(intake));
 
 		/*grabber = new Grabber();
 		grabManualCommand = new GrabManualCommand(grabber, operator);

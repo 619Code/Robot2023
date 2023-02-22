@@ -25,9 +25,10 @@ public class ArmMotors {
         this.wheelMotorCanId = wheelMotorCanId;
         this.inverted = inverted;
         this.name = name;
+        this.Initialize();
     }
 
-    public void Initilize() {
+    public void Initialize() {
         armMotor = new CANSparkMax(intakeArmCanId, MotorType.kBrushless);
         wheelMotor = new CANSparkMax(wheelMotorCanId, MotorType.kBrushless);
 
@@ -83,7 +84,7 @@ public class ArmMotors {
     public void SafetyCheck() {
         if (!IsSafe(this.armMotor.get()))
         {
-            this.armMotor.set(this.armMotor.get());
+            this.armMotor.set(0);
         }
     }
 
