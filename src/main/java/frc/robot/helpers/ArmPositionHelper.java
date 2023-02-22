@@ -4,6 +4,9 @@ import frc.robot.Constants;
 
 public class ArmPositionHelper {
     public static Position currentPosition = Position.GRID_MID;
+    public static boolean atHingePosition = true;
+    public static boolean retracted = true;
+    public static boolean atTelescopePosition = true;
 
     public static double fetchHingeValue(Position position) {
         switch(position) {

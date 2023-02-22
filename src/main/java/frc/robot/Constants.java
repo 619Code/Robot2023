@@ -65,7 +65,7 @@ public final class Constants {
     public static final double MAXIMUM_POSITION = 80.0;
 
     public static final double HINGE_SPEED = 0.4;
-    public static final double HINGE_P = 0.04;
+    public static final double HINGE_P = 0.08;
 
     //Telescope constants
     public static final double TELESCOPE_CONTRACTED_SWITCH_POSITION = 0.0;
@@ -79,15 +79,15 @@ public final class Constants {
     public static final double TELESCOPE_P = 0.04;
 
     //Arm cases - {hinge value, telescope value}
-    public static final double START_POSITION_HINGE = 10.0;
+    public static final double START_POSITION_HINGE = 15.0;
     public static final double START_POSITION_TELESCOPE = 5.0;
 
-    public static final double PICKUP_POSITION_HINGE = 10.0;
+    public static final double PICKUP_POSITION_HINGE = 15.0;
     public static final double PICKUP_POSITION_TELESCOPE = 5.0;
 
-    public static final double GRID_MID_POSITION_HINGE = 40.0;
+    public static final double GRID_MID_POSITION_HINGE = 42.0;
     public static final double GRID_MID_POSITION_TELESCOPE = 30.0;
 
-    public static final double GRID_HIGH_POSITION_HINGE = 70.0;
+    public static final double GRID_HIGH_POSITION_HINGE = 65.0;
     public static final double GRID_HIGH_POSITION_TELESCOPE = 60.0;
 }

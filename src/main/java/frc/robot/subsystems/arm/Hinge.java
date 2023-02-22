@@ -18,6 +18,8 @@ public class Hinge extends SubsystemBase {
     private DigitalInput lowSwitch;
     private DigitalInput highSwitch;
 
+    public boolean zeroed;
+
     public Hinge() {
         hingeMotor = new CANSparkMax(Constants.HINGE_MOTOR, MotorType.kBrushless);
         hingeMotor.restoreFactoryDefaults();
@@ -27,6 +29,7 @@ public class Hinge extends SubsystemBase {
 
         hingeEncoder = hingeMotor.getEncoder();
         hingeEncoder.setPosition(40);
+        zeroed = true; //undo
         //zero(); //zero positions
 
         //lowSwitch = new DigitalInput(Constants.HINGE_LOW_SWITCH);

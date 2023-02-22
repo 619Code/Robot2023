@@ -10,46 +10,32 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class MoveTelescopeCommand extends CommandBase {
-    private Hinge hinge;
     private Telescope telescope;
-    private Position state;
-    private boolean retracting;
-
     private double telescopeGoal;
-    private boolean finished;
+    private boolean retractOnly;
 
-    private double hingeGoal;
-
-    public MoveTelescopeCommand(Hinge hinge, Telescope telescope, Position state, boolean retracting) {
-        this.hinge = hinge;
+    public MoveTelescopeCommand(Telescope telescope, boolean retractOnly) {
         this.telescope = telescope;
-        this.state = state;
-        this.retracting = retracting;
+        this.retractOnly = retractOnly;
 
-        telescopeGoal = ArmPositionHelper.fetchTelescopeValue(state);
-        hingeGoal = ArmPositionHelper.fetchHingeValue(state);
+        telescopeGoal = ArmPositionHelper.fetchTelescopeValue(ArmPositionHelper.currentPosition);
 
-        addRequirements(hinge, telescope);
+        addRequirements(telescope);
     }
 
     @Override
     public void initialize() {
-        finished = false;
-        ArmPositionHelper.currentPosition = state;
     }
 
     @Override
     public void execute() {
-        if(retracting) {
-            finished = telescope.retractFull();
-            Crashboard.toDashboard("Retracted", finished);
-            Crashboard.toDashboard("At Telescope Goal", false);
+        if(!ArmPositionHelper.retracted || retractOnly) {
+            ArmPositionHelper.retracted = telescope.retractFull();
         } else {
-            finished = telescope.moveToPosition(telescopeGoal);
-            hinge.moveToPosition(hingeGoal);
-            Crashboard.toDashboard("Retracted", true);
-            Crashboard.toDashboard("At Telescope Goal", finished);
+            ArmPositionHelper.atTelescopePosition = telescope.moveToPosition(telescopeGoal);
         }
+
+        Crashboard.toDashboard("Retracted", ArmPositionHelper.retracted);
     }
 
     @Override
@@ -59,6 +45,6 @@ public class MoveTelescopeCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return !telescope.zeroed || finished;
+        return !telescope.zeroed || ArmPositionHelper.atTelescopePosition;
     }
 }

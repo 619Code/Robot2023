@@ -3,6 +3,7 @@ package frc.robot;
 import frc.robot.commands.AutoLineupCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.arm.HoldArmCommand;
+import frc.robot.commands.arm.MoveArmMasterCommand;
 import frc.robot.commands.arm.MoveHingeCommand;
 import frc.robot.commands.arm.MoveTelescopeCommand;
 import frc.robot.commands.arm.TelescopeZeroCommand;
@@ -21,6 +22,7 @@ import frc.robot.subsystems.arm.Telescope;
 import frc.robot.subsystems.Grabber;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -71,7 +73,7 @@ public class RobotContainer {
 	}
 
 	private void configureBindings() {
-		//armTesting();
+		armTesting();
 		//lineupTesting();
 		//grabberTesting();
 	}
@@ -81,13 +83,13 @@ public class RobotContainer {
 		zeroTelescopeButton.whileTrue(new TelescopeZeroCommand(telescope));
 
 		Trigger positionOneButton = operator.x();
-		positionOneButton.onTrue(moveCommandFactory(Position.START));
+		positionOneButton.onTrue(new MoveArmMasterCommand(hinge, telescope, Position.START));
 
 		Trigger positionTwoButton = operator.b();
-		positionTwoButton.onTrue(moveCommandFactory(Position.GRID_MID));
+		positionTwoButton.onTrue(new MoveArmMasterCommand(hinge, telescope, Position.GRID_MID));
 
 		Trigger positionThreeButton = operator.y();
-		positionThreeButton.onTrue(moveCommandFactory(Position.GRID_HIGH));
+		positionThreeButton.onTrue(new MoveArmMasterCommand(hinge, telescope, Position.GRID_HIGH));
 	}
 
 	public void lineupTesting() {
@@ -104,14 +106,6 @@ public class RobotContainer {
 
         Trigger cubeButton = operator.x();
         cubeButton.onTrue(new GrabMasterCommand(grabber, true));
-	}
-
-	public Command moveCommandFactory(Position position) {
-		return new SequentialCommandGroup(
-			new MoveTelescopeCommand(hinge, telescope, position, true),
-			new MoveHingeCommand(hinge, position),
-			new MoveTelescopeCommand(hinge, telescope, position, false)
-		);
 	}
 
 	public Command getAutonomousCommand() {

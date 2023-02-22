@@ -11,33 +11,28 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class MoveHingeCommand extends CommandBase {
     private Hinge hinge;
-    private Position state;
     
     private double hingeGoal;
-    private boolean atHingeGoal;
 
-    public MoveHingeCommand(Hinge hinge, Position state) {
+    public MoveHingeCommand(Hinge hinge) {
         this.hinge = hinge;
-        this.state = state;
 
-        hingeGoal = ArmPositionHelper.fetchHingeValue(state);
+        hingeGoal = ArmPositionHelper.fetchHingeValue(ArmPositionHelper.currentPosition);
 
         addRequirements(hinge);
     }
 
     @Override
     public void initialize() {
-        atHingeGoal = false;
-        ArmPositionHelper.currentPosition = state;
     }
 
     @Override
     public void execute() {
         if(hinge.moveToPosition(hingeGoal)) {
-            atHingeGoal = true;
+            ArmPositionHelper.atHingePosition = true;
         }
 
-        Crashboard.toDashboard("At Hinge Goal", atHingeGoal);
+        Crashboard.toDashboard("At Hinge Goal", ArmPositionHelper.atHingePosition);
     }
 
     @Override
@@ -47,6 +42,7 @@ public class MoveHingeCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return atHingeGoal;
+        //!hinge.zeroed || 
+        return ArmPositionHelper.atHingePosition;
     }
 }
