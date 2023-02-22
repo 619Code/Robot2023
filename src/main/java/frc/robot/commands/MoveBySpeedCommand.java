@@ -31,12 +31,19 @@ public class MoveBySpeedCommand extends CommandBase {
 
         double targetPosition = States.intakeDeployed ? Constants.INTAKE_DEPLOYED_POSITION : Constants.INTAKE_RETRACTED_POSITION;
         // TODO Auto-generated method stub
-        if (intakeSub.getPosition(IntakeArm.LeftArm) >= targetPosition && intakeSub.getPosition(IntakeArm.RightArm) >= targetPosition) {
+        if (States.intakeDeployed && intakeSub.getPosition(IntakeArm.LeftArm) >= targetPosition)
+        {
             intakeSub.setSpeed(0, IntakeArm.LeftArm);
             intakeSub.setSpeed(0, IntakeArm.RightArm);
             return true;
         }
-        else {
+        else if (!States.intakeDeployed && intakeSub.getPosition(IntakeArm.LeftArm) <= targetPosition)
+        {
+            intakeSub.setSpeed(0, IntakeArm.LeftArm);
+            return true;
+        }            
+        else
+        {
             return false;
         }
     }
