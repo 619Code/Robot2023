@@ -40,22 +40,19 @@ public class MoveArmMasterCommand extends CommandBase {
 
     @Override
     public void execute() {
+        Crashboard.toDashboard("Moving to Front", movingToFront);
         Crashboard.toDashboard("At Hinge Goal", ArmPositionHelper.atHingePosition);
         Crashboard.toDashboard("At Telescope Goal", ArmPositionHelper.atTelescopePosition);
 
         if(!ArmPositionHelper.atHingePosition) {
             myHingeCommand = new MoveHingeCommand(hinge);
-        } else {
-            myHingeCommand = new HoldArmCommand(hinge);
-        }
-
-        if(movingToFront) {
-            if(!ArmPositionHelper.atHingePosition) {
-                myTelescopeCommand = new MoveTelescopeCommand(telescope, true);
-            } else {
+            if(movingToFront) {
                 myTelescopeCommand = new MoveTelescopeCommand(telescope, false);
+            } else {
+                myTelescopeCommand = new MoveTelescopeCommand(telescope, true);
             }
         } else {
+            myHingeCommand = new HoldArmCommand(hinge);
             myTelescopeCommand = new MoveTelescopeCommand(telescope, false);
         }
 

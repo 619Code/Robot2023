@@ -29,10 +29,14 @@ public class MoveTelescopeCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if(!ArmPositionHelper.retracted || retractOnly) {
+        if(retractOnly) {
             ArmPositionHelper.retracted = telescope.retractFull();
         } else {
-            ArmPositionHelper.atTelescopePosition = telescope.moveToPosition(telescopeGoal);
+            if(!ArmPositionHelper.retracted) {
+                ArmPositionHelper.retracted = telescope.retractFull();
+            } else {
+                ArmPositionHelper.atTelescopePosition = telescope.moveToPosition(telescopeGoal);
+            }
         }
 
         Crashboard.toDashboard("Retracted", ArmPositionHelper.retracted);
