@@ -5,6 +5,7 @@ import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GrabManualCommand;
 import frc.robot.commands.HoldIntakeCommand;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.IntakeHolderCommand;
 import frc.robot.commands.MoveBySpeedCommand;
 import frc.robot.commands.ToggleDeployIntakeCommand;
 import frc.robot.commands.masters.GrabMasterCommand;
@@ -66,6 +67,8 @@ public class RobotContainer {
 		Trigger swingtake = operator.b();
 		//swingtake.onTrue(new ToggleDeployIntakeCommand());
 		swingtake.toggleOnTrue(new ToggleDeployIntakeCommand());
+		Trigger intakeMovement = operator.axisGreaterThan(2, 0.15);
+		intakeMovement.onTrue(new IntakeHolderCommand(intake, operator));
 
 	}
 

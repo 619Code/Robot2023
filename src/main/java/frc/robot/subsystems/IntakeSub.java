@@ -43,6 +43,12 @@ public class IntakeSub extends SubsystemBase {
     }
   }
 
+  public void setSpeed(double speed)
+  {
+    this.setSpeed(speed, IntakeArm.LeftArm);
+    this.setSpeed(speed, IntakeArm.RightArm);
+  }
+
   public void setSpeed(double speed, IntakeArm arm) {
     var motor = this.getArmMotors(arm);
     motor.moveArmBySpeed(speed);

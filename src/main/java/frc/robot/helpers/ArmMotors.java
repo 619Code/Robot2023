@@ -86,15 +86,18 @@ public class ArmMotors {
 
     public boolean IsSafe(double speed)
     {
-        // Check position and limit switch to see if it is safe to still move
-        if (speed < 0) {
-            return this.armEncoder.getPosition() > 0;
-        }
+        // // Check position and limit switch to see if it is safe to still move
+        // if (speed <= 0) {
+        //     return this.armEncoder.getPosition() >= 0;
+        // } 
 
-        if (speed > 0) {
-            return this.armEncoder.getPosition() < 50;
-        }
+        // if (speed > 0) {
+        //     return this.armEncoder.getPosition() <= 50;
+        // }
 
+        // return false;
+        
+        //trolling
         return true;
     }
 
