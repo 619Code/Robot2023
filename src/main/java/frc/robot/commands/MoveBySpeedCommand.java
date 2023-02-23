@@ -35,8 +35,7 @@ public class MoveBySpeedCommand extends CommandBase {
             intakeSub.setSpeed(0, IntakeArm.RightArm);
             return true;
         }
-        else if (!States.intakeDeployed && intakeSub.getPosition(IntakeArm.LeftArm) <= targetPosition)
-        {
+        else if (!States.intakeDeployed && intakeSub.getPosition(IntakeArm.LeftArm) <= targetPosition) {
             intakeSub.setSpeed(0, IntakeArm.LeftArm);
             intakeSub.setSpeed(0, IntakeArm.RightArm);
             return true;
@@ -50,7 +49,7 @@ public class MoveBySpeedCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        States.intakeDeployed = !States.intakeDeployed;
+        //States.intakeDeployed = !States.intakeDeployed;
     }
 
     @Override

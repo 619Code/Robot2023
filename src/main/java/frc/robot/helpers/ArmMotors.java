@@ -19,8 +19,7 @@ public class ArmMotors {
     public double ArmSpeed = .1;
     public double WheelSpeed = .1;
 
-    public ArmMotors(int intakeArmCanId, int wheelMotorCanId, boolean inverted, String name)
-    {
+    public ArmMotors(int intakeArmCanId, int wheelMotorCanId, boolean inverted, String name) {
         this.intakeArmCanId = intakeArmCanId;
         this.wheelMotorCanId = wheelMotorCanId;
         this.inverted = inverted;
@@ -52,8 +51,7 @@ public class ArmMotors {
     }
 
     public void LogData() {
-        if (loggingOn)
-        {
+        if (loggingOn) {
             Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition() );
         }
     }
@@ -69,12 +67,10 @@ public class ArmMotors {
     }
 
     public double moveArmBySpeed(double speed) {
-        if (IsSafe(speed))
-        {
+        if (IsSafe(speed)) {
             this.armMotor.set(speed);
         }
-        else
-        {
+        else {
             this.armMotor.set(0);
         }
 
@@ -82,8 +78,8 @@ public class ArmMotors {
     }
 
     public void SafetyCheck() {
-        if (!IsSafe(this.armMotor.get()))
-        {
+        if (!IsSafe(this.armMotor.get())) {
+            System.out.println("Safety Check Called");
             this.armMotor.set(0);
         }
     }
@@ -91,13 +87,11 @@ public class ArmMotors {
     public boolean IsSafe(double speed)
     {
         // Check position and limit switch to see if it is safe to still move
-        if (speed < 0)
-        {
+        if (speed < 0) {
             return this.armEncoder.getPosition() > 0;
         }
 
-        if (speed > 0)
-        {
+        if (speed > 0) {
             return this.armEncoder.getPosition() < 50;
         }
 

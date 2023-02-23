@@ -64,8 +64,8 @@ public class RobotContainer {
         cubeButton.onTrue(new GrabMasterCommand(grabber, true));
 		*/
 		Trigger swingtake = operator.b();
-		swingtake.onTrue(new ToggleDeployIntakeCommand());
-		//swingtake.toggleOnTrue(new ToggleDeployIntakeCommand());
+		//swingtake.onTrue(new ToggleDeployIntakeCommand());
+		swingtake.toggleOnTrue(new ToggleDeployIntakeCommand());
 
 	}
 
