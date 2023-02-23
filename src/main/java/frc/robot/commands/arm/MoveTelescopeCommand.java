@@ -32,11 +32,7 @@ public class MoveTelescopeCommand extends CommandBase {
         if(retractOnly) {
             ArmPositionHelper.retracted = telescope.retractFull();
         } else {
-            if(!ArmPositionHelper.retracted) {
-                ArmPositionHelper.retracted = telescope.retractFull();
-            } else {
-                ArmPositionHelper.atTelescopePosition = telescope.moveToPosition(telescopeGoal);
-            }
+            ArmPositionHelper.atTelescopePosition = telescope.moveToPosition(telescopeGoal);
         }
 
         Crashboard.toDashboard("Retracted", ArmPositionHelper.retracted);
