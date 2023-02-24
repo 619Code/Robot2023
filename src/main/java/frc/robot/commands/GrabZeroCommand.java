@@ -37,6 +37,6 @@ public class GrabZeroCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return grabber.zeroed;
     }
 }

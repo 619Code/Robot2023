@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.helpers.ColorDetector;
 
 public class Grabber extends SubsystemBase {
     private CANSparkMax grabberMotor;
@@ -26,6 +27,7 @@ public class Grabber extends SubsystemBase {
 
         grabberEncoder = grabberMotor.getEncoder();
         grabberEncoder.setPosition(0); //zero position
+        grabberMotor.setInverted(true);
 
         limitSwitch = new DigitalInput(Constants.GRABBER_SWITCH);
     }
@@ -34,6 +36,8 @@ public class Grabber extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("Velocity", grabberEncoder.getVelocity());
         SmartDashboard.putBoolean("Switch", switchIsPressed());
+
+        ColorDetector.update();
     }
 
     public void spinMotor(double speed) {

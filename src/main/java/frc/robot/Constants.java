@@ -53,9 +53,9 @@ public final class Constants {
     //Grabber constants
     public static final double MAX_GRABBER_SPEED = 0.6;
 
-	public static final double CUBE_POSITION = 70.0;
-	public static final double CONE_POSITION = 100.0;
-	public static final double ZERO_POSITION = 103.0;
+	public static final double CUBE_POSITION = 21.0;
+	public static final double CONE_POSITION = 60.0;
+	public static final double ZERO_POSITION = 70.0;
 
     //Limelight constants
     public static final int LEFT_PIPELINE = 2;
