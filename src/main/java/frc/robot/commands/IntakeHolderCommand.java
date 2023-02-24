@@ -51,10 +51,8 @@ public class IntakeHolderCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        
-        return super.isFinished();
+        return !States.intakeDeployed;
     }
-    
 
     @Override
     public void initialize() {
