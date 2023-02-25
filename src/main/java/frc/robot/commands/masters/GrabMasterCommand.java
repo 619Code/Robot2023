@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.commands.GrabCommand;
 import frc.robot.commands.ReleaseCommand;
+import frc.robot.helpers.ColorDetector;
 import frc.robot.subsystems.Grabber;
 
 public class GrabMasterCommand extends CommandBase {
@@ -12,15 +13,15 @@ public class GrabMasterCommand extends CommandBase {
     boolean startState;
     Command myCommand;
     
-    public GrabMasterCommand(Grabber grabber, boolean isCube) {
+    public GrabMasterCommand(Grabber grabber) {
         this.grabber = grabber;
-        this.isCube = isCube;
         addRequirements(grabber); 
     }
 
     @Override
     public void initialize() {
-        this.startState = grabber.grabbing;
+        startState = grabber.grabbing;
+        isCube = ColorDetector.isCube;
     }
 
     @Override

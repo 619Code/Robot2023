@@ -7,10 +7,11 @@ import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeDefaultCommand;
 import frc.robot.commands.IntakeHolderCommand;
 import frc.robot.commands.ToggleDeployIntakeCommand;
+import frc.robot.commands.GrabZeroCommand;
 import frc.robot.commands.PipelineSwitchingCommand;
+import frc.robot.commands.ReleaseCommand;
 import frc.robot.commands.SetColorCommand;
 import frc.robot.commands.masters.GrabMasterCommand;
-import frc.robot.commands.masters.ZeroMasterCommand;
 import frc.robot.helpers.AutoCommandSwitcher;
 import frc.robot.subsystems.Drivetrain;
 import io.github.oblarg.oblog.annotations.Log;
@@ -20,6 +21,7 @@ import frc.robot.subsystems.IntakeSub;
 import frc.robot.subsystems.LedStrip;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -63,13 +65,13 @@ public class RobotContainer {
 		/*Trigger driveButton = driver.b();
 		driveButton.whileTrue(new AutoLineupCommand(drive));*/
 
-		/*Trigger zeroButton = operator.a();
-        zeroButton.onTrue(new ZeroMasterCommand(grabber));
-        Trigger coneButton = operator.y();
-        coneButton.onTrue(new GrabMasterCommand(grabber, false));
-        Trigger cubeButton = operator.x();
-        cubeButton.onTrue(new GrabMasterCommand(grabber, true));
-		*/
+		Trigger zeroButton = operator.a();
+		zeroButton.onTrue(new SequentialCommandGroup(
+			new GrabZeroCommand(grabber),
+			new ReleaseCommand(grabber)));
+
+        Trigger grabButton = operator.y();
+        grabButton.onTrue(new GrabMasterCommand(grabber));
 		
 		/*Trigger lefTrigger = operator.x();
 		lefTrigger.toggleOnTrue(new PipelineSwitchingCommand(0));
