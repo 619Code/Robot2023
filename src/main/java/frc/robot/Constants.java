@@ -57,6 +57,15 @@ public final class Constants {
 	public static final double CONE_POSITION = 100.0;
 	public static final double ZERO_POSITION = 103.0;
 
+    //Intake constants
+    public static final int LEFT_ARM = 13; 
+    public static final int RIGHT_ARM = 12;
+    public static final int LEFT_WHEEL = 8;
+    public static final int RIGHT_WHEEL = 14;
+    public static final double INTAKE_RETRACTED_POSITION = 0;
+    public static final double INTAKE_DEPLOYED_POSITION = 40;
+
+
     //Limelight constants
     public static final int LEFT_PIPELINE = 2;
     public static final int CENTER_PIPELINE = 0;
