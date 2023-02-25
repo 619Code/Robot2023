@@ -21,7 +21,7 @@ public class AutoCommandSwitcher {
         //autoword[0] = Crashboard.snagBoolean("Ones - AutoSelect");
         //autoword[1] = Crashboard.snagBoolean("Twos - AutoSelect");
     }
-
+  
     public static void setAutoword(boolean[] in) {
         autoword = new boolean[in.length];
         for (int i = 0; i < in.length; i ++) {

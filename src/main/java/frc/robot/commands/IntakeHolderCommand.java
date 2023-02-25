@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
@@ -18,12 +19,13 @@ public class IntakeHolderCommand extends CommandBase {
     double speed = .1;
     double wheelSpeed = -0.1;
     double tolerance = .3;
+    GenericEntry paddleRangeBoard;
 
     public IntakeHolderCommand(IntakeSub intakeSub, CommandXboxController controller) {
         this.intakeSub = intakeSub;
         this.stick = controller;
         this.addRequirements(intakeSub);
-        Crashboard.toDashboard(PaddleRangeKey, paddleRange);
+        paddleRangeBoard = Crashboard.toDashboard(PaddleRangeKey, paddleRange, Constants.IntakeTab);
     }
 
     @Override
@@ -31,7 +33,7 @@ public class IntakeHolderCommand extends CommandBase {
 
         if (States.intakeDeployed) {
             this.intakeSub.ActivateWheels(wheelSpeed);
-            paddleRange = Crashboard.snagDouble(PaddleRangeKey);
+            paddleRange = paddleRangeBoard.getDouble(paddleRange);
             targetPosition = Constants.INTAKE_DEPLOYED_POSITION + (paddleRange * stick.getLeftTriggerAxis());
             this.moveIntake(targetPosition, IntakeArm.LeftArm);
             this.moveIntake(targetPosition, IntakeArm.RightArm);

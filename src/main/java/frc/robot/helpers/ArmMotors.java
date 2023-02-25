@@ -5,6 +5,8 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import frc.robot.Constants;
+
 public class ArmMotors {
 
     public CANSparkMax armMotor;
@@ -52,7 +54,7 @@ public class ArmMotors {
 
     public void LogData() {
         if (loggingOn) {
-            Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition() );
+            Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition(), Constants.ArmTab );
         }
     }
 
