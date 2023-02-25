@@ -23,6 +23,7 @@ public class Grabber extends SubsystemBase {
     public Grabber() {
         grabberMotor = new CANSparkMax(Constants.GRABBER_MOTOR, MotorType.kBrushless);
         grabberMotor.restoreFactoryDefaults();
+        grabberMotor.setSmartCurrentLimit(35);
         grabberMotor.setIdleMode(IdleMode.kBrake);
 
         grabberEncoder = grabberMotor.getEncoder();
