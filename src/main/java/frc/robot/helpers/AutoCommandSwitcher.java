@@ -1,11 +1,17 @@
 package frc.robot.helpers;
 
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 
 public class AutoCommandSwitcher {
     
     private static boolean[] autoword;
     private static Command[] commandList;
+
+    private static GenericEntry OnesEntry;
+    private static GenericEntry TwosEntry;
+
 
     
     public static void setAutoCommands(Command[] commands) {
@@ -18,8 +24,10 @@ public class AutoCommandSwitcher {
 
     public static void setAutoword() {
         autoword = new boolean[2];
-        //autoword[0] = Crashboard.snagBoolean("Ones - AutoSelect");
-        //autoword[1] = Crashboard.snagBoolean("Twos - AutoSelect");
+        OnesEntry = Crashboard.toDashboard("Ones AutoSelect", false, Constants.AutosTab);
+        TwosEntry = Crashboard.toDashboard("Twos AutoSelect", false, Constants.AutosTab);
+        autoword[0] = OnesEntry.getBoolean(false);
+        autoword[1] = TwosEntry.getBoolean(false);
     }
   
     public static void setAutoword(boolean[] in) {

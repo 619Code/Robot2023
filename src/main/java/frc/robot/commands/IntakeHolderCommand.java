@@ -19,13 +19,13 @@ public class IntakeHolderCommand extends CommandBase {
     double speed = .1;
     double wheelSpeed = -0.1;
     double tolerance = .3;
-    GenericEntry paddleRangeBoard;
+    GenericEntry paddleRangeEntry;
 
     public IntakeHolderCommand(IntakeSub intakeSub, CommandXboxController controller) {
         this.intakeSub = intakeSub;
         this.stick = controller;
         this.addRequirements(intakeSub);
-        paddleRangeBoard = Crashboard.toDashboard(PaddleRangeKey, paddleRange, Constants.IntakeTab);
+        paddleRangeEntry = Crashboard.toDashboard(PaddleRangeKey, paddleRange, Constants.IntakeTab);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class IntakeHolderCommand extends CommandBase {
 
         if (States.intakeDeployed) {
             this.intakeSub.ActivateWheels(wheelSpeed);
-            paddleRange = paddleRangeBoard.getDouble(paddleRange);
+            paddleRange = paddleRangeEntry.getDouble(paddleRange);
             targetPosition = Constants.INTAKE_DEPLOYED_POSITION + (paddleRange * stick.getLeftTriggerAxis());
             this.moveIntake(targetPosition, IntakeArm.LeftArm);
             this.moveIntake(targetPosition, IntakeArm.RightArm);
