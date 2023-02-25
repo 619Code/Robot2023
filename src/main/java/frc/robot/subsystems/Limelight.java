@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -35,6 +36,8 @@ public class Limelight extends SubsystemBase {
     private double[] relativePoseData; //x, y, z, roll, pitch, yaw
     private double[] absolutePoseData; //x, y, z, roll, pitch, yaw
 
+    private GenericEntry validTargetEntry, pipelineEntry;
+
     public Limelight() {
         table = NetworkTableInstance.getDefault().getTable("limelight");
         limelight = new LimelightHelpers();
@@ -56,8 +59,8 @@ public class Limelight extends SubsystemBase {
         NetworkTableEntry tv = table.getEntry("tv");
         validTarget = tv.getInteger(0) == 1;
 
-        Crashboard.toDashboard("valid target", validTarget, Constants.LimelightTab);
-        Crashboard.toDashboard("pipeline", (double)table.getEntry("pipeline").getNumber(-1), Constants.LimelightTab);
+        validTargetEntry = Crashboard.toDashboard("valid target", validTarget, Constants.LimelightTab);
+        pipelineEntry = Crashboard.toDashboard("pipeline", (double)table.getEntry("pipeline").getNumber(-1), Constants.LimelightTab);
 
         if(getSimplePose) {
             updateSimplePose();

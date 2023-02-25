@@ -1,5 +1,6 @@
 package frc.robot.helpers.limelight;
 
+import edu.wpi.first.networktables.GenericEntry;
 import frc.robot.Constants;
 import frc.robot.helpers.Crashboard;
 
@@ -18,6 +19,8 @@ public class LimelightDataStorer {
     private static boolean validTargetAverage;
     private static double[] simplePoseAverage = new double[3];
     private static double[] relativePoseAverage = new double[6];
+
+    private static GenericEntry txEntry, xPosEntry, yPosEntry, zPosEntry;
     
     public static void update(boolean validTarget, double[] simplePosition, double[] relativePosition) {
         LimelightDataStorer.validTarget = validTarget;
@@ -109,13 +112,13 @@ public class LimelightDataStorer {
     }
 
     private static void postData() {
-        Crashboard.toDashboard("tx", simplePoseAverage[0], Constants.LimelightTab);
+        txEntry = Crashboard.toDashboard("tx", simplePoseAverage[0], Constants.LimelightTab);
         /*Crashboard.toDashboard("ty", simplePoseAverage[1]);
         Crashboard.toDashboard("Area", simplePoseAverage[2]);*/
 
-        Crashboard.toDashboard("X pos", relativePoseAverage[0], Constants.LimelightTab);
-        Crashboard.toDashboard("Y pos", relativePoseAverage[1], Constants.LimelightTab);
-        Crashboard.toDashboard("Z pos", relativePoseAverage[2], Constants.LimelightTab);
+        xPosEntry = Crashboard.toDashboard("X pos", relativePoseAverage[0], Constants.LimelightTab);
+        yPosEntry = Crashboard.toDashboard("Y pos", relativePoseAverage[1], Constants.LimelightTab);
+        zPosEntry = Crashboard.toDashboard("Z pos", relativePoseAverage[2], Constants.LimelightTab);
         /*Crashboard.toDashboard("Roll", relativePoseAverage[5]);
         Crashboard.toDashboard("Pitch", relativePoseAverage[3]);
         Crashboard.toDashboard("Yaw", relativePoseAverage[4]);*/
