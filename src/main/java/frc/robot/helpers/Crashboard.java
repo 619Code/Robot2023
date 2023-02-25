@@ -1,33 +1,16 @@
 package frc.robot.helpers;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 public class Crashboard {
 
-    public static boolean toDashboard(String identifier, double value) {
-        SmartDashboard.putNumber(identifier, value);
-        if (SmartDashboard.getEntry(identifier).getDouble(value) == value) {
-            return true;
-        }
-
-        return false;
+    public static GenericEntry toDashboard(String identifier, double value, String Tab) {
+       return Shuffleboard.getTab(Tab).add(identifier, value).getEntry();
     }
 
-    public static boolean toDashboard(String identifier, boolean value) {
-        SmartDashboard.putBoolean(identifier, value);
-        if (SmartDashboard.getEntry(identifier).getBoolean(value) == value) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public static double snagDouble(String identifier) {
-        return SmartDashboard.getEntry(identifier).getDouble(0);
-    }
-
-    public static boolean snagBoolean(String identifier) {
-        return SmartDashboard.getEntry(identifier).getBoolean(false);
+    public static GenericEntry toDashboard(String identifier, boolean value, String Tab) {
+       return Shuffleboard.getTab(Tab).add(identifier, value).getEntry();
     }
 
     public static double clamp(double in, double min, double max) {
@@ -35,6 +18,7 @@ public class Crashboard {
         if (in > max) in = max;
         return in;
     }
+
 
     /* public static boolean scaleSlider(String identifier) {
 

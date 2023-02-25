@@ -25,6 +25,6 @@ public class PipelineHelper {
     public static void PipelineToDashboard(){
         pipeline = table.getEntry("pipeline");
 
-        Crashboard.toDashboard("Pipeline", pipeline.getDouble(0));
+        Crashboard.toDashboard("Pipeline", pipeline.getDouble(0), Constants.LimelightTab);
     }
 }

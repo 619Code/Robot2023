@@ -1,5 +1,6 @@
 package frc.robot.helpers.limelight;
 
+import frc.robot.Constants;
 import frc.robot.helpers.Crashboard;
 
 public class LimelightDataStorer {
@@ -108,13 +109,13 @@ public class LimelightDataStorer {
     }
 
     private static void postData() {
-        Crashboard.toDashboard("tx", simplePoseAverage[0]);
+        Crashboard.toDashboard("tx", simplePoseAverage[0], Constants.LimelightTab);
         /*Crashboard.toDashboard("ty", simplePoseAverage[1]);
         Crashboard.toDashboard("Area", simplePoseAverage[2]);*/
 
-        Crashboard.toDashboard("X pos", relativePoseAverage[0]);
-        Crashboard.toDashboard("Y pos", relativePoseAverage[1]);
-        Crashboard.toDashboard("Z pos", relativePoseAverage[2]);
+        Crashboard.toDashboard("X pos", relativePoseAverage[0], Constants.LimelightTab);
+        Crashboard.toDashboard("Y pos", relativePoseAverage[1], Constants.LimelightTab);
+        Crashboard.toDashboard("Z pos", relativePoseAverage[2], Constants.LimelightTab);
         /*Crashboard.toDashboard("Roll", relativePoseAverage[5]);
         Crashboard.toDashboard("Pitch", relativePoseAverage[3]);
         Crashboard.toDashboard("Yaw", relativePoseAverage[4]);*/

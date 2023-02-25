@@ -28,9 +28,6 @@ public class DriveCommand extends CommandBase implements Loggable {
     public void execute() {
         leftY = -controller.getLeftY();
         rightX = controller.getRightX();
-
-        Crashboard.toDashboard("Forward Speed", leftY);
-        Crashboard.toDashboard("Turn Speed", Crashboard.snagDouble("Forward Speed"));
         
         setVals();
         drive.curve(throttle, rotation);

@@ -1,6 +1,7 @@
 package frc.robot.helpers;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.Constants;
 
 public class GameDataGetter {
     private static String gameData;
@@ -17,7 +18,7 @@ public class GameDataGetter {
                 case 'B' :
                 case 'R' :
                     if (pushtoCrashboard) {
-                        Crashboard.toDashboard("Alliance", gameData.charAt(0));
+                        Crashboard.toDashboard("Alliance", gameData.charAt(0), Constants.DriveTab);
                     }
                     return gameData.charAt(0);
                 default :

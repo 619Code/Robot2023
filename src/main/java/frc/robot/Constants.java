@@ -65,4 +65,12 @@ public final class Constants {
     //LED constants
     public static final int LED_PWM_PORT = 9; //change
     public static final int LED_STRIP_LENGTH = 100; //change
+
+    // Dashboard Tabs
+    public static String DriveTab = "Drive";
+    public static String GrabTab = "Grab";
+    public static String LimelightTab = "Limelight";
+    public static String ArmTab = "Arm";
+    public static String MotorControllersTab = "Motor Controllers";
+    public static String IntakeTab = "Intake";
 }

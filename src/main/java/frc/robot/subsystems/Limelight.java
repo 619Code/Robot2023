@@ -9,6 +9,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.limelight.LimelightDataStorer;
@@ -55,8 +56,8 @@ public class Limelight extends SubsystemBase {
         NetworkTableEntry tv = table.getEntry("tv");
         validTarget = tv.getInteger(0) == 1;
 
-        Crashboard.toDashboard("valid target", validTarget);
-        Crashboard.toDashboard("pipeline", (double)table.getEntry("pipeline").getNumber(-1));
+        Crashboard.toDashboard("valid target", validTarget, Constants.LimelightTab);
+        Crashboard.toDashboard("pipeline", (double)table.getEntry("pipeline").getNumber(-1), Constants.LimelightTab);
 
         if(getSimplePose) {
             updateSimplePose();
