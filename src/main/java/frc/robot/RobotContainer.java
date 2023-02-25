@@ -5,6 +5,7 @@ import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GrabManualCommand;
 import frc.robot.commands.HoldIntakeCommand;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.IntakeDefaultCommand;
 import frc.robot.commands.IntakeHolderCommand;
 import frc.robot.commands.MoveBySpeedCommand;
 import frc.robot.commands.ToggleDeployIntakeCommand;
@@ -45,7 +46,7 @@ public class RobotContainer {
 		
 		limelight = new Limelight(driver);
 		intake = new IntakeSub();
-		intake.setDefaultCommand(new MoveBySpeedCommand(intake));
+		intake.setDefaultCommand(new IntakeDefaultCommand(intake));
 
 		/*grabber = new Grabber();
 		grabManualCommand = new GrabManualCommand(grabber, operator);
@@ -66,7 +67,7 @@ public class RobotContainer {
 		*/
 		Trigger swingtake = operator.b();
 		//swingtake.onTrue(new ToggleDeployIntakeCommand());
-		swingtake.toggleOnTrue(new ToggleDeployIntakeCommand());
+		swingtake.onTrue(new ToggleDeployIntakeCommand());
 		Trigger intakeMovement = operator.axisGreaterThan(2, 0.15);
 		intakeMovement.onTrue(new IntakeHolderCommand(intake, operator));
 

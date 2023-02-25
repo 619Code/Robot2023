@@ -8,12 +8,16 @@ public class ToggleDeployIntakeCommand extends CommandBase {
     public ToggleDeployIntakeCommand(){}
 
     @Override
-    public void execute() {
-        
+    public void execute() {        
     }
 
     @Override
     public void initialize() {
         States.intakeDeployed = !States.intakeDeployed;
+    }
+
+    @Override
+    public boolean isFinished() {
+        return true;
     }
 }

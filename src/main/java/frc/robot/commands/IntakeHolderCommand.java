@@ -17,6 +17,7 @@ public class IntakeHolderCommand extends CommandBase {
     double targetPosition;
     double speed = .1;
     double wheelSpeed = -0.1;
+    double tolerance = .3;
 
     public IntakeHolderCommand(IntakeSub intakeSub, CommandXboxController controller) {
         this.intakeSub = intakeSub;
@@ -32,20 +33,30 @@ public class IntakeHolderCommand extends CommandBase {
             this.intakeSub.ActivateWheels(wheelSpeed);
             paddleRange = Crashboard.snagDouble(PaddleRangeKey);
             targetPosition = Constants.INTAKE_DEPLOYED_POSITION + (paddleRange * stick.getLeftTriggerAxis());
-
-            // Using the left arm as master
-            if (targetPosition < this.intakeSub.getPosition(IntakeArm.LeftArm) - 0.5) {
-                intakeSub.setSpeed(speed * -1);
-            } else if (targetPosition > this.intakeSub.getPosition(IntakeArm.LeftArm) + 0.5) {
-                intakeSub.setSpeed(speed);
-            } else { 
-                intakeSub.setSpeed(0); 
-            }
-        } else {
-            intakeSub.setSpeed(0);
+            this.moveIntake(targetPosition, IntakeArm.LeftArm);
+            this.moveIntake(targetPosition, IntakeArm.RightArm);
         }
         if (stick.getLeftTriggerAxis() <= 0.15) {
             intakeSub.ActivateWheels(0);
+        }
+    }
+
+    private void moveIntake(double targetPosition, IntakeArm arm) {
+        double diff = targetPosition - intakeSub.getPosition(arm);
+        if (Math.abs(diff) > tolerance )
+        {
+            if (diff > 0)
+            {
+                intakeSub.setSpeed(speed, arm);
+            }
+            else
+            {
+                intakeSub.setSpeed(-1*speed, arm);
+            }
+        }
+        else
+        {
+            intakeSub.setSpeed(0, arm);
         }
     }
 
