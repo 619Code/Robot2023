@@ -65,4 +65,13 @@ public final class Constants {
     public static final double INTAKE_RETRACTED_POSITION = 0;
     public static final double INTAKE_DEPLOYED_POSITION = 40;
 
+
+    //Limelight constants
+    public static final int LEFT_PIPELINE = 2;
+    public static final int CENTER_PIPELINE = 0;
+    public static final int RIGHT_PIPELINE = 1;
+
+    //LED constants
+    public static final int LED_PWM_PORT = 9; //change
+    public static final int LED_STRIP_LENGTH = 100; //change
 }
