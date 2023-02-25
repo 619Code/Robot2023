@@ -35,7 +35,7 @@ public class IntakeDefaultCommand extends CommandBase {
             }
             else
             {
-                intakeSub.setSpeed(-1*speed, arm);
+                intakeSub.setSpeed(-speed, arm);
             }
         }
         else

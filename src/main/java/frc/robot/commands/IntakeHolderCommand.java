@@ -51,7 +51,7 @@ public class IntakeHolderCommand extends CommandBase {
             }
             else
             {
-                intakeSub.setSpeed(-1*speed, arm);
+                intakeSub.setSpeed(-speed, arm);
             }
         }
         else
@@ -78,9 +78,8 @@ public class IntakeHolderCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        // TODO Auto-generated method stub
         intakeSub.setSpeed(0);
-        
+        intakeSub.ActivateWheels(0);       
         super.end(interrupted);     
     }
 }
