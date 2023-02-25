@@ -3,6 +3,10 @@ package frc.robot;
 import frc.robot.commands.AutoLineupCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GrabManualCommand;
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.IntakeDefaultCommand;
+import frc.robot.commands.IntakeHolderCommand;
+import frc.robot.commands.ToggleDeployIntakeCommand;
 import frc.robot.commands.GrabZeroCommand;
 import frc.robot.commands.PipelineSwitchingCommand;
 import frc.robot.commands.ReleaseCommand;
@@ -13,6 +17,7 @@ import frc.robot.subsystems.Drivetrain;
 import io.github.oblarg.oblog.annotations.Log;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Grabber;
+import frc.robot.subsystems.IntakeSub;
 import frc.robot.subsystems.LedStrip;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -28,6 +33,7 @@ public class RobotContainer {
 	private GrabManualCommand grabManualCommand;
 
 	private Drivetrain drive;
+	private IntakeSub intake;
 	private Limelight limelight;
 	private Grabber grabber;
 	private LedStrip led;
@@ -45,6 +51,8 @@ public class RobotContainer {
 		limelight = new Limelight();*/
 
 		//led = new LedStrip();
+		intake = new IntakeSub();
+		intake.setDefaultCommand(new IntakeDefaultCommand(intake));
 
 		/*grabber = new Grabber();
 		grabManualCommand = new GrabManualCommand(grabber, operator);
@@ -76,6 +84,12 @@ public class RobotContainer {
 
 		/*Trigger toggleLed = operator.x();
 		toggleLed.onTrue(new SetColorCommand(led)).debounce(1);*/
+		Trigger swingtake = operator.b();
+		//swingtake.onTrue(new ToggleDeployIntakeCommand());
+		swingtake.onTrue(new ToggleDeployIntakeCommand());
+		Trigger intakeMovement = operator.axisGreaterThan(2, 0.15);
+		intakeMovement.onTrue(new IntakeHolderCommand(intake, operator));
+
 	}
 
 	public Command getAutonomousCommand() {
