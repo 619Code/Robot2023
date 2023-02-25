@@ -3,6 +3,7 @@ package frc.robot.helpers;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.Constants;
 
 public class ColorDetector {
     private static ColorSensorV3 colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
@@ -19,7 +20,8 @@ public class ColorDetector {
             isCube = false;
         }
 
-        Crashboard.toDashboard("Cube Detected", isCube);
-        Crashboard.toDashboard("Cone Detected", !isCube);
+        Crashboard.toDashboard("Cube Detected", isCube, Constants.GrabTab);
+        Crashboard.toDashboard("Cone Detected", !isCube, Constants.GrabTab);
     }
+    
 }
