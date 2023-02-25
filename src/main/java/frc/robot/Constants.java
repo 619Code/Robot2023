@@ -56,9 +56,14 @@ public final class Constants {
     //Grabber constants
     public static final double MAX_GRABBER_SPEED = 0.6;
 
-	public static final double CUBE_POSITION = 70.0;
-	public static final double CONE_POSITION = 100.0;
-	public static final double GRABBER_ZERO_POSITION = 103.0;
+	// public static final double CUBE_POSITION = 21.0;
+	// public static final double CONE_POSITION = 60.0;
+	// public static final double ZERO_POSITION = 70.0;
+
+    // Temp new grabber constants, had to cut grabber arm shorter
+    public static final double CUBE_POSITION = 10.0;
+	public static final double CONE_POSITION = 40.0;
+	public static final double GRABBER_GRABBER_ZERO_POSITION = 50.0;
 
     //Hinge constants
     public static final double MINIMUM_POSITION = 0.0;
@@ -90,4 +95,31 @@ public final class Constants {
 
     public static final double GRID_HIGH_POSITION_HINGE = 65.0;
     public static final double GRID_HIGH_POSITION_TELESCOPE = 60.0;
+
+
+    //Intake constants
+    public static final int LEFT_ARM = 13; 
+    public static final int RIGHT_ARM = 12;
+    public static final int LEFT_WHEEL = 8;
+    public static final int RIGHT_WHEEL = 14;
+    public static final double INTAKE_RETRACTED_POSITION = 0;
+    public static final double INTAKE_DEPLOYED_POSITION = 40;
+
+
+    //Limelight constants
+    public static final int LEFT_PIPELINE = 2;
+    public static final int CENTER_PIPELINE = 0;
+    public static final int RIGHT_PIPELINE = 1;
+
+    //LED constants
+    public static final int LED_PWM_PORT = 9; //change
+    public static final int LED_STRIP_LENGTH = 100; //change
+
+    // Dashboard Tabs
+    public static String DriveTab = "Drive";
+    public static String GrabTab = "Grab";
+    public static String LimelightTab = "Limelight";
+    public static String ArmTab = "Arm";
+    public static String MotorControllersTab = "Motor Controllers";
+    public static String IntakeTab = "Intake";
 }

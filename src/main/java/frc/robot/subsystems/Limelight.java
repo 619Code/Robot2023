@@ -9,19 +9,18 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.limelight.LimelightDataStorer;
-import frc.robot.helpers.limelight.LimelightFiducial;
 import frc.robot.helpers.limelight.LimelightInformation;
 
 public class Limelight extends SubsystemBase {
     ObjectMapper mapper;
-    private CommandXboxController controller;
 
     LimelightHelpers limelight;
     NetworkTable table;
-    NetworkTableEntry pipeline;
+    NetworkTableInstance pipeline;
     NetworkTableEntry json;
 
     double pipe;
@@ -36,9 +35,7 @@ public class Limelight extends SubsystemBase {
     private double[] relativePoseData; //x, y, z, roll, pitch, yaw
     private double[] absolutePoseData; //x, y, z, roll, pitch, yaw
 
-    public Limelight(CommandXboxController controller) {
-        this.controller = controller;
-
+    public Limelight() {
         table = NetworkTableInstance.getDefault().getTable("limelight");
         limelight = new LimelightHelpers();
         mapper = new ObjectMapper();
@@ -59,9 +56,8 @@ public class Limelight extends SubsystemBase {
         NetworkTableEntry tv = table.getEntry("tv");
         validTarget = tv.getInteger(0) == 1;
 
-        Crashboard.toDashboard("valid target", validTarget);
-
-        setPipeline();
+        Crashboard.toDashboard("valid target", validTarget, Constants.LimelightTab);
+        Crashboard.toDashboard("pipeline", (double)table.getEntry("pipeline").getNumber(-1), Constants.LimelightTab);
 
         if(getSimplePose) {
             updateSimplePose();
@@ -117,17 +113,8 @@ public class Limelight extends SubsystemBase {
         Crashboard.toDashboard("Yaw", absolutePoseData[4]);*/
     }
 
-    private void setPipeline() {
-        pipeline = table.getEntry("pipeline");
-        pipe = pipeline.getDouble(0);
-
-        Crashboard.toDashboard("pipeline", pipe);
-
-        if (controller.y().getAsBoolean()) {
-            pipeline.setDouble(1);
-        } else {
-            pipeline.setDouble(0);
-        }
+    public void setPipeline(int pipelinenumber) {
+        table.getEntry("pipeline").setNumber(pipelinenumber);
     }
 
     private void dumpJson() {
@@ -137,7 +124,7 @@ public class Limelight extends SubsystemBase {
         // JSON string to Java Object
         try {
             LimelightInformation obj = mapper.readValue(jsonString, LimelightInformation.class);
-            System.out.println(obj.gResults().getFiducial().getFID());
+            System.out.println("" + obj.gResults().getFiducial().length);
         } catch (JsonProcessingException exp) {
             System.out.println(exp.getMessage());
         }

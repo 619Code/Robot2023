@@ -20,9 +20,12 @@ import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.arm.Hinge;
 import frc.robot.subsystems.arm.Telescope;
 import frc.robot.subsystems.Grabber;
+import frc.robot.subsystems.IntakeSub;
+import frc.robot.subsystems.LedStrip;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -38,10 +41,12 @@ public class RobotContainer {
 	private TelescopeManualCommand telescopeManualCommand;
 
 	private Drivetrain drive;
+	private IntakeSub intake;
 	private Limelight limelight;
 	private Grabber grabber;
 	private Hinge hinge;
 	private Telescope telescope;
+	private LedStrip led;
 
 	private String gameData;
 
@@ -53,7 +58,11 @@ public class RobotContainer {
         driveCommand = new DriveCommand(drive, driver);
         drive.setDefaultCommand(driveCommand);*/
 		
-		//limelight = new Limelight(driver);
+		//limelight = new Limelight();*/
+
+		//led = new LedStrip();
+		intake = new IntakeSub();
+		intake.setDefaultCommand(new IntakeDefaultCommand(intake));
 
 		/*grabber = new Grabber();
 		grabManualCommand = new GrabManualCommand(grabber, operator);
@@ -101,11 +110,31 @@ public class RobotContainer {
 		Trigger zeroGrabberButton = operator.a();
         zeroGrabberButton.onTrue(new GrabberZeroMasterCommand(grabber));
 
-        Trigger coneButton = operator.y();
-        coneButton.onTrue(new GrabMasterCommand(grabber, false));
+		Trigger zeroButton = operator.a();
+		zeroButton.onTrue(new SequentialCommandGroup(
+			new GrabZeroCommand(grabber),
+			new ReleaseCommand(grabber)));
 
-        Trigger cubeButton = operator.x();
-        cubeButton.onTrue(new GrabMasterCommand(grabber, true));
+        Trigger grabButton = operator.y();
+        grabButton.onTrue(new GrabMasterCommand(grabber));
+		
+		/*Trigger lefTrigger = operator.x();
+		lefTrigger.toggleOnTrue(new PipelineSwitchingCommand(0));
+
+		Trigger cenTrigger = operator.y();
+		cenTrigger.toggleOnTrue(new PipelineSwitchingCommand(1));
+
+		Trigger righTrigger = operator.b();
+		righTrigger.toggleOnTrue(new PipelineSwitchingCommand(2));*/
+
+		/*Trigger toggleLed = operator.x();
+		toggleLed.onTrue(new SetColorCommand(led)).debounce(1);*/
+		Trigger swingtake = operator.b();
+		//swingtake.onTrue(new ToggleDeployIntakeCommand());
+		swingtake.onTrue(new ToggleDeployIntakeCommand());
+		Trigger intakeMovement = operator.axisGreaterThan(2, 0.15);
+		intakeMovement.onTrue(new IntakeHolderCommand(intake, operator));
+
 	}
 
 	public Command getAutonomousCommand() {
