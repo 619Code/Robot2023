@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.Constants;
 import frc.robot.helpers.ArmPositionHelper;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.Position;
@@ -40,9 +41,9 @@ public class MoveArmMasterCommand extends CommandBase {
 
     @Override
     public void execute() {
-        Crashboard.toDashboard("Moving to Front", movingToFront);
-        Crashboard.toDashboard("At Hinge Goal", ArmPositionHelper.atHingePosition);
-        Crashboard.toDashboard("At Telescope Goal", ArmPositionHelper.atTelescopePosition);
+        Crashboard.toDashboard("Moving to Front", movingToFront, Constants.ArmTab);
+        Crashboard.toDashboard("At Hinge Goal", ArmPositionHelper.atHingePosition, Constants.ArmTab);
+        Crashboard.toDashboard("At Telescope Goal", ArmPositionHelper.atTelescopePosition, Constants.ArmTab);
 
         if(!ArmPositionHelper.atHingePosition) {
             myHingeCommand = new MoveHingeCommand(hinge);

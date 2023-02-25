@@ -38,8 +38,8 @@ public class Hinge extends SubsystemBase {
 
     @Override
     public void periodic() {
-        Crashboard.toDashboard("Hinge Position", getPosition());
-        Crashboard.toDashboard("Hinge Amps", hingeMotor.getOutputCurrent());
+        Crashboard.toDashboard("Hinge Position", getPosition(), Constants.ArmTab);
+        Crashboard.toDashboard("Hinge Amps", hingeMotor.getOutputCurrent(), Constants.ArmTab);
     }
 
     public void move(double speed) {

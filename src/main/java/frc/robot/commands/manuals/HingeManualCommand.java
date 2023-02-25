@@ -25,7 +25,7 @@ public class HingeManualCommand extends CommandBase {
     @Override
     public void execute() {
         hingeSpeed = controller.getLeftY();
-        Crashboard.toDashboard("Hinge Speed", hingeSpeed);
+        Crashboard.toDashboard("Hinge Speed", hingeSpeed, Constants.ArmTab);
         if(Math.abs(hingeSpeed) > 0.05) {
             hinge.move(hingeSpeed * Constants.HINGE_SPEED);
         } else {

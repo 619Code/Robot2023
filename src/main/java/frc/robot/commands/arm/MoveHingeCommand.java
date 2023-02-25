@@ -32,7 +32,7 @@ public class MoveHingeCommand extends CommandBase {
             ArmPositionHelper.atHingePosition = true;
         }
 
-        Crashboard.toDashboard("At Hinge Goal", ArmPositionHelper.atHingePosition);
+        Crashboard.toDashboard("At Hinge Goal", ArmPositionHelper.atHingePosition, Constants.ArmTab);
     }
 
     @Override

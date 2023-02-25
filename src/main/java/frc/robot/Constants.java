@@ -63,7 +63,7 @@ public final class Constants {
     // Temp new grabber constants, had to cut grabber arm shorter
     public static final double CUBE_POSITION = 10.0;
 	public static final double CONE_POSITION = 40.0;
-	public static final double GRABBER_GRABBER_ZERO_POSITION = 50.0;
+	public static final double GRABBER_ZERO_POSITION = 50.0;
 
     //Hinge constants
     public static final double MINIMUM_POSITION = 0.0;

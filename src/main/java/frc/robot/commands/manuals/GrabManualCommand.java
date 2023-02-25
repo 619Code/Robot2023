@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:src/main/java/frc/robot/commands/manuals/GrabManualCommand.java
 package frc.robot.commands.manuals;
-========
-package frc.robot.commands.grabber;
->>>>>>>> master:src/main/java/frc/robot/commands/grabber/GrabManualCommand.java
 
 import frc.robot.Constants;
 import frc.robot.subsystems.Grabber;

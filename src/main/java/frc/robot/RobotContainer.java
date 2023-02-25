@@ -2,13 +2,17 @@ package frc.robot;
 
 import frc.robot.commands.AutoLineupCommand;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.ToggleDeployIntakeCommand;
 import frc.robot.commands.arm.HoldArmCommand;
 import frc.robot.commands.arm.MoveArmMasterCommand;
 import frc.robot.commands.arm.MoveHingeCommand;
 import frc.robot.commands.arm.MoveTelescopeCommand;
 import frc.robot.commands.arm.TelescopeZeroCommand;
 import frc.robot.commands.grabber.GrabMasterCommand;
-import frc.robot.commands.grabber.GrabberZeroMasterCommand;
+import frc.robot.commands.grabber.GrabZeroCommand;
+import frc.robot.commands.grabber.ReleaseCommand;
+import frc.robot.commands.intake.IntakeDefaultCommand;
+import frc.robot.commands.intake.IntakeHolderCommand;
 import frc.robot.commands.manuals.GrabManualCommand;
 import frc.robot.commands.manuals.HingeManualCommand;
 import frc.robot.commands.manuals.TelescopeManualCommand;
@@ -48,43 +52,71 @@ public class RobotContainer {
 	private Telescope telescope;
 	private LedStrip led;
 
+	private boolean TurnOnGrabber = false;
+	private boolean TurnOnIntake = false;
+	private boolean TurnOnArm = false;
+	private boolean TurnOnDrive = false;
+	private boolean IsTesting = false;
+
 	private String gameData;
 
 	public RobotContainer() {
 		driver = new CommandXboxController(0);
 		operator = new CommandXboxController(1);
 
-        /*drive = new Drivetrain();
-        driveCommand = new DriveCommand(drive, driver);
-        drive.setDefaultCommand(driveCommand);*/
+		if (TurnOnDrive)
+		{
+			drive = new Drivetrain();
+			driveCommand = new DriveCommand(drive, driver);
+			drive.setDefaultCommand(driveCommand);
+		}
 		
 		//limelight = new Limelight();*/
 
 		//led = new LedStrip();
-		intake = new IntakeSub();
-		intake.setDefaultCommand(new IntakeDefaultCommand(intake));
+		if (TurnOnIntake)
+		{
+			intake = new IntakeSub();
+			intake.setDefaultCommand(new IntakeDefaultCommand(intake));
+		}
 
-		/*grabber = new Grabber();
-		grabManualCommand = new GrabManualCommand(grabber, operator);
-        grabber.setDefaultCommand(grabManualCommand);*/
+		if (TurnOnGrabber)
+		{
+			grabber = new Grabber();
+			grabManualCommand = new GrabManualCommand(grabber, operator);
+			grabber.setDefaultCommand(grabManualCommand);
+		}
 
-		hinge = new Hinge();
-		holdArmCommand = new HoldArmCommand(hinge);
-		hinge.setDefaultCommand(holdArmCommand);
-		/*hingeManualCommand = new HingeManualCommand(hinge, operator);
-		hinge.setDefaultCommand(hingeManualCommand);*/
+		if (TurnOnArm)
+		{
+			hinge = new Hinge();
+			holdArmCommand = new HoldArmCommand(hinge);
+			hinge.setDefaultCommand(holdArmCommand);
+			/*hingeManualCommand = new HingeManualCommand(hinge, operator);
+			hinge.setDefaultCommand(hingeManualCommand);*/
 
-		telescope = new Telescope();
-		telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
-		telescope.setDefaultCommand(telescopeManualCommand);
+			telescope = new Telescope();
+			telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
+			telescope.setDefaultCommand(telescopeManualCommand);
+		}
 
 		configureBindings();
 	}
 
 	private void configureBindings() {
-		armTesting();
+		if (IsTesting)
+			BindTests();
+
 		//lineupTesting();
 		//grabberTesting();
+	}
+
+	private void BindTests() {
+		if (TurnOnArm)
+			armTesting();
+
+		if (TurnOnGrabber)
+			grabberTesting();
 	}
 
 	public void armTesting() {
@@ -107,8 +139,6 @@ public class RobotContainer {
 	}
 
 	public void grabberTesting() {
-		Trigger zeroGrabberButton = operator.a();
-        zeroGrabberButton.onTrue(new GrabberZeroMasterCommand(grabber));
 
 		Trigger zeroButton = operator.a();
 		zeroButton.onTrue(new SequentialCommandGroup(

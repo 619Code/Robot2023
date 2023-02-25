@@ -25,7 +25,7 @@ public class TelescopeManualCommand extends CommandBase {
     @Override
     public void execute() {
         telescopeSpeed = -controller.getRightY();
-        Crashboard.toDashboard("Telescope Speed", telescopeSpeed);
+        Crashboard.toDashboard("Telescope Speed", telescopeSpeed, Constants.ArmTab);
         if(Math.abs(telescopeSpeed) > 0.05) {
             telescope.move(telescopeSpeed * Constants.TELESCOPE_SPEED);
         } else {

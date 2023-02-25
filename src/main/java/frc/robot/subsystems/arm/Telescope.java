@@ -42,8 +42,8 @@ public class Telescope extends SubsystemBase {
 
         //Crashboard.toDashboard("Contracted Switch", contractedSwitchIsPressed());
         //Crashboard.toDashboard("Extended Switch", extendedSwitchIsPressed());
-        Crashboard.toDashboard("Telescope Position", getPosition());
-        Crashboard.toDashboard("Zeroed", zeroed);
+        Crashboard.toDashboard("Telescope Position", getPosition(), Constants.ArmTab);
+        Crashboard.toDashboard("Zeroed", zeroed, Constants.ArmTab);
     }
 
     public void move(double speed) {
