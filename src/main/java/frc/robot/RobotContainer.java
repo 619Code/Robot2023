@@ -2,12 +2,12 @@ package frc.robot;
 
 import frc.robot.commands.AutoLineupCommand;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.GrabManualCommand;
-import frc.robot.commands.IntakeCommand;
-import frc.robot.commands.IntakeDefaultCommand;
-import frc.robot.commands.IntakeHolderCommand;
 import frc.robot.commands.ToggleDeployIntakeCommand;
-import frc.robot.commands.GrabZeroCommand;
+import frc.robot.commands.grabber.GrabManualCommand;
+import frc.robot.commands.grabber.GrabZeroCommand;
+import frc.robot.commands.intake.IntakeCommand;
+import frc.robot.commands.intake.IntakeDefaultCommand;
+import frc.robot.commands.intake.IntakeHolderCommand;
 import frc.robot.commands.PipelineSwitchingCommand;
 import frc.robot.commands.ReleaseCommand;
 import frc.robot.commands.SetColorCommand;
