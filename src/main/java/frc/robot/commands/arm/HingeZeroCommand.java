@@ -21,7 +21,7 @@ public class HingeZeroCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if(hinge.lowSwitchIsPressed()) {
+        if(hinge.switchIsPressed()) {
             hinge.stop();
             hinge.zero();
             hinge.zeroed = true;

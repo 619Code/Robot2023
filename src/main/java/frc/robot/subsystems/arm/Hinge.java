@@ -15,10 +15,12 @@ public class Hinge extends SubsystemBase {
     private CANSparkMax hingeMotor;
     private RelativeEncoder hingeEncoder;
 
-    private DigitalInput lowSwitch;
-    private DigitalInput highSwitch;
+    //private DigitalInput lowSwitch;
+    //private DigitalInput highSwitch;
+    private DigitalInput magnetSwitch; 
 
     public boolean zeroed;
+    public boolean lastMovingDown;
 
     public Hinge() {
         hingeMotor = new CANSparkMax(Constants.HINGE_MOTOR, MotorType.kBrushless);
@@ -29,13 +31,18 @@ public class Hinge extends SubsystemBase {
 
         hingeEncoder = hingeMotor.getEncoder();
         hingeEncoder.setPosition(40);
-        zeroed = true; //undo
+        zeroed = false; //undo
+        lastMovingDown = false;
         //zero(); //zero positions
 
-        lowSwitch = new DigitalInput(Constants.HINGE_LOW_SWITCH);
-        highSwitch = new DigitalInput(Constants.HINGE_HIGH_SWITCH);
+        magnetSwitch = new DigitalInput(Constants.HINGE_SWITCH);
+        //lowSwitch = new DigitalInput(Constants.HINGE_LOW_SWITCH);
+       // highSwitch = new DigitalInput(Constants.HINGE_HIGH_SWITCH);
     }
 
+    /* (non-Javadoc)
+     * @see edu.wpi.first.wpilibj2.command.Subsystem#periodic()
+     */
     @Override
     public void periodic() {
         Crashboard.toDashboard("Hinge Position", getPosition(), Constants.ArmTab);
@@ -43,29 +50,19 @@ public class Hinge extends SubsystemBase {
     }
 
     public void move(double speed) {
-        if(speed > 0 && highSwitchIsPressed()) {
+        if(speed > 0 && switchIsPressed() && !lastMovingDown) {
             stop();
-        } else if(speed < 0 && lowSwitchIsPressed()) {
+        } else if(speed < 0 && switchIsPressed() && lastMovingDown) {
             stop();
         } else {
             hingeMotor.set(speed);
         }
-    }
-
-    public void zero(double speed)
-    {
-        double deadRange = 0.1;
-
-        if(Math.abs(hingeEncoder.getPosition()) > deadRange)
-            if(hingeEncoder.getPosition() > 0)
-            {
-                hingeMotor.set(-speed);
-            } else if(hingeEncoder.getPosition() < 0)
-            {
-                hingeMotor.set(speed);
-            }
-        else{
-            stop();
+        if(speed > 0)
+        {
+            lastMovingDown = false;
+        } else
+        {
+            lastMovingDown = true;
         }
     }
 
@@ -103,6 +100,11 @@ public class Hinge extends SubsystemBase {
         return hingeEncoder.getPosition();
     }
 
+    public boolean switchIsPressed()
+    {
+        return magnetSwitch.get();
+    }
+    /** 
     public boolean lowSwitchIsPressed() {
         return lowSwitch.get();
     }
@@ -110,6 +112,7 @@ public class Hinge extends SubsystemBase {
     public boolean highSwitchIsPressed() {
         return highSwitch.get();
     }
+    */
 
     public void zero() {
         hingeEncoder.setPosition(0);
