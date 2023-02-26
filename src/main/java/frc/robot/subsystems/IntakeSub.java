@@ -13,8 +13,8 @@ public class IntakeSub extends SubsystemBase {
 
   public IntakeSub() { 
 
-    leftMotors = new ArmMotors(Constants.LEFT_ARM, Constants.LEFT_WHEEL, true, "Left Arm");
-    rightMotors = new ArmMotors(Constants.RIGHT_ARM, Constants.RIGHT_WHEEL, false, "Right Arm");
+    leftMotors = new ArmMotors(Constants.LEFT_ARM, Constants.LEFT_WHEEL, Constants.INTAKE_LEFT_SWITCH, true, "Left Arm");
+    rightMotors = new ArmMotors(Constants.RIGHT_ARM, Constants.RIGHT_WHEEL, Constants.INTAKE_RIGHT_SWITCH, false, "Right Arm");
     
   }
 

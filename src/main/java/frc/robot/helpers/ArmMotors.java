@@ -6,15 +6,18 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants;
 
 public class ArmMotors {
 
     public CANSparkMax armMotor;
     public CANSparkMax wheelMotor;
+    public DigitalInput limitSwitch;
     RelativeEncoder armEncoder;
     int intakeArmCanId;
     int wheelMotorCanId;
+    int switchPort;
 
     public boolean loggingOn = false;
     boolean inverted = false;
@@ -24,10 +27,13 @@ public class ArmMotors {
     private GenericEntry ArmPosEntry;
     private GenericEntry armSpark;
     private GenericEntry wheelSpark;
+    private GenericEntry limitSwitchTrigged;
 
-    public ArmMotors(int intakeArmCanId, int wheelMotorCanId, boolean inverted, String name) {
+
+    public ArmMotors(int intakeArmCanId, int wheelMotorCanId, int switchPort, boolean inverted, String name) {
         this.intakeArmCanId = intakeArmCanId;
         this.wheelMotorCanId = wheelMotorCanId;
+        this.switchPort = switchPort;
         this.inverted = inverted;
         this.name = name;
         this.Initialize();
@@ -36,6 +42,7 @@ public class ArmMotors {
     public void Initialize() {
         armMotor = new CANSparkMax(intakeArmCanId, MotorType.kBrushless);
         wheelMotor = new CANSparkMax(wheelMotorCanId, MotorType.kBrushless);
+        limitSwitch = new DigitalInput(switchPort);
 
         armMotor.restoreFactoryDefaults();
         wheelMotor.restoreFactoryDefaults();
@@ -61,6 +68,7 @@ public class ArmMotors {
             ArmPosEntry = Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition(), Constants.ArmTab );
             armSpark = Crashboard.toDashboard(name + "Spark Status Arm", SparkErrorHelper.HasSensorError(armMotor), Constants.SPARKS_TAB);
             wheelSpark = Crashboard.toDashboard(name + "Spark Status Wheel", SparkErrorHelper.HasSensorError(wheelMotor), Constants.SPARKS_TAB);
+            limitSwitchTrigged = Crashboard.toDashboard(name + "Switch Triggd", limitSwitch.get(), Constants.OverallStatus);
         }
     }
 

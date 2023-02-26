@@ -24,6 +24,8 @@ public final class Constants {
     public static final int HINGE_HIGH_SWITCH = -1;
     public static final int TELESCOPE_CONTRACTED_SWITCH = 0;
     public static final int TELESCOPE_EXTENDED_SWITCH = 1;
+    public static final int INTAKE_LEFT_SWITCH = -1;
+    public static final int INTAKE_RIGHT_SWITCH = -1;
 
     //Drive constants
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(5.827); //meters
