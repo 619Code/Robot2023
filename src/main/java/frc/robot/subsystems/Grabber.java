@@ -44,7 +44,6 @@ public class Grabber extends SubsystemBase {
         SmartDashboard.putBoolean("Switch", switchIsPressed());
         grabberSpark = Crashboard.toDashboard("Grabber Spark", SparkErrorHelper.HasSensorError(grabberMotor), Constants.SPARKS_TAB);
 
-
         ColorDetector.update();
     }
 
