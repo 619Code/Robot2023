@@ -25,7 +25,7 @@ public class IntakeHolderCommand extends CommandBase {
         this.intakeSub = intakeSub;
         this.stick = controller;
         this.addRequirements(intakeSub);
-        paddleRangeEntry = Crashboard.toDashboard(PaddleRangeKey, paddleRange, Constants.IntakeTab);
+        paddleRangeEntry = Crashboard.toDashboard(PaddleRangeKey, paddleRange, Constants.INTAKE_TAB);
     }
 
     @Override

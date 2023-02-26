@@ -82,11 +82,12 @@ public final class Constants {
     public static final int LED_STRIP_LENGTH = 100; //change
 
     // Dashboard Tabs
-    public static String DriveTab = "Drive";
-    public static String GrabTab = "Grab";
-    public static String LimelightTab = "Limelight";
-    public static String ArmTab = "Arm";
-    public static String MotorControllersTab = "Motor Controllers";
-    public static String IntakeTab = "Intake";
-    public static String AutosTab = "Autos";
+    public static String DRIVE_TAB = "Drive";
+    public static String GRABBER_TAB = "Grab";
+    public static String LIMELIGHT_TAB = "Limelight";
+    public static String ARM_TAB = "Arm";
+    public static String MOTORCONTROLLERS_TAB = "Motor Controllers";
+    public static String INTAKE_TAB = "Intake";
+    public static String AUTOS_TAB = "Autos";
+    public static String COMPETITON_TAB = "Competition";
 }

@@ -56,7 +56,7 @@ public class ArmMotors {
 
     public void LogData() {
         if (loggingOn) {
-            ArmPosEntry = Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition(), Constants.ArmTab );
+            ArmPosEntry = Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition(), Constants.ARM_TAB );
         }
     }
 

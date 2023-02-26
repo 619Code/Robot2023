@@ -14,7 +14,7 @@ import frc.robot.commands.SetColorCommand;
 import frc.robot.commands.masters.GrabMasterCommand;
 import frc.robot.helpers.AutoCommandSwitcher;
 import frc.robot.subsystems.Drivetrain;
-import io.github.oblarg.oblog.annotations.Log;
+// import io.github.oblarg.oblog.annotations.Log;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.IntakeSub;
@@ -53,10 +53,12 @@ public class RobotContainer {
 		//led = new LedStrip();
 		intake = new IntakeSub();
 		intake.setDefaultCommand(new IntakeDefaultCommand(intake));
+		
 
 		/*grabber = new Grabber();
 		grabManualCommand = new GrabManualCommand(grabber, operator);
         grabber.setDefaultCommand(grabManualCommand);*/
+
 		
 		configureBindings();
 	}

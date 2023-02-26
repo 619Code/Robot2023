@@ -25,7 +25,7 @@ public class AutoLineupCommand extends CommandBase {
         double rotation = Math.abs(tx) * 0.08;
         rotation = Math.min(rotation,0.3);
         rotation *= (tx > 1) ? -1 : 1;
-        rotationEntry = Crashboard.toDashboard("Rotation", rotation, Constants.DriveTab);
+        rotationEntry = Crashboard.toDashboard("Rotation", rotation, Constants.DRIVE_TAB);
 
         drive.curve(0.4, rotation);
     }
