@@ -5,11 +5,13 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.helpers.Crashboard;
+import frc.robot.helpers.SparkErrorHelper;
 
 public class Telescope extends SubsystemBase {
     private CANSparkMax telescopeMotor;
@@ -19,6 +21,8 @@ public class Telescope extends SubsystemBase {
     private DigitalInput extendedSwitch;
 
     public boolean zeroed;
+
+    private GenericEntry telescopeSpark;
 
     public Telescope() {
         telescopeMotor = new CANSparkMax(Constants.TELESCOPE_MOTOR, MotorType.kBrushless);
@@ -44,6 +48,8 @@ public class Telescope extends SubsystemBase {
         //Crashboard.toDashboard("Extended Switch", extendedSwitchIsPressed());
         Crashboard.toDashboard("Telescope Position", getPosition(), Constants.ArmTab);
         Crashboard.toDashboard("Zeroed", zeroed, Constants.ArmTab);
+        telescopeSpark = Crashboard.toDashboard("Telescope Spark", SparkErrorHelper.HasSensorError(telescopeMotor), Constants.SPARKS_TAB);
+        
     }
 
     public void move(double speed) {

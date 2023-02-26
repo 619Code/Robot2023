@@ -12,10 +12,13 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.helpers.Crashboard;
+import frc.robot.helpers.SparkErrorHelper;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 import edu.wpi.first.wpilibj.SPI;
@@ -27,6 +30,8 @@ public class Drivetrain extends SubsystemBase implements Loggable {
     MotorControllerGroup rightMotors;
     CANSparkMax leftLeader;
     CANSparkMax rightLeader;
+    CANSparkMax leftFollower;
+    CANSparkMax rightFollower;
 
     RelativeEncoder leftEncoder;
     RelativeEncoder rightEncoder;
@@ -53,11 +58,18 @@ public class Drivetrain extends SubsystemBase implements Loggable {
     double rotation;
     double pitch;
 
+    private GenericEntry leftLeaderSpark;
+    private GenericEntry rightLeaderSpark;
+    private GenericEntry leftFollowerSpark;
+    private GenericEntry rightFollowerSpark;
+
+
     public Drivetrain() {
         leftLeader = new CANSparkMax(Constants.LEFT_LEADER, MotorType.kBrushless);
+        leftFollower = new CANSparkMax(Constants.LEFT_FOLLOWER_0, MotorType.kBrushless);
         CANSparkMax leftMotorArray[] = {
             leftLeader,
-            new CANSparkMax(Constants.LEFT_FOLLOWER_0, MotorType.kBrushless)
+            leftFollower     
         }; 
         for(CANSparkMax spark : leftMotorArray) {
             spark.setIdleMode(IdleMode.kBrake);
@@ -65,9 +77,10 @@ public class Drivetrain extends SubsystemBase implements Loggable {
         }
 
         rightLeader = new CANSparkMax(Constants.RIGHT_LEADER, MotorType.kBrushless);
+        rightFollower = new CANSparkMax(Constants.RIGHT_FOLLOWER_0, MotorType.kBrushless);
         CANSparkMax rightMotorArray[] = {
             rightLeader,
-            new CANSparkMax(Constants.RIGHT_FOLLOWER_0, MotorType.kBrushless)
+            rightFollower    
         };
         for(CANSparkMax spark : rightMotorArray) {
             spark.setIdleMode(IdleMode.kBrake);
@@ -141,6 +154,11 @@ public class Drivetrain extends SubsystemBase implements Loggable {
         rightSetpoint = rightController.getSetpoint();
 
         pitch = navx.getPitch(); //will need adjustment
+
+        leftLeaderSpark = Crashboard.toDashboard("Left Leader Spark", SparkErrorHelper.HasSensorError(leftLeader), Constants.SPARKS_TAB);
+        rightLeaderSpark = Crashboard.toDashboard("Right Leader Spark", SparkErrorHelper.HasSensorError(rightLeader), Constants.SPARKS_TAB);
+        leftFollowerSpark = Crashboard.toDashboard("Left Follower Spark", SparkErrorHelper.HasSensorError(leftFollower), Constants.SPARKS_TAB);
+        rightFollowerSpark = Crashboard.toDashboard("Right Follower Spark", SparkErrorHelper.HasSensorError(rightFollower), Constants.SPARKS_TAB);
     }
 
     public void resetPIDs() {
