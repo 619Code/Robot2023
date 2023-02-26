@@ -59,8 +59,10 @@ public class Limelight extends SubsystemBase {
         NetworkTableEntry tv = table.getEntry("tv");
         validTarget = tv.getInteger(0) == 1;
 
-        validTargetEntry = Crashboard.toDashboard("valid target", validTarget, Constants.LimelightTab);
-        pipelineEntry = Crashboard.toDashboard("pipeline", (double)table.getEntry("pipeline").getNumber(-1), Constants.LimelightTab);
+        validTargetEntry = Crashboard.toDashboard("valid target", validTarget, Constants.LIMELIGHT_TAB);
+        
+        pipelineEntry = Crashboard.toDashboard("pipeline", (double)table.getEntry("pipeline").getNumber(-1), Constants.LIMELIGHT_TAB);
+                        Crashboard.toDashboard("Pipeline", (double)table.getEntry("pipeline").getNumber(-1), Constants.COMPETITON_TAB);
 
         if(getSimplePose) {
             updateSimplePose();

@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.PipelineHelper;
-import io.github.oblarg.oblog.Logger;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -33,7 +32,7 @@ public class Robot extends TimedRobot {
 
     // For Oblog uncomment, otherwise use Crashboard
     //Logger.updateEntries();
-    Crashboard.toDashboard("Total Current Draw", pdh.getTotalCurrent(), Constants.GameTab);
+    Crashboard.toDashboard("Total Current Draw", pdh.getTotalCurrent(), Constants.COMPETITON_TAB);
   }
 
   @Override

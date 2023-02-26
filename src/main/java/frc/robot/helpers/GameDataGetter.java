@@ -18,7 +18,7 @@ public class GameDataGetter {
                 case 'B' :
                 case 'R' :
                     if (pushtoCrashboard) {
-                        Crashboard.toDashboard("Alliance", gameData.charAt(0), Constants.DriveTab);
+                        Crashboard.toDashboard("Alliance", gameData.charAt(0), Constants.DRIVE_TAB);
                     }
                     return gameData.charAt(0);
                 default :

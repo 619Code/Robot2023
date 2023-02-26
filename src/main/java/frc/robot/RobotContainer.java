@@ -21,7 +21,7 @@ import frc.robot.helpers.AutoCommandSwitcher;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.Position;
 import frc.robot.subsystems.Drivetrain;
-import io.github.oblarg.oblog.annotations.Log;
+// import io.github.oblarg.oblog.annotations.Log;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.arm.Hinge;
 import frc.robot.subsystems.arm.Telescope;
@@ -108,11 +108,11 @@ public class RobotContainer {
 
 	private void LogInitialStatus()
 	{
-		Crashboard.toDashboard("Is Testing", IsTesting, Constants.OverallStatus);
-		Crashboard.toDashboard("Arm On", this.TurnOnArm, Constants.OverallStatus);
-		Crashboard.toDashboard("Drive On", this.TurnOnDrive, Constants.OverallStatus);
-		Crashboard.toDashboard("Grabber On", this.TurnOnGrabber, Constants.OverallStatus);
-		Crashboard.toDashboard("Intake On", this.TurnOnIntake, Constants.OverallStatus);		
+		Crashboard.toDashboard("Is Testing", IsTesting, Constants.STATUS_TAB);
+		Crashboard.toDashboard("Arm On", this.TurnOnArm, Constants.STATUS_TAB);
+		Crashboard.toDashboard("Drive On", this.TurnOnDrive, Constants.STATUS_TAB);
+		Crashboard.toDashboard("Grabber On", this.TurnOnGrabber, Constants.STATUS_TAB);
+		Crashboard.toDashboard("Intake On", this.TurnOnIntake, Constants.STATUS_TAB);		
 	}
 
 	private void configureBindings() {

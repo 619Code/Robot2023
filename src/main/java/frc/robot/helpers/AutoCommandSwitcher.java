@@ -24,8 +24,8 @@ public class AutoCommandSwitcher {
 
     public static void setAutoword() {
         autoword = new boolean[2];
-        OnesEntry = Crashboard.toDashboard("Ones AutoSelect", false, Constants.AutosTab);
-        TwosEntry = Crashboard.toDashboard("Twos AutoSelect", false, Constants.AutosTab);
+        OnesEntry = Crashboard.toDashboard("Ones AutoSelect", false, Constants.AUTOS_TAB);
+        TwosEntry = Crashboard.toDashboard("Twos AutoSelect", false, Constants.AUTOS_TAB);
         autoword[0] = OnesEntry.getBoolean(false);
         autoword[1] = TwosEntry.getBoolean(false);
     }

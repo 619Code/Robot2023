@@ -35,7 +35,7 @@ public class MoveTelescopeCommand extends CommandBase {
             ArmPositionHelper.atTelescopePosition = telescope.moveToPosition(telescopeGoal);
         }
 
-        Crashboard.toDashboard("Retracted", ArmPositionHelper.retracted, Constants.ArmTab);
+        Crashboard.toDashboard("Retracted", ArmPositionHelper.retracted, Constants.ARM_TAB);
     }
 
     @Override

@@ -20,8 +20,8 @@ public class ColorDetector {
             isCube = false;
         }
 
-        Crashboard.toDashboard("Cube Detected", isCube, Constants.GrabTab);
-        Crashboard.toDashboard("Cone Detected", !isCube, Constants.GrabTab);
+        Crashboard.toDashboard("Cube Detected", isCube, Constants.GRABBER_TAB);
+        Crashboard.toDashboard("Cone Detected", !isCube, Constants.GRABBER_TAB);
     }
     
 }
