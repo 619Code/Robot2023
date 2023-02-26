@@ -108,11 +108,11 @@ public class RobotContainer {
 
 	private void LogInitialStatus()
 	{
-		Crashboard.toDashboard("", IsTesting, Constants.OverallStatus);
-		Crashboard.toDashboard("", this.TurnOnArm, Constants.OverallStatus);
-		Crashboard.toDashboard("", this.TurnOnDrive, Constants.OverallStatus);
-		Crashboard.toDashboard("", this.TurnOnGrabber, Constants.OverallStatus);
-		Crashboard.toDashboard("", this.TurnOnIntake, Constants.OverallStatus);		
+		Crashboard.toDashboard("Is Testing", IsTesting, Constants.OverallStatus);
+		Crashboard.toDashboard("Arm On", this.TurnOnArm, Constants.OverallStatus);
+		Crashboard.toDashboard("Drive On", this.TurnOnDrive, Constants.OverallStatus);
+		Crashboard.toDashboard("Grabber On", this.TurnOnGrabber, Constants.OverallStatus);
+		Crashboard.toDashboard("Intake On", this.TurnOnIntake, Constants.OverallStatus);		
 	}
 
 	private void configureBindings() {
