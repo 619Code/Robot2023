@@ -36,6 +36,6 @@ public class ReleaseCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return !grabber.grabbing;
+        return (!grabber.grabbing);
     }
 }

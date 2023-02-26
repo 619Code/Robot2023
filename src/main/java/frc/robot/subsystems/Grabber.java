@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.helpers.ColorDetector;
+import frc.robot.helpers.Crashboard;
 
 public class Grabber extends SubsystemBase {
     private CANSparkMax grabberMotor;
@@ -35,8 +36,10 @@ public class Grabber extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Velocity", grabberEncoder.getVelocity());
-        SmartDashboard.putBoolean("Switch", switchIsPressed());
+        //Crashboard.toDashboard("Velocity", grabberEncoder.getVelocity(), Constants.GrabTab);
+        Crashboard.toDashboard("Switch", switchIsPressed(), Constants.GrabTab);
+
+        //Crashboard.toDashboard("Position", grabberEncoder.getPosition(), Constants.GrabTab);
 
         ColorDetector.update();
     }
