@@ -122,4 +122,5 @@ public final class Constants {
     public static String ArmTab = "Arm";
     public static String MotorControllersTab = "Motor Controllers";
     public static String IntakeTab = "Intake";
+    public static String OverallStatus = "Overall";
 }

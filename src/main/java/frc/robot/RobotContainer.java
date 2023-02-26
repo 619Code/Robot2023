@@ -18,6 +18,7 @@ import frc.robot.commands.manuals.GrabManualCommand;
 import frc.robot.commands.manuals.HingeManualCommand;
 import frc.robot.commands.manuals.TelescopeManualCommand;
 import frc.robot.helpers.AutoCommandSwitcher;
+import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.Position;
 import frc.robot.subsystems.Drivetrain;
 import io.github.oblarg.oblog.annotations.Log;
@@ -63,6 +64,9 @@ public class RobotContainer {
 		driver = new CommandXboxController(0);
 		operator = new CommandXboxController(1);
 
+		// Log Initial Status
+		this.LogInitialStatus();
+
 		if (TurnOnDrive)
 		{
 			drive = new Drivetrain();
@@ -72,7 +76,7 @@ public class RobotContainer {
 		
 		//limelight = new Limelight();
 		//led = new LedStrip();
-		
+
 		if (TurnOnIntake)
 		{
 			intake = new IntakeSub();
@@ -100,6 +104,15 @@ public class RobotContainer {
 		}
 
 		configureBindings();
+	}
+
+	private void LogInitialStatus()
+	{
+		Crashboard.toDashboard("", IsTesting, Constants.OverallStatus);
+		Crashboard.toDashboard("", this.TurnOnArm, Constants.OverallStatus);
+		Crashboard.toDashboard("", this.TurnOnDrive, Constants.OverallStatus);
+		Crashboard.toDashboard("", this.TurnOnGrabber, Constants.OverallStatus);
+		Crashboard.toDashboard("", this.TurnOnIntake, Constants.OverallStatus);		
 	}
 
 	private void configureBindings() {
