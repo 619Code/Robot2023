@@ -23,6 +23,8 @@ public class Telescope extends SubsystemBase {
     public boolean zeroed;
 
     private GenericEntry telescopeSpark;
+    private GenericEntry contractedSwitchTrigged;
+    private GenericEntry extendedSwitchTrigged;
 
     public Telescope() {
         telescopeMotor = new CANSparkMax(Constants.TELESCOPE_MOTOR, MotorType.kBrushless);
@@ -49,6 +51,9 @@ public class Telescope extends SubsystemBase {
         Crashboard.toDashboard("Telescope Position", getPosition(), Constants.ArmTab);
         Crashboard.toDashboard("Zeroed", zeroed, Constants.ArmTab);
         telescopeSpark = Crashboard.toDashboard("Telescope Spark", SparkErrorHelper.HasSensorError(telescopeMotor), Constants.SPARKS_TAB);
+        contractedSwitchTrigged = Crashboard.toDashboard("Contracted Triggd?", contractedSwitchIsPressed(), Constants.OverallStatus);
+        extendedSwitchTrigged = Crashboard.toDashboard("Extended Triggd?", extendedSwitchIsPressed(), Constants.OverallStatus);
+
         
     }
 
