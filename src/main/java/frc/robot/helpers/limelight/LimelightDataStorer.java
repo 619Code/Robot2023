@@ -112,13 +112,13 @@ public class LimelightDataStorer {
     }
 
     private static void postData() {
-        txEntry = Crashboard.toDashboard("tx", simplePoseAverage[0], Constants.LimelightTab);
+        txEntry = Crashboard.toDashboard("tx", simplePoseAverage[0], Constants.LIMELIGHT_TAB);
         /*Crashboard.toDashboard("ty", simplePoseAverage[1]);
         Crashboard.toDashboard("Area", simplePoseAverage[2]);*/
 
-        xPosEntry = Crashboard.toDashboard("X pos", relativePoseAverage[0], Constants.LimelightTab);
-        yPosEntry = Crashboard.toDashboard("Y pos", relativePoseAverage[1], Constants.LimelightTab);
-        zPosEntry = Crashboard.toDashboard("Z pos", relativePoseAverage[2], Constants.LimelightTab);
+        xPosEntry = Crashboard.toDashboard("X pos", relativePoseAverage[0], Constants.LIMELIGHT_TAB);
+        yPosEntry = Crashboard.toDashboard("Y pos", relativePoseAverage[1], Constants.LIMELIGHT_TAB);
+        zPosEntry = Crashboard.toDashboard("Z pos", relativePoseAverage[2], Constants.LIMELIGHT_TAB);
         /*Crashboard.toDashboard("Roll", relativePoseAverage[5]);
         Crashboard.toDashboard("Pitch", relativePoseAverage[3]);
         Crashboard.toDashboard("Yaw", relativePoseAverage[4]);*/

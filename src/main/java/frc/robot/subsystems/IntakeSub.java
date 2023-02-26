@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.helpers.ArmMotors;
+import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.IntakeArm;
 
 public class IntakeSub extends SubsystemBase {
@@ -12,8 +13,8 @@ public class IntakeSub extends SubsystemBase {
 
   public IntakeSub() { 
 
-    leftMotors = new ArmMotors(Constants.LEFT_ARM, Constants.LEFT_WHEEL, true, "Left Arm");
-    rightMotors = new ArmMotors(Constants.RIGHT_ARM, Constants.RIGHT_WHEEL, false, "Right Arm");
+    leftMotors = new ArmMotors(Constants.LEFT_ARM, Constants.LEFT_WHEEL, Constants.INTAKE_LEFT_SWITCH, true, "Left Arm");
+    rightMotors = new ArmMotors(Constants.RIGHT_ARM, Constants.RIGHT_WHEEL, Constants.INTAKE_RIGHT_SWITCH, false, "Right Arm");
     
   }
 

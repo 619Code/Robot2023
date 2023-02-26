@@ -25,6 +25,7 @@ public class GrabZeroCommand extends CommandBase {
             grabber.stop();
             grabber.zeroAtPosition(Constants.GRABBER_ZERO_POSITION);
             grabber.zeroed = true;
+            grabber.grabbing = true;
         } else {
             grabber.spinMotor(1, 0.1);
         }
