@@ -24,6 +24,7 @@ public class Grabber extends SubsystemBase {
     public boolean zeroed = false;
 
     private GenericEntry grabberSpark;
+    private GenericEntry switchTrigged;
 
     public Grabber() {
         grabberMotor = new CANSparkMax(Constants.GRABBER_MOTOR, MotorType.kBrushless);
@@ -43,6 +44,7 @@ public class Grabber extends SubsystemBase {
         SmartDashboard.putNumber("Velocity", grabberEncoder.getVelocity());
         SmartDashboard.putBoolean("Switch", switchIsPressed());
         grabberSpark = Crashboard.toDashboard("Grabber Spark", SparkErrorHelper.HasSensorError(grabberMotor), Constants.SPARKS_TAB);
+        switchTrigged = Crashboard.toDashboard("Grabber Switch Triggd?", switchIsPressed(), Constants.OverallStatus);
 
         ColorDetector.update();
     }
