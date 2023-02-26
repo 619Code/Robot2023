@@ -20,10 +20,13 @@ public final class Constants {
 
     //Sensor ports
     public static final int GRABBER_SWITCH = -1;
-    public static final int HINGE_LOW_SWITCH = -1;
-    public static final int HINGE_HIGH_SWITCH = -1;
+    public static final int HINGE_SWITCH = -1;
+    //public static final int HINGE_LOW_SWITCH = -1;
+    //public static final int HINGE_HIGH_SWITCH = -1;
     public static final int TELESCOPE_CONTRACTED_SWITCH = 0;
     public static final int TELESCOPE_EXTENDED_SWITCH = 1;
+    public static final int INTAKE_LEFT_SWITCH = -1;
+    public static final int INTAKE_RIGHT_SWITCH = -1;
 
     //Drive constants
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(5.827); //meters
@@ -66,15 +69,16 @@ public final class Constants {
 	// public static final double ZERO_POSITION = 70.0;
 
     // Temp new grabber constants, had to cut grabber arm shorter
-    public static final double CUBE_POSITION = 10.0;
-	public static final double CONE_POSITION = 40.0;
-	public static final double GRABBER_ZERO_POSITION = 50.0;
+    public static final double CUBE_POSITION = 23.0;
+	public static final double CONE_POSITION = 60.0;
+	public static final double GRABBER_ZERO_POSITION = 65.0;
 
     //Hinge constants
     public static final double MINIMUM_POSITION = 0.0;
     public static final double MAXIMUM_POSITION = 80.0;
 
     public static final double HINGE_SPEED = 0.4;
+    public static final double HINGE_ZERO_SPEED = 0.04;
     public static final double HINGE_P = 0.08;
 
     //Telescope constants
@@ -121,12 +125,14 @@ public final class Constants {
     public static final int LED_STRIP_LENGTH = 100; //change
 
     // Dashboard Tabs
-    public static String DriveTab = "Drive";
-    public static String GrabTab = "Grab";
-    public static String LimelightTab = "Limelight";
-    public static String ArmTab = "Arm";
-    public static String MotorControllersTab = "Motor Controllers";
-    public static String IntakeTab = "Intake";
-    public static String OverallStatus = "Overall";
-    public static String AutosTab = "Autos";
+    public static String DRIVE_TAB = "Drive";
+    public static String GRABBER_TAB = "Grab";
+    public static String LIMELIGHT_TAB = "Limelight";
+    public static String ARM_TAB = "Arm";
+    public static String MOTORCONTROLLERS_TAB = "Motor Controllers";
+    public static String INTAKE_TAB = "Intake";
+    public static String AUTOS_TAB = "Autos";
+    public static String COMPETITON_TAB = "Competition";
+    public static String SPARKS_TAB = "Sparks";
+    public static String STATUS_TAB = "Status";
 }
