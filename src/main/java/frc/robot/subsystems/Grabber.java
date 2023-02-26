@@ -5,12 +5,15 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.helpers.ColorDetector;
+import frc.robot.helpers.Crashboard;
+import frc.robot.helpers.SparkErrorHelper;
 
 public class Grabber extends SubsystemBase {
     private CANSparkMax grabberMotor;
@@ -19,6 +22,8 @@ public class Grabber extends SubsystemBase {
 
     public boolean grabbing = false;
     public boolean zeroed = false;
+
+    private GenericEntry grabberSpark;
 
     public Grabber() {
         grabberMotor = new CANSparkMax(Constants.GRABBER_MOTOR, MotorType.kBrushless);
@@ -37,6 +42,8 @@ public class Grabber extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("Velocity", grabberEncoder.getVelocity());
         SmartDashboard.putBoolean("Switch", switchIsPressed());
+        grabberSpark = Crashboard.toDashboard("Grabber Spark", SparkErrorHelper.HasSensorError(grabberMotor), Constants.SPARKS_TAB);
+
 
         ColorDetector.update();
     }

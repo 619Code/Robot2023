@@ -5,11 +5,13 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.helpers.Crashboard;
+import frc.robot.helpers.SparkErrorHelper;
 
 public class Hinge extends SubsystemBase {
     private CANSparkMax hingeMotor;
@@ -19,6 +21,8 @@ public class Hinge extends SubsystemBase {
     private DigitalInput highSwitch;
 
     public boolean zeroed;
+
+    private GenericEntry hingeSpark;
 
     public Hinge() {
         hingeMotor = new CANSparkMax(Constants.HINGE_MOTOR, MotorType.kBrushless);
@@ -40,6 +44,7 @@ public class Hinge extends SubsystemBase {
     public void periodic() {
         Crashboard.toDashboard("Hinge Position", getPosition(), Constants.ArmTab);
         Crashboard.toDashboard("Hinge Amps", hingeMotor.getOutputCurrent(), Constants.ArmTab);
+        hingeSpark = Crashboard.toDashboard("Hinge Spark", SparkErrorHelper.HasSensorError(hingeMotor), Constants.SPARKS_TAB);
     }
 
     public void move(double speed) {

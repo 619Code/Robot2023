@@ -124,4 +124,6 @@ public final class Constants {
     public static String IntakeTab = "Intake";
     public static String OverallStatus = "Overall";
     public static String AutosTab = "Autos";
+    public static String GameTab = "Game";
+    public static String SPARKS_TAB = "Sparks";
 }
