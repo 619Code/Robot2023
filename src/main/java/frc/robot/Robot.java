@@ -20,7 +20,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     robotContainer = new RobotContainer();
-    Logger.configureLoggingAndConfig(robotContainer, false);
+
+    // For Oblog uncomment, othewise use the Crashboard
+    //Logger.configureLoggingAndConfig(robotContainer, false);
 
     // CameraServer.startAutomaticCapture();
   }
@@ -28,7 +30,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    Logger.updateEntries();
+
+    // For Oblog uncomment, otherwise use Crashboard
+    //Logger.updateEntries();
     Crashboard.toDashboard("Total Current Draw", pdh.getTotalCurrent(), Constants.GameTab);
   }
 
