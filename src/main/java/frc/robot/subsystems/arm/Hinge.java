@@ -32,8 +32,8 @@ public class Hinge extends SubsystemBase {
         zeroed = true; //undo
         //zero(); //zero positions
 
-        //lowSwitch = new DigitalInput(Constants.HINGE_LOW_SWITCH);
-        //highSwitch = new DigitalInput(Constants.HINGE_HIGH_SWITCH);
+        lowSwitch = new DigitalInput(Constants.HINGE_LOW_SWITCH);
+        highSwitch = new DigitalInput(Constants.HINGE_HIGH_SWITCH);
     }
 
     @Override
@@ -43,7 +43,30 @@ public class Hinge extends SubsystemBase {
     }
 
     public void move(double speed) {
-        hingeMotor.set(speed);
+        if(speed > 0 && highSwitchIsPressed()) {
+            stop();
+        } else if(speed < 0 && lowSwitchIsPressed()) {
+            stop();
+        } else {
+            hingeMotor.set(speed);
+        }
+    }
+
+    public void zero(double speed)
+    {
+        double deadRange = 0.1;
+
+        if(Math.abs(hingeEncoder.getPosition()) > deadRange)
+            if(hingeEncoder.getPosition() > 0)
+            {
+                hingeMotor.set(-speed);
+            } else if(hingeEncoder.getPosition() < 0)
+            {
+                hingeMotor.set(speed);
+            }
+        else{
+            stop();
+        }
     }
 
     //boolean return says if it's at that position
