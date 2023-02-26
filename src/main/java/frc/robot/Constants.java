@@ -89,4 +89,6 @@ public final class Constants {
     public static String MotorControllersTab = "Motor Controllers";
     public static String IntakeTab = "Intake";
     public static String AutosTab = "Autos";
+    public static String GameTab = "Game";
+    public static String SPARKS_TAB = "Sparks";
 }
