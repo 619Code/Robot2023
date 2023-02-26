@@ -13,7 +13,7 @@ import io.github.oblarg.oblog.Logger;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer robotContainer;
-  private PowerDistribution pdh = new PowerDistribution(1, ModuleType.kRev)
+  private PowerDistribution pdh = new PowerDistribution(1, ModuleType.kRev);
 
   // private int counter;
 
