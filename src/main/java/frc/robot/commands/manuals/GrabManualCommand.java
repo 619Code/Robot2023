@@ -1,4 +1,4 @@
-package frc.robot.commands.grabber;
+package frc.robot.commands.manuals;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.Grabber;
