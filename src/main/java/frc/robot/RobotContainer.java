@@ -2,6 +2,7 @@ package frc.robot;
 
 import frc.robot.commands.AutoLineupCommand;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.PipelineSwitchingCommand;
 import frc.robot.commands.ToggleDeployIntakeCommand;
 import frc.robot.commands.arm.HoldArmCommand;
 import frc.robot.commands.arm.MoveArmMasterCommand;
@@ -58,8 +59,6 @@ public class RobotContainer {
 	private boolean TurnOnDrive = false;
 	private boolean IsTesting = false;
 
-	private String gameData;
-
 	public RobotContainer() {
 		driver = new CommandXboxController(0);
 		operator = new CommandXboxController(1);
@@ -71,9 +70,9 @@ public class RobotContainer {
 			drive.setDefaultCommand(driveCommand);
 		}
 		
-		//limelight = new Limelight();*/
-
+		//limelight = new Limelight();
 		//led = new LedStrip();
+		
 		if (TurnOnIntake)
 		{
 			intake = new IntakeSub();
@@ -106,9 +105,6 @@ public class RobotContainer {
 	private void configureBindings() {
 		if (IsTesting)
 			BindTests();
-
-		//lineupTesting();
-		//grabberTesting();
 	}
 
 	private void BindTests() {
@@ -117,6 +113,12 @@ public class RobotContainer {
 
 		if (TurnOnGrabber)
 			grabberTesting();
+
+		if (TurnOnIntake)
+			intakeTesting();
+
+		//lineupTesting();
+		//limeLightPipelineTesting
 	}
 
 	public void armTesting() {
@@ -138,6 +140,29 @@ public class RobotContainer {
 		driveButton.whileTrue(new AutoLineupCommand(drive));
 	}
 
+	public void limeLightPipelineTesting() {
+		Trigger lefTrigger = operator.x();
+		lefTrigger.toggleOnTrue(new PipelineSwitchingCommand(0));
+
+		Trigger cenTrigger = operator.y();
+		cenTrigger.toggleOnTrue(new PipelineSwitchingCommand(1));
+
+		Trigger righTrigger = operator.b();
+		righTrigger.toggleOnTrue(new PipelineSwitchingCommand(2));
+	}
+
+	public void intakeTesting() {
+		
+		// Deploy and undeploy intake
+		Trigger swingtake = operator.b();
+		swingtake.onTrue(new ToggleDeployIntakeCommand());
+
+		// Once intake is deployed activate movement based on axis
+		Trigger intakeMovement = operator.axisGreaterThan(2, 0.15);
+		intakeMovement.onTrue(new IntakeHolderCommand(intake, operator));
+	}
+
+
 	public void grabberTesting() {
 
 		Trigger zeroButton = operator.a();
@@ -148,23 +173,8 @@ public class RobotContainer {
         Trigger grabButton = operator.y();
         grabButton.onTrue(new GrabMasterCommand(grabber));
 		
-		/*Trigger lefTrigger = operator.x();
-		lefTrigger.toggleOnTrue(new PipelineSwitchingCommand(0));
-
-		Trigger cenTrigger = operator.y();
-		cenTrigger.toggleOnTrue(new PipelineSwitchingCommand(1));
-
-		Trigger righTrigger = operator.b();
-		righTrigger.toggleOnTrue(new PipelineSwitchingCommand(2));*/
-
 		/*Trigger toggleLed = operator.x();
 		toggleLed.onTrue(new SetColorCommand(led)).debounce(1);*/
-		Trigger swingtake = operator.b();
-		//swingtake.onTrue(new ToggleDeployIntakeCommand());
-		swingtake.onTrue(new ToggleDeployIntakeCommand());
-		Trigger intakeMovement = operator.axisGreaterThan(2, 0.15);
-		intakeMovement.onTrue(new IntakeHolderCommand(intake, operator));
-
 	}
 
 	public Command getAutonomousCommand() {
