@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.helpers.Crashboard;
@@ -8,6 +9,7 @@ import frc.robot.subsystems.Drivetrain;
 
 public class AutoLineupCommand extends CommandBase {
     private Drivetrain drive;
+    private GenericEntry rotationEntry;
 
     private double tx;
 
@@ -23,7 +25,7 @@ public class AutoLineupCommand extends CommandBase {
         double rotation = Math.abs(tx) * 0.08;
         rotation = Math.min(rotation,0.3);
         rotation *= (tx > 1) ? -1 : 1;
-        Crashboard.toDashboard("Rotation", rotation, Constants.DriveTab);
+        rotationEntry = Crashboard.toDashboard("Rotation", rotation, Constants.DriveTab);
 
         drive.curve(0.4, rotation);
     }

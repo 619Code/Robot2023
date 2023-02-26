@@ -5,6 +5,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.networktables.GenericEntry;
 import frc.robot.Constants;
 
 public class ArmMotors {
@@ -20,6 +21,7 @@ public class ArmMotors {
     String name;
     public double ArmSpeed = .1;
     public double WheelSpeed = .1;
+    private GenericEntry ArmPosEntry;
 
     public ArmMotors(int intakeArmCanId, int wheelMotorCanId, boolean inverted, String name) {
         this.intakeArmCanId = intakeArmCanId;
@@ -54,7 +56,7 @@ public class ArmMotors {
 
     public void LogData() {
         if (loggingOn) {
-            Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition(), Constants.ArmTab );
+            ArmPosEntry = Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition(), Constants.ArmTab );
         }
     }
 
@@ -81,7 +83,7 @@ public class ArmMotors {
 
     public void SafetyCheck() {
         if (!IsSafe(this.armMotor.get())) {
-            System.out.println("Safety Check Called");
+            // System.out.println("Safety Check Called");
             this.armMotor.set(0);
         }
     }
