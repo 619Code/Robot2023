@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
 import frc.robot.helpers.ArmPositionHelper;
 import frc.robot.helpers.Crashboard;
-import frc.robot.helpers.Position;
+import frc.robot.helpers.enums.ArmPosition;
 import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.arm.Hinge;
 import frc.robot.subsystems.arm.Telescope;
@@ -15,13 +15,13 @@ import frc.robot.subsystems.arm.Telescope;
 public class MoveArmMasterCommand extends CommandBase {
     Hinge hinge;
     Telescope telescope;
-    Position goalPosition;
+    ArmPosition goalPosition;
     Command myHingeCommand;
     Command myTelescopeCommand;
 
     boolean movingToFront;
     
-    public MoveArmMasterCommand(Hinge hinge, Telescope telescope, Position position) {
+    public MoveArmMasterCommand(Hinge hinge, Telescope telescope, ArmPosition position) {
         this.hinge = hinge;
         this.telescope = telescope;
         this.goalPosition = position;

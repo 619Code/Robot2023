@@ -3,7 +3,7 @@ package frc.robot.commands.intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.States;
-import frc.robot.helpers.IntakeArm;
+import frc.robot.helpers.enums.IntakeArm;
 import frc.robot.subsystems.IntakeSub;
 
 public class IntakeDefaultCommand extends CommandBase {

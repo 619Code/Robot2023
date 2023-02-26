@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.helpers.Crashboard;
+import frc.robot.helpers.enums.Pipeline;
 import frc.robot.helpers.limelight.LimelightDataStorer;
 import frc.robot.helpers.limelight.LimelightInformation;
 
@@ -24,17 +25,15 @@ public class Limelight extends SubsystemBase {
     NetworkTableInstance pipeline;
     NetworkTableEntry json;
 
-    double pipe;
     String jsonString;
 
-    //settings
-    boolean getSimplePose, getRelativePose, getAbsolutePose;
+    public Pipeline currentPipeline;
+    public boolean cameraMode;
+    public boolean rrtMode;
 
     //raw limelight data
     private boolean validTarget;
     private double[] simplePoseData; //tx, ty, area
-    private double[] relativePoseData; //x, y, z, roll, pitch, yaw
-    private double[] absolutePoseData; //x, y, z, roll, pitch, yaw
 
     private GenericEntry validTargetEntry, pipelineEntry;
 
@@ -43,38 +42,47 @@ public class Limelight extends SubsystemBase {
         limelight = new LimelightHelpers();
         mapper = new ObjectMapper();
 
-        //settings
-        getSimplePose = true;
-        getRelativePose = true;
-        getAbsolutePose = false;
+        currentPipeline = Pipeline.CAMERA_PIPELINE;
 
         simplePoseData = new double[3];
-        relativePoseData = new double[6];
-        absolutePoseData = new double[6];
     }
 
     @Override
     public void periodic() {
-        // checks for valid target
-        NetworkTableEntry tv = table.getEntry("tv");
-        validTarget = tv.getInteger(0) == 1;
+        if(currentPipeline == Pipeline.CAMERA_PIPELINE) {
+            cameraMode = true;
+            rrtMode = false;
+            validTarget = false;
+
+            simplePoseData[0] = 0.0;
+            simplePoseData[1] = 0.0;
+            simplePoseData[2] = 0.0;
+        } else {
+            cameraMode = false;
+            if(currentPipeline == Pipeline.RRT_PIPELINE) {
+                rrtMode = true;
+            } else {
+                rrtMode = false;
+            }
+
+            // checks for valid target
+            NetworkTableEntry tv = table.getEntry("tv");
+            validTarget = tv.getInteger(0) == 1;
+            updateSimplePose();
+        }
+
+        System.out.print("Valid Target: ");
+        if(validTarget) {
+            System.out.println("True");
+        } else {
+            System.out.println("False");
+        }
 
         validTargetEntry = Crashboard.toDashboard("valid target", validTarget, Constants.LIMELIGHT_TAB);
         
         pipelineEntry = Crashboard.toDashboard("pipeline", (double)table.getEntry("pipeline").getNumber(-1), Constants.LIMELIGHT_TAB);
-                        Crashboard.toDashboard("Pipeline", (double)table.getEntry("pipeline").getNumber(-1), Constants.COMPETITON_TAB);
 
-        if(getSimplePose) {
-            updateSimplePose();
-        }
-        if(getRelativePose) {
-            updateRelativePose();
-        }
-        if(getAbsolutePose) {
-            updateAbsolutePose();
-        }
-
-        LimelightDataStorer.update(validTarget, simplePoseData, relativePoseData);
+        LimelightDataStorer.update(cameraMode, validTarget, simplePoseData);
     }
 
     private void updateSimplePose() {
@@ -90,32 +98,6 @@ public class Limelight extends SubsystemBase {
         /*Crashboard.toDashboard("tx", simplePoseData[0]);
         Crashboard.toDashboard("ty", simplePoseData[1]);
         Crashboard.toDashboard("Area", simplePoseData[2]);*/
-    }
-
-    private void updateRelativePose() {
-        NetworkTableEntry camtran = table.getEntry("camtran");
-        relativePoseData = camtran.getDoubleArray(new double[6]);
-
-        // relative 3d position to april tag
-        /*Crashboard.toDashboard("X pos", relativePoseData[0]);
-        Crashboard.toDashboard("Y pos", relativePoseData[1]);
-        Crashboard.toDashboard("Z pos", relativePoseData[2]);
-        Crashboard.toDashboard("Roll", relativePoseData[5]);
-        Crashboard.toDashboard("Pitch", relativePoseData[3]);
-        Crashboard.toDashboard("Yaw", relativePoseData[4]);*/
-    }
-
-    private void updateAbsolutePose() {
-        NetworkTableEntry botpose = table.getEntry("botpose");
-        absolutePoseData = botpose.getDoubleArray(new double[6]);
-
-        // exact 3d position
-        /*Crashboard.toDashboard("X pos", absolutePoseData[0]);
-        Crashboard.toDashboard("Y pos", absolutePoseData[1]);
-        Crashboard.toDashboard("Z pos", absolutePoseData[2]);
-        Crashboard.toDashboard("Roll", absolutePoseData[5]);
-        Crashboard.toDashboard("Pitch", absolutePoseData[3]);
-        Crashboard.toDashboard("Yaw", absolutePoseData[4]);*/
     }
 
     public void setPipeline(int pipelinenumber) {

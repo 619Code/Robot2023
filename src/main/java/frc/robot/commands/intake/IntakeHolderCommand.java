@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
 import frc.robot.States;
 import frc.robot.helpers.Crashboard;
-import frc.robot.helpers.IntakeArm;
+import frc.robot.helpers.enums.IntakeArm;
 import frc.robot.subsystems.IntakeSub;
 
 public class IntakeHolderCommand extends CommandBase {

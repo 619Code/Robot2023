@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -7,7 +8,7 @@ import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.helpers.Crashboard;
-import frc.robot.helpers.PipelineHelper;
+import frc.robot.helpers.limelight.PipelineHelper;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -23,7 +24,7 @@ public class Robot extends TimedRobot {
     // For Oblog uncomment, othewise use the Crashboard
     //Logger.configureLoggingAndConfig(robotContainer, false);
 
-    // CameraServer.startAutomaticCapture();
+    CameraServer.startAutomaticCapture();
   }
 
   @Override

@@ -38,6 +38,11 @@ public final class Constants {
     public static final double POSITION_CONVERSION_FACTOR = Constants.DRIVE_RATIO * WHEEL_DIAMETER * Math.PI; //conversion factor for position
     public static final double VELOCITY_CONVERSION_FACTOR = Constants.DRIVE_RATIO * WHEEL_DIAMETER * Math.PI / 60.0; //conversion factor for velocity
 
+    //Lineup constants
+    public static final double ROTATION_P = 0.08;
+    public static final double ROTATION_MAX = 0.3;
+    public static final double APPROACH_SPEED = 0.4;
+
     //Controller constants
     public static final double JOYSTICK_DEADZONE = 0.075;
 
@@ -87,7 +92,7 @@ public final class Constants {
     public static final double TELESCOPE_ZERO_SPEED = 0.08;
     public static final double TELESCOPE_P = 0.04;
 
-    //Arm cases - {hinge value, telescope value}
+    //Arm cases
     public static final double START_POSITION_HINGE = 15.0;
     public static final double START_POSITION_TELESCOPE = 5.0;
 
@@ -100,7 +105,6 @@ public final class Constants {
     public static final double GRID_HIGH_POSITION_HINGE = 65.0;
     public static final double GRID_HIGH_POSITION_TELESCOPE = 60.0;
 
-
     //Intake constants
     public static final int LEFT_ARM = 13; 
     public static final int RIGHT_ARM = 12;
@@ -109,11 +113,12 @@ public final class Constants {
     public static final double INTAKE_RETRACTED_POSITION = 0;
     public static final double INTAKE_DEPLOYED_POSITION = 40;
 
-
     //Limelight constants
-    public static final int LEFT_PIPELINE = 2;
     public static final int CENTER_PIPELINE = 0;
     public static final int RIGHT_PIPELINE = 1;
+    public static final int LEFT_PIPELINE = 2;
+    public static final int RRT_PIPELINE = 3;
+    public static final int CAMERA_PIPELINE = 4;
 
     //LED constants
     public static final int LED_PWM_PORT = 9; //change
