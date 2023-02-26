@@ -20,8 +20,9 @@ public final class Constants {
 
     //Sensor ports
     public static final int GRABBER_SWITCH = -1;
-    public static final int HINGE_LOW_SWITCH = -1;
-    public static final int HINGE_HIGH_SWITCH = -1;
+    public static final int HINGE_SWITCH = -1;
+    //public static final int HINGE_LOW_SWITCH = -1;
+    //public static final int HINGE_HIGH_SWITCH = -1;
     public static final int TELESCOPE_CONTRACTED_SWITCH = 0;
     public static final int TELESCOPE_EXTENDED_SWITCH = 1;
     public static final int INTAKE_LEFT_SWITCH = -1;
@@ -72,6 +73,7 @@ public final class Constants {
     public static final double MAXIMUM_POSITION = 80.0;
 
     public static final double HINGE_SPEED = 0.4;
+    public static final double HINGE_ZERO_SPEED = 0.04;
     public static final double HINGE_P = 0.08;
 
     //Telescope constants
