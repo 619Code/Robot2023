@@ -1,6 +1,6 @@
 package frc.robot.commands.intake;
 
-import frc.robot.helpers.IntakeArm;
+import frc.robot.helpers.enums.IntakeArm;
 import frc.robot.subsystems.IntakeSub;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;

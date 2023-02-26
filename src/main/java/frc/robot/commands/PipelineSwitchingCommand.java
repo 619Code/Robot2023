@@ -1,32 +1,40 @@
 package frc.robot.commands;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.helpers.PipelineHelper;
+import frc.robot.helpers.enums.Pipeline;
+import frc.robot.helpers.limelight.PipelineHelper;
 
 public class PipelineSwitchingCommand extends CommandBase {
-    
-    private int pipeline;
+    private Pipeline pipeline;
 
-    public PipelineSwitchingCommand(int line) {
-        pipeline = line;        
+    public PipelineSwitchingCommand(Pipeline pipeline) {
+        this.pipeline = pipeline;     
     }
 
     @Override
-    public void execute() {
+    public void initialize() {
         switch (pipeline) {
-            case (0):
+            case LEFT_PIPELINE:
                 PipelineHelper.SetLeftPipeline();
                 break;
-            case (1):
+            case CENTER_PIPELINE:
                 PipelineHelper.SetCenterPipeline();
                 break;
-            case (2):
+            case RIGHT_PIPELINE:
                 PipelineHelper.SetRightPipeline();
                 break;
+            case RRT_PIPELINE:
+                PipelineHelper.SetRRTPipeline();
+                break;
+            case CAMERA_PIPELINE:
+                PipelineHelper.setCameraPipeline();
+                break;
             default:
-                System.out.println(":3c");
                 break;
         }
     }
 
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

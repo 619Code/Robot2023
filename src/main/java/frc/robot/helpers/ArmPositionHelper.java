@@ -1,14 +1,15 @@
 package frc.robot.helpers;
 
 import frc.robot.Constants;
+import frc.robot.helpers.enums.ArmPosition;
 
 public class ArmPositionHelper {
-    public static Position currentPosition = Position.GRID_MID;
+    public static ArmPosition currentPosition = ArmPosition.GRID_MID;
     public static boolean atHingePosition = true;
     public static boolean retracted = true;
     public static boolean atTelescopePosition = true;
 
-    public static double fetchHingeValue(Position position) {
+    public static double fetchHingeValue(ArmPosition position) {
         switch(position) {
             case START:
                 return Constants.START_POSITION_HINGE;
@@ -23,7 +24,7 @@ public class ArmPositionHelper {
         }
     }
 
-    public static double fetchTelescopeValue(Position position) {
+    public static double fetchTelescopeValue(ArmPosition position) {
         switch(position) {
             case START:
                 return Constants.START_POSITION_TELESCOPE;
