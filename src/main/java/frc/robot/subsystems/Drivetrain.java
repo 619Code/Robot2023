@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.helpers.Crashboard;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 import edu.wpi.first.wpilibj.SPI;
@@ -141,6 +142,9 @@ public class Drivetrain extends SubsystemBase implements Loggable {
         rightSetpoint = rightController.getSetpoint();
 
         pitch = navx.getPitch(); //will need adjustment
+
+        Crashboard.toDashboard("Rotation", rotation, Constants.DRIVE_TAB);
+        Crashboard.toDashboard("Robot Pitch", pitch, Constants.COMPETITON_TAB);
     }
 
     public void resetPIDs() {
