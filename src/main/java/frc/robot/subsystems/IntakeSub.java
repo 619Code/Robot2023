@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.helpers.ArmMotors;
+import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.IntakeArm;
 
 public class IntakeSub extends SubsystemBase {

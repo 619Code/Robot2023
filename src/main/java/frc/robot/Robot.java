@@ -1,21 +1,27 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.PipelineHelper;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer robotContainer;
+  private PowerDistribution pdh = new PowerDistribution(1, ModuleType.kRev);
 
   // private int counter;
 
   @Override
   public void robotInit() {
     robotContainer = new RobotContainer();
-    // Logger.configureLoggingAndConfig(robotContainer, false);
+
+    // For Oblog uncomment, othewise use the Crashboard
+    //Logger.configureLoggingAndConfig(robotContainer, false);
 
     // CameraServer.startAutomaticCapture();
   }
@@ -23,7 +29,10 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    // Logger.updateEntries();
+
+    // For Oblog uncomment, otherwise use Crashboard
+    //Logger.updateEntries();
+    Crashboard.toDashboard("Total Current Draw", pdh.getTotalCurrent(), Constants.GameTab);
   }
 
   @Override

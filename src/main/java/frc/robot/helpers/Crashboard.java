@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 public class Crashboard {
 
-    public static Dictionary<String, GenericEntry> DashboardEntries = new Hashtable<>();
+    private static Dictionary<String, GenericEntry> DashboardEntries = new Hashtable<>();
 
     public static GenericEntry toDashboard(String identifier, double value, String tab) {
         return toDashboardGeneric(identifier, value, tab);
@@ -27,7 +27,7 @@ public class Crashboard {
 
     }
 
-    public static String getKey(String identifier, String tab) {
+    private static String getKey(String identifier, String tab) {
         return identifier + "-" + tab;
     }
 

@@ -22,6 +22,8 @@ public class ArmMotors {
     public double ArmSpeed = .1;
     public double WheelSpeed = .1;
     private GenericEntry ArmPosEntry;
+    private GenericEntry armSpark;
+    private GenericEntry wheelSpark;
 
     public ArmMotors(int intakeArmCanId, int wheelMotorCanId, boolean inverted, String name) {
         this.intakeArmCanId = intakeArmCanId;
@@ -56,7 +58,9 @@ public class ArmMotors {
 
     public void LogData() {
         if (loggingOn) {
-            ArmPosEntry = Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition(), Constants.ARM_TAB );
+            ArmPosEntry = Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition(), Constants.ArmTab );
+            armSpark = Crashboard.toDashboard(name + "Spark Status Arm", SparkErrorHelper.HasSensorError(armMotor), Constants.SPARKS_TAB);
+            wheelSpark = Crashboard.toDashboard(name + "Spark Status Wheel", SparkErrorHelper.HasSensorError(wheelMotor), Constants.SPARKS_TAB);
         }
     }
 
