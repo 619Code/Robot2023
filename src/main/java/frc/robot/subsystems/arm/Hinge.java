@@ -43,6 +43,7 @@ public class Hinge extends SubsystemBase {
     @Override
     public void periodic() {
         Crashboard.toDashboard("Hinge Position", getPosition(), Constants.ARM_TAB);
+        Crashboard.toDashboard("Hinge Position", getPosition(), Constants.COMPETITON_TAB);
         Crashboard.toDashboard("Hinge Amps", hingeMotor.getOutputCurrent(), Constants.ARM_TAB);
         hingeSpark = Crashboard.toDashboard("Hinge Spark", SparkErrorHelper.HasSensorError(hingeMotor), Constants.SPARKS_TAB);
     }
