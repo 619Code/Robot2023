@@ -69,7 +69,7 @@ public class ArmMotors {
                           Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition(), Constants.COMPETITON_TAB);
             armSpark = Crashboard.toDashboard(name + "Spark Status Arm", SparkErrorHelper.HasSensorError(armMotor), Constants.SPARKS_TAB);
             wheelSpark = Crashboard.toDashboard(name + "Spark Status Wheel", SparkErrorHelper.HasSensorError(wheelMotor), Constants.SPARKS_TAB);
-            limitSwitchTrigged = Crashboard.toDashboard(name + "Switch Triggd?", limitSwitch.get(), Constants.OverallStatus);
+            limitSwitchTrigged = Crashboard.toDashboard(name + "Switch Triggd?", limitSwitch.get(), Constants.STATUS_TAB);
         }
     }
 

@@ -24,7 +24,7 @@ public class LimelightDataStorer {
         LimelightDataStorer.simplePosition = simplePosition;
 
         if(cameraMode) {
-            Crashboard.toDashboard("Camera Mode", true, Constants.LimelightTab);
+            Crashboard.toDashboard("Camera Mode", true, Constants.LIMELIGHT_TAB);
 
             for(int a = 0; a < ARCHIVE_MAX; a++) {
                 validTargetArchive[a] = false;
@@ -34,7 +34,7 @@ public class LimelightDataStorer {
                 }
             }
         } else {
-            Crashboard.toDashboard("Camera Mode", false, Constants.LimelightTab);
+            Crashboard.toDashboard("Camera Mode", false, Constants.LIMELIGHT_TAB);
 
             if(archived != 0 && validTarget && !isDifferent()) { //discards repeat data
                 return;
@@ -104,8 +104,8 @@ public class LimelightDataStorer {
     }
 
     private static void postData() {
-        txEntry = Crashboard.toDashboard("tx avg", simplePoseAverage[0], Constants.LimelightTab);
-        Crashboard.toDashboard("tx new", simplePosition[0], Constants.LimelightTab);
+        txEntry = Crashboard.toDashboard("tx avg", simplePoseAverage[0], Constants.LIMELIGHT_TAB);
+        Crashboard.toDashboard("tx new", simplePosition[0], Constants.LIMELIGHT_TAB);
         /*Crashboard.toDashboard("ty", simplePoseAverage[1]);
         Crashboard.toDashboard("Area", simplePoseAverage[2]);*/
     }
