@@ -39,7 +39,7 @@ public final class Constants {
     public static final double VELOCITY_CONVERSION_FACTOR = Constants.DRIVE_RATIO * WHEEL_DIAMETER * Math.PI / 60.0; //conversion factor for velocity
 
     //Lineup constants
-    public static final double ROTATION_P = 0.08;
+    public static final double ROTATION_P = 0.1;
     public static final double ROTATION_MAX = 0.3;
     public static final double APPROACH_SPEED = 0.4;
 

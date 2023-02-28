@@ -61,8 +61,8 @@ public class RobotContainer {
 	private boolean TurnOnGrabber = false;
 	private boolean TurnOnIntake = false;
 	private boolean TurnOnArm = false;
-	private boolean TurnOnDrive = false;
-	private boolean IsTesting = false;
+	private boolean TurnOnDrive = true;
+	private boolean IsTesting = true;
 
 	public RobotContainer() {
 		driver = new CommandXboxController(0);
@@ -77,8 +77,8 @@ public class RobotContainer {
 			drive.setDefaultCommand(driveCommand);
 		}
 		
-		/*limelight = new Limelight();
-		PipelineHelper.limelight = limelight;*/
+		limelight = new Limelight();
+		PipelineHelper.limelight = limelight;
 		//led = new LedStrip();
 
 		if (TurnOnIntake) {
