@@ -45,11 +45,8 @@ public final class Constants {
 
     //Controller constants
     public static final double JOYSTICK_DEADZONE = 0.075;
-
-    // Kinematics/Auto Constants
-    public static final double AUTO_DRIVE_SPEED = 0.4;
-    public static final double AUTO_DRIVE_DISTANCE = 1;
     
+    // Kinematics Constants
     public static final double ksVolts = 0.34791;
     public static final double kvVoltSecondsPerMeter = 0.27259;
     public static final double kaVoltSecondsSquaredPerMeter = 0.060902;
@@ -126,6 +123,14 @@ public final class Constants {
     //LED constants
     public static final int LED_PWM_PORT = 9; //change
     public static final int LED_STRIP_LENGTH = 100; //change
+
+    //Auto Constants
+    public static final double AUTO_DRIVE_SPEED = 0.4;
+    public static final double AUTO_DRIVE_DISTANCE = 1;
+
+    public static final double GRABBER_START = CONE_POSITION;
+    public static final double HINGE_START = START_POSITION_HINGE;
+    public static final double TELESCOPE_START = START_POSITION_TELESCOPE;
 
     // Dashboard Tabs
     public static String DRIVE_TAB = "Drive";

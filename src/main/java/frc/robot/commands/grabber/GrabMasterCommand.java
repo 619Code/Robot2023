@@ -2,6 +2,7 @@ package frc.robot.commands.grabber;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.States;
 import frc.robot.helpers.ColorDetector;
 import frc.robot.subsystems.Grabber;
 
@@ -44,7 +45,7 @@ public class GrabMasterCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if(!grabber.zeroed) {
+        if(!grabber.movable()) {
             return true;
         }
 

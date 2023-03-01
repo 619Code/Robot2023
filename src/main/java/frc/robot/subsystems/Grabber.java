@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.States;
 import frc.robot.helpers.ColorDetector;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.SparkErrorHelper;
@@ -20,8 +21,8 @@ public class Grabber extends SubsystemBase {
     private RelativeEncoder grabberEncoder;
     private DigitalInput limitSwitch;
 
-    public boolean grabbing = false;
-    public boolean zeroed = false;
+    public boolean grabbing;
+    public boolean zeroed;
 
     private GenericEntry grabberSpark;
     private GenericEntry switchTrigged;
@@ -31,10 +32,13 @@ public class Grabber extends SubsystemBase {
         grabberMotor.restoreFactoryDefaults();
         grabberMotor.setSmartCurrentLimit(35);
         grabberMotor.setIdleMode(IdleMode.kBrake);
+        grabberMotor.setInverted(true);
+
+        grabbing = false;
+        zeroed = false;
 
         grabberEncoder = grabberMotor.getEncoder();
-        grabberEncoder.setPosition(0); //zero position
-        grabberMotor.setInverted(true);
+        grabberEncoder.setPosition(Constants.GRABBER_START); //zero position
 
         limitSwitch = new DigitalInput(Constants.GRABBER_SWITCH);
     }
@@ -61,6 +65,10 @@ public class Grabber extends SubsystemBase {
         }
         
         SmartDashboard.putNumber("Position", getPosition());
+    }
+
+    public boolean movable() {
+        return States.inAuto || zeroed;
     }
 
     public void stop() {

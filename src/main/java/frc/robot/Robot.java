@@ -46,6 +46,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    States.inAuto = true;
+    Crashboard.toDashboard("Autonomous", States.inAuto, Constants.STATUS_TAB);
+
     m_autonomousCommand = robotContainer.getAutonomousCommand();
 
     if (m_autonomousCommand != null) {
@@ -59,6 +62,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    States.inAuto = false;
+    Crashboard.toDashboard("Autonomous", States.inAuto, Constants.STATUS_TAB);
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

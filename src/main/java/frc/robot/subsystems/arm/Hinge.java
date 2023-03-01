@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.States;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.SparkErrorHelper;
 
@@ -34,14 +35,12 @@ public class Hinge extends SubsystemBase {
         hingeMotor.setInverted(true);
 
         hingeEncoder = hingeMotor.getEncoder();
-        hingeEncoder.setPosition(40);
-        zeroed = false; //undo
-        lastMovingDown = false;
-        //zero(); //zero positions
+        hingeEncoder.setPosition(Constants.HINGE_START);
+
+        zeroed = false;
+        lastMovingDown = true;
 
         magnetSwitch = new DigitalInput(Constants.HINGE_SWITCH);
-        //lowSwitch = new DigitalInput(Constants.HINGE_LOW_SWITCH);
-       // highSwitch = new DigitalInput(Constants.HINGE_HIGH_SWITCH);
     }
 
     /* (non-Javadoc)
@@ -65,6 +64,7 @@ public class Hinge extends SubsystemBase {
         } else {
             hingeMotor.set(speed);
         }
+
         if(speed > 0)
         {
             lastMovingDown = false;
@@ -76,10 +76,10 @@ public class Hinge extends SubsystemBase {
 
     //boolean return says if it's at that position
     public boolean moveToPosition(double goal) {
-        /*if(!zeroed) {
+        if(!movable()) {
             stop();
             return false;
-        }*/
+        }
 
         goal = Math.min(goal,Constants.MAXIMUM_POSITION);
         goal = Math.max(goal,Constants.MINIMUM_POSITION);
@@ -100,6 +100,10 @@ public class Hinge extends SubsystemBase {
         }
     }
 
+    public boolean movable() {
+        return States.inAuto || zeroed;
+    }
+
     public void stop() {
         hingeMotor.set(0);
     }
@@ -112,15 +116,6 @@ public class Hinge extends SubsystemBase {
     {
         return magnetSwitch.get();
     }
-    /** 
-    public boolean lowSwitchIsPressed() {
-        return lowSwitch.get();
-    }
-
-    public boolean highSwitchIsPressed() {
-        return highSwitch.get();
-    }
-    */
 
     public void zero() {
         hingeEncoder.setPosition(0);

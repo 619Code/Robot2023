@@ -1,6 +1,7 @@
 package frc.robot.commands.arm;
 
 import frc.robot.Constants;
+import frc.robot.States;
 import frc.robot.helpers.ArmPositionHelper;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.ArmPosition;
@@ -42,7 +43,14 @@ public class MoveHingeCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        //!hinge.zeroed || 
-        return ArmPositionHelper.atHingePosition;
+        if(!hinge.movable()) {
+            return true;
+        }
+        
+        if(ArmPositionHelper.atHingePosition) {
+            return true;
+        }
+
+        return false;
     }
 }
