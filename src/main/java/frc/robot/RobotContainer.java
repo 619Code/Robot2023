@@ -192,7 +192,7 @@ public class RobotContainer {
 			new ReleaseCommand(grabber)));
 
         Trigger grabButton = operator.y();
-        grabButton.onTrue(new GrabMasterCommand(grabber));
+        grabButton.onTrue(new GrabMasterCommand(grabber, led));
 		
 		Trigger toggleLed = operator.x();
 		toggleLed.onTrue(new SetColorCommand(led)).debounce(1);
