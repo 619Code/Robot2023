@@ -39,14 +39,14 @@ public final class Constants {
     public static final double VELOCITY_CONVERSION_FACTOR = Constants.DRIVE_RATIO * WHEEL_DIAMETER * Math.PI / 60.0; //conversion factor for velocity
 
     //Lineup constants
-    public static final double ROTATION_P = 0.08;
+    public static final double ROTATION_P = 0.1;
     public static final double ROTATION_MAX = 0.3;
     public static final double APPROACH_SPEED = 0.4;
 
     //Controller constants
     public static final double JOYSTICK_DEADZONE = 0.075;
-
-    // Kinematics/Auto Constants
+    
+    // Kinematics Constants
     public static final double ksVolts = 0.34791;
     public static final double kvVoltSecondsPerMeter = 0.27259;
     public static final double kaVoltSecondsSquaredPerMeter = 0.060902;
@@ -59,7 +59,7 @@ public final class Constants {
     public static final double kMaxAccelerationMetersPerSecondSquared = 1;
 
     public static final double kRamseteB = 2;
-    //public static final double kRamseteZeta = 0.7;
+    public static final double kRamseteZeta = 0.7;
 
     //Grabber constants
     public static final double MAX_GRABBER_SPEED = 0.6;
@@ -96,8 +96,11 @@ public final class Constants {
     public static final double START_POSITION_HINGE = 15.0;
     public static final double START_POSITION_TELESCOPE = 5.0;
 
-    public static final double PICKUP_POSITION_HINGE = 15.0;
-    public static final double PICKUP_POSITION_TELESCOPE = 5.0;
+    public static final double PICKUP_LOW_POSITION_HINGE = 15.0;
+    public static final double PICKUP_LOW_POSITION_TELESCOPE = 5.0;
+
+    public static final double PICKUP_HIGH_POSITION_HINGE = 15.0;
+    public static final double PICKUP_HIGH_POSITION_TELESCOPE = 5.0;
 
     public static final double GRID_MID_POSITION_HINGE = 42.0;
     public static final double GRID_MID_POSITION_TELESCOPE = 30.0;
@@ -125,6 +128,14 @@ public final class Constants {
     //LED constants
     public static final int LED_PWM_PORT = 9; //change
     public static final int LED_STRIP_LENGTH = 100; //change
+
+    //Auto Constants
+    public static final double AUTO_DRIVE_SPEED = 0.4;
+    public static final double AUTO_DRIVE_DISTANCE = 1;
+
+    public static final double GRABBER_START = CONE_POSITION;
+    public static final double HINGE_START = START_POSITION_HINGE;
+    public static final double TELESCOPE_START = START_POSITION_TELESCOPE;
 
     // Dashboard Tabs
     public static String DRIVE_TAB = "Drive";

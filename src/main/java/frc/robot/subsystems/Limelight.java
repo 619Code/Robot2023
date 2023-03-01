@@ -71,13 +71,6 @@ public class Limelight extends SubsystemBase {
             updateSimplePose();
         }
 
-        System.out.print("Valid Target: ");
-        if(validTarget) {
-            System.out.println("True");
-        } else {
-            System.out.println("False");
-        }
-
         validTargetEntry = Crashboard.toDashboard("valid target", validTarget, Constants.LIMELIGHT_TAB);
         
         pipelineEntry = Crashboard.toDashboard("pipeline", (double)table.getEntry("pipeline").getNumber(-1), Constants.LIMELIGHT_TAB);

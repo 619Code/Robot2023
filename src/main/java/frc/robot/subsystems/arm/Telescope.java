@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.States;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.SparkErrorHelper;
 
@@ -34,7 +35,7 @@ public class Telescope extends SubsystemBase {
         telescopeMotor.setInverted(true);
 
         telescopeEncoder = telescopeMotor.getEncoder();
-        zero();
+        telescopeEncoder.setPosition(Constants.TELESCOPE_START);
 
         contractedSwitch = new DigitalInput(Constants.TELESCOPE_CONTRACTED_SWITCH);
         extendedSwitch = new DigitalInput(Constants.TELESCOPE_EXTENDED_SWITCH);
@@ -54,8 +55,6 @@ public class Telescope extends SubsystemBase {
         telescopeSpark = Crashboard.toDashboard("Telescope Spark", SparkErrorHelper.HasSensorError(telescopeMotor), Constants.SPARKS_TAB);
         contractedSwitchTrigged = Crashboard.toDashboard("Contracted Switch Triggd?", contractedSwitchIsPressed(), Constants.STATUS_TAB);
         extendedSwitchTrigged = Crashboard.toDashboard("Extended Swtich Triggd?", extendedSwitchIsPressed(), Constants.STATUS_TAB);
-
-        
     }
 
     public void move(double speed) {
@@ -64,14 +63,14 @@ public class Telescope extends SubsystemBase {
             if(extendedSwitchIsPressed()) {
                 stop(); move = false;
             }
-            if(zeroed && getPosition() > Constants.MAXIMUM_EXTENSION) {
+            if(movable() && getPosition() > Constants.MAXIMUM_EXTENSION) {
                 stop(); move = false;
             }
         } else if(speed < 0) {
             if(contractedSwitchIsPressed()) {
                 stop(); move = false;
             }
-            if(zeroed && getPosition() < Constants.MINIMUM_EXTENSION) {
+            if(movable() && getPosition() < Constants.MINIMUM_EXTENSION) {
                 stop(); move = false;
             }
         }
@@ -83,7 +82,7 @@ public class Telescope extends SubsystemBase {
 
     //boolean return says if it's at that position
     public boolean moveToPosition(double goal) {
-        if(!zeroed) {
+        if(!movable()) {
             stop();
             return false;
         }
@@ -115,17 +114,21 @@ public class Telescope extends SubsystemBase {
             if(contractedSwitchIsPressed()) {
                 stop();
             }
-            if(zeroed && getPosition() < Constants.MINIMUM_EXTENSION) {
+            if(movable() && getPosition() < Constants.MINIMUM_EXTENSION) {
                 stop();
             }
         } else if(getVelocity() > 0) {
             if(extendedSwitchIsPressed()) {
                 stop();
             }
-            if(zeroed && getPosition() > Constants.MAXIMUM_EXTENSION) {
+            if(movable() && getPosition() > Constants.MAXIMUM_EXTENSION) {
                 stop();
             }
         }
+    }
+
+    public boolean movable() {
+        return States.inAuto || zeroed;
     }
 
     public void stop() {

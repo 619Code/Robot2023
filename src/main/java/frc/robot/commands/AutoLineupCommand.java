@@ -29,9 +29,8 @@ public class AutoLineupCommand extends CommandBase {
         double rotation = Math.abs(tx) * Constants.ROTATION_P;
         rotation = Math.min(rotation, Constants.ROTATION_MAX);
         rotation *= (tx > 1) ? -1 : 1;
-        rotationEntry = Crashboard.toDashboard("Rotation", rotation, Constants.DRIVE_TAB);
 
-        drive.curve(-Constants.APPROACH_SPEED, rotation);
+        drive.curve(-Constants.APPROACH_SPEED, -rotation);
     }
 
     @Override

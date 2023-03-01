@@ -4,11 +4,16 @@ import frc.robot.commands.AutoLineupCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.PipelineSwitchingCommand;
 import frc.robot.commands.ToggleDeployIntakeCommand;
+import frc.robot.commands.arm.HingeZeroCommand;
 import frc.robot.commands.arm.HoldArmCommand;
 import frc.robot.commands.arm.MoveArmMasterCommand;
 import frc.robot.commands.arm.MoveHingeCommand;
 import frc.robot.commands.arm.MoveTelescopeCommand;
 import frc.robot.commands.arm.TelescopeZeroCommand;
+import frc.robot.commands.auto.AutoDriveCommand;
+import frc.robot.commands.auto.AutoPlaceCommand;
+import frc.robot.commands.auto.AutoZeroCommand;
+import frc.robot.commands.grabber.GrabCommand;
 import frc.robot.commands.grabber.GrabMasterCommand;
 import frc.robot.commands.grabber.GrabZeroCommand;
 import frc.robot.commands.grabber.ReleaseCommand;
@@ -58,10 +63,10 @@ public class RobotContainer {
 	private Telescope telescope;
 	private LedStrip led;
 
-	private boolean TurnOnGrabber = true;
-	private boolean TurnOnIntake = true;
-	private boolean TurnOnArm = true;
-	private boolean TurnOnDrive = true;
+	private boolean TurnOnGrabber = false;
+	private boolean TurnOnIntake = false;
+	private boolean TurnOnArm = false;
+	private boolean TurnOnDrive = false;
 	private boolean IsTesting = false;
 
 	public RobotContainer() {
@@ -77,8 +82,8 @@ public class RobotContainer {
 			drive.setDefaultCommand(driveCommand);
 		}
 		
-		/*limelight = new Limelight();
-		PipelineHelper.limelight = limelight;*/
+		limelight = new Limelight();
+		PipelineHelper.limelight = limelight;
 		//led = new LedStrip();
 
 		if (TurnOnIntake) {
@@ -194,12 +199,22 @@ public class RobotContainer {
 	}
 
 	public Command getAutonomousCommand() {
+		/*
 		AutoCommandSwitcher.setAutoCommands(new Command[] {
 			//PUT COMMANDS HERE
 			null //MAKE SURE OPTION 0 IS NULL.
 		});
 		//return AutoCommandSwitcher.getAutoCommand(); //UNCOMMENT WHEN COMMANDS INTRODUCED. THANKS.
-		return null;
+		*/
+		
+		//return new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE);
 
+		/*return new SequentialCommandGroup(
+			new AutoPlaceCommand(grabber, hinge, telescope),
+			new AutoZeroCommand(intake, grabber, hinge, telescope),
+			new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE)
+		);*/
+
+		return null;
 	}
 }

@@ -1,6 +1,7 @@
 package frc.robot.commands.arm;
 
 import frc.robot.Constants;
+import frc.robot.States;
 import frc.robot.helpers.ArmPositionHelper;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.ArmPosition;
@@ -45,6 +46,14 @@ public class MoveTelescopeCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return !telescope.zeroed || ArmPositionHelper.atTelescopePosition;
+        if(!telescope.movable()) {
+            return true;
+        }
+        
+        if(ArmPositionHelper.atTelescopePosition) {
+            return true;
+        }
+
+        return false;
     }
 }
