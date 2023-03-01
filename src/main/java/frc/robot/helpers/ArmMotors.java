@@ -24,6 +24,8 @@ public class ArmMotors {
     String name;
     public double ArmSpeed = .1;
     public double WheelSpeed = .1;
+
+
     private GenericEntry ArmPosEntry;
     private GenericEntry armSpark;
     private GenericEntry wheelSpark;
@@ -63,6 +65,12 @@ public class ArmMotors {
         
     }
 
+    public boolean getZeroSwitch() {
+        return limitSwitch.get();
+    }
+
+
+
     public void LogData() {
         if (loggingOn) {
             ArmPosEntry = Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition(), Constants.ARM_TAB );
@@ -76,6 +84,10 @@ public class ArmMotors {
     public void ActivateWheel(double speed)
     {
         this.wheelMotor.set(speed);
+    }
+
+    public void setPosition(double pos) {
+        armEncoder.setPosition(pos);
     }
 
     public void StopWheel()

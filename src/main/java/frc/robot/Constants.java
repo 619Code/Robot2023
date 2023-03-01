@@ -115,6 +115,8 @@ public final class Constants {
     public static final int RIGHT_WHEEL = 14;
     public static final double INTAKE_RETRACTED_POSITION = 0;
     public static final double INTAKE_DEPLOYED_POSITION = 40;
+    public static final int LEFT_LIMIT_SWITCH_ID = -1;
+    public static final int RIGHT_LIMIT_SWITCH_ID = -1;
 
     //Limelight constants
     public static final int CENTER_PIPELINE = 0;

@@ -66,8 +66,8 @@ public class RobotContainer {
 	private boolean TurnOnGrabber = false;
 	private boolean TurnOnIntake = false;
 	private boolean TurnOnArm = false;
-	private boolean TurnOnDrive = true;
-	private boolean IsTesting = true;
+	private boolean TurnOnDrive = false;
+	private boolean IsTesting = false;
 
 	public RobotContainer() {
 		driver = new CommandXboxController(0);

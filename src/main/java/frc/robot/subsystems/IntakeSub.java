@@ -11,6 +11,9 @@ public class IntakeSub extends SubsystemBase {
   ArmMotors leftMotors;
   ArmMotors rightMotors;
 
+  public boolean zeroedLeft;
+  public boolean zeroedRight;
+
   public IntakeSub() { 
 
     leftMotors = new ArmMotors(Constants.LEFT_ARM, Constants.LEFT_WHEEL, Constants.INTAKE_LEFT_SWITCH, true, "Left Arm");
@@ -53,5 +56,12 @@ public class IntakeSub extends SubsystemBase {
   public void setSpeed(double speed, IntakeArm arm) {
     var motor = this.getArmMotors(arm);
     motor.moveArmBySpeed(speed);
+  }
+
+  public ArmMotors getLeftArm() {
+    return leftMotors;
+  }
+  public ArmMotors getRightArm() {
+    return rightMotors;
   }
 }
