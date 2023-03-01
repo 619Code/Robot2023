@@ -47,6 +47,9 @@ public final class Constants {
     public static final double JOYSTICK_DEADZONE = 0.075;
 
     // Kinematics/Auto Constants
+    public static final double AUTO_DRIVE_SPEED = 0.4;
+    public static final double AUTO_DRIVE_DISTANCE = 1;
+    
     public static final double ksVolts = 0.34791;
     public static final double kvVoltSecondsPerMeter = 0.27259;
     public static final double kaVoltSecondsSquaredPerMeter = 0.060902;
@@ -59,7 +62,7 @@ public final class Constants {
     public static final double kMaxAccelerationMetersPerSecondSquared = 1;
 
     public static final double kRamseteB = 2;
-    //public static final double kRamseteZeta = 0.7;
+    public static final double kRamseteZeta = 0.7;
 
     //Grabber constants
     public static final double MAX_GRABBER_SPEED = 0.6;

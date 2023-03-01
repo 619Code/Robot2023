@@ -9,6 +9,7 @@ import frc.robot.commands.arm.MoveArmMasterCommand;
 import frc.robot.commands.arm.MoveHingeCommand;
 import frc.robot.commands.arm.MoveTelescopeCommand;
 import frc.robot.commands.arm.TelescopeZeroCommand;
+import frc.robot.commands.auto.AutoDriveCommand;
 import frc.robot.commands.grabber.GrabMasterCommand;
 import frc.robot.commands.grabber.GrabZeroCommand;
 import frc.robot.commands.grabber.ReleaseCommand;
@@ -199,7 +200,7 @@ public class RobotContainer {
 			null //MAKE SURE OPTION 0 IS NULL.
 		});
 		//return AutoCommandSwitcher.getAutoCommand(); //UNCOMMENT WHEN COMMANDS INTRODUCED. THANKS.
-		return null;
-
+		
+		return new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE);
 	}
 }
