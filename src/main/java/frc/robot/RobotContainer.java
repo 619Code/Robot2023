@@ -54,10 +54,10 @@ public class RobotContainer {
 	private Telescope telescope;
 	private LedStrip led;
 
-	private boolean TurnOnGrabber = false;
-	private boolean TurnOnIntake = false;
-	private boolean TurnOnArm = false;
-	private boolean TurnOnDrive = false;
+	private boolean TurnOnGrabber = true;
+	private boolean TurnOnIntake = true;
+	private boolean TurnOnArm = true;
+	private boolean TurnOnDrive = true;
 	private boolean IsTesting = false;
 
 	public RobotContainer() {
