@@ -37,6 +37,6 @@ public class TelescopeZeroCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return telescope.zeroed;
     }
 }

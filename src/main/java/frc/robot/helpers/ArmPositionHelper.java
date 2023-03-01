@@ -13,8 +13,10 @@ public class ArmPositionHelper {
         switch(position) {
             case START:
                 return Constants.START_POSITION_HINGE;
-            case PICKUP:
-                return Constants.PICKUP_POSITION_HINGE;
+            case PICKUP_LOW:
+                return Constants.PICKUP_LOW_POSITION_HINGE;
+            case PICKUP_HIGH:
+                return Constants.PICKUP_HIGH_POSITION_HINGE;
             case GRID_MID:
                 return Constants.GRID_MID_POSITION_HINGE;
             case GRID_HIGH:
@@ -28,8 +30,10 @@ public class ArmPositionHelper {
         switch(position) {
             case START:
                 return Constants.START_POSITION_TELESCOPE;
-            case PICKUP:
-                return Constants.PICKUP_POSITION_TELESCOPE;
+            case PICKUP_LOW:
+                return Constants.PICKUP_LOW_POSITION_TELESCOPE;
+            case PICKUP_HIGH:
+                return Constants.PICKUP_HIGH_POSITION_TELESCOPE;
             case GRID_MID:
                 return Constants.GRID_MID_POSITION_TELESCOPE;
             case GRID_HIGH:

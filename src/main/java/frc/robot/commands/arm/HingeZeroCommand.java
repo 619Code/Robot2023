@@ -37,6 +37,6 @@ public class HingeZeroCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return hinge.zeroed;
     }
 }

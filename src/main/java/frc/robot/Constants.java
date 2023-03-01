@@ -96,8 +96,11 @@ public final class Constants {
     public static final double START_POSITION_HINGE = 15.0;
     public static final double START_POSITION_TELESCOPE = 5.0;
 
-    public static final double PICKUP_POSITION_HINGE = 15.0;
-    public static final double PICKUP_POSITION_TELESCOPE = 5.0;
+    public static final double PICKUP_LOW_POSITION_HINGE = 15.0;
+    public static final double PICKUP_LOW_POSITION_TELESCOPE = 5.0;
+
+    public static final double PICKUP_HIGH_POSITION_HINGE = 15.0;
+    public static final double PICKUP_HIGH_POSITION_TELESCOPE = 5.0;
 
     public static final double GRID_MID_POSITION_HINGE = 42.0;
     public static final double GRID_MID_POSITION_TELESCOPE = 30.0;

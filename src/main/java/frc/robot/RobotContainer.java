@@ -11,6 +11,8 @@ import frc.robot.commands.arm.MoveHingeCommand;
 import frc.robot.commands.arm.MoveTelescopeCommand;
 import frc.robot.commands.arm.TelescopeZeroCommand;
 import frc.robot.commands.auto.AutoDriveCommand;
+import frc.robot.commands.auto.AutoPlaceCommand;
+import frc.robot.commands.auto.AutoZeroCommand;
 import frc.robot.commands.grabber.GrabCommand;
 import frc.robot.commands.grabber.GrabMasterCommand;
 import frc.robot.commands.grabber.GrabZeroCommand;
@@ -197,36 +199,20 @@ public class RobotContainer {
 	}
 
 	public Command getAutonomousCommand() {
+		/*
 		AutoCommandSwitcher.setAutoCommands(new Command[] {
 			//PUT COMMANDS HERE
 			null //MAKE SURE OPTION 0 IS NULL.
 		});
 		//return AutoCommandSwitcher.getAutoCommand(); //UNCOMMENT WHEN COMMANDS INTRODUCED. THANKS.
+		*/
 		
 		//return new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE);
 
-		Command autoPlaceCommand = new SequentialCommandGroup(
-			new MoveArmMasterCommand(hinge, telescope, ArmPosition.GRID_HIGH),
-			new ReleaseCommand(grabber),
-			new MoveArmMasterCommand(hinge, telescope, ArmPosition.PICKUP)
-		);
-
-		Command autoDriveCommand = new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE);
-
-		//ADD INTAKE ZEROING
-		Command autoZeroCommand = new SequentialCommandGroup(
-			new SequentialCommandGroup(
-				new GrabZeroCommand(grabber),
-				new ReleaseCommand(grabber)
-			),
-			new TelescopeZeroCommand(telescope),
-			new HingeZeroCommand(hinge)
-		);
-
 		/*return new SequentialCommandGroup(
-			autoPlaceCommand,
-			autoZeroCommand,
-			autoDriveCommand
+			new AutoPlaceCommand(grabber, hinge, telescope),
+			new AutoZeroCommand(intake, grabber, hinge, telescope),
+			new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE)
 		);*/
 
 		return null;
