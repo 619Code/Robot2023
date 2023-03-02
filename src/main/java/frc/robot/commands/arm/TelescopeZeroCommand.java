@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class TelescopeZeroCommand extends CommandBase {
     private Telescope telescope;
+    private int counter;
 
     public TelescopeZeroCommand(Telescope telescope) {
         this.telescope = telescope;
+        counter = 0;
 
         addRequirements(telescope);
     }
@@ -21,7 +23,8 @@ public class TelescopeZeroCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if(telescope.contractedSwitchIsPressed()) {
+        counter ++;
+        if(telescope.contractedSwitchIsPressed() && counter <= 500) {
             telescope.stop();
             telescope.zero();
             telescope.zeroed = true;

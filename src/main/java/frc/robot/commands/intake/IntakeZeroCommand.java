@@ -7,15 +7,18 @@ public class IntakeZeroCommand extends CommandBase {
 
     private IntakeSub intake;
     private double armSpeed = -0.1;
+    private int counter;
 
     public IntakeZeroCommand(IntakeSub intak) {
         intake = intak;
+        counter = 0;
         
     }
 
     @Override
     public void execute() {
-        if (!intake.getLeftArm().getZeroSwitch()){
+        counter ++;
+        if (!intake.getLeftArm().getZeroSwitch() && counter <= 500){
             intake.getLeftArm().moveArmBySpeed(armSpeed);
             intake.zeroedLeft = false;
         } else {
@@ -23,14 +26,13 @@ public class IntakeZeroCommand extends CommandBase {
             intake.getLeftArm().setPosition(0);
             intake.zeroedLeft = true;
         }
-        if (!intake.getRightArm().getZeroSwitch()){
+        if (!intake.getRightArm().getZeroSwitch() && counter <= 500){
             intake.getRightArm().moveArmBySpeed(armSpeed);
             intake.zeroedRight = false;
         } else {
             intake.getRightArm().moveArmBySpeed(0);
             intake.getRightArm().setPosition(0);
             intake.zeroedRight = true;
-        
         }
     }
 }

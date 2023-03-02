@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class HingeZeroCommand extends CommandBase {
     private Hinge hinge;
+    private int counter;
 
     public HingeZeroCommand(Hinge hinge) {
         this.hinge = hinge;
+        counter = 0;
 
         addRequirements(hinge);
     }
@@ -21,7 +23,8 @@ public class HingeZeroCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if(hinge.switchIsPressed()) {
+        counter ++;
+        if(hinge.switchIsPressed() && counter <= 500) {
             hinge.stop();
             hinge.zero();
             hinge.zeroed = true;
