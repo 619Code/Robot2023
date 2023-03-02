@@ -12,11 +12,11 @@ public final class Constants {
     public static final int RIGHT_FOLLOWER_0 = 4;
 
     //Grabber CANS
-    public static final int GRABBER_MOTOR = 11;
+    public static final int GRABBER_MOTOR = 12;
 
     //Arm CANS
-    public static final int HINGE_MOTOR = 10;
-    public static final int TELESCOPE_MOTOR = 9;
+    public static final int HINGE_MOTOR = 11;
+    public static final int TELESCOPE_MOTOR = 10;
 
     //Sensor ports
     public static final int GRABBER_SWITCH = -1;
@@ -98,10 +98,10 @@ public final class Constants {
 
 
     //Intake constants
-    public static final int LEFT_ARM = 13; 
-    public static final int RIGHT_ARM = 12;
-    public static final int LEFT_WHEEL = 8;
-    public static final int RIGHT_WHEEL = 14;
+    public static final int LEFT_ARM = 14; 
+    public static final int RIGHT_ARM = 9;
+    public static final int LEFT_WHEEL = 13;
+    public static final int RIGHT_WHEEL = 8;
     public static final double INTAKE_RETRACTED_POSITION = 0;
     public static final double INTAKE_DEPLOYED_POSITION = 40;
 
