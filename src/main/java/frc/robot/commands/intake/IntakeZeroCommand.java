@@ -15,7 +15,7 @@ public class IntakeZeroCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if (!intake.getLeftArm().getZeroSwitch()){
+        if (intake.getLeftArm().getZeroSwitch()){
             intake.getLeftArm().moveArmBySpeed(armSpeed);
             intake.zeroedLeft = false;
         } else {
@@ -23,7 +23,7 @@ public class IntakeZeroCommand extends CommandBase {
             intake.getLeftArm().setPosition(0);
             intake.zeroedLeft = true;
         }
-        if (!intake.getRightArm().getZeroSwitch()){
+        if (intake.getRightArm().getZeroSwitch()){
             intake.getRightArm().moveArmBySpeed(armSpeed);
             intake.zeroedRight = false;
         } else {
