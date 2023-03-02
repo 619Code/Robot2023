@@ -19,14 +19,14 @@ public final class Constants {
     public static final int TELESCOPE_MOTOR = 10;
 
     //Sensor ports
-    public static final int GRABBER_SWITCH = -1;
+    public static final int GRABBER_SWITCH = 1;
     public static final int HINGE_SWITCH = -1;
     //public static final int HINGE_LOW_SWITCH = -1;
     //public static final int HINGE_HIGH_SWITCH = -1;
-    public static final int TELESCOPE_CONTRACTED_SWITCH = 0;
-    public static final int TELESCOPE_EXTENDED_SWITCH = 1;
-    public static final int INTAKE_LEFT_SWITCH = -1;
-    public static final int INTAKE_RIGHT_SWITCH = -1;
+    public static final int TELESCOPE_CONTRACTED_SWITCH = 3;
+    public static final int TELESCOPE_EXTENDED_SWITCH = 5;
+    public static final int INTAKE_LEFT_SWITCH = 2;
+    public static final int INTAKE_RIGHT_SWITCH = 7;
 
     //Drive constants
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(5.827); //meters
