@@ -17,9 +17,6 @@ public class AutoLineupCommand extends CommandBase {
     private LineupPosition position;
 
     private double tx;
-    private boolean hasValidTarget;
-
-    private boolean usingRRT;
 
     public AutoLineupCommand(Drivetrain drive, LineupPosition position) {
         this.drive = drive;
@@ -32,38 +29,25 @@ public class AutoLineupCommand extends CommandBase {
     public void initialize() {
         switch (position) {
             case LEFT:
-                PipelineHelper.SetLeftPipeline();
-                usingRRT = false;
+                PipelineHelper.SetRRTPipeline();    
                 break;   
             case CENTER:
                 PipelineHelper.SetCenterPipeline();
-                usingRRT = false;
                 break;
             case RIGHT:
-                PipelineHelper.SetRightPipeline();
-                usingRRT = false;
+                PipelineHelper.SetRRTPipeline();
                 break;
         }
     }
 
     @Override
     public void execute() {
-        hasValidTarget = LimelightDataStorer.hasValidTarget();
+        tx = LimelightDataStorer.txNew();
+        double rotation = Math.abs(tx) * Constants.ROTATION_P;
+        rotation = Math.min(rotation, Constants.ROTATION_MAX);
+        rotation *= (tx > 1) ? -1 : 1;
 
-        if(hasValidTarget) {
-            tx = LimelightDataStorer.txNew();
-            double rotation = Math.abs(tx) * Constants.ROTATION_P;
-            rotation = Math.min(rotation, Constants.ROTATION_MAX);
-            rotation *= (tx > 1) ? -1 : 1;
-
-            drive.curve(-Constants.APPROACH_SPEED, -rotation);
-        } else {
-            if(!usingRRT && (position == LineupPosition.LEFT || position == LineupPosition.RIGHT)) {
-                PipelineHelper.SetRRTPipeline();
-            }
-
-            drive.curve(0, 0);
-        }
+        drive.curve(-Constants.APPROACH_SPEED, -rotation);
     }
 
     @Override
