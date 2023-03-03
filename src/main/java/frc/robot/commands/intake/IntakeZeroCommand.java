@@ -60,4 +60,15 @@ public class IntakeZeroCommand extends CommandBase {
     public boolean isFinished() {
         return timer.hasElapsed(zeroTimerMaxTime) || (intake.zeroedLeft && intake.zeroedRight);
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        intake.getRightArm().moveArmBySpeed(0);
+        intake.getLeftArm().moveArmBySpeed(0);
+
+        //If all went well we should be undeployed at the zero position
+        States.intakeDeployed = false;
+    }
+
+    
 }

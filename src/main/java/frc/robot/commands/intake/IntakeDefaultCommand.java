@@ -81,4 +81,10 @@ public class IntakeDefaultCommand extends CommandBase {
         this.intakeSub.setSpeed(0, IntakeArm.LeftArm);
         this.intakeSub.setSpeed(0, IntakeArm.RightArm);
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        this.intakeSub.setSpeed(0, IntakeArm.LeftArm);
+        this.intakeSub.setSpeed(0, IntakeArm.RightArm);
+    }
 }
