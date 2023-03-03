@@ -9,7 +9,7 @@ import frc.robot.subsystems.IntakeSub;
 public class IntakeDefaultCommand extends CommandBase {
 
     private IntakeSub intakeSub;
-    private double tolerance = .1;
+    private double tolerance = .5;
     private double speed = .1;
 
     public IntakeDefaultCommand(IntakeSub intakeSub) {
@@ -19,9 +19,12 @@ public class IntakeDefaultCommand extends CommandBase {
 
     @Override
     public void execute() {
-        double targetPosition = States.intakeDeployed ? Constants.INTAKE_DEPLOYED_POSITION : Constants.INTAKE_RETRACTED_POSITION;
-        this.MoveIntake(targetPosition, IntakeArm.LeftArm);
-        this.MoveIntake(targetPosition, IntakeArm.RightArm);
+        //double targetPosition = States.intakeDeployed ? Constants.INTAKE_DEPLOYED_POSITION : Constants.INTAKE_RETRACTED_POSITION;
+        double leftTargetPosition = States.intakeDeployed ? Constants.INTAKE_DEPLOYED_POSITION - 3 : Constants.INTAKE_RETRACTED_POSITION;
+        double rightTargetPosition = States.intakeDeployed ? Constants.INTAKE_DEPLOYED_POSITION : Constants.INTAKE_RETRACTED_POSITION;
+      
+        this.MoveIntake(leftTargetPosition, IntakeArm.LeftArm);
+        this.MoveIntake(rightTargetPosition, IntakeArm.RightArm);
     }
 
     private void MoveIntake(double targetPosition, IntakeArm arm)

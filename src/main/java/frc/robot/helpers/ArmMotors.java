@@ -19,7 +19,7 @@ public class ArmMotors {
     int wheelMotorCanId;
     int switchPort;
 
-    public boolean loggingOn = false;
+    public boolean loggingOn = true;
     boolean inverted = false;
     String name;
     public double ArmSpeed = .1;
@@ -67,7 +67,7 @@ public class ArmMotors {
     }
 
     public boolean getZeroSwitch() {
-        return limitSwitch.get();
+        return !limitSwitch.get();
     }
 
 
@@ -97,7 +97,11 @@ public class ArmMotors {
     }
 
     public double moveArmBySpeed(double speed) {
-        if (IsSafe(speed)) {
+        return moveArmBySpeed(speed, false);
+    }
+
+    public double moveArmBySpeed(double speed, boolean zeroing) {
+        if (zeroing || IsSafe(speed)) {
             this.armMotor.set(speed);
         }
         else {

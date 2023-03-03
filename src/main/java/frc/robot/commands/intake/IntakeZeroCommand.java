@@ -14,35 +14,44 @@ public class IntakeZeroCommand extends CommandBase {
     public IntakeZeroCommand(IntakeSub intak) {
         intake = intak;
         timer = new Timer();
-        timer.start();
         
     }
 
     @Override
-    public void execute() {
+    public void initialize() {
+        timer.reset();
+        timer.start();
+    }
 
-        if (!timer.hasElapsed(zeroTimerMaxTime)) {
-            if (!intake.getLeftArm().getZeroSwitch()){
-                intake.getLeftArm().moveArmBySpeed(armSpeed);
-                intake.zeroedLeft = false;
-            } else {
-                intake.getLeftArm().moveArmBySpeed(0);
-                intake.getLeftArm().setPosition(0);
-                intake.zeroedLeft = true;
-            }
-            if (!intake.getRightArm().getZeroSwitch()){
-                intake.getRightArm().moveArmBySpeed(armSpeed);
-                intake.zeroedRight = false;
-            } else {
-                intake.getRightArm().moveArmBySpeed(0);
-                intake.getRightArm().setPosition(0);
-                intake.zeroedRight = true;
-            }
+    @Override
+    public void execute() {
+        if (!intake.zeroedLeft && !intake.getLeftArm().getZeroSwitch()){
+            intake.getLeftArm().moveArmBySpeed(armSpeed, true);
+            intake.zeroedLeft = false;
+        } else {
+            intake.getLeftArm().moveArmBySpeed(0);
+            intake.getLeftArm().setPosition(0);
+            intake.zeroedLeft = true;
+        }
+
+        if (!intake.zeroedRight && !intake.getRightArm().getZeroSwitch()){
+            intake.getRightArm().moveArmBySpeed(armSpeed, true);
+            intake.zeroedRight = false;
         } else {
             intake.getRightArm().moveArmBySpeed(0);
-            intake.getLeftArm().moveArmBySpeed(0);
-            end(true);
+            intake.getRightArm().setPosition(0);
+            intake.zeroedRight = true;
         }
-        
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        intake.getRightArm().moveArmBySpeed(0);
+        intake.getLeftArm().moveArmBySpeed(0);
+    }
+
+    @Override
+    public boolean isFinished() {
+        return timer.hasElapsed(zeroTimerMaxTime) || (intake.zeroedLeft && intake.zeroedRight);
     }
 }

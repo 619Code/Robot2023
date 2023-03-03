@@ -19,6 +19,7 @@ import frc.robot.commands.grabber.GrabZeroCommand;
 import frc.robot.commands.grabber.ReleaseCommand;
 import frc.robot.commands.intake.IntakeDefaultCommand;
 import frc.robot.commands.intake.IntakeHolderCommand;
+import frc.robot.commands.intake.IntakeZeroCommand;
 import frc.robot.commands.manuals.GrabManualCommand;
 import frc.robot.commands.manuals.HingeManualCommand;
 import frc.robot.commands.manuals.TelescopeManualCommand;
@@ -66,8 +67,8 @@ public class RobotContainer {
 	private boolean TurnOnGrabber = false;
 	private boolean TurnOnIntake = true;
 	private boolean TurnOnArm = false;
-	private boolean TurnOnDrive = false;
-	private boolean IsTesting = false;
+	private boolean TurnOnDrive = true;
+	private boolean IsTesting = true;
 
 	public RobotContainer() {
 		driver = new CommandXboxController(2);
@@ -182,6 +183,9 @@ public class RobotContainer {
 		// Once intake is deployed activate movement based on axis
 		Trigger intakeMovement = operator.axisGreaterThan(2, 0.15);
 		intakeMovement.onTrue(new IntakeHolderCommand(intake, operator));
+
+		Trigger zeroIntake = operator.y();
+		zeroIntake.onTrue(new IntakeZeroCommand(intake));
 	}
 
 	public void grabberTesting() {
