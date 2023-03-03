@@ -9,14 +9,16 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class GrabZeroCommand extends CommandBase {
     private Grabber grabber;
 
+    private boolean zeroed;
+
     public GrabZeroCommand(Grabber grabber) {
         this.grabber = grabber;
 
         addRequirements(grabber);
     }
 
-    @Override
     public void initialize() {
+        zeroed = false;
     }
 
     @Override
@@ -24,8 +26,7 @@ public class GrabZeroCommand extends CommandBase {
         if(grabber.switchIsPressed()) {
             grabber.stop();
             grabber.zeroAtPosition(Constants.GRABBER_ZERO_POSITION);
-            grabber.zeroed = true;
-            grabber.grabbing = true;
+            zeroed = true;
         } else {
             grabber.spinMotor(1, 0.1);
         }
@@ -38,6 +39,6 @@ public class GrabZeroCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return grabber.zeroed;
+        return zeroed;
     }
 }

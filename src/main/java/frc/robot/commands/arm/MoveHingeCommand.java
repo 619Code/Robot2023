@@ -42,11 +42,7 @@ public class MoveHingeCommand extends CommandBase {
     }
 
     @Override
-    public boolean isFinished() {
-        if(!hinge.movable()) {
-            return true;
-        }
-        
+    public boolean isFinished() {        
         if(ArmPositionHelper.atHingePosition) {
             return true;
         }
