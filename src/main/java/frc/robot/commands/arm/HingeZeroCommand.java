@@ -2,15 +2,20 @@ package frc.robot.commands.arm;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.arm.Hinge;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class HingeZeroCommand extends CommandBase {
     private Hinge hinge;
+    private Timer timer;
+    private double zeroTimerMaxTime = 10;
 
     public HingeZeroCommand(Hinge hinge) {
         this.hinge = hinge;
+        timer = new Timer();
+        timer.start();
 
         addRequirements(hinge);
     }
@@ -21,13 +26,19 @@ public class HingeZeroCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if(hinge.switchIsPressed()) {
-            hinge.stop();
-            hinge.zero();
-            hinge.zeroed = true;
+        if(!timer.hasElapsed(zeroTimerMaxTime)) {
+            if(hinge.switchIsPressed()) {
+                hinge.stop();
+                hinge.zero();
+                hinge.zeroed = true;
+            } else {
+                hinge.move(-Constants.HINGE_ZERO_SPEED);
+            }
         } else {
-            hinge.move(-Constants.HINGE_ZERO_SPEED);
+            hinge.stop();
+            end(true);
         }
+        
     }
 
     @Override

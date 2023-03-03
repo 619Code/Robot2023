@@ -64,7 +64,7 @@ public class RobotContainer {
 	private LedStrip led;
 
 	private boolean TurnOnGrabber = false;
-	private boolean TurnOnIntake = false;
+	private boolean TurnOnIntake = true;
 	private boolean TurnOnArm = false;
 	private boolean TurnOnDrive = false;
 	private boolean IsTesting = false;
