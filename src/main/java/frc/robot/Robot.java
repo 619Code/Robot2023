@@ -33,7 +33,7 @@ public class Robot extends TimedRobot {
 
     // For Oblog uncomment, otherwise use Crashboard
     //Logger.updateEntries();
-    Crashboard.toDashboard("Total Current Draw", pdh.getTotalCurrent(), Constants.COMPETITON_TAB);
+    //Crashboard.toDashboard("Total Current Draw", pdh.getTotalCurrent(), Constants.COMPETITON_TAB);
 
     //System.out.println("pront :3c");
   }

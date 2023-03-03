@@ -3,7 +3,6 @@ package frc.robot;
 import frc.robot.commands.AutoLineupCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.PipelineSwitchingCommand;
-import frc.robot.commands.ToggleDeployIntakeCommand;
 import frc.robot.commands.arm.HingeZeroCommand;
 import frc.robot.commands.arm.HoldArmCommand;
 import frc.robot.commands.arm.MoveArmMasterCommand;
@@ -19,6 +18,8 @@ import frc.robot.commands.grabber.GrabZeroCommand;
 import frc.robot.commands.grabber.ReleaseCommand;
 import frc.robot.commands.intake.IntakeDefaultCommand;
 import frc.robot.commands.intake.IntakeHolderCommand;
+import frc.robot.commands.intake.IntakeZeroCommand;
+import frc.robot.commands.intake.ToggleDeployIntakeCommand;
 import frc.robot.commands.manuals.GrabManualCommand;
 import frc.robot.commands.manuals.HingeManualCommand;
 import frc.robot.commands.manuals.TelescopeManualCommand;
@@ -67,7 +68,7 @@ public class RobotContainer {
 	private boolean TurnOnIntake = true;
 	private boolean TurnOnArm = false;
 	private boolean TurnOnDrive = false;
-	private boolean IsTesting = false;
+	private boolean IsTesting = true;
 
 	public RobotContainer() {
 		driver = new CommandXboxController(3);
@@ -139,7 +140,7 @@ public class RobotContainer {
 		if (TurnOnIntake)
 			intakeTesting();
 
-		lineupTesting();
+		//lineupTesting();
 		//limeLightPipelineTesting();
 	}
 
@@ -191,12 +192,15 @@ public class RobotContainer {
 	public void intakeTesting() {
 		
 		// Deploy and undeploy intake
-		Trigger swingtake = operator.b();
-		swingtake.onTrue(new ToggleDeployIntakeCommand());
+		Trigger deployIntakeButton = operator.b();
+		deployIntakeButton.onTrue(new ToggleDeployIntakeCommand());
 
 		// Once intake is deployed activate movement based on axis
-		Trigger intakeMovement = operator.axisGreaterThan(2, 0.15);
-		intakeMovement.onTrue(new IntakeHolderCommand(intake, operator));
+		Trigger intakeButton = operator.leftTrigger(0.15);
+		intakeButton.whileTrue(new IntakeHolderCommand(intake, operator));
+
+		Trigger zeroIntakeButton = operator.y();
+		zeroIntakeButton.onTrue(new IntakeZeroCommand(intake));
 	}
 
 	public void grabberTesting() {
