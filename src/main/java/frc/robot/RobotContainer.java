@@ -84,6 +84,7 @@ public class RobotContainer {
 		
 		limelight = new Limelight();
 		PipelineHelper.limelight = limelight;
+		PipelineHelper.setCameraPipeline();
 
 		led = new LedStrip();
 
@@ -138,7 +139,8 @@ public class RobotContainer {
 		if (TurnOnIntake)
 			intakeTesting();
 
-		//lineupTesting();
+		lineupTesting();
+		//limeLightPipelineTesting();
 	}
 
 	public void armTesting() {
@@ -162,8 +164,28 @@ public class RobotContainer {
 	}
 
 	public void lineupTesting() {
-		Trigger driveButton = driver.start();
-		driveButton.whileTrue(new AutoLineupCommand(drive, LineupPosition.CENTER));
+		Trigger leftButton = driver.x();
+		leftButton.whileTrue(new AutoLineupCommand(drive, LineupPosition.LEFT));
+
+		Trigger centerButton = driver.y();
+		centerButton.whileTrue(new AutoLineupCommand(drive, LineupPosition.CENTER));
+
+		Trigger rightButton = driver.b();
+		rightButton.whileTrue(new AutoLineupCommand(drive, LineupPosition.RIGHT));
+	}
+
+	public void limeLightPipelineTesting() {
+		Trigger lefTrigger = driver.x();
+		lefTrigger.onTrue(new PipelineSwitchingCommand(Pipeline.LEFT_PIPELINE)).debounce(1);
+
+		Trigger cenTrigger = driver.y();
+		cenTrigger.onTrue(new PipelineSwitchingCommand(Pipeline.CENTER_PIPELINE)).debounce(1);
+
+		Trigger righTrigger = driver.b();
+		righTrigger.onTrue(new PipelineSwitchingCommand(Pipeline.RRT_PIPELINE)).debounce(1);
+
+		Trigger cameraTrigger = driver.a();
+		cameraTrigger.onTrue(new PipelineSwitchingCommand(Pipeline.CAMERA_PIPELINE)).debounce(1);
 	}
 
 	public void intakeTesting() {
