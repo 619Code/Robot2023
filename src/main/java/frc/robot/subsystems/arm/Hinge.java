@@ -21,14 +21,13 @@ public class Hinge extends SubsystemBase {
     //private DigitalInput highSwitch;
     private DigitalInput magnetSwitch; 
 
-    public boolean zeroed;
     public boolean lastMovingDown;
 
     private GenericEntry hingeSpark;
-    private GenericEntry hingeSwtich;
+    private GenericEntry hingeSwitch;
 
     public Hinge() {
-        hingeMotor = new CANSparkMax(Constants.HINGE_MOTOR, MotorType.kBrushless);
+        hingeMotor = new CANSparkMax(Constants.HINGE_FOLLOWER_MOTOR, MotorType.kBrushless);
         hingeMotor.restoreFactoryDefaults();
         hingeMotor.setIdleMode(IdleMode.kBrake);
         hingeMotor.setSmartCurrentLimit(40);
@@ -37,7 +36,6 @@ public class Hinge extends SubsystemBase {
         hingeEncoder = hingeMotor.getEncoder();
         hingeEncoder.setPosition(Constants.HINGE_START);
 
-        zeroed = true; //UNDO
         lastMovingDown = true;
 
         magnetSwitch = new DigitalInput(Constants.HINGE_SWITCH);
@@ -52,7 +50,7 @@ public class Hinge extends SubsystemBase {
         Crashboard.toDashboard("Hinge Position", getPosition(), Constants.COMPETITON_TAB);
         Crashboard.toDashboard("Hinge Amps", hingeMotor.getOutputCurrent(), Constants.ARM_TAB);
         hingeSpark = Crashboard.toDashboard("Hinge Spark", SparkErrorHelper.HasSensorError(hingeMotor), Constants.SPARKS_TAB);
-        hingeSwtich = Crashboard.toDashboard("Hinge Switch Triggd?", magnetSwitch.get(), Constants.STATUS_TAB);
+        hingeSwitch = Crashboard.toDashboard("Hinge Switch Triggd?", magnetSwitch.get(), Constants.STATUS_TAB);
 
         Crashboard.toDashboard("Hinge Position", hingeEncoder.getPosition(), Constants.ARM_TAB);
     }
@@ -77,11 +75,6 @@ public class Hinge extends SubsystemBase {
 
     //boolean return says if it's at that position
     public boolean moveToPosition(double goal) {
-        if(!movable()) {
-            stop();
-            return false;
-        }
-
         goal = Math.min(goal,Constants.MAXIMUM_POSITION);
         goal = Math.max(goal,Constants.MINIMUM_POSITION);
 
@@ -99,10 +92,6 @@ public class Hinge extends SubsystemBase {
         } else {
             return false;
         }
-    }
-
-    public boolean movable() {
-        return States.inAuto || zeroed;
     }
 
     public void stop() {

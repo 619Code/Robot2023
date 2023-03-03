@@ -21,8 +21,6 @@ public class Telescope extends SubsystemBase {
     private DigitalInput contractedSwitch;
     private DigitalInput extendedSwitch;
 
-    public boolean zeroed;
-
     private GenericEntry telescopeSpark;
     private GenericEntry contractedSwitchTrigged;
     private GenericEntry extendedSwitchTrigged;
@@ -39,8 +37,6 @@ public class Telescope extends SubsystemBase {
 
         contractedSwitch = new DigitalInput(Constants.TELESCOPE_CONTRACTED_SWITCH);
         extendedSwitch = new DigitalInput(Constants.TELESCOPE_EXTENDED_SWITCH);
-
-        zeroed = false;
     }
 
     @Override
@@ -51,7 +47,6 @@ public class Telescope extends SubsystemBase {
         //Crashboard.toDashboard("Extended Switch", extendedSwitchIsPressed());
         Crashboard.toDashboard("Telescope Position", getPosition(), Constants.ARM_TAB);
         Crashboard.toDashboard("Telescope Position", getPosition(), Constants.COMPETITON_TAB);
-        Crashboard.toDashboard("Zeroed", zeroed, Constants.ARM_TAB);
         telescopeSpark = Crashboard.toDashboard("Telescope Spark", SparkErrorHelper.HasSensorError(telescopeMotor), Constants.SPARKS_TAB);
         contractedSwitchTrigged = Crashboard.toDashboard("Contracted Switch Triggd?", contractedSwitchIsPressed(), Constants.STATUS_TAB);
         extendedSwitchTrigged = Crashboard.toDashboard("Extended Swtich Triggd?", extendedSwitchIsPressed(), Constants.STATUS_TAB);
@@ -65,14 +60,14 @@ public class Telescope extends SubsystemBase {
             if(extendedSwitchIsPressed()) {
                 stop(); move = false;
             }
-            if(movable() && getPosition() > Constants.MAXIMUM_EXTENSION) {
+            if(getPosition() > Constants.MAXIMUM_EXTENSION) {
                 stop(); move = false;
             }
         } else if(speed < 0) {
             if(contractedSwitchIsPressed()) {
                 stop(); move = false;
             }
-            if(movable() && getPosition() < Constants.MINIMUM_EXTENSION) {
+            if(getPosition() < Constants.MINIMUM_EXTENSION) {
                 stop(); move = false;
             }
         }
@@ -84,11 +79,6 @@ public class Telescope extends SubsystemBase {
 
     //boolean return says if it's at that position
     public boolean moveToPosition(double goal) {
-        if(!movable()) {
-            stop();
-            return false;
-        }
-
         goal = Math.min(goal,Constants.MAXIMUM_EXTENSION);
         goal = Math.max(goal,Constants.MINIMUM_EXTENSION);
 
@@ -116,21 +106,17 @@ public class Telescope extends SubsystemBase {
             if(contractedSwitchIsPressed()) {
                 stop();
             }
-            if(movable() && getPosition() < Constants.MINIMUM_EXTENSION) {
+            if(getPosition() < Constants.MINIMUM_EXTENSION) {
                 stop();
             }
         } else if(getVelocity() > 0) {
             if(extendedSwitchIsPressed()) {
                 stop();
             }
-            if(movable() && getPosition() > Constants.MAXIMUM_EXTENSION) {
+            if(getPosition() > Constants.MAXIMUM_EXTENSION) {
                 stop();
             }
         }
-    }
-
-    public boolean movable() {
-        return States.inAuto || zeroed;
     }
 
     public void stop() {

@@ -15,7 +15,8 @@ public final class Constants {
     public static final int GRABBER_MOTOR = 12;
 
     //Arm CANS
-    public static final int HINGE_MOTOR = 11;
+    public static final int HINGE_LEADER_MOTOR = 11;
+    public static final int HINGE_FOLLOWER_MOTOR = 15;
     public static final int TELESCOPE_MOTOR = 10;
 
     //Sensor ports

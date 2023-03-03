@@ -70,10 +70,6 @@ public class MoveArmMasterCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if(!hinge.movable() || !telescope.movable()) {
-            return true;
-        }
-        
         if(ArmPositionHelper.atHingePosition && ArmPositionHelper.atTelescopePosition) {
             return true;
         }

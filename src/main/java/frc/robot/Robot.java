@@ -24,7 +24,7 @@ public class Robot extends TimedRobot {
     // For Oblog uncomment, othewise use the Crashboard
     //Logger.configureLoggingAndConfig(robotContainer, false);
 
-    CameraServer.startAutomaticCapture();
+    //CameraServer.startAutomaticCapture(); //UNDO
   }
 
   @Override

@@ -46,10 +46,6 @@ public class MoveTelescopeCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if(!telescope.movable()) {
-            return true;
-        }
-        
         if(ArmPositionHelper.atTelescopePosition) {
             return true;
         }

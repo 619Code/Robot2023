@@ -64,8 +64,8 @@ public class RobotContainer {
 	private LedStrip led;
 
 	private boolean TurnOnGrabber = false;
-	private boolean TurnOnIntake = true;
-	private boolean TurnOnArm = false;
+	private boolean TurnOnIntake = false;
+	private boolean TurnOnArm = true;
 	private boolean TurnOnDrive = false;
 	private boolean IsTesting = false;
 
@@ -102,14 +102,14 @@ public class RobotContainer {
 		if (TurnOnArm) {
 			hinge = new Hinge();
 
-			holdArmCommand = new HoldArmCommand(hinge);
-			hinge.setDefaultCommand(holdArmCommand);
-			/*hingeManualCommand = new HingeManualCommand(hinge, operator);
-			hinge.setDefaultCommand(hingeManualCommand);*/
+			/*holdArmCommand = new HoldArmCommand(hinge);
+			hinge.setDefaultCommand(holdArmCommand);*/
+			hingeManualCommand = new HingeManualCommand(hinge, operator);
+			hinge.setDefaultCommand(hingeManualCommand);
 
-			telescope = new Telescope();
+			/*telescope = new Telescope();
 			telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
-			telescope.setDefaultCommand(telescopeManualCommand);
+			telescope.setDefaultCommand(telescopeManualCommand);*/
 		}
 
 		configureBindings();
@@ -139,13 +139,15 @@ public class RobotContainer {
 		if (TurnOnIntake)
 			intakeTesting();
 
-		lineupTesting();
+		if (TurnOnDrive)
+			lineupTesting();
+		
 		//limeLightPipelineTesting();
 	}
 
 	public void armTesting() {
-		/*Trigger zeroTelescopeButton = operator.start();
-		zeroTelescopeButton.whileTrue(new TelescopeZeroCommand(telescope));*/
+		Trigger zeroTelescopeButton = operator.back();
+		zeroTelescopeButton.whileTrue(new TelescopeZeroCommand(telescope));
 
 		Trigger startPositionButton = operator.start();
 		startPositionButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.START));

@@ -62,10 +62,6 @@ public class GrabMasterCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if(!grabber.movable()) {
-            return true;
-        }
-
         return (startState != grabber.grabbing); //end when the state switches
     }
 }

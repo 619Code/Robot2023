@@ -22,7 +22,6 @@ public class Grabber extends SubsystemBase {
     private DigitalInput limitSwitch;
 
     public boolean grabbing;
-    public boolean zeroed;
 
     private GenericEntry grabberSpark;
     private GenericEntry switchTrigged;
@@ -34,8 +33,7 @@ public class Grabber extends SubsystemBase {
         grabberMotor.setIdleMode(IdleMode.kBrake);
         grabberMotor.setInverted(true);
 
-        grabbing = false;
-        zeroed = false;
+        grabbing = true;
 
         grabberEncoder = grabberMotor.getEncoder();
         grabberEncoder.setPosition(Constants.GRABBER_START); //zero position
@@ -65,10 +63,6 @@ public class Grabber extends SubsystemBase {
         }
         
         SmartDashboard.putNumber("Position", getPosition());
-    }
-
-    public boolean movable() {
-        return States.inAuto || zeroed;
     }
 
     public void stop() {
