@@ -34,7 +34,6 @@ public class IntakeHolderCommand extends CommandBase {
 
     @Override
     public void execute() {
-
         if (States.intakeDeployed) {
             this.intakeSub.ActivateWheels(wheelSpeed);
             
@@ -42,8 +41,7 @@ public class IntakeHolderCommand extends CommandBase {
             var targetRightPosition = Constants.RIGHT_INTAKE_DEPLOYED_POSITION + (paddleRangeRight * stick.getLeftTriggerAxis()); 
             this.moveIntake(targetLeftPosition, IntakeArm.LeftArm);
             this.moveIntake(targetRightPosition, IntakeArm.RightArm);
-        }
-        if (stick.getLeftTriggerAxis() <= 0.15) {
+        } else {
             intakeSub.ActivateWheels(0);
         }
     }

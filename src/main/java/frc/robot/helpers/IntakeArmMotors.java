@@ -72,7 +72,7 @@ public class IntakeArmMotors {
 
     public void LogData() {
         if (loggingOn) {
-            ArmPosEntry = Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition(), Constants.ARM_TAB );
+            ArmPosEntry = Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition(), Constants.INTAKE_TAB );
                           Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition(), Constants.COMPETITON_TAB);
             armSpark = Crashboard.toDashboard(name + "Spark Status Arm", SparkErrorHelper.HasSensorError(armMotor), Constants.SPARKS_TAB);
             wheelSpark = Crashboard.toDashboard(name + "Spark Status Wheel", SparkErrorHelper.HasSensorError(wheelMotor), Constants.SPARKS_TAB);
@@ -99,11 +99,12 @@ public class IntakeArmMotors {
     }
 
     public double moveArmBySpeed(double speed, boolean zeroing) {
-        if (zeroing || IsSafe(speed)) {
-            this.armMotor.set(speed);
-        }
-        else {
+        if(speed < 0 && getZeroSwitch()) {
             this.armMotor.set(0);
+        } else if(!zeroing && !IsSafe(speed)) {
+            this.armMotor.set(0);
+        } else {
+            this.armMotor.set(speed);
         }
 
         return this.armEncoder.getPosition();
@@ -119,18 +120,11 @@ public class IntakeArmMotors {
     public boolean IsSafe(double speed)
     {
 
-        // // Check position and limit switch to see if it is safe to still move
-        // if (speed <= 0) {
-        //     return this.armEncoder.getPosition() >= 0;
-        // } 
+        // Check position and limit switch to see if it is safe to still move
+        if (speed < 0 && armEncoder.getPosition() < 0) {
+            return false;
+        }
 
-        // if (speed > 0) {
-        //     return this.armEncoder.getPosition() <= 50;
-        // }
-
-        // return false;
-        
-        //trolling
         return true;
     }
 
