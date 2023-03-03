@@ -116,7 +116,8 @@ public final class Constants {
     public static final int LEFT_WHEEL = 13;
     public static final int RIGHT_WHEEL = 8;
     public static final double INTAKE_RETRACTED_POSITION = 0;
-    public static final double INTAKE_DEPLOYED_POSITION = 40;
+    public static final double LEFT_INTAKE_DEPLOYED_POSITION = 39;
+    public static final double RIGHT_INTAKE_DEPLOYED_POSITION = 41;    
     public static final int LEFT_LIMIT_SWITCH_ID = -1;
     public static final int RIGHT_LIMIT_SWITCH_ID = -1;
 

@@ -13,32 +13,35 @@ public class IntakeHolderCommand extends CommandBase {
 
     private IntakeSub intakeSub;
     private CommandXboxController stick;
-    private double paddleRange = 6;
-    private String PaddleRangeKey = "Paddle Range";
+    private double paddleRangeRight = 7;
+    private double paddleRangeLeft = 6;
+    private String PaddleRangeLeftKey = "Paddle Range Left";
+    private String PaddleRangeRightKey = "Paddle Range Right";
     double targetPosition;
     double speed = .1;
-    double wheelSpeed = -0.1;
-    double tolerance = .3;
-    GenericEntry paddleRangeEntry;
+    double wheelSpeed = 0.1;
+    double tolerance = .5;
+    GenericEntry paddleRangeLeftEntry;
+    GenericEntry paddleRangeRightEntry;
 
     public IntakeHolderCommand(IntakeSub intakeSub, CommandXboxController controller) {
         this.intakeSub = intakeSub;
         this.stick = controller;
         this.addRequirements(intakeSub);
-        paddleRangeEntry = Crashboard.toDashboard(PaddleRangeKey, paddleRange, Constants.INTAKE_TAB);
+        paddleRangeLeftEntry = Crashboard.toDashboard(PaddleRangeLeftKey, paddleRangeLeft, Constants.INTAKE_TAB);
+        paddleRangeRightEntry = Crashboard.toDashboard(PaddleRangeRightKey, paddleRangeRight, Constants.INTAKE_TAB);
     }
 
     @Override
     public void execute() {
-
         if (States.intakeDeployed) {
             this.intakeSub.ActivateWheels(wheelSpeed);
-            paddleRange = paddleRangeEntry.getDouble(paddleRange);
-            targetPosition = Constants.INTAKE_DEPLOYED_POSITION + (paddleRange * stick.getLeftTriggerAxis());
-            this.moveIntake(targetPosition, IntakeArm.LeftArm);
-            this.moveIntake(targetPosition, IntakeArm.RightArm);
-        }
-        if (stick.getLeftTriggerAxis() <= 0.15) {
+            
+            var targetLeftPosition = Constants.LEFT_INTAKE_DEPLOYED_POSITION + (paddleRangeLeft * stick.getLeftTriggerAxis());
+            var targetRightPosition = Constants.RIGHT_INTAKE_DEPLOYED_POSITION + (paddleRangeRight * stick.getLeftTriggerAxis()); 
+            this.moveIntake(targetLeftPosition, IntakeArm.LeftArm);
+            this.moveIntake(targetRightPosition, IntakeArm.RightArm);
+        } else {
             intakeSub.ActivateWheels(0);
         }
     }
@@ -74,8 +77,7 @@ public class IntakeHolderCommand extends CommandBase {
     @Override
     protected void finalize() throws Throwable {
         intakeSub.ActivateWheels(0);
-        intakeSub.setSpeed(0);
-        super.finalize();   
+        intakeSub.setSpeed(0);   
     }
 
     @Override

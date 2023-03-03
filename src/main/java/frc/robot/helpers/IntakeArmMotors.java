@@ -9,7 +9,7 @@ import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants;
 
-public class ArmMotors {
+public class IntakeArmMotors {
 
     public CANSparkMax armMotor;
     public CANSparkMax wheelMotor;
@@ -19,7 +19,7 @@ public class ArmMotors {
     int wheelMotorCanId;
     int switchPort;
 
-    public boolean loggingOn = false;
+    public boolean loggingOn = true;
     boolean inverted = false;
     String name;
     public double ArmSpeed = .1;
@@ -32,7 +32,7 @@ public class ArmMotors {
     private GenericEntry limitSwitchTrigged;
 
 
-    public ArmMotors(int intakeArmCanId, int wheelMotorCanId, int switchPort, boolean inverted, String name) {
+    public IntakeArmMotors(int intakeArmCanId, int wheelMotorCanId, int switchPort, boolean inverted, String name) {
         this.intakeArmCanId = intakeArmCanId;
         this.wheelMotorCanId = wheelMotorCanId;
         this.switchPort = switchPort;
@@ -53,7 +53,9 @@ public class ArmMotors {
         wheelMotor.setSmartCurrentLimit(30);
 
         armMotor.setIdleMode(IdleMode.kBrake);
-        wheelMotor.setIdleMode(IdleMode.kCoast);
+
+        // Luke wants to try brake mode on the wheels
+        wheelMotor.setIdleMode(IdleMode.kBrake);
         
         armEncoder = armMotor.getEncoder();
         armEncoder.setPosition(0);
@@ -62,19 +64,15 @@ public class ArmMotors {
 
         // Might need to track seperately
         wheelMotor.setInverted(inverted);
-
-        
     }
 
     public boolean getZeroSwitch() {
-        return limitSwitch.get();
+        return !limitSwitch.get();
     }
-
-
 
     public void LogData() {
         if (loggingOn) {
-            ArmPosEntry = Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition(), Constants.ARM_TAB );
+            ArmPosEntry = Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition(), Constants.INTAKE_TAB );
                           Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition(), Constants.COMPETITON_TAB);
             armSpark = Crashboard.toDashboard(name + "Spark Status Arm", SparkErrorHelper.HasSensorError(armMotor), Constants.SPARKS_TAB);
             wheelSpark = Crashboard.toDashboard(name + "Spark Status Wheel", SparkErrorHelper.HasSensorError(wheelMotor), Constants.SPARKS_TAB);
@@ -97,11 +95,16 @@ public class ArmMotors {
     }
 
     public double moveArmBySpeed(double speed) {
-        if (IsSafe(speed)) {
-            this.armMotor.set(speed);
-        }
-        else {
+        return moveArmBySpeed(speed, false);
+    }
+
+    public double moveArmBySpeed(double speed, boolean zeroing) {
+        if(speed < 0 && getZeroSwitch()) {
             this.armMotor.set(0);
+        } else if(!zeroing && !IsSafe(speed)) {
+            this.armMotor.set(0);
+        } else {
+            this.armMotor.set(speed);
         }
 
         return this.armEncoder.getPosition();
@@ -116,18 +119,12 @@ public class ArmMotors {
 
     public boolean IsSafe(double speed)
     {
-        // // Check position and limit switch to see if it is safe to still move
-        // if (speed <= 0) {
-        //     return this.armEncoder.getPosition() >= 0;
-        // } 
 
-        // if (speed > 0) {
-        //     return this.armEncoder.getPosition() <= 50;
-        // }
+        // Check position and limit switch to see if it is safe to still move
+        if (speed < 0 && armEncoder.getPosition() < 0) {
+            return false;
+        }
 
-        // return false;
-        
-        //trolling
         return true;
     }
 
