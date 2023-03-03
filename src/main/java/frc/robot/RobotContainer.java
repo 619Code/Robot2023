@@ -64,13 +64,13 @@ public class RobotContainer {
 	private LedStrip led;
 
 	private boolean TurnOnGrabber = false;
-	private boolean TurnOnIntake = false;
+	private boolean TurnOnIntake = true;
 	private boolean TurnOnArm = false;
 	private boolean TurnOnDrive = false;
 	private boolean IsTesting = false;
 
 	public RobotContainer() {
-		driver = new CommandXboxController(0);
+		driver = new CommandXboxController(2);
 		operator = new CommandXboxController(1);
 
 		// Log Initial Status
