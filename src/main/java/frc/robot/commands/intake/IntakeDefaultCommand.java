@@ -24,9 +24,8 @@ public class IntakeDefaultCommand extends CommandBase {
 
     @Override
     public void execute() {
-        //double targetPosition = States.intakeDeployed ? Constants.INTAKE_DEPLOYED_POSITION : Constants.INTAKE_RETRACTED_POSITION;
-        double leftTargetPosition = States.intakeDeployed ? Constants.INTAKE_DEPLOYED_POSITION + leftIntakDeployedOffset : Constants.INTAKE_RETRACTED_POSITION;
-        double rightTargetPosition = States.intakeDeployed ? Constants.INTAKE_DEPLOYED_POSITION + rightIntakeDeployedOffset : Constants.INTAKE_RETRACTED_POSITION;
+        double leftTargetPosition = States.intakeDeployed ? Constants.LEFT_INTAKE_DEPLOYED_POSITION : Constants.INTAKE_RETRACTED_POSITION;
+        double rightTargetPosition = States.intakeDeployed ? Constants.RIGHT_INTAKE_DEPLOYED_POSITION : Constants.INTAKE_RETRACTED_POSITION;
       
         this.MoveIntake(leftTargetPosition, IntakeArm.LeftArm);
         this.MoveIntake(rightTargetPosition, IntakeArm.RightArm);
@@ -37,7 +36,7 @@ public class IntakeDefaultCommand extends CommandBase {
     {
         double distanceToTarget = Math.abs(distance);
         double speed = 0;
-        if (distanceToTarget >= 15 && distanceToTarget > 40)
+        if (distanceToTarget >= 15)
             speed = maxSpeed;
         else if (distanceToTarget > 5 && distanceToTarget < 15 )
             speed = maxSpeed/2;
