@@ -14,8 +14,6 @@ public class IntakeDefaultCommand extends CommandBase {
     private double tolerance = .5;
     private double minSpeed = .1;
     private double maxSpeed = .3;
-    private double leftIntakDeployedOffset = -3;
-    private double rightIntakeDeployedOffset = 0;
 
     public IntakeDefaultCommand(IntakeSub intakeSub) {
         this.intakeSub = intakeSub;
