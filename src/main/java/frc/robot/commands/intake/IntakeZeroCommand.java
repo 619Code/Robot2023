@@ -11,8 +11,8 @@ public class IntakeZeroCommand extends CommandBase {
     private Timer timer;
     private double zeroTimerMaxTime = 10;
 
-    public IntakeZeroCommand(IntakeSub intak) {
-        intake = intak;
+    public IntakeZeroCommand(IntakeSub intake) {
+        this.intake = intake;
         timer = new Timer();
         
     }
@@ -21,6 +21,8 @@ public class IntakeZeroCommand extends CommandBase {
     public void initialize() {
         timer.reset();
         timer.start();
+        intake.zeroedLeft = false;
+        intake.zeroedRight = false;
     }
 
     @Override
