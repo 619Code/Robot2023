@@ -13,7 +13,7 @@ public class IntakeHolderCommand extends CommandBase {
 
     private IntakeSub intakeSub;
     private CommandXboxController stick;
-    private double paddleRangeRight = 6;
+    private double paddleRangeRight = 7;
     private double paddleRangeLeft = 6;
     private String PaddleRangeLeftKey = "Paddle Range Left";
     private String PaddleRangeRightKey = "Paddle Range Right";

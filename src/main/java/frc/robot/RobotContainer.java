@@ -197,7 +197,7 @@ public class RobotContainer {
 
 		// Once intake is deployed activate movement based on axis
 		Trigger intakeButton = operator.leftTrigger(0.15);
-		intakeButton.onTrue(new IntakeHolderCommand(intake, operator));
+		intakeButton.whileTrue(new IntakeHolderCommand(intake, operator));
 
 		Trigger zeroIntakeButton = operator.y();
 		zeroIntakeButton.onTrue(new IntakeZeroCommand(intake));
