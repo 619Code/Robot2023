@@ -15,7 +15,8 @@ import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.SparkErrorHelper;
 
 public class Hinge extends SubsystemBase {
-    private CANSparkMax hingeMotor;
+    private CANSparkMax hingeLeaderMotor;
+    private CANSparkMax hingeFollowerMotor;
     private RelativeEncoder hingeEncoder;
 
     //private DigitalInput highSwitch;
@@ -27,13 +28,20 @@ public class Hinge extends SubsystemBase {
     private GenericEntry hingeSwitch;
 
     public Hinge() {
-        hingeMotor = new CANSparkMax(Constants.HINGE_FOLLOWER_MOTOR, MotorType.kBrushless);
-        hingeMotor.restoreFactoryDefaults();
-        hingeMotor.setIdleMode(IdleMode.kBrake);
-        hingeMotor.setSmartCurrentLimit(40);
-        hingeMotor.setInverted(true);
+        hingeLeaderMotor = new CANSparkMax(Constants.HINGE_LEADER_MOTOR, MotorType.kBrushless);
+        hingeFollowerMotor = new CANSparkMax(Constants.HINGE_FOLLOWER_MOTOR, MotorType.kBrushless);
 
-        hingeEncoder = hingeMotor.getEncoder();
+        hingeLeaderMotor.restoreFactoryDefaults();
+        hingeLeaderMotor.setIdleMode(IdleMode.kBrake);
+        hingeLeaderMotor.setSmartCurrentLimit(40);
+        hingeLeaderMotor.setInverted(true);
+
+        hingeFollowerMotor.restoreFactoryDefaults();
+        hingeFollowerMotor.setIdleMode(IdleMode.kBrake);
+        hingeFollowerMotor.setSmartCurrentLimit(40);
+        hingeLeaderMotor.setInverted(true);
+
+        hingeEncoder = hingeLeaderMotor.getEncoder();
         hingeEncoder.setPosition(Constants.HINGE_START);
 
         lastMovingDown = true;
@@ -48,8 +56,8 @@ public class Hinge extends SubsystemBase {
     public void periodic() {
         Crashboard.toDashboard("Hinge Position", getPosition(), Constants.ARM_TAB);
         Crashboard.toDashboard("Hinge Position", getPosition(), Constants.COMPETITON_TAB);
-        Crashboard.toDashboard("Hinge Amps", hingeMotor.getOutputCurrent(), Constants.ARM_TAB);
-        hingeSpark = Crashboard.toDashboard("Hinge Spark", SparkErrorHelper.HasSensorError(hingeMotor), Constants.SPARKS_TAB);
+        Crashboard.toDashboard("Hinge Amps", hingeLeaderMotor.getOutputCurrent(), Constants.ARM_TAB);
+        hingeSpark = Crashboard.toDashboard("Hinge Spark", SparkErrorHelper.HasSensorError(hingeLeaderMotor), Constants.SPARKS_TAB);
         hingeSwitch = Crashboard.toDashboard("Hinge Switch Triggd?", magnetSwitch.get(), Constants.STATUS_TAB);
 
         Crashboard.toDashboard("Hinge Position", hingeEncoder.getPosition(), Constants.ARM_TAB);
@@ -61,7 +69,8 @@ public class Hinge extends SubsystemBase {
         } else if(speed < 0 && switchIsPressed() && lastMovingDown) {
             stop();
         } else {
-            hingeMotor.set(speed);
+            hingeLeaderMotor.set(speed);
+            hingeFollowerMotor.set(speed);
         }
 
         if(speed > 0)
@@ -95,7 +104,8 @@ public class Hinge extends SubsystemBase {
     }
 
     public void stop() {
-        hingeMotor.set(0);
+        hingeLeaderMotor.set(0);
+        hingeFollowerMotor.set(0);
     }
 
     public double getPosition() {
