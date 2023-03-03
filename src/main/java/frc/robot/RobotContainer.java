@@ -65,9 +65,9 @@ public class RobotContainer {
 	private LedStrip led;
 
 	private boolean TurnOnGrabber = false;
-	private boolean TurnOnIntake = false;
-	private boolean TurnOnArm = true;
-	private boolean TurnOnDrive = false;
+	private boolean TurnOnIntake = true;
+	private boolean TurnOnArm = false;
+	private boolean TurnOnDrive = true;
 	private boolean IsTesting = true;
 
 	public RobotContainer() {
@@ -140,10 +140,8 @@ public class RobotContainer {
 		if (TurnOnIntake)
 			intakeTesting();
 
-		if (TurnOnDrive)
-			//lineupTesting();
-      
-		//limeLightPipelineTesting();
+		/*if (TurnOnDrive)
+			lineupTesting();*/
 	}
 
 	public void armTesting() {
@@ -175,20 +173,6 @@ public class RobotContainer {
 
 		Trigger rightButton = driver.b();
 		rightButton.whileTrue(new AutoLineupCommand(drive, LineupPosition.RIGHT));
-	}
-
-	public void limeLightPipelineTesting() {
-		Trigger lefTrigger = driver.x();
-		lefTrigger.onTrue(new PipelineSwitchingCommand(Pipeline.LEFT_PIPELINE)).debounce(1);
-
-		Trigger cenTrigger = driver.y();
-		cenTrigger.onTrue(new PipelineSwitchingCommand(Pipeline.CENTER_PIPELINE)).debounce(1);
-
-		Trigger righTrigger = driver.b();
-		righTrigger.onTrue(new PipelineSwitchingCommand(Pipeline.RRT_PIPELINE)).debounce(1);
-
-		Trigger cameraTrigger = driver.a();
-		cameraTrigger.onTrue(new PipelineSwitchingCommand(Pipeline.CAMERA_PIPELINE)).debounce(1);
 	}
 
 	public void intakeTesting() {
