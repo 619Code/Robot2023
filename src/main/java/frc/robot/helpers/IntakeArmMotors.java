@@ -9,7 +9,7 @@ import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants;
 
-public class ArmMotors {
+public class IntakeArmMotors {
 
     public CANSparkMax armMotor;
     public CANSparkMax wheelMotor;
@@ -32,7 +32,7 @@ public class ArmMotors {
     private GenericEntry limitSwitchTrigged;
 
 
-    public ArmMotors(int intakeArmCanId, int wheelMotorCanId, int switchPort, boolean inverted, String name) {
+    public IntakeArmMotors(int intakeArmCanId, int wheelMotorCanId, int switchPort, boolean inverted, String name) {
         this.intakeArmCanId = intakeArmCanId;
         this.wheelMotorCanId = wheelMotorCanId;
         this.switchPort = switchPort;
@@ -53,7 +53,9 @@ public class ArmMotors {
         wheelMotor.setSmartCurrentLimit(30);
 
         armMotor.setIdleMode(IdleMode.kBrake);
-        wheelMotor.setIdleMode(IdleMode.kCoast);
+
+        // Luke wants to try brake mode on the wheels
+        wheelMotor.setIdleMode(IdleMode.kBrake);
         
         armEncoder = armMotor.getEncoder();
         armEncoder.setPosition(0);
@@ -62,15 +64,11 @@ public class ArmMotors {
 
         // Might need to track seperately
         wheelMotor.setInverted(inverted);
-
-        
     }
 
     public boolean getZeroSwitch() {
         return !limitSwitch.get();
     }
-
-
 
     public void LogData() {
         if (loggingOn) {
@@ -120,6 +118,7 @@ public class ArmMotors {
 
     public boolean IsSafe(double speed)
     {
+
         // // Check position and limit switch to see if it is safe to still move
         // if (speed <= 0) {
         //     return this.armEncoder.getPosition() >= 0;

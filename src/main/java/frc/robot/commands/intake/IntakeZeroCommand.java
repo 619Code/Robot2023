@@ -2,6 +2,7 @@ package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.States;
 import frc.robot.subsystems.IntakeSub;
 
 public class IntakeZeroCommand extends CommandBase {
@@ -50,6 +51,9 @@ public class IntakeZeroCommand extends CommandBase {
     public void end(boolean interrupted) {
         intake.getRightArm().moveArmBySpeed(0);
         intake.getLeftArm().moveArmBySpeed(0);
+
+        //If all went well we should be undeployed at the zero position
+        States.intakeDeployed = false;
     }
 
     @Override

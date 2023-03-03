@@ -3,14 +3,14 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.helpers.ArmMotors;
+import frc.robot.helpers.IntakeArmMotors;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.IntakeArm;
 
 public class IntakeSub extends SubsystemBase {
   
-  ArmMotors leftMotors;
-  ArmMotors rightMotors;
+  IntakeArmMotors leftMotors;
+  IntakeArmMotors rightMotors;
 
   public boolean zeroedLeft;
   public boolean zeroedRight;
@@ -19,8 +19,8 @@ public class IntakeSub extends SubsystemBase {
 
   public IntakeSub() { 
 
-    leftMotors = new ArmMotors(Constants.LEFT_ARM, Constants.LEFT_WHEEL, Constants.INTAKE_LEFT_SWITCH, true, "Left Arm");
-    rightMotors = new ArmMotors(Constants.RIGHT_ARM, Constants.RIGHT_WHEEL, Constants.INTAKE_RIGHT_SWITCH, false, "Right Arm");
+    leftMotors = new IntakeArmMotors(Constants.LEFT_ARM, Constants.LEFT_WHEEL, Constants.INTAKE_LEFT_SWITCH, true, "Left Arm");
+    rightMotors = new IntakeArmMotors(Constants.RIGHT_ARM, Constants.RIGHT_WHEEL, Constants.INTAKE_RIGHT_SWITCH, false, "Right Arm");
 
     leftMotors.setPosition(0);
     rightMotors.setPosition(0);
@@ -44,11 +44,11 @@ public class IntakeSub extends SubsystemBase {
   }
 
   public double getPosition(IntakeArm arm) {
-    ArmMotors motors = getArmMotors(arm);
+    IntakeArmMotors motors = getArmMotors(arm);
     return motors.GetPosition();
   }
 
-  private ArmMotors getArmMotors(IntakeArm arm) {
+  private IntakeArmMotors getArmMotors(IntakeArm arm) {
     if (arm == IntakeArm.LeftArm) {
       return this.leftMotors;
     } else {
@@ -67,10 +67,10 @@ public class IntakeSub extends SubsystemBase {
     motor.moveArmBySpeed(speed);
   }
 
-  public ArmMotors getLeftArm() {
+  public IntakeArmMotors getLeftArm() {
     return leftMotors;
   }
-  public ArmMotors getRightArm() {
+  public IntakeArmMotors getRightArm() {
     return rightMotors;
   }
 }
