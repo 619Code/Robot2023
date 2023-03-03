@@ -1,11 +1,13 @@
 package frc.robot.commands;
 
+import edu.wpi.first.math.trajectory.constraint.CentripetalAccelerationConstraint;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.LineupPosition;
 import frc.robot.helpers.limelight.LimelightDataStorer;
+import frc.robot.helpers.limelight.PipelineHelper;
 import frc.robot.subsystems.Drivetrain;
 
 public class AutoLineupCommand extends CommandBase {
@@ -24,6 +26,21 @@ public class AutoLineupCommand extends CommandBase {
     }
 
     @Override
+    public void initialize() {
+        switch (position) {
+            case LEFT:
+                PipelineHelper.SetRRTPipeline();    
+                break;   
+            case CENTER:
+                PipelineHelper.SetCenterPipeline();
+                break;
+            case RIGHT:
+                PipelineHelper.SetRRTPipeline();
+                break;
+        }
+    }
+
+    @Override
     public void execute() {
         tx = LimelightDataStorer.txNew();
         double rotation = Math.abs(tx) * Constants.ROTATION_P;
@@ -35,7 +52,8 @@ public class AutoLineupCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        
+        drive.curve(0, 0);
+        PipelineHelper.setCameraPipeline();
     }
 
     @Override

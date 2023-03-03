@@ -71,7 +71,7 @@ public class RobotContainer {
 	private boolean IsTesting = true;
 
 	public RobotContainer() {
-		driver = new CommandXboxController(2);
+		driver = new CommandXboxController(3);
 		operator = new CommandXboxController(1);
 
 		// Log Initial Status
@@ -85,7 +85,9 @@ public class RobotContainer {
 		
 		limelight = new Limelight();
 		PipelineHelper.limelight = limelight;
-		//led = new LedStrip();
+		PipelineHelper.setCameraPipeline();
+
+		led = new LedStrip();
 
 		if (TurnOnIntake) {
 			intake = new IntakeSub();
@@ -100,6 +102,7 @@ public class RobotContainer {
 
 		if (TurnOnArm) {
 			hinge = new Hinge();
+
 			holdArmCommand = new HoldArmCommand(hinge);
 			hinge.setDefaultCommand(holdArmCommand);
 			/*hingeManualCommand = new HingeManualCommand(hinge, operator);
@@ -138,26 +141,38 @@ public class RobotContainer {
 			intakeTesting();
 
 		lineupTesting();
-		limeLightPipelineTesting();
+		//limeLightPipelineTesting();
 	}
 
 	public void armTesting() {
-		Trigger zeroTelescopeButton = operator.a();
-		zeroTelescopeButton.whileTrue(new TelescopeZeroCommand(telescope));
+		/*Trigger zeroTelescopeButton = operator.start();
+		zeroTelescopeButton.whileTrue(new TelescopeZeroCommand(telescope));*/
 
-		Trigger positionOneButton = operator.x();
-		positionOneButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.START));
+		Trigger startPositionButton = operator.start();
+		startPositionButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.START));
 
-		Trigger positionTwoButton = operator.b();
-		positionTwoButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.GRID_MID));
+		Trigger pickupLowButton = operator.a();
+		pickupLowButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.PICKUP_LOW));
 
-		Trigger positionThreeButton = operator.y();
-		positionThreeButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.GRID_HIGH));
+		Trigger pickupHighButton = operator.y();
+		pickupHighButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.PICKUP_HIGH));
+
+		Trigger placeMidButton = operator.x();
+		placeMidButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.GRID_MID));
+
+		Trigger placeHighButton = operator.b();
+		placeHighButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.GRID_HIGH));
 	}
 
 	public void lineupTesting() {
-		Trigger driveButton = driver.start();
-		driveButton.whileTrue(new AutoLineupCommand(drive, LineupPosition.CENTER));
+		Trigger leftButton = driver.x();
+		leftButton.whileTrue(new AutoLineupCommand(drive, LineupPosition.LEFT));
+
+		Trigger centerButton = driver.y();
+		centerButton.whileTrue(new AutoLineupCommand(drive, LineupPosition.CENTER));
+
+		Trigger rightButton = driver.b();
+		rightButton.whileTrue(new AutoLineupCommand(drive, LineupPosition.RIGHT));
 	}
 
 	public void limeLightPipelineTesting() {
@@ -189,16 +204,15 @@ public class RobotContainer {
 	}
 
 	public void grabberTesting() {
-
-		Trigger zeroButton = operator.a();
+		/*Trigger zeroButton = operator.back();
 		zeroButton.onTrue(new SequentialCommandGroup(
 			new GrabZeroCommand(grabber),
-			new ReleaseCommand(grabber)));
+			new ReleaseCommand(grabber)));*/
 
-        Trigger grabButton = operator.y();
+        Trigger grabButton = operator.leftBumper();
         grabButton.onTrue(new GrabMasterCommand(grabber, led));
 		
-		Trigger toggleLed = operator.x();
+		Trigger toggleLed = operator.back();
 		toggleLed.onTrue(new SetColorCommand(led)).debounce(1);
 	}
 

@@ -20,7 +20,7 @@ public final class Constants {
 
     //Sensor ports
     public static final int GRABBER_SWITCH = 1;
-    public static final int HINGE_SWITCH = -1;
+    public static final int HINGE_SWITCH = 6;
     //public static final int HINGE_LOW_SWITCH = -1;
     //public static final int HINGE_HIGH_SWITCH = -1;
     public static final int TELESCOPE_CONTRACTED_SWITCH = 3;
@@ -62,51 +62,52 @@ public final class Constants {
     public static final double kRamseteZeta = 0.7;
 
     //Grabber constants
-    public static final double MAX_GRABBER_SPEED = 0.6;
+    public static final double MAX_GRABBER_SPEED = 0.3; //0.6
 
 	// public static final double CUBE_POSITION = 21.0;
 	// public static final double CONE_POSITION = 60.0;
 	// public static final double ZERO_POSITION = 70.0;
 
     // Temp new grabber constants, had to cut grabber arm shorter
-    public static final double CUBE_POSITION = 23.0;
-	public static final double CONE_POSITION = 60.0;
-	public static final double GRABBER_ZERO_POSITION = 65.0;
+    public static final double CUBE_POSITION = 5.0;
+	public static final double CONE_POSITION = 55.0;
+	public static final double GRABBER_ZERO_POSITION = 63.0;
 
     //Hinge constants
     public static final double MINIMUM_POSITION = 0.0;
     public static final double MAXIMUM_POSITION = 80.0;
 
-    public static final double HINGE_SPEED = 0.4;
+    public static final double HINGE_SPEED = 0.2; //0.4
     public static final double HINGE_ZERO_SPEED = 0.04;
     public static final double HINGE_P = 0.08;
 
     //Telescope constants
     public static final double TELESCOPE_CONTRACTED_SWITCH_POSITION = 0.0;
-    public static final double TELESCOPE_EXTENDED_SWITCH_POSITION = 65.0;
+    public static final double TELESCOPE_EXTENDED_SWITCH_POSITION = 78;
     public static final double EXTENSION_TOLERANCE = 5.0;
     public static final double MINIMUM_EXTENSION = TELESCOPE_CONTRACTED_SWITCH_POSITION + EXTENSION_TOLERANCE;
     public static final double MAXIMUM_EXTENSION = TELESCOPE_EXTENDED_SWITCH_POSITION - EXTENSION_TOLERANCE;
 
-    public static final double TELESCOPE_SPEED = 0.8;
+    public static final double TELESCOPE_SPEED = 0.4; //0.8
     public static final double TELESCOPE_ZERO_SPEED = 0.08;
     public static final double TELESCOPE_P = 0.04;
 
     //Arm cases
-    public static final double START_POSITION_HINGE = 15.0;
+    public static final double START_POSITION_HINGE = 25.0;
     public static final double START_POSITION_TELESCOPE = 5.0;
 
-    public static final double PICKUP_LOW_POSITION_HINGE = 15.0;
+    public static final double PICKUP_LOW_POSITION_HINGE = 0.0;
     public static final double PICKUP_LOW_POSITION_TELESCOPE = 5.0;
 
-    public static final double PICKUP_HIGH_POSITION_HINGE = 15.0;
-    public static final double PICKUP_HIGH_POSITION_TELESCOPE = 5.0;
+    public static final double PICKUP_HIGH_POSITION_HINGE = 19.0;
+    public static final double PICKUP_HIGH_POSITION_TELESCOPE = 20.0;
 
-    public static final double GRID_MID_POSITION_HINGE = 42.0;
-    public static final double GRID_MID_POSITION_TELESCOPE = 30.0;
+    public static final double GRID_MID_POSITION_HINGE = 16.0;
+    public static final double GRID_MID_POSITION_TELESCOPE = 61.0;
 
-    public static final double GRID_HIGH_POSITION_HINGE = 65.0;
-    public static final double GRID_HIGH_POSITION_TELESCOPE = 60.0;
+    //retune this value
+    public static final double GRID_HIGH_POSITION_HINGE = 51.0;
+    public static final double GRID_HIGH_POSITION_TELESCOPE = 62.0;
 
     //Intake constants
     public static final int LEFT_ARM = 14; 
@@ -127,15 +128,15 @@ public final class Constants {
     public static final int CAMERA_PIPELINE = 4;
 
     //LED constants
-    public static final int LED_PWM_PORT = 9; //change
-    public static final int LED_STRIP_LENGTH = 100; //change
+    public static final int LED_PWM_PORT = 1;
+    public static final int LED_STRIP_LENGTH = 100;
 
     //Auto Constants
     public static final double AUTO_DRIVE_SPEED = 0.4;
     public static final double AUTO_DRIVE_DISTANCE = 1;
 
     public static final double GRABBER_START = CONE_POSITION;
-    public static final double HINGE_START = START_POSITION_HINGE;
+    public static final double HINGE_START = 0; //UNDO
     public static final double TELESCOPE_START = START_POSITION_TELESCOPE;
 
     // Dashboard Tabs

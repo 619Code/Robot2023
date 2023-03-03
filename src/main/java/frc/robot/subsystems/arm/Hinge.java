@@ -37,7 +37,7 @@ public class Hinge extends SubsystemBase {
         hingeEncoder = hingeMotor.getEncoder();
         hingeEncoder.setPosition(Constants.HINGE_START);
 
-        zeroed = false;
+        zeroed = true; //UNDO
         lastMovingDown = true;
 
         magnetSwitch = new DigitalInput(Constants.HINGE_SWITCH);
@@ -54,6 +54,7 @@ public class Hinge extends SubsystemBase {
         hingeSpark = Crashboard.toDashboard("Hinge Spark", SparkErrorHelper.HasSensorError(hingeMotor), Constants.SPARKS_TAB);
         hingeSwtich = Crashboard.toDashboard("Hinge Switch Triggd?", magnetSwitch.get(), Constants.STATUS_TAB);
 
+        Crashboard.toDashboard("Hinge Position", hingeEncoder.getPosition(), Constants.ARM_TAB);
     }
 
     public void move(double speed) {
@@ -114,7 +115,8 @@ public class Hinge extends SubsystemBase {
 
     public boolean switchIsPressed()
     {
-        return magnetSwitch.get();
+        //return magnetSwitch.get();
+        return false; //UNDO
     }
 
     public void zero() {
