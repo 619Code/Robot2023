@@ -70,7 +70,7 @@ public class RobotContainer {
 	private boolean IsTesting = false;
 
 	public RobotContainer() {
-		driver = new CommandXboxController(0);
+		driver = new CommandXboxController(3);
 		operator = new CommandXboxController(1);
 
 		// Log Initial Status
@@ -84,7 +84,8 @@ public class RobotContainer {
 		
 		limelight = new Limelight();
 		PipelineHelper.limelight = limelight;
-		//led = new LedStrip();
+
+		led = new LedStrip();
 
 		if (TurnOnIntake) {
 			intake = new IntakeSub();
@@ -99,6 +100,7 @@ public class RobotContainer {
 
 		if (TurnOnArm) {
 			hinge = new Hinge();
+
 			holdArmCommand = new HoldArmCommand(hinge);
 			hinge.setDefaultCommand(holdArmCommand);
 			/*hingeManualCommand = new HingeManualCommand(hinge, operator);
@@ -136,22 +138,25 @@ public class RobotContainer {
 		if (TurnOnIntake)
 			intakeTesting();
 
-		lineupTesting();
-		limeLightPipelineTesting();
+		//lineupTesting();
+		//limeLightPipelineTesting();
 	}
 
 	public void armTesting() {
-		Trigger zeroTelescopeButton = operator.a();
+		Trigger zeroTelescopeButton = operator.start();
 		zeroTelescopeButton.whileTrue(new TelescopeZeroCommand(telescope));
 
-		Trigger positionOneButton = operator.x();
+		Trigger positionOneButton = operator.a();
 		positionOneButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.START));
 
-		Trigger positionTwoButton = operator.b();
+		Trigger positionTwoButton = operator.x();
 		positionTwoButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.GRID_MID));
 
-		Trigger positionThreeButton = operator.y();
+		Trigger positionThreeButton = operator.b();
 		positionThreeButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.GRID_HIGH));
+
+		Trigger positionFourButton = operator.y();
+		positionFourButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.PICKUP_HIGH));
 	}
 
 	public void lineupTesting() {
@@ -185,16 +190,15 @@ public class RobotContainer {
 	}
 
 	public void grabberTesting() {
-
-		Trigger zeroButton = operator.a();
+		Trigger zeroButton = operator.back();
 		zeroButton.onTrue(new SequentialCommandGroup(
 			new GrabZeroCommand(grabber),
 			new ReleaseCommand(grabber)));
 
-        Trigger grabButton = operator.y();
+        Trigger grabButton = operator.rightBumper();
         grabButton.onTrue(new GrabMasterCommand(grabber, led));
 		
-		Trigger toggleLed = operator.x();
+		Trigger toggleLed = operator.leftBumper();
 		toggleLed.onTrue(new SetColorCommand(led)).debounce(1);
 	}
 
