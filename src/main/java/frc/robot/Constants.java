@@ -63,11 +63,13 @@ public final class Constants {
     public static final double kRamseteZeta = 0.7;
 
     //Grabber constants
-    public static final double MAX_GRABBER_SPEED = 0.6;
+    public static final double MAX_GRABBER_SPEED = 0.2;
 
-    public static final double CUBE_POSITION = 15.0;
-	public static final double CONE_POSITION = 62.0;
-	public static final double GRABBER_ZERO_POSITION = 63.0;
+    public static final double CUBE_POSITION = 17.0;
+	public static final double CONE_POSITION = 60.0;
+	public static final double GRABBER_ZERO_POSITION = 60.0;
+
+    public static final double GRABBER_P = 0.1;
 
     //Hinge constants
     public static final double MINIMUM_POSITION = 1.0;
@@ -90,19 +92,20 @@ public final class Constants {
 
     //Arm cases
     public static final double START_POSITION_HINGE = 25.0;
-    public static final double START_POSITION_TELESCOPE = 5.0;
+    public static final double START_POSITION_TELESCOPE = 0.0;
 
     public static final double PICKUP_LOW_POSITION_HINGE = 1.0;
     public static final double PICKUP_LOW_POSITION_TELESCOPE = 5.0;
 
     public static final double PICKUP_HIGH_POSITION_HINGE = 19.0;
-    public static final double PICKUP_HIGH_POSITION_TELESCOPE = 20.0;
+    public static final double PICKUP_HIGH_POSITION_TELESCOPE = 19.0;
 
     public static final double GRID_MID_POSITION_HINGE = 17.5;
     public static final double GRID_MID_POSITION_TELESCOPE = 67.0;
 
     public static final double GRID_HIGH_POSITION_HINGE = 46.0;
     public static final double GRID_HIGH_POSITION_TELESCOPE = 72.0;
+
 
     //Intake constants
     public static final int LEFT_ARM = 14; 
@@ -131,7 +134,7 @@ public final class Constants {
     public static final double AUTO_DRIVE_DISTANCE = 5;
 
     public static final double GRABBER_START = CONE_POSITION;
-    public static final double HINGE_START = 0; //UNDO
+    public static final double HINGE_START = START_POSITION_HINGE;
     public static final double TELESCOPE_START = START_POSITION_TELESCOPE;
 
     // Dashboard Tabs

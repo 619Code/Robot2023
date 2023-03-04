@@ -48,6 +48,8 @@ public class Grabber extends SubsystemBase {
         grabberSpark = Crashboard.toDashboard("Grabber Spark", SparkErrorHelper.HasSensorError(grabberMotor), Constants.SPARKS_TAB);
         switchTrigged = Crashboard.toDashboard("Grabber Switch Triggd?", switchIsPressed(), Constants.STATUS_TAB);
 
+        Crashboard.toDashboard("Position", grabberEncoder.getPosition(), Constants.GRABBER_TAB);
+
         ColorDetector.update();
     }
 
@@ -63,6 +65,26 @@ public class Grabber extends SubsystemBase {
         }
         
         SmartDashboard.putNumber("Position", getPosition());
+    }
+
+    //boolean return says if it's at that position
+    public boolean moveToPosition(double goal) {
+        goal = Math.min(goal,0.0);
+        goal = Math.max(goal,Constants.GRABBER_ZERO_POSITION);
+
+        double speed = Math.abs(getPosition() - goal) * Constants.GRABBER_P; //proportional control
+        speed = Math.min(speed, Constants.MAX_GRABBER_SPEED);
+        
+        if(Math.abs(getPosition() - goal) < 1) {
+            stop();
+            return true;
+        } else if(getPosition() < goal) {
+            spinMotor(speed);
+            return false;
+        } else {
+            spinMotor(-speed);
+            return false;
+        }
     }
 
     public void stop() {

@@ -17,7 +17,7 @@ import frc.robot.helpers.SparkErrorHelper;
 public class Hinge extends SubsystemBase {
     private CANSparkMax hingeLeaderMotor;
     private CANSparkMax hingeFollowerMotor;
-    private RelativeEncoder hingeEncoder;
+    public RelativeEncoder hingeEncoder;
 
     //private DigitalInput highSwitch;
     private DigitalInput magnetSwitch; 

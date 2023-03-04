@@ -36,7 +36,11 @@ public class GrabCommand extends CommandBase {
     @Override
     public void execute() {
         if(limit > grabber.getPosition()) {
-            grabber.spinMotor(1,maxSpeed);
+            if(Math.abs(limit - grabber.getPosition()) < 5) {
+                grabber.spinMotor(1,maxSpeed/2.0);
+            } else {
+                grabber.spinMotor(1,maxSpeed);
+            }
         } else {
             grabber.stop();
             grabber.grabbing = true;

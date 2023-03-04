@@ -46,7 +46,6 @@ public class Telescope extends SubsystemBase {
         //Crashboard.toDashboard("Contracted Switch", contractedSwitchIsPressed());
         //Crashboard.toDashboard("Extended Switch", extendedSwitchIsPressed());
         Crashboard.toDashboard("Telescope Position", getPosition(), Constants.ARM_TAB);
-        Crashboard.toDashboard("Telescope Position", getPosition(), Constants.COMPETITON_TAB);
         telescopeSpark = Crashboard.toDashboard("Telescope Spark", SparkErrorHelper.HasSensorError(telescopeMotor), Constants.SPARKS_TAB);
         contractedSwitchTrigged = Crashboard.toDashboard("Contracted Switch Triggd?", contractedSwitchIsPressed(), Constants.STATUS_TAB);
         extendedSwitchTrigged = Crashboard.toDashboard("Extended Swtich Triggd?", extendedSwitchIsPressed(), Constants.STATUS_TAB);

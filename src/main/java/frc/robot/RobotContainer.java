@@ -110,8 +110,8 @@ public class RobotContainer {
 			hinge.setDefaultCommand(hingeManualCommand);*/
 
 			telescope = new Telescope();
-			/*telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
-			telescope.setDefaultCommand(telescopeManualCommand);*/
+			telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
+			telescope.setDefaultCommand(telescopeManualCommand);
 		}
 
 		configureBindings();
@@ -137,13 +137,23 @@ public class RobotContainer {
 	private void competitionBindings() {
 		preMatchZeroing();
 		armBindings();
-		intakeBindings();
+		//intakeBindings();
 		grabberBindings();
 	}
 
 	private void BindTests() {
-		/*if (TurnOnDrive)
-			lineupTesting();*/
+		preMatchZeroing();
+
+		Trigger startPositionButton = operator.start();
+		startPositionButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.START));
+
+		Trigger pickupLowButton = operator.a();
+		pickupLowButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.PICKUP_LOW));
+
+		Trigger pickupHighButton = operator.y();
+		pickupHighButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.PICKUP_HIGH));
+
+		grabberBindings();
 	}
 
 	public void armBindings() {
@@ -184,6 +194,10 @@ public class RobotContainer {
 	public void preMatchZeroing() {
 		Trigger zeroAllButton = driver.back();
 		zeroAllButton.onTrue(new PreMatchSettingsCommand(intake, grabber, hinge, telescope));
+
+		//UNDO
+		/*Trigger zeroAllButton = driver.back();
+		zeroAllButton.onTrue(new AutoZeroCommand(intake, grabber, hinge, telescope));*/
 	}
 
 	public void lineupTesting() {
@@ -198,11 +212,11 @@ public class RobotContainer {
 	}
 
 	public Command getAutonomousCommand() {
-		return new SequentialCommandGroup(
+		/*return new SequentialCommandGroup(
 			new AutoPlaceCommand(grabber, hinge, telescope),
 			new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE)
-		);
+		);*/
 
-		//return null;
+		return null;
 	}
 }

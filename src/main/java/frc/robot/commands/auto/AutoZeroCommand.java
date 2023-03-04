@@ -24,11 +24,13 @@ public class AutoZeroCommand extends SequentialCommandGroup {
         this.hinge = hinge;
         this.telescope = telescope;
 
+        hinge.hingeEncoder.setPosition(0.0);
+
         addCommands(new IntakeZeroCommand(intake));
         addCommands(new TelescopeZeroCommand(telescope));
         addCommands(new SequentialCommandGroup(
             new GrabZeroCommand(grabber),
-            new ReleaseCommand(grabber,0.2)
+            new ReleaseCommand(grabber,0.1)
         ));
     }
 }

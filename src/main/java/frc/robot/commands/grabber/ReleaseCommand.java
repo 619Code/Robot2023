@@ -28,8 +28,14 @@ public class ReleaseCommand extends CommandBase {
 
     @Override
     public void execute() {
+        //grabber.grabbing = !grabber.moveToPosition(0.0);
+
         if(grabber.getPosition() > 0) {
-            grabber.spinMotor(-1, maxSpeed);
+            if(Math.abs(0.0 - grabber.getPosition()) < 5) {
+                grabber.spinMotor(-1,maxSpeed/2.0);
+            } else {
+                grabber.spinMotor(-1,maxSpeed);
+            }
         } else {
             grabber.stop();
             grabber.grabbing = false;

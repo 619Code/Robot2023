@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.helpers.Crashboard;
 
 public class LedStrip extends SubsystemBase{
     AddressableLED ledStrip;
@@ -21,6 +22,10 @@ public class LedStrip extends SubsystemBase{
         off();
 
         isYellow = false;
+    }
+
+    public void periodic() {
+        Crashboard.toDashboard("LED Signal", isYellow, Constants.GRABBER_TAB);
     }
 
     private void setWholeStripRGB(int red, int green, int blue) {

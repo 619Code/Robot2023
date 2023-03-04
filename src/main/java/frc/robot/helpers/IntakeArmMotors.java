@@ -73,10 +73,9 @@ public class IntakeArmMotors {
     public void LogData() {
         if (loggingOn) {
             ArmPosEntry = Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition(), Constants.INTAKE_TAB );
-                          Crashboard.toDashboard(name + " Arm Position", armEncoder.getPosition(), Constants.COMPETITON_TAB);
             armSpark = Crashboard.toDashboard(name + "Spark Status Arm", SparkErrorHelper.HasSensorError(armMotor), Constants.SPARKS_TAB);
             wheelSpark = Crashboard.toDashboard(name + "Spark Status Wheel", SparkErrorHelper.HasSensorError(wheelMotor), Constants.SPARKS_TAB);
-            limitSwitchTrigged = Crashboard.toDashboard(name + "Switch Triggd?", limitSwitch.get(), Constants.STATUS_TAB);
+            limitSwitchTrigged = Crashboard.toDashboard(name + "Switch Triggd?", getZeroSwitch(), Constants.STATUS_TAB);
         }
     }
 
