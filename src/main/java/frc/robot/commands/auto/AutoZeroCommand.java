@@ -25,11 +25,10 @@ public class AutoZeroCommand extends SequentialCommandGroup {
         this.telescope = telescope;
 
         addCommands(new IntakeZeroCommand(intake));
+        addCommands(new TelescopeZeroCommand(telescope));
         addCommands(new SequentialCommandGroup(
             new GrabZeroCommand(grabber),
-            new ReleaseCommand(grabber)
+            new ReleaseCommand(grabber,0.2)
         ));
-        addCommands(new TelescopeZeroCommand(telescope));
-        addCommands(new HingeZeroCommand(hinge));
     }
 }

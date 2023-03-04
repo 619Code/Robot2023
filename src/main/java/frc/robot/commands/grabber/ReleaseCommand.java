@@ -9,8 +9,15 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class ReleaseCommand extends CommandBase {
     private Grabber grabber;
 
+    private double maxSpeed;
+
     public ReleaseCommand(Grabber grabber) {
+        this(grabber, Constants.MAX_GRABBER_SPEED);
+    }
+
+    public ReleaseCommand(Grabber grabber, double speed) {
         this.grabber = grabber;
+        this.maxSpeed = Math.min(speed,Constants.MAX_GRABBER_SPEED);
 
         addRequirements(grabber);
     }
@@ -22,7 +29,7 @@ public class ReleaseCommand extends CommandBase {
     @Override
     public void execute() {
         if(grabber.getPosition() > 0) {
-            grabber.spinMotor(-1);
+            grabber.spinMotor(-1, maxSpeed);
         } else {
             grabber.stop();
             grabber.grabbing = false;

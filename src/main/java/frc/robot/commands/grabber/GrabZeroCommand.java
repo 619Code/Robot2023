@@ -19,6 +19,7 @@ public class GrabZeroCommand extends CommandBase {
 
     public void initialize() {
         zeroed = false;
+        grabber.grabbing = false;
     }
 
     @Override
@@ -27,6 +28,7 @@ public class GrabZeroCommand extends CommandBase {
             grabber.stop();
             grabber.zeroAtPosition(Constants.GRABBER_ZERO_POSITION);
             zeroed = true;
+            grabber.grabbing = true;
         } else {
             grabber.spinMotor(1, 0.1);
         }

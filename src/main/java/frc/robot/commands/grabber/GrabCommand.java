@@ -8,10 +8,17 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class GrabCommand extends CommandBase {
     private Grabber grabber;
+
     private double limit;
+    private double maxSpeed;
 
     public GrabCommand(Grabber grabber, boolean isCube) {
+        this(grabber, isCube, Constants.MAX_GRABBER_SPEED);
+    }
+
+    public GrabCommand(Grabber grabber, boolean isCube, double maxSpeed) {
         this.grabber = grabber;
+        this.maxSpeed = Math.min(maxSpeed, Constants.MAX_GRABBER_SPEED);
 
         addRequirements(grabber);
 
@@ -29,7 +36,7 @@ public class GrabCommand extends CommandBase {
     @Override
     public void execute() {
         if(limit > grabber.getPosition()) {
-            grabber.spinMotor(1);
+            grabber.spinMotor(1,maxSpeed);
         } else {
             grabber.stop();
             grabber.grabbing = true;

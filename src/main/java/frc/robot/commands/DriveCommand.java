@@ -41,8 +41,8 @@ public class DriveCommand extends CommandBase implements Loggable {
             rotation *= 0.5; //experimental for the time being
         //GIGA SLOW MODE
         } else if (controller.rightBumper().getAsBoolean()) {
-            throttle *= 0.102;
-            rotation *= 0.102;
+            throttle *= 0.2;
+            rotation *= 0.2;
         }
     }
 

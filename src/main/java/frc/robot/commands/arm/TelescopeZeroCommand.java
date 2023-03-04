@@ -28,7 +28,7 @@ public class TelescopeZeroCommand extends CommandBase {
             telescope.zero();
             zeroed = true;
         } else {
-            telescope.move(-Constants.TELESCOPE_ZERO_SPEED);
+            telescope.move(-Constants.TELESCOPE_ZERO_SPEED, true);
         }
     }
 

@@ -24,7 +24,7 @@ public class PreMatchSettingsCommand extends SequentialCommandGroup {
         this.telescope = telescope;
 
         addCommands(new AutoZeroCommand(intake, grabber, hinge, telescope));
-        addCommands(new MoveArmMasterCommand(hinge, telescope, ArmPosition.START));
-        addCommands(new GrabCommand(grabber, false));
+        addCommands(new MoveArmMasterCommand(hinge, telescope, ArmPosition.START)); //add slowdown
+        addCommands(new GrabCommand(grabber, false, 0.2));
     }
 }

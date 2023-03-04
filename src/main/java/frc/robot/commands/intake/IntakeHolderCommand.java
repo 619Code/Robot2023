@@ -37,8 +37,8 @@ public class IntakeHolderCommand extends CommandBase {
         if (States.intakeDeployed) {
             this.intakeSub.ActivateWheels(wheelSpeed);
             
-            var targetLeftPosition = Constants.LEFT_INTAKE_DEPLOYED_POSITION + (paddleRangeLeft * stick.getLeftTriggerAxis());
-            var targetRightPosition = Constants.RIGHT_INTAKE_DEPLOYED_POSITION + (paddleRangeRight * stick.getLeftTriggerAxis()); 
+            var targetLeftPosition = Constants.LEFT_INTAKE_DEPLOYED_POSITION + (paddleRangeLeft * stick.getRightTriggerAxis());
+            var targetRightPosition = Constants.RIGHT_INTAKE_DEPLOYED_POSITION + (paddleRangeRight * stick.getRightTriggerAxis()); 
             this.moveIntake(targetLeftPosition, IntakeArm.LeftArm);
             this.moveIntake(targetRightPosition, IntakeArm.RightArm);
         } else {

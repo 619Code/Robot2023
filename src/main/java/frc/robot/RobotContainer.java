@@ -12,6 +12,7 @@ import frc.robot.commands.arm.TelescopeZeroCommand;
 import frc.robot.commands.auto.AutoDriveCommand;
 import frc.robot.commands.auto.AutoPlaceCommand;
 import frc.robot.commands.auto.AutoZeroCommand;
+import frc.robot.commands.auto.PreMatchSettingsCommand;
 import frc.robot.commands.grabber.GrabCommand;
 import frc.robot.commands.grabber.GrabMasterCommand;
 import frc.robot.commands.grabber.GrabZeroCommand;
@@ -64,11 +65,11 @@ public class RobotContainer {
 	private Telescope telescope;
 	private LedStrip led;
 
-	private boolean TurnOnGrabber = false;
+	private boolean TurnOnGrabber = true;
 	private boolean TurnOnIntake = true;
-	private boolean TurnOnArm = false;
+	private boolean TurnOnArm = true;
 	private boolean TurnOnDrive = true;
-	private boolean IsTesting = true;
+	private boolean IsTesting = false;
 
 	public RobotContainer() {
 		driver = new CommandXboxController(3);
@@ -96,20 +97,20 @@ public class RobotContainer {
 
 		if (TurnOnGrabber) {
 			grabber = new Grabber();
-			grabManualCommand = new GrabManualCommand(grabber, operator);
-			grabber.setDefaultCommand(grabManualCommand);
+			/*grabManualCommand = new GrabManualCommand(grabber, operator);
+			grabber.setDefaultCommand(grabManualCommand);*/
 		}
 
 		if (TurnOnArm) {
 			hinge = new Hinge();
 
-			/*holdArmCommand = new HoldArmCommand(hinge);
-			hinge.setDefaultCommand(holdArmCommand);*/
-			hingeManualCommand = new HingeManualCommand(hinge, operator);
-			hinge.setDefaultCommand(hingeManualCommand);
+			holdArmCommand = new HoldArmCommand(hinge);
+			hinge.setDefaultCommand(holdArmCommand);
+			/*hingeManualCommand = new HingeManualCommand(hinge, operator);
+			hinge.setDefaultCommand(hingeManualCommand);*/
 
-			/*telescope = new Telescope();
-			telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
+			telescope = new Telescope();
+			/*telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
 			telescope.setDefaultCommand(telescopeManualCommand);*/
 		}
 
@@ -126,28 +127,26 @@ public class RobotContainer {
 	}
 
 	private void configureBindings() {
-		if (IsTesting)
+		if (IsTesting) {
 			BindTests();
+		} else {
+			competitionBindings();
+		}
+	}
+
+	private void competitionBindings() {
+		preMatchZeroing();
+		armBindings();
+		intakeBindings();
+		grabberBindings();
 	}
 
 	private void BindTests() {
-		if (TurnOnArm)
-			armTesting();
-
-		if (TurnOnGrabber)
-			grabberTesting();
-
-		if (TurnOnIntake)
-			intakeTesting();
-
 		/*if (TurnOnDrive)
 			lineupTesting();*/
 	}
 
-	public void armTesting() {
-		Trigger zeroTelescopeButton = operator.back();
-		zeroTelescopeButton.whileTrue(new TelescopeZeroCommand(telescope));
-
+	public void armBindings() {
 		Trigger startPositionButton = operator.start();
 		startPositionButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.START));
 
@@ -164,6 +163,29 @@ public class RobotContainer {
 		placeHighButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.GRID_HIGH));
 	}
 
+	public void intakeBindings() {
+		// Deploy and undeploy intake
+		Trigger deployIntakeButton = operator.rightBumper();
+		deployIntakeButton.onTrue(new ToggleDeployIntakeCommand());
+
+		// Once intake is deployed activate movement based on axis
+		Trigger intakeButton = operator.rightTrigger(0.15);
+		intakeButton.whileTrue(new IntakeHolderCommand(intake, operator));
+	}
+
+	public void grabberBindings() {
+        Trigger grabButton = operator.leftBumper();
+        grabButton.onTrue(new GrabMasterCommand(grabber, led));
+		
+		Trigger toggleLed = operator.back();
+		toggleLed.onTrue(new SetColorCommand(led)).debounce(1);
+	}
+
+	public void preMatchZeroing() {
+		Trigger zeroAllButton = driver.back();
+		zeroAllButton.onTrue(new PreMatchSettingsCommand(intake, grabber, hinge, telescope));
+	}
+
 	public void lineupTesting() {
 		Trigger leftButton = driver.x();
 		leftButton.whileTrue(new AutoLineupCommand(drive, LineupPosition.LEFT));
@@ -175,50 +197,12 @@ public class RobotContainer {
 		rightButton.whileTrue(new AutoLineupCommand(drive, LineupPosition.RIGHT));
 	}
 
-	public void intakeTesting() {
-		
-		// Deploy and undeploy intake
-		Trigger deployIntakeButton = operator.b();
-		deployIntakeButton.onTrue(new ToggleDeployIntakeCommand());
-
-		// Once intake is deployed activate movement based on axis
-		Trigger intakeButton = operator.leftTrigger(0.15);
-		intakeButton.whileTrue(new IntakeHolderCommand(intake, operator));
-
-		Trigger zeroIntakeButton = operator.y();
-		zeroIntakeButton.onTrue(new IntakeZeroCommand(intake));
-	}
-
-	public void grabberTesting() {
-		/*Trigger zeroButton = operator.back();
-		zeroButton.onTrue(new SequentialCommandGroup(
-			new GrabZeroCommand(grabber),
-			new ReleaseCommand(grabber)));*/
-
-        Trigger grabButton = operator.leftBumper();
-        grabButton.onTrue(new GrabMasterCommand(grabber, led));
-		
-		Trigger toggleLed = operator.back();
-		toggleLed.onTrue(new SetColorCommand(led)).debounce(1);
-	}
-
 	public Command getAutonomousCommand() {
-		/*
-		AutoCommandSwitcher.setAutoCommands(new Command[] {
-			//PUT COMMANDS HERE
-			null //MAKE SURE OPTION 0 IS NULL.
-		});
-		//return AutoCommandSwitcher.getAutoCommand(); //UNCOMMENT WHEN COMMANDS INTRODUCED. THANKS.
-		*/
-		
-		//return new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE);
-
-		/*return new SequentialCommandGroup(
+		return new SequentialCommandGroup(
 			new AutoPlaceCommand(grabber, hinge, telescope),
-			new AutoZeroCommand(intake, grabber, hinge, telescope),
 			new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE)
-		);*/
+		);
 
-		return null;
+		//return null;
 	}
 }

@@ -55,19 +55,24 @@ public class Telescope extends SubsystemBase {
     }
 
     public void move(double speed) {
+        move(speed, false);
+    }
+
+    public void move(double speed, boolean zeroing) {
         boolean move = true;
+
         if(speed > 0) {
             if(extendedSwitchIsPressed()) {
                 stop(); move = false;
             }
-            if(getPosition() > Constants.MAXIMUM_EXTENSION) {
+            if(!zeroing && getPosition() > Constants.MAXIMUM_EXTENSION) {
                 stop(); move = false;
             }
         } else if(speed < 0) {
             if(contractedSwitchIsPressed()) {
                 stop(); move = false;
             }
-            if(getPosition() < Constants.MINIMUM_EXTENSION) {
+            if(!zeroing && getPosition() < Constants.MINIMUM_EXTENSION) {
                 stop(); move = false;
             }
         }

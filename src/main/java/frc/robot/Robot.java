@@ -24,7 +24,7 @@ public class Robot extends TimedRobot {
     // For Oblog uncomment, othewise use the Crashboard
     //Logger.configureLoggingAndConfig(robotContainer, false);
 
-    //CameraServer.startAutomaticCapture(); //UNDO
+    CameraServer.startAutomaticCapture();
   }
 
   @Override
@@ -74,21 +74,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-
-    // counter ++;
-
-    // if (counter == 0) {
-    //   PipelineHelper.SetCenterPipeline();
-    // } else if (counter == 50) {
-    //   PipelineHelper.SetRightPipeline();
-    // } else if (counter == 100) {
-    //   PipelineHelper.SetLeftPipeline();
-    // } else if (counter == 150) {
-    //   PipelineHelper.SetCenterPipeline();
-    //   counter = 0;
-    // }
-    
-
     String gameData;
     gameData = DriverStation.getGameSpecificMessage();
 

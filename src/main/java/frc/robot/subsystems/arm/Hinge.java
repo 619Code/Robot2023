@@ -29,17 +29,17 @@ public class Hinge extends SubsystemBase {
 
     public Hinge() {
         hingeLeaderMotor = new CANSparkMax(Constants.HINGE_LEADER_MOTOR, MotorType.kBrushless);
-        hingeFollowerMotor = new CANSparkMax(Constants.HINGE_FOLLOWER_MOTOR, MotorType.kBrushless);
+        //hingeFollowerMotor = new CANSparkMax(Constants.HINGE_FOLLOWER_MOTOR, MotorType.kBrushless);
 
         hingeLeaderMotor.restoreFactoryDefaults();
         hingeLeaderMotor.setIdleMode(IdleMode.kBrake);
         hingeLeaderMotor.setSmartCurrentLimit(40);
         hingeLeaderMotor.setInverted(true);
 
-        hingeFollowerMotor.restoreFactoryDefaults();
+        /*hingeFollowerMotor.restoreFactoryDefaults();
         hingeFollowerMotor.setIdleMode(IdleMode.kBrake);
         hingeFollowerMotor.setSmartCurrentLimit(40);
-        hingeLeaderMotor.setInverted(true);
+        hingeLeaderMotor.setInverted(true);*/
 
         hingeEncoder = hingeLeaderMotor.getEncoder();
         hingeEncoder.setPosition(Constants.HINGE_START);
@@ -64,13 +64,13 @@ public class Hinge extends SubsystemBase {
     }
 
     public void move(double speed) {
-        if(speed > 0 && switchIsPressed() && !lastMovingDown) {
+        /*if(speed > 0 && switchIsPressed() && !lastMovingDown) {
             stop();
         } else if(speed < 0 && switchIsPressed() && lastMovingDown) {
             stop();
         } else {
             hingeLeaderMotor.set(speed);
-            hingeFollowerMotor.set(speed);
+            //hingeFollowerMotor.set(speed);
         }
 
         if(speed > 0)
@@ -79,6 +79,14 @@ public class Hinge extends SubsystemBase {
         } else
         {
             lastMovingDown = true;
+        }*/
+
+        if(speed > 0 && hingeEncoder.getPosition() > Constants.MAXIMUM_POSITION) {
+            stop();
+        } else if(speed < 0 && hingeEncoder.getPosition() < Constants.MINIMUM_POSITION) {
+            stop();
+        } else {
+            hingeLeaderMotor.set(speed);
         }
     }
 
@@ -105,7 +113,7 @@ public class Hinge extends SubsystemBase {
 
     public void stop() {
         hingeLeaderMotor.set(0);
-        hingeFollowerMotor.set(0);
+        //hingeFollowerMotor.set(0);
     }
 
     public double getPosition() {
