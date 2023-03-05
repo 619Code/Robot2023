@@ -159,6 +159,9 @@ public class Drivetrain extends SubsystemBase implements Loggable {
         rightLeaderSpark = Crashboard.toDashboard("Right Leader Spark", SparkErrorHelper.HasSensorError(rightLeader), Constants.SPARKS_TAB);
         leftFollowerSpark = Crashboard.toDashboard("Left Follower Spark", SparkErrorHelper.HasSensorError(leftFollower), Constants.SPARKS_TAB);
         rightFollowerSpark = Crashboard.toDashboard("Right Follower Spark", SparkErrorHelper.HasSensorError(rightFollower), Constants.SPARKS_TAB);
+
+        //Crashboard.toDashboard("Left Encoder Ticks", leftEncoder.getPosition(), Constants.COMPETITON_TAB);
+        //Crashboard.toDashboard("Right Encoder Ticks", rightEncoder.getPosition(), Constants.COMPETITON_TAB);
     }
 
     public void resetPIDs() {

@@ -15,7 +15,7 @@ import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.SparkErrorHelper;
 
 public class Hinge extends SubsystemBase {
-    private CANSparkMax hingeLeaderMotor;
+    public CANSparkMax hingeLeaderMotor;
     private CANSparkMax hingeFollowerMotor;
     public RelativeEncoder hingeEncoder;
 
@@ -60,7 +60,8 @@ public class Hinge extends SubsystemBase {
         hingeSpark = Crashboard.toDashboard("Hinge Spark", SparkErrorHelper.HasSensorError(hingeLeaderMotor), Constants.SPARKS_TAB);
         hingeSwitch = Crashboard.toDashboard("Hinge Switch Triggd?", magnetSwitch.get(), Constants.STATUS_TAB);
 
-        Crashboard.toDashboard("Hinge Position", hingeEncoder.getPosition(), Constants.ARM_TAB);
+        Crashboard.toDashboard("Hinge Velocity", hingeEncoder.getVelocity(), Constants.ARM_TAB);
+        Crashboard.toDashboard("Hinge Amps", hingeLeaderMotor.getAppliedOutput(), Constants.ARM_TAB);
     }
 
     public void move(double speed) {

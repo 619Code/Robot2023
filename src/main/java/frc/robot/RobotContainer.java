@@ -8,11 +8,13 @@ import frc.robot.commands.arm.HoldArmCommand;
 import frc.robot.commands.arm.MoveArmMasterCommand;
 import frc.robot.commands.arm.MoveHingeCommand;
 import frc.robot.commands.arm.MoveTelescopeCommand;
+import frc.robot.commands.arm.SetHingeZeroCommand;
 import frc.robot.commands.arm.TelescopeZeroCommand;
 import frc.robot.commands.auto.AutoDriveCommand;
 import frc.robot.commands.auto.AutoPlaceCommand;
 import frc.robot.commands.auto.AutoZeroCommand;
 import frc.robot.commands.auto.PreMatchSettingsCommand;
+import frc.robot.commands.auto.SlowDriveCommand;
 import frc.robot.commands.grabber.GrabCommand;
 import frc.robot.commands.grabber.GrabMasterCommand;
 import frc.robot.commands.grabber.GrabZeroCommand;
@@ -135,16 +137,15 @@ public class RobotContainer {
 	}
 
 	private void competitionBindings() {
-		preMatchZeroing();
 		armBindings();
-		//intakeBindings();
+		intakeBindings();
 		grabberBindings();
 	}
 
 	private void BindTests() {
 		preMatchZeroing();
 
-		Trigger startPositionButton = operator.start();
+		/*Trigger startPositionButton = operator.start();
 		startPositionButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.START));
 
 		Trigger pickupLowButton = operator.a();
@@ -153,7 +154,10 @@ public class RobotContainer {
 		Trigger pickupHighButton = operator.y();
 		pickupHighButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.PICKUP_HIGH));
 
-		grabberBindings();
+		Trigger placeMidButton = operator.x();
+		placeMidButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.GRID_MID));
+
+		grabberBindings();*/
 	}
 
 	public void armBindings() {
@@ -169,8 +173,8 @@ public class RobotContainer {
 		Trigger placeMidButton = operator.x();
 		placeMidButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.GRID_MID));
 
-		Trigger placeHighButton = operator.b();
-		placeHighButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.GRID_HIGH));
+		/*Trigger placeHighButton = operator.b();
+		placeHighButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.GRID_HIGH));*/
 	}
 
 	public void intakeBindings() {
@@ -212,11 +216,20 @@ public class RobotContainer {
 	}
 
 	public Command getAutonomousCommand() {
+		return new SequentialCommandGroup(
+			new HingeZeroCommand(hinge).withTimeout(7),
+			new SetHingeZeroCommand(hinge),
+			new MoveArmMasterCommand(hinge, telescope, ArmPosition.START),
+			new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE)
+		);
+
 		/*return new SequentialCommandGroup(
 			new AutoPlaceCommand(grabber, hinge, telescope),
 			new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE)
 		);*/
 
-		return null;
+		//return new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE);
+
+		//return null;
 	}
 }

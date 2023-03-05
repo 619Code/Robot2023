@@ -48,15 +48,11 @@ public class MoveArmMasterCommand extends CommandBase {
 
         if(!ArmPositionHelper.atHingePosition) {
             myHingeCommand = new MoveHingeCommand(hinge);
-            if(movingToFront) {
-                myTelescopeCommand = new MoveTelescopeCommand(telescope, false);
-            } else {
-                myTelescopeCommand = new MoveTelescopeCommand(telescope, true);
-            }
         } else {
             myHingeCommand = new HoldArmCommand(hinge);
-            myTelescopeCommand = new MoveTelescopeCommand(telescope, false);
         }
+
+        myTelescopeCommand = new MoveTelescopeCommand(telescope, false);
 
         myHingeCommand.execute();
         myTelescopeCommand.execute();

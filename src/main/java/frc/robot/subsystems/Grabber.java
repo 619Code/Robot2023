@@ -36,7 +36,7 @@ public class Grabber extends SubsystemBase {
         grabbing = true;
 
         grabberEncoder = grabberMotor.getEncoder();
-        grabberEncoder.setPosition(Constants.GRABBER_START); //zero position
+        grabberEncoder.setPosition(Constants.CONE_POSITION - 2); //zero position
 
         limitSwitch = new DigitalInput(Constants.GRABBER_SWITCH);
     }
@@ -49,6 +49,7 @@ public class Grabber extends SubsystemBase {
         switchTrigged = Crashboard.toDashboard("Grabber Switch Triggd?", switchIsPressed(), Constants.STATUS_TAB);
 
         Crashboard.toDashboard("Position", grabberEncoder.getPosition(), Constants.GRABBER_TAB);
+        Crashboard.toDashboard("Grabbing", grabbing, Constants.GRABBER_TAB);
 
         ColorDetector.update();
     }
@@ -58,11 +59,13 @@ public class Grabber extends SubsystemBase {
     }
 
     public void spinMotor(double speed, double speedMax) {
-        if(speed > 0 && switchIsPressed()) {
+        /*if(speed > 0 && switchIsPressed()) {
             stop();
         } else {
             grabberMotor.set(speed * speedMax);
-        }
+        }*/
+
+        grabberMotor.set(speed * speedMax);
         
         SmartDashboard.putNumber("Position", getPosition());
     }

@@ -4,7 +4,7 @@ import frc.robot.Constants;
 import frc.robot.helpers.enums.ArmPosition;
 
 public class ArmPositionHelper {
-    public static ArmPosition currentPosition = ArmPosition.PICKUP_LOW; //UNDO
+    public static ArmPosition currentPosition = ArmPosition.START;
     public static boolean atHingePosition = true;
     public static boolean retracted = true;
     public static boolean atTelescopePosition = true;

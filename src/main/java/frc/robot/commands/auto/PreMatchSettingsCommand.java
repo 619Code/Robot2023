@@ -2,6 +2,7 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.arm.HoldArmCommand;
 import frc.robot.commands.arm.MoveArmMasterCommand;
 import frc.robot.commands.grabber.GrabCommand;
 import frc.robot.commands.grabber.GrabZeroCommand;
@@ -24,7 +25,7 @@ public class PreMatchSettingsCommand extends SequentialCommandGroup {
         this.telescope = telescope;
 
         addCommands(new AutoZeroCommand(intake, grabber, hinge, telescope));
-        addCommands(new MoveArmMasterCommand(hinge, telescope, ArmPosition.START)); //add slowdown
-        //addCommands(new GrabCommand(grabber, false, 0.2)); //UNDO
+        //addCommands(new MoveArmMasterCommand(hinge, telescope, ArmPosition.START)); //add slowdown
+        addCommands(new GrabCommand(grabber, false, 0.2));
     }
 }

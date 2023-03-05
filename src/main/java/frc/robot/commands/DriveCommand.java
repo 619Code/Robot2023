@@ -35,6 +35,7 @@ public class DriveCommand extends CommandBase implements Loggable {
     public void setVals() {
         throttle = (Math.abs(leftY) > Constants.JOYSTICK_DEADZONE) ? leftY : 0;
         rotation = (Math.abs(rightX) > Constants.JOYSTICK_DEADZONE) ? rightX : 0;
+        rotation *= 2.0/3.0;
 
         if(controller.getRightTriggerAxis() > 0.5) {
             throttle *= 0.5;

@@ -5,13 +5,11 @@ import frc.robot.Constants;
 import frc.robot.States;
 import frc.robot.subsystems.Drivetrain;
 
-public class AutoDriveCommand extends CommandBase {
+public class SlowDriveCommand extends CommandBase {
     Drivetrain drive;
-    double goal;
 
-    public AutoDriveCommand(Drivetrain drive, double goal) {
+    public SlowDriveCommand(Drivetrain drive) {
         this.drive = drive;
-        this.goal = goal;
 
         drive.resetEncoders();
         addRequirements(drive);
@@ -23,12 +21,12 @@ public class AutoDriveCommand extends CommandBase {
 
     @Override
     public void execute() {
-        drive.curve(Constants.AUTO_DRIVE_VELOCITY, 0);
+        drive.curve(-0.5, 0);
     }
 
     @Override
     public boolean isFinished() {
-        return -drive.getLeftPosition() >= goal;
+        return -drive.getLeftPosition() <= -33;
     }
 
     @Override

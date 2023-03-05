@@ -32,7 +32,7 @@ public final class Constants {
     //Drive constants
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(5.827); //meters
     public static final int NEO_LIMIT = 45; //amps
-    public static final double SPEED_ADJUST = 0.4; //how much to adjust speed of drive
+    public static final double SPEED_ADJUST = 0.6; //how much to adjust speed of drive
     public static final double DRIVE_RATIO = (13.0/60.0) * (18.0/34.0); // gear ratio
     public static final double TRACK_WIDTH = Units.inchesToMeters(23); //REMEASURE
     public static final String SHUFFLEBOARD_DRIVE_TAB_NAME = "Drive";
@@ -63,7 +63,7 @@ public final class Constants {
     public static final double kRamseteZeta = 0.7;
 
     //Grabber constants
-    public static final double MAX_GRABBER_SPEED = 0.2;
+    public static final double MAX_GRABBER_SPEED = 0.5; //0.2
 
     public static final double CUBE_POSITION = 17.0;
 	public static final double CONE_POSITION = 60.0;
@@ -76,11 +76,11 @@ public final class Constants {
     public static final double MAXIMUM_POSITION = 57.0;
 
     public static final double HINGE_SPEED = 0.3; //0.4
-    public static final double HINGE_ZERO_SPEED = 0.04;
-    public static final double HINGE_P = 0.08;
+    public static final double HINGE_ZERO_SPEED = 0.1;
+    public static final double HINGE_P = 0.12;
 
     //Telescope constants
-    public static final double TELESCOPE_CONTRACTED_SWITCH_POSITION = 0.0;
+    public static final double TELESCOPE_CONTRACTED_SWITCH_POSITION = -5.0;
     public static final double TELESCOPE_EXTENDED_SWITCH_POSITION = 78;
     public static final double EXTENSION_TOLERANCE = 5.0;
     public static final double MINIMUM_EXTENSION = TELESCOPE_CONTRACTED_SWITCH_POSITION + EXTENSION_TOLERANCE;
@@ -91,17 +91,19 @@ public final class Constants {
     public static final double TELESCOPE_P = 0.04;
 
     //Arm cases
-    public static final double START_POSITION_HINGE = 25.0;
+    public static final double ARM_ADJUST_FACTOR = 1.15;
+
+    public static final double START_POSITION_HINGE = 25.0 * ARM_ADJUST_FACTOR;
     public static final double START_POSITION_TELESCOPE = 0.0;
 
     public static final double PICKUP_LOW_POSITION_HINGE = 1.0;
     public static final double PICKUP_LOW_POSITION_TELESCOPE = 5.0;
 
-    public static final double PICKUP_HIGH_POSITION_HINGE = 19.0;
-    public static final double PICKUP_HIGH_POSITION_TELESCOPE = 19.0;
+    public static final double PICKUP_HIGH_POSITION_HINGE = 20.0  * ARM_ADJUST_FACTOR;
+    public static final double PICKUP_HIGH_POSITION_TELESCOPE = 20.0;
 
-    public static final double GRID_MID_POSITION_HINGE = 17.5;
-    public static final double GRID_MID_POSITION_TELESCOPE = 67.0;
+    public static final double GRID_MID_POSITION_HINGE = 17.0  * ARM_ADJUST_FACTOR;
+    public static final double GRID_MID_POSITION_TELESCOPE = 71.0;
 
     public static final double GRID_HIGH_POSITION_HINGE = 46.0;
     public static final double GRID_HIGH_POSITION_TELESCOPE = 72.0;
@@ -130,8 +132,9 @@ public final class Constants {
     public static final int LED_STRIP_LENGTH = 100;
 
     //Auto Constants
-    public static final double AUTO_DRIVE_SPEED = 0.4;
-    public static final double AUTO_DRIVE_DISTANCE = 5;
+    public static final double AUTO_DRIVE_VELOCITY = 0.5;
+    public static final double AUTO_DRIVE_DISTANCE = 
+    5;
 
     public static final double GRABBER_START = CONE_POSITION;
     public static final double HINGE_START = START_POSITION_HINGE;
