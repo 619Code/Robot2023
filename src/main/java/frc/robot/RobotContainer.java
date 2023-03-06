@@ -99,21 +99,24 @@ public class RobotContainer {
 
 		if (TurnOnGrabber) {
 			grabber = new Grabber();
-			/*grabManualCommand = new GrabManualCommand(grabber, operator);
-			grabber.setDefaultCommand(grabManualCommand);*/
+			grabManualCommand = new GrabManualCommand(grabber, operator);
+			grabber.setDefaultCommand(grabManualCommand);
 		}
 
 		if (TurnOnArm) {
 			hinge = new Hinge();
 
-			holdArmCommand = new HoldArmCommand(hinge);
-			hinge.setDefaultCommand(holdArmCommand);
+			if(!IsTesting) {
+				holdArmCommand = new HoldArmCommand(hinge);
+				hinge.setDefaultCommand(holdArmCommand);
+			}
+
 			/*hingeManualCommand = new HingeManualCommand(hinge, operator);
 			hinge.setDefaultCommand(hingeManualCommand);*/
 
 			telescope = new Telescope();
-			telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
-			telescope.setDefaultCommand(telescopeManualCommand);
+			/*telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
+			telescope.setDefaultCommand(telescopeManualCommand);*/
 		}
 
 		configureBindings();
@@ -140,6 +143,7 @@ public class RobotContainer {
 		armBindings();
 		intakeBindings();
 		grabberBindings();
+		lineupTesting();
 	}
 
 	private void BindTests() {
@@ -173,6 +177,9 @@ public class RobotContainer {
 		Trigger placeMidButton = operator.x();
 		placeMidButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.GRID_MID));
 
+		Trigger moveParallelButton = operator.b();
+		moveParallelButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.PARALLEL_POSITION));
+
 		/*Trigger placeHighButton = operator.b();
 		placeHighButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.GRID_HIGH));*/
 	}
@@ -190,9 +197,9 @@ public class RobotContainer {
 	public void grabberBindings() {
         Trigger grabButton = operator.leftBumper();
         grabButton.onTrue(new GrabMasterCommand(grabber, led));
-		
-		Trigger toggleLed = operator.back();
-		toggleLed.onTrue(new SetColorCommand(led)).debounce(1);
+
+		Trigger toggleLed = operator.leftTrigger(0.5);
+		toggleLed.whileTrue(new SetColorCommand(led));
 	}
 
 	public void preMatchZeroing() {

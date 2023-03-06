@@ -21,6 +21,8 @@ public class ArmPositionHelper {
                 return Constants.GRID_MID_POSITION_HINGE;
             case GRID_HIGH:
                 return Constants.GRID_HIGH_POSITION_HINGE;
+            case PARALLEL_POSITION:
+                return Constants.PARALLEL_POSITION_HINGE;
             default:
                 return Constants.START_POSITION_HINGE;
         }
@@ -38,6 +40,8 @@ public class ArmPositionHelper {
                 return Constants.GRID_MID_POSITION_TELESCOPE;
             case GRID_HIGH:
                 return Constants.GRID_HIGH_POSITION_TELESCOPE;
+            case PARALLEL_POSITION:
+                return Constants.PARALLEL_POSITION_TELESCOPE;
             default:
                 return Constants.START_POSITION_TELESCOPE;
         }

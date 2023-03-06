@@ -65,9 +65,9 @@ public final class Constants {
     //Grabber constants
     public static final double MAX_GRABBER_SPEED = 0.5; //0.2
 
-    public static final double CUBE_POSITION = 17.0;
-	public static final double CONE_POSITION = 60.0;
-	public static final double GRABBER_ZERO_POSITION = 60.0;
+    public static final double CUBE_POSITION = 20.0; //17.0
+	public static final double CONE_POSITION = 67.0; //60.0
+	public static final double GRABBER_ZERO_POSITION = 67.0; //60.0
 
     public static final double GRABBER_P = 0.1;
 
@@ -75,7 +75,7 @@ public final class Constants {
     public static final double MINIMUM_POSITION = 1.0;
     public static final double MAXIMUM_POSITION = 57.0;
 
-    public static final double HINGE_SPEED = 0.3; //0.4
+    public static final double HINGE_SPEED = 0.2; //0.4
     public static final double HINGE_ZERO_SPEED = 0.1;
     public static final double HINGE_P = 0.12;
 
@@ -96,18 +96,20 @@ public final class Constants {
     public static final double START_POSITION_HINGE = 25.0 * ARM_ADJUST_FACTOR;
     public static final double START_POSITION_TELESCOPE = 0.0;
 
-    public static final double PICKUP_LOW_POSITION_HINGE = 1.0;
+    public static final double PICKUP_LOW_POSITION_HINGE = 4.5;
     public static final double PICKUP_LOW_POSITION_TELESCOPE = 5.0;
 
-    public static final double PICKUP_HIGH_POSITION_HINGE = 20.0  * ARM_ADJUST_FACTOR;
+    public static final double PICKUP_HIGH_POSITION_HINGE = 19.5 * ARM_ADJUST_FACTOR;
     public static final double PICKUP_HIGH_POSITION_TELESCOPE = 20.0;
 
-    public static final double GRID_MID_POSITION_HINGE = 17.0  * ARM_ADJUST_FACTOR;
-    public static final double GRID_MID_POSITION_TELESCOPE = 71.0;
+    public static final double GRID_MID_POSITION_HINGE = 18.0 * ARM_ADJUST_FACTOR;
+    public static final double GRID_MID_POSITION_TELESCOPE = 74.0;
 
     public static final double GRID_HIGH_POSITION_HINGE = 46.0;
     public static final double GRID_HIGH_POSITION_TELESCOPE = 72.0;
 
+    public static final double PARALLEL_POSITION_HINGE = 10.0;
+    public static final double PARALLEL_POSITION_TELESCOPE = 5.0;
 
     //Intake constants
     public static final int LEFT_ARM = 14; 
@@ -115,7 +117,7 @@ public final class Constants {
     public static final int LEFT_WHEEL = 13;
     public static final int RIGHT_WHEEL = 8;
     public static final double INTAKE_RETRACTED_POSITION = 0;
-    public static final double LEFT_INTAKE_DEPLOYED_POSITION = 39;
+    public static final double LEFT_INTAKE_DEPLOYED_POSITION = 37;
     public static final double RIGHT_INTAKE_DEPLOYED_POSITION = 41;    
     public static final int LEFT_LIMIT_SWITCH_ID = -1;
     public static final int RIGHT_LIMIT_SWITCH_ID = -1;

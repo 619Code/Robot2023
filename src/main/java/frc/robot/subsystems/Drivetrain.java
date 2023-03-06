@@ -71,10 +71,8 @@ public class Drivetrain extends SubsystemBase implements Loggable {
             leftLeader,
             leftFollower     
         }; 
-        for(CANSparkMax spark : leftMotorArray) {
-            spark.setIdleMode(IdleMode.kBrake);
-            //spark.setSmartCurrentLimit(45);
-        }
+        leftLeader.setIdleMode(IdleMode.kBrake);
+        leftFollower.setIdleMode(IdleMode.kCoast);
 
         rightLeader = new CANSparkMax(Constants.RIGHT_LEADER, MotorType.kBrushless);
         rightFollower = new CANSparkMax(Constants.RIGHT_FOLLOWER_0, MotorType.kBrushless);
@@ -82,10 +80,8 @@ public class Drivetrain extends SubsystemBase implements Loggable {
             rightLeader,
             rightFollower    
         };
-        for(CANSparkMax spark : rightMotorArray) {
-            spark.setIdleMode(IdleMode.kBrake);
-            //spark.setSmartCurrentLimit(45);
-        }
+        rightLeader.setIdleMode(IdleMode.kBrake);
+        rightFollower.setIdleMode(IdleMode.kCoast);
         
         leftMotors = new MotorControllerGroup(leftMotorArray);
         rightMotors = new MotorControllerGroup(rightMotorArray);

@@ -33,10 +33,10 @@ public class Grabber extends SubsystemBase {
         grabberMotor.setIdleMode(IdleMode.kBrake);
         grabberMotor.setInverted(true);
 
-        grabbing = true;
+        grabbing = false;
 
         grabberEncoder = grabberMotor.getEncoder();
-        grabberEncoder.setPosition(Constants.CONE_POSITION - 2); //zero position
+        grabberEncoder.setPosition(0.0); //zero position
 
         limitSwitch = new DigitalInput(Constants.GRABBER_SWITCH);
     }

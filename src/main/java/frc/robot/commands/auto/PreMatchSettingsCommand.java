@@ -26,6 +26,6 @@ public class PreMatchSettingsCommand extends SequentialCommandGroup {
 
         addCommands(new AutoZeroCommand(intake, grabber, hinge, telescope));
         //addCommands(new MoveArmMasterCommand(hinge, telescope, ArmPosition.START)); //add slowdown
-        addCommands(new GrabCommand(grabber, false, 0.2));
+        //addCommands(new GrabCommand(grabber, false, 0.2));
     }
 }

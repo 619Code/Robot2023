@@ -5,30 +5,29 @@ import frc.robot.subsystems.LedStrip;
 
 public class SetColorCommand extends CommandBase {
     private LedStrip led;
-    private boolean done;
 
     public SetColorCommand(LedStrip led) {
         this.led = led;
-        done = false;
 
         addRequirements(led);
     }
 
     @Override
     public void initialize() {
-        if(led.isYellow) {
-            led.setColorPurple();
-        } else {
-            led.setColorYellow();
-        }
+    }
+
+    @Override
+    public void execute() {
+        led.setColorPurple();
     }
 
     @Override
     public void end(boolean interrupted) {
+        led.setColorYellow();
     }
 
     @Override
     public boolean isFinished() {
-        return true;
+        return false;
     }
 }

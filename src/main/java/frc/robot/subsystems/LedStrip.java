@@ -21,7 +21,7 @@ public class LedStrip extends SubsystemBase{
 
         off();
 
-        isYellow = false;
+        isYellow = true;
     }
 
     public void periodic() {
