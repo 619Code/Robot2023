@@ -22,8 +22,7 @@ public class IntakeArmMotors {
     public boolean loggingOn = true;
     boolean inverted = false;
     String name;
-    public double ArmSpeed = .1;
-    public double WheelSpeed = .1;
+
 
 
     private GenericEntry ArmPosEntry;

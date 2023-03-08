@@ -2,7 +2,6 @@ package frc.robot;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 public final class Constants {
     //Drive CANs
@@ -121,7 +120,6 @@ public final class Constants {
     public static final double RIGHT_INTAKE_DEPLOYED_POSITION = 41;    
     public static final int LEFT_LIMIT_SWITCH_ID = -1;
     public static final int RIGHT_LIMIT_SWITCH_ID = -1;
-
     //Limelight constants
     public static final int CENTER_PIPELINE = 0;
     public static final int RIGHT_PIPELINE = 1;

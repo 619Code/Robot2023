@@ -11,11 +11,14 @@ import frc.robot.subsystems.IntakeSub;
 public class IntakeDefaultCommand extends CommandBase {
 
     private IntakeSub intakeSub;
-    private double tolerance = .5;
-    private double minSpeed = .1;
-    private double maxSpeed = .3;
+    private double tolerance;
+    private double minSpeed;
+    private double maxSpeed;
 
     public IntakeDefaultCommand(IntakeSub intakeSub) {
+        tolerance = .5;
+        minSpeed = .1;
+        maxSpeed = .3;
         this.intakeSub = intakeSub;
         this.addRequirements(intakeSub);
     }
