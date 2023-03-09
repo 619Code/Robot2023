@@ -16,10 +16,8 @@ import frc.robot.helpers.SparkErrorHelper;
 
 public class Hinge extends SubsystemBase {
     public CANSparkMax hingeLeaderMotor;
-    private CANSparkMax hingeFollowerMotor;
-    public RelativeEncoder hingeEncoder;
+    private RelativeEncoder hingeEncoder;
 
-    //private DigitalInput highSwitch;
     private DigitalInput magnetSwitch; 
 
     public boolean lastMovingDown;
@@ -29,17 +27,11 @@ public class Hinge extends SubsystemBase {
 
     public Hinge() {
         hingeLeaderMotor = new CANSparkMax(Constants.HINGE_LEADER_MOTOR, MotorType.kBrushless);
-        //hingeFollowerMotor = new CANSparkMax(Constants.HINGE_FOLLOWER_MOTOR, MotorType.kBrushless);
 
         hingeLeaderMotor.restoreFactoryDefaults();
         hingeLeaderMotor.setIdleMode(IdleMode.kBrake);
         hingeLeaderMotor.setSmartCurrentLimit(40);
         hingeLeaderMotor.setInverted(true);
-
-        /*hingeFollowerMotor.restoreFactoryDefaults();
-        hingeFollowerMotor.setIdleMode(IdleMode.kBrake);
-        hingeFollowerMotor.setSmartCurrentLimit(40);
-        hingeLeaderMotor.setInverted(true);*/
 
         hingeEncoder = hingeLeaderMotor.getEncoder();
         hingeEncoder.setPosition(Constants.HINGE_START);
@@ -49,16 +41,15 @@ public class Hinge extends SubsystemBase {
         magnetSwitch = new DigitalInput(Constants.HINGE_SWITCH);
     }
 
-    /* (non-Javadoc)
-     * @see edu.wpi.first.wpilibj2.command.Subsystem#periodic()
-     */
     @Override
     public void periodic() {
         Crashboard.toDashboard("Hinge Position", getPosition(), Constants.ARM_TAB);
         Crashboard.toDashboard("Hinge Position", getPosition(), Constants.COMPETITON_TAB);
         Crashboard.toDashboard("Hinge Amps", hingeLeaderMotor.getOutputCurrent(), Constants.ARM_TAB);
         hingeSpark = Crashboard.toDashboard("Hinge Spark", SparkErrorHelper.HasSensorError(hingeLeaderMotor), Constants.SPARKS_TAB);
-        hingeSwitch = Crashboard.toDashboard("Hinge Switch Triggd?", magnetSwitch.get(), Constants.STATUS_TAB);
+        hingeSwitch = Crashboard.toDashboard("Hinge Switch Triggd?", switchIsPressed(), Constants.STATUS_TAB);
+
+        System.out.println(switchIsPressed());
 
         Crashboard.toDashboard("Hinge Velocity", hingeEncoder.getVelocity(), Constants.ARM_TAB);
         Crashboard.toDashboard("Hinge Amps", hingeLeaderMotor.getAppliedOutput(), Constants.ARM_TAB);
@@ -114,17 +105,14 @@ public class Hinge extends SubsystemBase {
 
     public void stop() {
         hingeLeaderMotor.set(0);
-        //hingeFollowerMotor.set(0);
     }
 
     public double getPosition() {
         return hingeEncoder.getPosition();
     }
 
-    public boolean switchIsPressed()
-    {
-        //return magnetSwitch.get();
-        return false; //UNDO
+    public boolean switchIsPressed() {
+        return !magnetSwitch.get();
     }
 
     public void zero() {

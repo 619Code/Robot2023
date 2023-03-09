@@ -39,7 +39,7 @@ public final class Constants {
     public static final double SUPER_SLOW_MODE_SPEED = 0.6 * 0.2;
     public static final double SUPER_SLOW_MODE_ROTATION = 0.3 *0.2;
 
-    public static final double DRIVE_SLEW_RATE_LIMIT = 1.4;
+    public static final double DRIVE_SLEW_RATE_LIMIT = 1.5;
     
     public static final double DRIVE_RATIO = (13.0/60.0) * (18.0/34.0); // gear ratio
     public static final double TRACK_WIDTH = Units.inchesToMeters(23); //REMEASURE
