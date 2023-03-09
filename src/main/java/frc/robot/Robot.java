@@ -8,8 +8,6 @@ import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.helpers.Crashboard;
-import frc.robot.helpers.limelight.PipelineHelper;
-
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer robotContainer;
@@ -30,8 +28,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-
-    //Crashboard.toDashboard("Total Current Draw", pdh.getTotalCurrent(), Constants.COMPETITON_TAB);
   }
 
   @Override
@@ -70,30 +66,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    String gameData;
-    gameData = DriverStation.getGameSpecificMessage();
-
-    if (gameData.length() > 0) {
-      switch (gameData.charAt(0)) {
-        case 'B':
-          // System.out.println("Blue Team");
-          break;
-        case 'G':
-          // System.out.println("Error");
-          break;
-        case 'R':
-          // System.out.println("Red Team");
-          break;
-        case 'Y':
-          // System.out.println("Error");
-          break;
-        default:
-          // System.out.println("Error");
-          break;
-      }
-    } else {
-      // System.out.println("No code received");
-    }
+    //
   }
 
   @Override

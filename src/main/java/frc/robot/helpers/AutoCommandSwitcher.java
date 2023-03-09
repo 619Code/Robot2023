@@ -6,57 +6,24 @@ import frc.robot.Constants;
 
 public class AutoCommandSwitcher {
     
-    private static boolean[] autoword;
-    private static Command[] commandList;
+    private static GenericEntry autoChooser;
+    private static int chosenValue;
 
-    private static GenericEntry OnesEntry;
-    private static GenericEntry TwosEntry;
+    private static Command[] autoCommands;
 
+    public static void loadAutoCommandSwitcher(Command[] toPropogate) {
+        autoCommands = new Command[toPropogate.length];
 
-    
-    public static void setAutoCommands(Command[] commands) {
-        commandList = new Command[commands.length];
-        for (int i = 0; i < commands.length; i ++) {
-            commandList[i] = commands[i];
+        for (int i = 0; i < toPropogate.length; i ++) {
+            autoCommands[i] = toPropogate[i];
         }
 
-    }
-
-    public static void setAutoword() {
-        autoword = new boolean[2];
-        OnesEntry = Crashboard.toDashboard("Ones AutoSelect", false, Constants.AUTOS_TAB);
-        TwosEntry = Crashboard.toDashboard("Twos AutoSelect", false, Constants.AUTOS_TAB);
-        autoword[0] = OnesEntry.getBoolean(false);
-        autoword[1] = TwosEntry.getBoolean(false);
-    }
-  
-    public static void setAutoword(boolean[] in) {
-        autoword = new boolean[in.length];
-        for (int i = 0; i < in.length; i ++) {
-            autoword[i] = in[i];
-        }
-    }
-
-    public static int binaryDecoder(boolean[] num) {
-        int newNum = 0;
-        for (int i = 0; i < num.length; i ++) {
-            int currentval = 0;
-            if (num[i]) {
-                currentval = 1;
-            }
-            newNum += (Math.pow(2, i) * currentval);
-        }
-        return newNum;
+        autoChooser = Crashboard.toDashboard("Chosen Auto", 0, Constants.COMPETITON_TAB);
     }
 
     public static Command getAutoCommand() {
-        return commandList[binaryDecoder(autoword)];
-    }
-
-
-
-
-    public static double FunnyAuto() {
-        return 1/0;
+        return autoCommands[(int)Crashboard.clamp(0, autoCommands.length, autoChooser.getDouble(0))];}
+        public static double FunnyAuto() {
+            return 1/0;
     }
 }

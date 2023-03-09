@@ -299,8 +299,6 @@ public class LimelightHelpers {
         }
         return null;
     }
-    /////
-    /////
 
     public static double getTX(String limelightName) {
         return getLimelightNTDouble(limelightName, "tx");
@@ -378,10 +376,6 @@ public class LimelightHelpers {
         setLimelightNTDouble(limelightName, "pipeline", pipelineIndex);
     }
 
-    /**
-     * The LEDs will be controlled by Limelight pipeline settings, and not by robot
-     * code.
-     */
     public static void setLEDMode_PipelineControl(String limelightName) {
         setLimelightNTDouble(limelightName, "ledMode", 0);
     }

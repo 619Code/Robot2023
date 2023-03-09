@@ -3,19 +3,13 @@ package frc.robot.subsystems;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import edu.wpi.first.networktables.GenericEntry;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.Pipeline;
-import frc.robot.helpers.limelight.LimelightDataStorer;
-import frc.robot.helpers.limelight.LimelightInformation;
+import frc.robot.helpers.limelight.*;
 
 public class Limelight extends SubsystemBase {
     ObjectMapper mapper;
