@@ -1,6 +1,5 @@
 package frc.robot.commands.intake;
 
-import javax.lang.model.util.ElementScanner14;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -11,11 +10,12 @@ import frc.robot.subsystems.IntakeSub;
 public class IntakeDefaultCommand extends CommandBase {
 
     private IntakeSub intakeSub;
-    private double tolerance = .5;
-    private double minSpeed = .1;
-    private double maxSpeed = .3;
+    private double tolerance = Constants.INTAKE_TOLERANCE;
+    private double minSpeed = Constants.INTAKE_MINSPEED;
+    private double maxSpeed = Constants.INTAKE_MAXSPEED;
 
     public IntakeDefaultCommand(IntakeSub intakeSub) {
+
         this.intakeSub = intakeSub;
         this.addRequirements(intakeSub);
     }

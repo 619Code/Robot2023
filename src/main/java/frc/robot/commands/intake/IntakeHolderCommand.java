@@ -13,16 +13,16 @@ public class IntakeHolderCommand extends CommandBase {
 
     private IntakeSub intakeSub;
     private CommandXboxController stick;
-    private double paddleRangeRight = 6;
-    private double paddleRangeLeft = 6;
+    private double paddleRangeRight = Constants.INTAKE_PADDLE_RANGE_RIGHT;
+    private double paddleRangeLeft = Constants.INTAKE_PADDLE_RANGE_LEFT;
     private String PaddleRangeLeftKey = "Paddle Range Left";
     private String PaddleRangeRightKey = "Paddle Range Right";
     double targetPosition;
-    double speed = .1;
-    double wheelSpeed = 0.1;
-    double tolerance = .5;
+    double wheelSpeed = Constants.INTAKE_WHEEL_SPEED;    
     GenericEntry paddleRangeLeftEntry;
     GenericEntry paddleRangeRightEntry;
+    private double tolerance = Constants.INTAKE_TOLERANCE;
+    private double speed = Constants.INTAKE_MINSPEED;
 
     public IntakeHolderCommand(IntakeSub intakeSub, CommandXboxController controller) {
         this.intakeSub = intakeSub;

@@ -22,8 +22,7 @@ public class IntakeArmMotors {
     public boolean loggingOn = true;
     boolean inverted = false;
     String name;
-    public double ArmSpeed = .1;
-    public double WheelSpeed = .1;
+
 
 
     private GenericEntry ArmPosEntry;
@@ -49,8 +48,8 @@ public class IntakeArmMotors {
         armMotor.restoreFactoryDefaults();
         wheelMotor.restoreFactoryDefaults();
 
-        armMotor.setSmartCurrentLimit(30);
-        wheelMotor.setSmartCurrentLimit(30);
+        armMotor.setSmartCurrentLimit(Constants.INTAKE_CURRENT_LIMIT);
+        wheelMotor.setSmartCurrentLimit(Constants.INTAKE_CURRENT_LIMIT);
 
         armMotor.setIdleMode(IdleMode.kBrake);
 
