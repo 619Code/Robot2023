@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.helpers.AutoCommandSwitcher;
 import frc.robot.helpers.Crashboard;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -17,6 +18,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
+    //AutoCommandSwitcher.loadAutoCommandSwitcher(new Command[] {null, null, null});
     robotContainer = new RobotContainer();
 
     // For Oblog uncomment, othewise use the Crashboard

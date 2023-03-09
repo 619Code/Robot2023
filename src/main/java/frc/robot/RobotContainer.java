@@ -50,11 +50,11 @@ public class RobotContainer {
 	private Telescope telescope;
 	private LedStrip led;
 
-	private boolean TurnOnGrabber = true;
-	private boolean TurnOnIntake = true;
-	private boolean TurnOnArm = true;
-	private boolean TurnOnDrive = true;
-	private boolean IsTesting = false;
+	private boolean TurnOnGrabber = false;
+	private boolean TurnOnIntake = false;
+	private boolean TurnOnArm = false;
+	private boolean TurnOnDrive = false;
+	private boolean IsTesting = true;
 
 	public RobotContainer() {
 		driver = new CommandXboxController(3);
@@ -89,10 +89,10 @@ public class RobotContainer {
 		if (TurnOnArm) {
 			hinge = new Hinge();
 
-			if(!IsTesting) {
+			//if(!IsTesting) {
 				holdArmCommand = new HoldArmCommand(hinge);
 				hinge.setDefaultCommand(holdArmCommand);
-			}
+			//}
 
 			/*hingeManualCommand = new HingeManualCommand(hinge, operator);
 			hinge.setDefaultCommand(hingeManualCommand);*/
@@ -116,7 +116,7 @@ public class RobotContainer {
 
 	private void configureBindings() {
 		if (IsTesting) {
-			BindTests();
+			//BindTests();
 		} else {
 			competitionBindings();
 		}

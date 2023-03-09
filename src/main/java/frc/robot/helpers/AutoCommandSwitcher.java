@@ -22,8 +22,10 @@ public class AutoCommandSwitcher {
     }
 
     public static Command getAutoCommand() {
-        return autoCommands[(int)Crashboard.clamp(0, autoCommands.length, autoChooser.getDouble(0))];}
-        public static double FunnyAuto() {
-            return 1/0;
+        return autoCommands[(int)Crashboard.clamp(0, autoCommands.length, autoChooser.getDouble(0))];
+    }
+       
+    public static double FunnyAuto() {
+        return 1/0;
     }
 }
