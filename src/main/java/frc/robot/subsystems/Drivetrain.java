@@ -21,8 +21,10 @@ import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.SparkErrorHelper;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 
 public class Drivetrain extends SubsystemBase implements Loggable {
     DifferentialDrive drive;
@@ -62,7 +64,6 @@ public class Drivetrain extends SubsystemBase implements Loggable {
     private GenericEntry rightLeaderSpark;
     private GenericEntry leftFollowerSpark;
     private GenericEntry rightFollowerSpark;
-
 
     public Drivetrain() {
         leftLeader = new CANSparkMax(Constants.LEFT_LEADER, MotorType.kBrushless);
@@ -128,7 +129,7 @@ public class Drivetrain extends SubsystemBase implements Loggable {
     }
 
     public void curve(double speed, double rotation) {
-        drive.curvatureDrive(Constants.SPEED_ADJUST * speed, Constants.SPEED_ADJUST * -rotation, true);
+        drive.curvatureDrive(speed, -rotation, true);
     }
 
     @Override
@@ -155,9 +156,6 @@ public class Drivetrain extends SubsystemBase implements Loggable {
         rightLeaderSpark = Crashboard.toDashboard("Right Leader Spark", SparkErrorHelper.HasSensorError(rightLeader), Constants.SPARKS_TAB);
         leftFollowerSpark = Crashboard.toDashboard("Left Follower Spark", SparkErrorHelper.HasSensorError(leftFollower), Constants.SPARKS_TAB);
         rightFollowerSpark = Crashboard.toDashboard("Right Follower Spark", SparkErrorHelper.HasSensorError(rightFollower), Constants.SPARKS_TAB);
-
-        //Crashboard.toDashboard("Left Encoder Ticks", leftEncoder.getPosition(), Constants.COMPETITON_TAB);
-        //Crashboard.toDashboard("Right Encoder Ticks", rightEncoder.getPosition(), Constants.COMPETITON_TAB);
     }
 
     public void resetPIDs() {

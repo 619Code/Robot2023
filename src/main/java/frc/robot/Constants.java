@@ -21,8 +21,6 @@ public final class Constants {
     //Sensor ports
     public static final int GRABBER_SWITCH = 1;
     public static final int HINGE_SWITCH = 6;
-    //public static final int HINGE_LOW_SWITCH = -1;
-    //public static final int HINGE_HIGH_SWITCH = -1;
     public static final int TELESCOPE_CONTRACTED_SWITCH = 3;
     public static final int TELESCOPE_EXTENDED_SWITCH = 5;
     public static final int INTAKE_LEFT_SWITCH = 2;
@@ -31,7 +29,18 @@ public final class Constants {
     //Drive constants
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(5.827); //meters
     public static final int NEO_LIMIT = 45; //amps
-    public static final double SPEED_ADJUST = 0.6; //how much to adjust speed of drive
+
+    public static final double DRIVE_SPEED = 0.8;
+    public static final double DRIVE_ROTATION = 0.3;
+
+    public static final double SLOW_MODE_SPEED = 0.6 * 0.5;
+    public static final double SLOW_MODE_ROTATION = 0.3 * 0.5;
+
+    public static final double SUPER_SLOW_MODE_SPEED = 0.6 * 0.2;
+    public static final double SUPER_SLOW_MODE_ROTATION = 0.3 *0.2;
+
+    public static final double DRIVE_SLEW_RATE_LIMIT = 1.4;
+    
     public static final double DRIVE_RATIO = (13.0/60.0) * (18.0/34.0); // gear ratio
     public static final double TRACK_WIDTH = Units.inchesToMeters(23); //REMEASURE
     public static final String SHUFFLEBOARD_DRIVE_TAB_NAME = "Drive";
@@ -39,9 +48,9 @@ public final class Constants {
     public static final double VELOCITY_CONVERSION_FACTOR = Constants.DRIVE_RATIO * WHEEL_DIAMETER * Math.PI / 60.0; //conversion factor for velocity
 
     //Lineup constants
-    public static final double ROTATION_P = 0.1;
-    public static final double ROTATION_MAX = 0.3;
-    public static final double APPROACH_SPEED = 0.4;
+    public static final double ROTATION_P = 0.06;
+    public static final double ROTATION_MAX = 0.2;
+    public static final double APPROACH_SPEED = 0.25;
 
     //Controller constants
     public static final double JOYSTICK_DEADZONE = 0.075;
