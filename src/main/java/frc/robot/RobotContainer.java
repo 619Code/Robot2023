@@ -226,8 +226,8 @@ public class RobotContainer {
 		return new SequentialCommandGroup(
 			new HingeZeroCommand(hinge).withTimeout(7),
 			new SetHingeZeroCommand(hinge),
-			new MoveArmMasterCommand(hinge, telescope, ArmPosition.START),
-			new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE)
+			new MoveArmMasterCommand(hinge, telescope, ArmPosition.START)//,
+			//new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE)
 		);
 
 		/*return new SequentialCommandGroup(
