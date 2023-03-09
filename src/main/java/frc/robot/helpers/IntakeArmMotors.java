@@ -48,8 +48,8 @@ public class IntakeArmMotors {
         armMotor.restoreFactoryDefaults();
         wheelMotor.restoreFactoryDefaults();
 
-        armMotor.setSmartCurrentLimit(30);
-        wheelMotor.setSmartCurrentLimit(30);
+        armMotor.setSmartCurrentLimit(Constants.INTAKE_CURRENT_LIMIT);
+        wheelMotor.setSmartCurrentLimit(Constants.INTAKE_CURRENT_LIMIT);
 
         armMotor.setIdleMode(IdleMode.kBrake);
 

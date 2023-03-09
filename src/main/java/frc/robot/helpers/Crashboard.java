@@ -4,6 +4,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 
 import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 public class Crashboard {
@@ -32,6 +33,10 @@ public class Crashboard {
     }
 
     public static GenericEntry toDashboard(String identifier, boolean value, String tab) {
+        return toDashboardGeneric(identifier, value, tab);
+    }
+
+    public static GenericEntry toDashboard(String identifier, Sendable value, String tab) {
         return toDashboardGeneric(identifier, value, tab);
     }
 

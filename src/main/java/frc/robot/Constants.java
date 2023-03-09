@@ -120,6 +120,17 @@ public final class Constants {
     public static final double RIGHT_INTAKE_DEPLOYED_POSITION = 41;    
     public static final int LEFT_LIMIT_SWITCH_ID = -1;
     public static final int RIGHT_LIMIT_SWITCH_ID = -1;
+    public static final double INTAKE_TOLERANCE = .5;
+    public static final double INTAKE_MINSPEED = .1;
+    public static final double INTAKE_MAXSPEED = .3;
+    public static final double INTAKE_PADDLE_RANGE_LEFT = 6;
+    public static final double INTAKE_PADDLE_RANGE_RIGHT  = 6;
+    public static final double INTAKE_WHEEL_SPEED = 0.1;
+    public static final double INTAKE_ALLOWED_POSITION_ERROR = .5;
+    public static final double INTAKE_ZERO_SPEED = -0.1;
+    public static final int INTAKE_CURRENT_LIMIT = 30;
+    public static final int INTAKE_ZERO_TIMEOUT = 10;
+
     //Limelight constants
     public static final int CENTER_PIPELINE = 0;
     public static final int RIGHT_PIPELINE = 1;

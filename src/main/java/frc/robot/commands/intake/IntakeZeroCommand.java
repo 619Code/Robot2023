@@ -2,15 +2,16 @@ package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.States;
 import frc.robot.subsystems.IntakeSub;
 
 public class IntakeZeroCommand extends CommandBase {
 
     private IntakeSub intake;
-    private double armSpeed = -0.1;
+    private double armSpeed = Constants.INTAKE_ZERO_SPEED;
     private Timer timer;
-    private double zeroTimerMaxTime = 10;
+    private double zeroTimerTimeout = Constants.INTAKE_ZERO_TIMEOUT;
 
     public IntakeZeroCommand(IntakeSub intake) {
         this.intake = intake;
@@ -58,7 +59,7 @@ public class IntakeZeroCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return timer.hasElapsed(zeroTimerMaxTime) || (intake.zeroedLeft && intake.zeroedRight);
+        return timer.hasElapsed(zeroTimerTimeout) || (intake.zeroedLeft && intake.zeroedRight);
     }
 
     @Override
