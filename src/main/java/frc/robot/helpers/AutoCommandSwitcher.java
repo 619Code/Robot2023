@@ -21,8 +21,9 @@ public class AutoCommandSwitcher {
         autoChooser = Crashboard.toDashboard("Chosen Auto", 0, Constants.COMPETITON_TAB);
     }
 
-
-    public static double FunnyAuto() {
-        return 1/0;
+    public static Command getAutoCommand() {
+        return autoCommands[(int)Crashboard.clamp(0, autoCommands.length, autoChooser.getDouble(0))];}
+        public static double FunnyAuto() {
+            return 1/0;
     }
 }
