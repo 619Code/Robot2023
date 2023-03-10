@@ -72,8 +72,6 @@ public class Drivetrain extends SubsystemBase implements Loggable {
             leftLeader,
             leftFollower     
         }; 
-        leftLeader.setIdleMode(IdleMode.kBrake);
-        leftFollower.setIdleMode(IdleMode.kCoast);
 
         rightLeader = new CANSparkMax(Constants.RIGHT_LEADER, MotorType.kBrushless);
         rightFollower = new CANSparkMax(Constants.RIGHT_FOLLOWER_0, MotorType.kBrushless);
@@ -81,8 +79,8 @@ public class Drivetrain extends SubsystemBase implements Loggable {
             rightLeader,
             rightFollower    
         };
-        rightLeader.setIdleMode(IdleMode.kBrake);
-        rightFollower.setIdleMode(IdleMode.kCoast);
+
+        setMixed();
         
         leftMotors = new MotorControllerGroup(leftMotorArray);
         rightMotors = new MotorControllerGroup(rightMotorArray);
@@ -130,6 +128,20 @@ public class Drivetrain extends SubsystemBase implements Loggable {
 
     public void curve(double speed, double rotation) {
         drive.curvatureDrive(speed, -rotation, true);
+    }
+
+    public void setMixed() {
+        leftLeader.setIdleMode(IdleMode.kBrake);
+        leftFollower.setIdleMode(IdleMode.kCoast);
+        rightLeader.setIdleMode(IdleMode.kBrake);
+        rightFollower.setIdleMode(IdleMode.kCoast);
+    }
+
+    public void setBrake() {
+        leftLeader.setIdleMode(IdleMode.kBrake);
+        leftFollower.setIdleMode(IdleMode.kBrake);
+        rightLeader.setIdleMode(IdleMode.kBrake);
+        rightFollower.setIdleMode(IdleMode.kBrake);
     }
 
     @Override

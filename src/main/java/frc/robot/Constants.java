@@ -53,7 +53,7 @@ public final class Constants {
     public static final double APPROACH_SPEED = 0.25;
 
     //Controller constants
-    public static final double JOYSTICK_DEADZONE = 0.075;
+    public static final double JOYSTICK_DEADZONE = 0.05;
     
     // Kinematics Constants
     public static final double ksVolts = 0.34791;
