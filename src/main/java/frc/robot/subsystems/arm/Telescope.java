@@ -7,10 +7,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.States;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.SparkErrorHelper;
 
@@ -21,9 +19,7 @@ public class Telescope extends SubsystemBase {
     private DigitalInput contractedSwitch;
     private DigitalInput extendedSwitch;
 
-    private GenericEntry telescopeSpark;
-    private GenericEntry contractedSwitchTrigged;
-    private GenericEntry extendedSwitchTrigged;
+    private GenericEntry telescopeSpark, contractedSwitchTrigged, extendedSwitchTrigged;
 
     public Telescope() {
         telescopeMotor = new CANSparkMax(Constants.TELESCOPE_MOTOR, MotorType.kBrushless);

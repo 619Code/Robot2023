@@ -1,10 +1,7 @@
 package frc.robot.commands;
 
-import edu.wpi.first.math.trajectory.constraint.CentripetalAccelerationConstraint;
-import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.LineupPosition;
 import frc.robot.helpers.limelight.LimelightDataStorer;
 import frc.robot.helpers.limelight.PipelineHelper;
@@ -12,7 +9,6 @@ import frc.robot.subsystems.Drivetrain;
 
 public class AutoLineupCommand extends CommandBase {
     private Drivetrain drive;
-    private GenericEntry rotationEntry;
 
     private LineupPosition position;
 

@@ -2,9 +2,7 @@ package frc.robot.commands.grabber;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.Grabber;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class GrabZeroCommand extends CommandBase {
     private Grabber grabber;

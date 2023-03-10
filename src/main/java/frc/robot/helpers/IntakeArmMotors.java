@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.networktables.NetworkTableValue;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants;
 
@@ -25,10 +26,7 @@ public class IntakeArmMotors {
 
 
 
-    private GenericEntry ArmPosEntry;
-    private GenericEntry armSpark;
-    private GenericEntry wheelSpark;
-    private GenericEntry limitSwitchTrigged;
+    private GenericEntry ArmPosEntry, armSpark, wheelSpark, limitSwitchTrigged;
 
 
     public IntakeArmMotors(int intakeArmCanId, int wheelMotorCanId, int switchPort, boolean inverted, String name) {
@@ -76,6 +74,10 @@ public class IntakeArmMotors {
             wheelSpark = Crashboard.toDashboard(name + "Spark Status Wheel", SparkErrorHelper.HasSensorError(wheelMotor), Constants.SPARKS_TAB);
             limitSwitchTrigged = Crashboard.toDashboard(name + "Switch Triggd?", getZeroSwitch(), Constants.STATUS_TAB);
         }
+    }
+
+    public NetworkTableValue[] getData() {
+        return new NetworkTableValue[] {ArmPosEntry.get(), armSpark.get(), wheelSpark.get(), limitSwitchTrigged.get()};
     }
 
     public void ActivateWheel(double speed)

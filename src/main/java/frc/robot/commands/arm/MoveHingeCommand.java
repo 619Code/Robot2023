@@ -1,14 +1,10 @@
 package frc.robot.commands.arm;
 
 import frc.robot.Constants;
-import frc.robot.States;
 import frc.robot.helpers.ArmPositionHelper;
 import frc.robot.helpers.Crashboard;
-import frc.robot.helpers.enums.ArmPosition;
 import frc.robot.subsystems.arm.Hinge;
-import frc.robot.subsystems.arm.Telescope;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class MoveHingeCommand extends CommandBase {
     private Hinge hinge;
@@ -21,10 +17,6 @@ public class MoveHingeCommand extends CommandBase {
         hingeGoal = ArmPositionHelper.fetchHingeValue(ArmPositionHelper.currentPosition);
 
         addRequirements(hinge);
-    }
-
-    @Override
-    public void initialize() {
     }
 
     @Override

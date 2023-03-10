@@ -7,7 +7,6 @@ import frc.robot.Constants;
 public class AutoCommandSwitcher {
     
     private static GenericEntry autoChooser;
-    private static int chosenValue;
 
     private static Command[] autoCommands;
 

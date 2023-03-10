@@ -13,8 +13,8 @@ import frc.robot.commands.intake.IntakeDefaultCommand;
 import frc.robot.commands.intake.IntakeHolderCommand;
 import frc.robot.commands.intake.ToggleDeployIntakeCommand;
 import frc.robot.commands.manuals.GrabManualCommand;
-import frc.robot.commands.manuals.HingeManualCommand;
-import frc.robot.commands.manuals.TelescopeManualCommand;
+//import frc.robot.commands.manuals.HingeManualCommand;
+//import frc.robot.commands.manuals.TelescopeManualCommand;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.ArmPosition;
 import frc.robot.helpers.enums.LineupPosition;
@@ -39,8 +39,8 @@ public class RobotContainer {
 	private DriveCommand driveCommand;
 	private GrabManualCommand grabManualCommand;
 	private HoldArmCommand holdArmCommand;
-	private HingeManualCommand hingeManualCommand;
-	private TelescopeManualCommand telescopeManualCommand;
+	//private HingeManualCommand hingeManualCommand;
+	//private TelescopeManualCommand telescopeManualCommand;
 
 	private Drivetrain drive;
 	private IntakeSub intake;
@@ -89,10 +89,10 @@ public class RobotContainer {
 		if (TurnOnArm) {
 			hinge = new Hinge();
 
-			//if(!IsTesting) {
+			if(!IsTesting) {
 				holdArmCommand = new HoldArmCommand(hinge);
 				hinge.setDefaultCommand(holdArmCommand);
-			//}
+			}
 
 			/*hingeManualCommand = new HingeManualCommand(hinge, operator);
 			hinge.setDefaultCommand(hingeManualCommand);*/
@@ -116,7 +116,7 @@ public class RobotContainer {
 
 	private void configureBindings() {
 		if (IsTesting) {
-			//BindTests();
+			BindTests();
 		} else {
 			competitionBindings();
 		}
@@ -187,6 +187,7 @@ public class RobotContainer {
 
 	public void preMatchZeroing() {
 		Trigger zeroAllButton = driver.back();
+		if (TurnOnGrabber && TurnOnIntake && TurnOnArm)
 		zeroAllButton.onTrue(new PreMatchSettingsCommand(intake, grabber, hinge, telescope));
 
 		//UNDO

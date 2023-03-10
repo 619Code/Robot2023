@@ -1,10 +1,7 @@
 package frc.robot.commands.arm;
 
-import frc.robot.Constants;
 import frc.robot.subsystems.arm.Hinge;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class SetHingeZeroCommand extends CommandBase {
     private Hinge hinge;
@@ -17,10 +14,6 @@ public class SetHingeZeroCommand extends CommandBase {
 
     public void initialize() {
         hinge.hingeEncoder.setPosition(0.0);
-    }
-
-    @Override
-    public void end(boolean interrupted) {
     }
 
     @Override

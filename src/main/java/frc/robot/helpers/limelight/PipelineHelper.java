@@ -1,9 +1,8 @@
 package frc.robot.helpers.limelight;
 
-import edu.wpi.first.networktables.GenericEntry;
+//import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.Pipeline;
@@ -13,7 +12,7 @@ public class PipelineHelper {
     public static Limelight limelight;
     private static NetworkTable table;
     private static NetworkTableEntry pipeline;
-    private static GenericEntry PipelineEntry;
+    //private static GenericEntry PipelineEntry;
 
     public static void SetLeftPipeline(){
         limelight.currentPipeline = Pipeline.LEFT_PIPELINE;
@@ -43,6 +42,6 @@ public class PipelineHelper {
     public static void PipelineToDashboard(){
         pipeline = table.getEntry("pipeline");
 
-        PipelineEntry = Crashboard.toDashboard("Pipeline", pipeline.getDouble(0), Constants.LIMELIGHT_TAB);
+        /*PipelineEntry =*/ Crashboard.toDashboard("Pipeline", pipeline.getDouble(0), Constants.LIMELIGHT_TAB);
     }
 }

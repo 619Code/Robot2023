@@ -1,6 +1,6 @@
 package frc.robot.helpers.limelight;
 
-import edu.wpi.first.networktables.GenericEntry;
+//import edu.wpi.first.networktables.GenericEntry;
 import frc.robot.Constants;
 import frc.robot.helpers.Crashboard;
 
@@ -17,7 +17,8 @@ public class LimelightDataStorer {
     private static boolean validTargetAverage;
     private static double[] simplePoseAverage = new double[3];
 
-    private static GenericEntry txEntry, xPosEntry, yPosEntry, zPosEntry;
+    //uncomment these to pull data back from dashboard
+    //private static GenericEntry txEntry, xPosEntry, yPosEntry, zPosEntry;
     
     public static void update(boolean cameraMode, boolean validTarget, double[] simplePosition) {
         LimelightDataStorer.validTarget = validTarget;
@@ -104,7 +105,7 @@ public class LimelightDataStorer {
     }
 
     private static void postData() {
-        txEntry = Crashboard.toDashboard("tx avg", simplePoseAverage[0], Constants.LIMELIGHT_TAB);
+        /*txEntry = */ Crashboard.toDashboard("tx avg", simplePoseAverage[0], Constants.LIMELIGHT_TAB);
         Crashboard.toDashboard("tx new", simplePosition[0], Constants.LIMELIGHT_TAB);
         /*Crashboard.toDashboard("ty", simplePoseAverage[1]);
         Crashboard.toDashboard("Area", simplePoseAverage[2]);*/

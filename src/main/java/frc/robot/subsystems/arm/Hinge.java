@@ -5,18 +5,16 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.networktables.GenericEntry;
+//import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.States;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.SparkErrorHelper;
 
 public class Hinge extends SubsystemBase {
     public CANSparkMax hingeLeaderMotor;
-    private CANSparkMax hingeFollowerMotor;
+    //private CANSparkMax hingeFollowerMotor;
     public RelativeEncoder hingeEncoder;
 
     //private DigitalInput highSwitch;
@@ -24,8 +22,7 @@ public class Hinge extends SubsystemBase {
 
     public boolean lastMovingDown;
 
-    private GenericEntry hingeSpark;
-    private GenericEntry hingeSwitch;
+    //private GenericEntry hingeSpark, hingeSwitch;
 
     public Hinge() {
         hingeLeaderMotor = new CANSparkMax(Constants.HINGE_LEADER_MOTOR, MotorType.kBrushless);
@@ -57,8 +54,8 @@ public class Hinge extends SubsystemBase {
         Crashboard.toDashboard("Hinge Position", getPosition(), Constants.ARM_TAB);
         Crashboard.toDashboard("Hinge Position", getPosition(), Constants.COMPETITON_TAB);
         Crashboard.toDashboard("Hinge Amps", hingeLeaderMotor.getOutputCurrent(), Constants.ARM_TAB);
-        hingeSpark = Crashboard.toDashboard("Hinge Spark", SparkErrorHelper.HasSensorError(hingeLeaderMotor), Constants.SPARKS_TAB);
-        hingeSwitch = Crashboard.toDashboard("Hinge Switch Triggd?", magnetSwitch.get(), Constants.STATUS_TAB);
+        /*hingeSpark =*/ Crashboard.toDashboard("Hinge Spark", SparkErrorHelper.HasSensorError(hingeLeaderMotor), Constants.SPARKS_TAB);
+        /*hingeSwitch =*/ Crashboard.toDashboard("Hinge Switch Triggd?", magnetSwitch.get(), Constants.STATUS_TAB);
 
         Crashboard.toDashboard("Hinge Velocity", hingeEncoder.getVelocity(), Constants.ARM_TAB);
         Crashboard.toDashboard("Hinge Amps", hingeLeaderMotor.getAppliedOutput(), Constants.ARM_TAB);

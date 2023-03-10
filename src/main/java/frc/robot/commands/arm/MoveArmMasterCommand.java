@@ -1,15 +1,11 @@
 package frc.robot.commands.arm;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
-import frc.robot.States;
 import frc.robot.helpers.ArmPositionHelper;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.ArmPosition;
-import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.arm.Hinge;
 import frc.robot.subsystems.arm.Telescope;
 
