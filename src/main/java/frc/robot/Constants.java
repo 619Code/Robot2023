@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
+import frc.robot.helpers.enums.ArmPositionSide;
 
 public final class Constants {
     //Drive CANs
@@ -14,8 +15,7 @@ public final class Constants {
     public static final int GRABBER_MOTOR = 12;
 
     //Arm CANS
-    public static final int HINGE_LEADER_MOTOR = 11;
-    public static final int HINGE_FOLLOWER_MOTOR = 15;
+    public static final int HINGE_MOTOR = 11;
     public static final int TELESCOPE_MOTOR = 10;
 
     //Sensor ports
@@ -40,6 +40,7 @@ public final class Constants {
     public static final double SUPER_SLOW_MODE_ROTATION = 0.3 *0.2;
 
     public static final double DRIVE_SLEW_RATE_LIMIT = 1.5;
+    public static final double DRIVE_SLEW_RATE_LIMIT_HIGH = 2;
     
     public static final double DRIVE_RATIO = (13.0/60.0) * (18.0/34.0); // gear ratio
     public static final double TRACK_WIDTH = Units.inchesToMeters(23); //REMEASURE
@@ -83,41 +84,48 @@ public final class Constants {
     public static final double MINIMUM_POSITION = 1.0;
     public static final double MAXIMUM_POSITION = 57.0;
 
-    public static final double HINGE_SPEED = 0.2; //0.4
+    public static final double HINGE_SPEED = 0.4; //0.4
     public static final double HINGE_ZERO_SPEED = 0.1;
     public static final double HINGE_P = 0.12;
 
     //Telescope constants
-    public static final double TELESCOPE_CONTRACTED_SWITCH_POSITION = -5.0;
+    public static final double TELESCOPE_CONTRACTED_SWITCH_POSITION = 0.0;
     public static final double TELESCOPE_EXTENDED_SWITCH_POSITION = 78;
     public static final double EXTENSION_TOLERANCE = 5.0;
     public static final double MINIMUM_EXTENSION = TELESCOPE_CONTRACTED_SWITCH_POSITION + EXTENSION_TOLERANCE;
     public static final double MAXIMUM_EXTENSION = TELESCOPE_EXTENDED_SWITCH_POSITION - EXTENSION_TOLERANCE;
 
-    public static final double TELESCOPE_SPEED = 0.6; //0.8
-    public static final double TELESCOPE_ZERO_SPEED = 0.12;
+    public static final double TELESCOPE_SPEED = 0.9; //0.8
+    public static final double TELESCOPE_ZERO_SPEED = 0.2;
     public static final double TELESCOPE_P = 0.04;
 
     //Arm cases
     public static final double ARM_ADJUST_FACTOR = 1.15;
 
-    public static final double START_POSITION_HINGE = 25.0 * ARM_ADJUST_FACTOR;
+    public static final double START_POSITION_HINGE = 26.0 * ARM_ADJUST_FACTOR;
     public static final double START_POSITION_TELESCOPE = 0.0;
+    public static final ArmPositionSide START_POSITION_SIDE = ArmPositionSide.FRONT;
 
-    public static final double PICKUP_LOW_POSITION_HINGE = 4.5;
+    public static final double PICKUP_LOW_POSITION_HINGE = 3;
     public static final double PICKUP_LOW_POSITION_TELESCOPE = 5.0;
+    public static final ArmPositionSide PICKUP_LOW_POSITION_SIDE = ArmPositionSide.FRONT;
 
     public static final double PICKUP_HIGH_POSITION_HINGE = 19.5 * ARM_ADJUST_FACTOR;
     public static final double PICKUP_HIGH_POSITION_TELESCOPE = 20.0;
+    public static final ArmPositionSide PICKUP_HIGH_POSITION_SIDE = ArmPositionSide.FRONT;
 
+    //actual
     public static final double GRID_MID_POSITION_HINGE = 18.0 * ARM_ADJUST_FACTOR;
     public static final double GRID_MID_POSITION_TELESCOPE = 74.0;
+    public static final ArmPositionSide GRID_MID_POSITION_SIDE = ArmPositionSide.FRONT;
 
     public static final double GRID_HIGH_POSITION_HINGE = 46.0;
     public static final double GRID_HIGH_POSITION_TELESCOPE = 72.0;
+    public static final ArmPositionSide GRID_HIGH_POSITION_SIDE = ArmPositionSide.BACK;
 
-    public static final double PARALLEL_POSITION_HINGE = 10.0;
+    public static final double PARALLEL_POSITION_HINGE = 8.0;
     public static final double PARALLEL_POSITION_TELESCOPE = 5.0;
+    public static final ArmPositionSide PARALLEL_POSITION_SIDE = ArmPositionSide.FRONT;
 
     //Intake constants
     public static final int LEFT_ARM = 14; 
@@ -153,8 +161,7 @@ public final class Constants {
 
     //Auto Constants
     public static final double AUTO_DRIVE_VELOCITY = 0.5;
-    public static final double AUTO_DRIVE_DISTANCE = 
-    5;
+    public static final double AUTO_DRIVE_DISTANCE = 5;
 
     public static final double GRABBER_START = CONE_POSITION;
     public static final double HINGE_START = START_POSITION_HINGE;

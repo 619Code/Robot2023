@@ -4,16 +4,22 @@ import frc.robot.Constants;
 import frc.robot.helpers.ArmPositionHelper;
 import frc.robot.helpers.enums.ArmPosition;
 import frc.robot.subsystems.arm.Hinge;
+import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
-public class HoldArmCommand extends CommandBase {
+public class HingeAdjustCommand extends CommandBase {
     private Hinge hinge;
-    private ArmPosition currentPosition;
-    private double hingeGoal;
 
-    public HoldArmCommand(Hinge hinge) {
+    private CommandXboxController controller;
+
+    private HoldArmCommand myHoldCommand;
+
+    public HingeAdjustCommand(Hinge hinge, CommandXboxController controller) {
         this.hinge = hinge;
+        this.controller = controller;
+
+        myHoldCommand = new HoldArmCommand(hinge);
 
         addRequirements(hinge);
     }
@@ -24,9 +30,8 @@ public class HoldArmCommand extends CommandBase {
 
     @Override
     public void execute() {
-        currentPosition = ArmPositionHelper.currentPosition;
-        hingeGoal = ArmPositionHelper.fetchHingeValue(currentPosition) + ArmPositionHelper.hingeAdjustment;
-        hinge.moveToPosition(hingeGoal);
+        ArmPositionHelper.hingeAdjustment += controller.getLeftY() * 0.1;
+        myHoldCommand.execute();
     }
 
     @Override

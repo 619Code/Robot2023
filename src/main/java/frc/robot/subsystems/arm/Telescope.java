@@ -83,6 +83,12 @@ public class Telescope extends SubsystemBase {
 
     //boolean return says if it's at that position
     public boolean moveToPosition(double goal) {
+        if(0 <= goal && goal < Constants.MINIMUM_EXTENSION) {
+            if(Math.abs(getPosition() - goal) < 1) {
+                return true;
+            }
+        }
+
         goal = Math.min(goal,Constants.MAXIMUM_EXTENSION);
         goal = Math.max(goal,Constants.MINIMUM_EXTENSION);
 

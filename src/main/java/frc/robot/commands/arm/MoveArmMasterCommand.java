@@ -9,6 +9,7 @@ import frc.robot.States;
 import frc.robot.helpers.ArmPositionHelper;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.ArmPosition;
+import frc.robot.helpers.enums.ArmPositionSide;
 import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.arm.Hinge;
 import frc.robot.subsystems.arm.Telescope;
@@ -20,7 +21,7 @@ public class MoveArmMasterCommand extends CommandBase {
     Command myHingeCommand;
     Command myTelescopeCommand;
 
-    boolean movingToFront;
+    boolean movingToBack;
     
     public MoveArmMasterCommand(Hinge hinge, Telescope telescope, ArmPosition position) {
         this.hinge = hinge;
@@ -32,27 +33,42 @@ public class MoveArmMasterCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        ArmPositionHelper.currentPosition = goalPosition;
+        //moving from front to back
+        movingToBack = ArmPositionHelper.fetchSide(ArmPositionHelper.currentPosition) == ArmPositionSide.FRONT && 
+        ArmPositionHelper.fetchSide(goalPosition) == ArmPositionSide.BACK;
+
         ArmPositionHelper.retracted = false;
         ArmPositionHelper.atHingePosition = false;
         ArmPositionHelper.atTelescopePosition = false;
-
-        movingToFront = ArmPositionHelper.fetchHingeValue(goalPosition) < hinge.getPosition();
+        ArmPositionHelper.hingeAdjustment = 0;
     }
 
     @Override
     public void execute() {
-        Crashboard.toDashboard("Moving to Front", movingToFront, Constants.ARM_TAB);
+        Crashboard.toDashboard("Moving to Back", movingToBack, Constants.ARM_TAB);
         Crashboard.toDashboard("At Hinge Goal", ArmPositionHelper.atHingePosition, Constants.ARM_TAB);
         Crashboard.toDashboard("At Telescope Goal", ArmPositionHelper.atTelescopePosition, Constants.ARM_TAB);
 
-        if(!ArmPositionHelper.atHingePosition) {
-            myHingeCommand = new MoveHingeCommand(hinge);
-        } else {
-            myHingeCommand = new HoldArmCommand(hinge);
-        }
+        if(movingToBack && !ArmPositionHelper.retracted) {
+            myTelescopeCommand = new MoveTelescopeCommand(telescope, true);
 
-        myTelescopeCommand = new MoveTelescopeCommand(telescope, false);
+            myHingeCommand = new MoveHingeCommand(hinge, goalPosition);
+        } else {
+            ArmPositionHelper.currentPosition = goalPosition;
+
+            if(!ArmPositionHelper.atHingePosition) {
+                myHingeCommand = new MoveHingeCommand(hinge);
+                
+                if(movingToBack) {
+                    myTelescopeCommand = new MoveTelescopeCommand(telescope, true);
+                } else {
+                    myTelescopeCommand = new MoveTelescopeCommand(telescope, false);
+                }
+            } else {
+                myHingeCommand = new HoldArmCommand(hinge);
+                myTelescopeCommand = new MoveTelescopeCommand(telescope, false);
+            }
+        }
 
         myHingeCommand.execute();
         myTelescopeCommand.execute();

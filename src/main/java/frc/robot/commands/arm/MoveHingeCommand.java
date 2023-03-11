@@ -13,12 +13,17 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class MoveHingeCommand extends CommandBase {
     private Hinge hinge;
     
+    private ArmPosition hingeGoalPosition;
     private double hingeGoal;
 
     public MoveHingeCommand(Hinge hinge) {
+        this(hinge, ArmPositionHelper.currentPosition);
+    }
+
+    public MoveHingeCommand(Hinge hinge, ArmPosition hingeGoalPosition) {
         this.hinge = hinge;
 
-        hingeGoal = ArmPositionHelper.fetchHingeValue(ArmPositionHelper.currentPosition);
+        hingeGoal = ArmPositionHelper.fetchHingeValue(hingeGoalPosition);
 
         addRequirements(hinge);
     }
