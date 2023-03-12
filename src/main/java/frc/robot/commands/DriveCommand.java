@@ -49,24 +49,29 @@ public class DriveCommand extends CommandBase implements Loggable {
 
         leftY = -controller.getLeftY();
         rightX = controller.getRightX();
+
+        leftY = leftY * Math.abs(leftY);
         
         setVals();
         drive.curve(throttle, rotation);
     }
 
     public void setVals() {
-        throttle = (Math.abs(leftY) > Constants.JOYSTICK_DEADZONE) ? leftY : 0;
+        throttle = (Math.abs(leftY) > Constants.JOYSTICK_DEADZONE) ? (Math.abs(leftY) * Math.abs(leftY)) * leftY : 0; //cubic scaling
         rotation = (Math.abs(rightX) > Constants.JOYSTICK_DEADZONE) ? rightX : 0;
 
         if(controller.getRightTriggerAxis() > 0.5) {
             throttle *= Constants.SLOW_MODE_SPEED;
             rotation *= Constants.SLOW_MODE_ROTATION;
+            drive.setBrake();
         } else if (controller.rightBumper().getAsBoolean()) {
             throttle *= Constants.SUPER_SLOW_MODE_SPEED;
             rotation *= Constants.SUPER_SLOW_MODE_ROTATION;
+            drive.setBrake();
         } else {
             throttle *= Constants.DRIVE_SPEED;
             rotation *= Constants.DRIVE_ROTATION;
+            drive.setMixed();
         }
 
         throttle = speedLimiter.calculate(throttle);

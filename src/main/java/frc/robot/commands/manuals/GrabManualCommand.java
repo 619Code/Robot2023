@@ -22,7 +22,7 @@ public class GrabManualCommand extends CommandBase {
     @Override
     public void execute() {
         speed = controller.getRightY();
-        if(Math.abs(speed) > 0.05) {
+        if(Math.abs(speed) > Constants.JOYSTICK_DEADZONE) {
             grabber.spinMotor(speed, 0.1);
         } else {
             grabber.stop();

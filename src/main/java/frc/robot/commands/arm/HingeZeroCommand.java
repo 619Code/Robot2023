@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class HingeZeroCommand extends CommandBase {
     private Hinge hinge;
 
+    private boolean zeroed;
+
     public HingeZeroCommand(Hinge hinge) {
         this.hinge = hinge;
 
@@ -16,11 +18,18 @@ public class HingeZeroCommand extends CommandBase {
     }
 
     public void initialize() {
+        zeroed = false;
     }
 
     @Override
     public void execute() {
-        hinge.hingeLeaderMotor.set(-Constants.HINGE_ZERO_SPEED);
+        if(hinge.switchIsPressed()) {
+            hinge.stop();
+            hinge.zero();
+            zeroed = true;
+        } else {
+            hinge.move(-Constants.HINGE_ZERO_SPEED, true);
+        }
     }
 
     @Override
@@ -30,6 +39,6 @@ public class HingeZeroCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return zeroed;
     }
 }

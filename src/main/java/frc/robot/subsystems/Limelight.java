@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.LimelightHelpers;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.Pipeline;
 import frc.robot.helpers.limelight.*;
@@ -14,7 +13,6 @@ import frc.robot.helpers.limelight.*;
 public class Limelight extends SubsystemBase {
     ObjectMapper mapper;
 
-    LimelightHelpers limelight;
     NetworkTable table;
     NetworkTableInstance pipeline;
     NetworkTableEntry json;
@@ -33,7 +31,6 @@ public class Limelight extends SubsystemBase {
 
     public Limelight() {
         table = NetworkTableInstance.getDefault().getTable("limelight");
-        limelight = new LimelightHelpers();
         mapper = new ObjectMapper();
 
         currentPipeline = Pipeline.CAMERA_PIPELINE;
@@ -91,7 +88,7 @@ public class Limelight extends SubsystemBase {
         table.getEntry("pipeline").setNumber(pipelinenumber);
     }
 
-    private void dumpJson() {
+    /*private void dumpJson() {
         json = table.getEntry("json");
         jsonString = json.getString("");
 
@@ -102,5 +99,5 @@ public class Limelight extends SubsystemBase {
         } catch (JsonProcessingException exp) {
             System.out.println(exp.getMessage());
         }
-    }
+    }*/
 }

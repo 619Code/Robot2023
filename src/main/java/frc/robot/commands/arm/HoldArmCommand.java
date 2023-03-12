@@ -25,7 +25,7 @@ public class HoldArmCommand extends CommandBase {
     @Override
     public void execute() {
         currentPosition = ArmPositionHelper.currentPosition;
-        hingeGoal = ArmPositionHelper.fetchHingeValue(currentPosition);
+        hingeGoal = ArmPositionHelper.fetchHingeValue(currentPosition) + ArmPositionHelper.hingeAdjustment;
         hinge.moveToPosition(hingeGoal);
     }
 

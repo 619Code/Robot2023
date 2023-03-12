@@ -1,7 +1,9 @@
 package frc.robot.commands.auto;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.arm.HingeZeroCommand;
 import frc.robot.commands.arm.TelescopeZeroCommand;
 import frc.robot.commands.grabber.GrabZeroCommand;
 import frc.robot.commands.grabber.ReleaseCommand;
@@ -23,13 +25,13 @@ public class AutoZeroCommand extends SequentialCommandGroup {
         this.hinge = hinge;
         this.telescope = telescope;
 
-        hinge.hingeEncoder.setPosition(0.0);
-
+        //addCommands(new InstantCommand(() -> hinge.zero(),hinge));
         addCommands(new IntakeZeroCommand(intake));
         addCommands(new TelescopeZeroCommand(telescope));
         addCommands(new SequentialCommandGroup(
             new GrabZeroCommand(grabber),
             new ReleaseCommand(grabber,0.1)
         ));
+        addCommands(new HingeZeroCommand(hinge));
     }
 }
