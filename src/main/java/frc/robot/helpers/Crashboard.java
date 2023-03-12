@@ -40,6 +40,8 @@ public class Crashboard {
         return toDashboardGeneric(identifier, value, tab);
     }
 
+    
+
     public static double clamp(double in, double min, double max) {
         if (in < min)
             in = min;
