@@ -179,10 +179,6 @@ public class RobotContainer {
 	public void preMatchZeroing() {
 		Trigger zeroAllButton = driver.back();
 		zeroAllButton.onTrue(new PreMatchSettingsCommand(intake, grabber, hinge, telescope));
-
-		//UNDO
-		/*Trigger zeroAllButton = driver.back();
-		zeroAllButton.onTrue(new AutoZeroCommand(intake, grabber, hinge, telescope));*/
 	}
 
 	public void lineupTesting() {
