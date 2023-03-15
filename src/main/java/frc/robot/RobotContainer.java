@@ -15,6 +15,7 @@ import frc.robot.commands.intake.ToggleDeployIntakeCommand;
 import frc.robot.commands.manuals.GrabManualCommand;
 import frc.robot.commands.manuals.HingeManualCommand;
 import frc.robot.commands.manuals.TelescopeManualCommand;
+import frc.robot.helpers.AutoCommandSwitcher;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.ArmPosition;
 import frc.robot.helpers.enums.LineupPosition;
@@ -27,6 +28,9 @@ import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.IntakeSub;
 import frc.robot.subsystems.LedStrip;
 import frc.robot.commands.SetColorCommand;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.ComplexWidget;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -56,9 +60,20 @@ public class RobotContainer {
 	private boolean TurnOnDrive = true;
 	private boolean IsTesting = false;
 
+	private Command[] commands = null;
+	private SendableChooser<String> autoOptions = new SendableChooser<String>();
+	ComplexWidget optionEntry;
+	enum ChosenAuto {
+		One,
+		Two,
+	}
+	ChosenAuto chosenAuto;
+
 	public RobotContainer() {
 		driver = new CommandXboxController(3);
 		operator = new CommandXboxController(1);
+
+		AutoCommandSwitcher.loadAutoCommandSwitcher(commands);
 
 		// Log Initial Status
 		this.LogInitialStatus();
@@ -103,6 +118,12 @@ public class RobotContainer {
 		}
 
 		configureBindings();
+		autoOptions.addOption("One", "One");
+		autoOptions.addOption("Two", "Two");
+		autoOptions.setDefaultOption("One", "One");
+		optionEntry = Crashboard.AddChooser("Selected Auto", autoOptions, Constants.COMPETITON_TAB, BuiltInWidgets.kComboBoxChooser);
+		chosenAuto = ChosenAuto.valueOf(autoOptions.getSelected());
+
 	}
 
 	private void LogInitialStatus()
