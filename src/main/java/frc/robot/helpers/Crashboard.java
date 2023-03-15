@@ -5,7 +5,11 @@ import java.util.Hashtable;
 
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.ComplexWidget;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.WidgetType;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 public class Crashboard {
 
@@ -28,6 +32,10 @@ public class Crashboard {
 
     }
 
+    public static ComplexWidget AddChooser(String identifier, SendableChooser<String> value, String tab, BuiltInWidgets widget) {
+        return Shuffleboard.getTab(tab).add(identifier, value).withWidget(widget);
+    }
+
     private static String getKey(String identifier, String tab) {
         return identifier + "-" + tab;
     }
@@ -39,6 +47,7 @@ public class Crashboard {
     public static GenericEntry toDashboard(String identifier, Sendable value, String tab) {
         return toDashboardGeneric(identifier, value, tab);
     }
+
 
     public static double clamp(double in, double min, double max) {
         if (in < min)
