@@ -129,13 +129,10 @@ public class RobotContainer {
 	}
 
 	private void BindTests() {
-		Trigger zeroAllButton = operator.back();
+		/*Trigger zeroAllButton = operator.back();
 		zeroAllButton.onTrue(new PreMatchSettingsCommand(intake, grabber, hinge, telescope));
 
-		armBindings();
-
-		Trigger toggleLed = operator.leftTrigger(0.5);
-		toggleLed.whileTrue(new SetColorCommand(led));
+		armBindings();*/
 	}
 
 	public void armBindings() {
@@ -172,8 +169,8 @@ public class RobotContainer {
         Trigger grabButton = operator.rightBumper();
         grabButton.onTrue(new GrabMasterCommand(grabber, led));
 
-		Trigger toggleLed = operator.rightTrigger(0.5);
-		toggleLed.whileTrue(new SetColorCommand(led));
+		Trigger toggleLed = operator.back();
+		toggleLed.onTrue(new SetColorCommand(led)).debounce(0.5);
 	}
 
 	public void preMatchZeroing() {
