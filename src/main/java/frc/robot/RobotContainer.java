@@ -8,6 +8,8 @@ import frc.robot.commands.arm.MoveArmMasterCommand;
 import frc.robot.commands.arm.SetHingeZeroCommand;
 import frc.robot.commands.auto.AutoDriveCommand;
 import frc.robot.commands.auto.PreMatchSettingsCommand;
+import frc.robot.commands.auto.TestAutoOne;
+import frc.robot.commands.auto.TestAutoTwo;
 import frc.robot.commands.grabber.GrabMasterCommand;
 import frc.robot.commands.intake.IntakeDefaultCommand;
 import frc.robot.commands.intake.IntakeHolderCommand;
@@ -45,6 +47,8 @@ public class RobotContainer {
 	private HoldArmCommand holdArmCommand;
 	private HingeManualCommand hingeManualCommand;
 	private TelescopeManualCommand telescopeManualCommand;
+	private TestAutoOne testAutoOne;
+	private TestAutoTwo testAutoTwo;
 
 	private Drivetrain drive;
 	private IntakeSub intake;
@@ -122,7 +126,7 @@ public class RobotContainer {
 		autoOptions.addOption("Two", "Two");
 		autoOptions.setDefaultOption("One", "One");
 		optionEntry = Crashboard.AddChooser("Selected Auto", autoOptions, Constants.COMPETITON_TAB, BuiltInWidgets.kComboBoxChooser);
-		chosenAuto = ChosenAuto.valueOf(autoOptions.getSelected());
+
 
 	}
 
@@ -227,12 +231,18 @@ public class RobotContainer {
 	}
 
 	public Command getAutonomousCommand() {
-		return new SequentialCommandGroup(
-			new HingeZeroCommand(hinge).withTimeout(7),
-			new SetHingeZeroCommand(hinge),
-			new MoveArmMasterCommand(hinge, telescope, ArmPosition.START)//,
-			//new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE)
-		);
+		chosenAuto = ChosenAuto.valueOf(autoOptions.getSelected());
+
+		switch (chosenAuto) {
+			case One: 
+				return new TestAutoOne();
+			case Two:
+				return new TestAutoTwo();
+			default:
+				return new TestAutoOne();
+	}
+
+
 
 		/*return new SequentialCommandGroup(
 			new AutoPlaceCommand(grabber, hinge, telescope),
