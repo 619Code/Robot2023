@@ -118,9 +118,6 @@ public class RobotContainer {
 		zeroAllButton.onTrue(new PreMatchSettingsCommand(grabber, hinge, telescope));
 
 		armBindings();
-
-		Trigger toggleLed = operator.leftTrigger(0.5);
-		toggleLed.whileTrue(new SetColorCommand(led));
 	}
 
 	public void armBindings() {
@@ -146,6 +143,9 @@ public class RobotContainer {
 
 		Trigger releaseButton = operator.rightBumper();
         releaseButton.whileTrue(new ReleaseCommand(grabber));
+
+		Trigger toggleLed = operator.back();
+		toggleLed.onTrue(new SetColorCommand(led)).debounce(0.5);
 	}
 
 	public void preMatchZeroing() {
