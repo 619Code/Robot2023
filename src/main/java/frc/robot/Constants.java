@@ -176,6 +176,8 @@ public final class Constants {
     public static final int LED_PWM_PORT = 0;
     public static final int LED_STRIP_LENGTH = 192;
 
+    public static final double TOGGLE_INTERVAL = 0.5;
+
     //Auto Constants
     public static final double AUTO_DRIVE_VELOCITY = 0.5;
     public static final double AUTO_DRIVE_DISTANCE = 5;

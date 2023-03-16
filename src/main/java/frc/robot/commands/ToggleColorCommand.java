@@ -3,10 +3,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LedStrip;
 
-public class SetColorCommand extends CommandBase {
+public class ToggleColorCommand extends CommandBase {
     private LedStrip led;
 
-    public SetColorCommand(LedStrip led) {
+    public ToggleColorCommand(LedStrip led) {
         this.led = led;
 
         addRequirements(led);

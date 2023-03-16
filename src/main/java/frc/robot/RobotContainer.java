@@ -1,5 +1,6 @@
 package frc.robot;
 
+import frc.robot.commands.AlternateColorCommand;
 import frc.robot.commands.AutoLineupCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.arm.HingeAdjustCommand;
@@ -26,9 +27,10 @@ import frc.robot.subsystems.arm.Telescope;
 import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.IntakeSub;
 import frc.robot.subsystems.LedStrip;
-import frc.robot.commands.SetColorCommand;
+import frc.robot.commands.ToggleColorCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -114,10 +116,10 @@ public class RobotContainer {
 	}
 
 	private void BindTests() {
-		Trigger zeroAllButton = operator.back();
+		/*Trigger zeroAllButton = operator.back();
 		zeroAllButton.onTrue(new PreMatchSettingsCommand(grabber, hinge, telescope));
 
-		armBindings();
+		armBindings();*/
 	}
 
 	public void armBindings() {
@@ -139,13 +141,16 @@ public class RobotContainer {
 
 	public void grabberBindings() {
         Trigger grabButton = operator.leftBumper();
-        grabButton.whileTrue(new GrabCommand(grabber));
+        grabButton.whileTrue(new ParallelDeadlineGroup(
+			new GrabCommand(grabber),
+			new AlternateColorCommand(led)
+		));
 
 		Trigger releaseButton = operator.rightBumper();
         releaseButton.whileTrue(new ReleaseCommand(grabber));
 
 		Trigger toggleLed = operator.back();
-		toggleLed.onTrue(new SetColorCommand(led)).debounce(0.5);
+		toggleLed.onTrue(new ToggleColorCommand(led)).debounce(0.5);
 	}
 
 	public void preMatchZeroing() {
