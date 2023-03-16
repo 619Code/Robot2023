@@ -12,7 +12,8 @@ public final class Constants {
     public static final int RIGHT_FOLLOWER_0 = 4;
 
     //Grabber CANs
-    public static final int GRABBER_MOTOR = 12;
+    public static final int GRABBER_MOTOR_LEADER = 12;
+    public static final int GRABBER_MOTOR_FOLLOWER = -1; //change
 
     //Arm CANs
     public static final int HINGE_MOTOR = 11;
@@ -26,13 +27,14 @@ public final class Constants {
     public static final int RIGHT_WHEEL_MOTOR = 8;
 
     //Sensor ports
-    public static final int GRABBER_SWITCH = 1;
     public static final int HINGE_SWITCH = 6;
     public static final int WRIST_SWITCH = -1;
     public static final int TELESCOPE_CONTRACTED_SWITCH = 3;
     public static final int TELESCOPE_EXTENDED_SWITCH = 5;
     public static final int INTAKE_LEFT_SWITCH = 2;
     public static final int INTAKE_RIGHT_SWITCH = 7;
+
+    public static final int GRABBER_PROXIMITY_SENSOR = -1; //change
 
     //Drive constants
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(5.827); //meters
@@ -80,13 +82,11 @@ public final class Constants {
     public static final double kRamseteZeta = 0.7;
 
     //Grabber constants
-    public static final double MAX_GRABBER_SPEED = 0.5; //0.2
+    public static final double CUBE_TIMER = 0;
+    public static final double CONE_TIMER = 0;
 
-    public static final double CUBE_POSITION = 20.0; //17.0
-	public static final double CONE_POSITION = 67.0; //60.0
-	public static final double GRABBER_ZERO_POSITION = 67.0; //60.0
-
-    public static final double GRABBER_P = 0.1;
+    public static final double GRAB_SPEED = 0.4;
+    public static final double RELEASE_SPEED = -0.4;
 
     //Hinge constants
     public static final double MIN_HINGE_POSITION = 1.0;
@@ -180,7 +180,6 @@ public final class Constants {
     public static final double AUTO_DRIVE_VELOCITY = 0.5;
     public static final double AUTO_DRIVE_DISTANCE = 5;
 
-    public static final double GRABBER_START = CONE_POSITION;
     public static final double HINGE_START = START_POSITION_HINGE;
     public static final double TELESCOPE_START = START_POSITION_TELESCOPE;
     public static final double WRIST_START = 0;
