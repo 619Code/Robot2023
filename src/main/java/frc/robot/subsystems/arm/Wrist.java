@@ -13,7 +13,8 @@ public class Wrist extends SubsystemBase {
     private CANSparkMax wristMotor;
     private RelativeEncoder wristEncoder;
 
-    private DigitalInput zeroSwitch;
+    private DigitalInput lowSwitch;
+    private DigitalInput highSwitch;
 
     public Wrist() {
         wristMotor = new CANSparkMax(Constants.WRIST_MOTOR, MotorType.kBrushless);
@@ -22,9 +23,10 @@ public class Wrist extends SubsystemBase {
         wristMotor.setSmartCurrentLimit(40);
 
         wristEncoder = wristMotor.getEncoder();
-        wristEncoder.setPosition(Constants.TELESCOPE_START);
+        wristEncoder.setPosition(Constants.WRIST_START);
 
-        zeroSwitch = new DigitalInput(Constants.WRIST_SWITCH);
+        lowSwitch = new DigitalInput(Constants.WRIST_SWITCH_LOW);
+        highSwitch = new DigitalInput(Constants.WRIST_SWITCH_HIGH);
     }
 
     public void move(double speed) {
@@ -35,14 +37,17 @@ public class Wrist extends SubsystemBase {
         boolean move = true;
 
         if(speed > 0) {
-            if(!zeroing && getPosition() > Constants.MAX_HINGE_EXTENSION) {
+            if(highSwitchIsPressed()) {
+                stop(); move = false;
+            }
+            if(!zeroing && getPosition() > Constants.MAX_WRIST_POSITION) {
                 stop(); move = false;
             }
         } else if(speed < 0) {
-            if(switchIsPressed()) { //UNDO?
+            if(lowSwitchIsPressed()) {
                 stop(); move = false;
             }
-            if(!zeroing && getPosition() < Constants.MIN_HINGE_EXTENSION) {
+            if(!zeroing && getPosition() < Constants.MIN_WRIST_POSITION) {
                 stop(); move = false;
             }
         }
@@ -81,8 +86,12 @@ public class Wrist extends SubsystemBase {
         return wristEncoder.getPosition();
     }
 
-    public boolean switchIsPressed() {
-        return !zeroSwitch.get();
+    public boolean highSwitchIsPressed() {
+        return highSwitch.get();
+    }
+
+    public boolean lowSwitchIsPressed() {
+        return lowSwitch.get();
     }
 
     public void zero() {

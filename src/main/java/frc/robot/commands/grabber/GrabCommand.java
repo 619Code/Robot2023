@@ -17,6 +17,8 @@ public class GrabCommand extends CommandBase {
     public GrabCommand(Grabber grabber) {
         this.grabber = grabber;
 
+        endTimer = new Timer();
+
         addRequirements(grabber);
     }
 

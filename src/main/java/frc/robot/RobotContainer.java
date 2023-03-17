@@ -10,6 +10,7 @@ import frc.robot.commands.arm.MoveArmMasterCommand;
 import frc.robot.commands.auto.AutoDriveCommand;
 import frc.robot.commands.auto.PreMatchSettingsCommand;
 import frc.robot.commands.grabber.GrabCommand;
+import frc.robot.commands.grabber.GrabDefaultCommand;
 import frc.robot.commands.grabber.ReleaseCommand;
 import frc.robot.commands.intake.IntakeDefaultCommand;
 import frc.robot.commands.intake.IntakeHolderCommand;
@@ -41,6 +42,7 @@ public class RobotContainer {
 	private CommandXboxController operator;
 	
 	private DriveCommand driveCommand;
+	private GrabDefaultCommand grabDefaultCommand;
 	private HingeAdjustCommand hingeAdjustCommand;
 	private TelescopeManualCommand telescopeManualCommand;
 
@@ -52,8 +54,8 @@ public class RobotContainer {
 	private LedStrip led;
 
 	private boolean TurnOnGrabber = true;
-	private boolean TurnOnArm = true;
-	private boolean TurnOnDrive = true;
+	private boolean TurnOnArm = false;
+	private boolean TurnOnDrive = false;
 	private boolean IsTesting = true;
 
 	public RobotContainer() {
@@ -63,11 +65,11 @@ public class RobotContainer {
 		// Log Initial Status
 		this.LogInitialStatus();
 
-		limelight = new Limelight();
+		/*limelight = new Limelight();
 		PipelineHelper.limelight = limelight;
 		PipelineHelper.setCameraPipeline();
 
-		led = new LedStrip();
+		led = new LedStrip();*/
 
 		if (TurnOnDrive) {
 			drive = new Drivetrain();
@@ -77,6 +79,8 @@ public class RobotContainer {
 
 		if (TurnOnGrabber) {
 			grabber = new Grabber();
+			grabDefaultCommand = new GrabDefaultCommand(grabber);
+			grabber.setDefaultCommand(grabDefaultCommand);
 		}
 
 		if (TurnOnArm) {
@@ -116,10 +120,17 @@ public class RobotContainer {
 	}
 
 	private void BindTests() {
-		/*Trigger zeroAllButton = operator.back();
-		zeroAllButton.onTrue(new PreMatchSettingsCommand(grabber, hinge, telescope));
+		Trigger grabButton = operator.leftBumper();
+        grabButton.whileTrue(new GrabCommand(grabber));
 
-		armBindings();*/
+		Trigger releaseButton = operator.rightBumper();
+        releaseButton.whileTrue(new ReleaseCommand(grabber));
+
+		/*Trigger alternateLed = operator.rightBumper();
+		alternateLed.whileTrue(new AlternateColorCommand(led));
+
+		Trigger toggleLed = operator.back();
+		toggleLed.onTrue(new ToggleColorCommand(led)).debounce(0.5);*/
 	}
 
 	public void armBindings() {

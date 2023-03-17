@@ -12,8 +12,8 @@ public final class Constants {
     public static final int RIGHT_FOLLOWER_0 = 4;
 
     //Grabber CANs
-    public static final int GRABBER_MOTOR_LEADER = 12;
-    public static final int GRABBER_MOTOR_FOLLOWER = -1; //change
+    public static final int GRABBER_MOTOR_LEADER = 11;
+    public static final int GRABBER_MOTOR_FOLLOWER = 12; //change
 
     //Arm CANs
     public static final int HINGE_MOTOR = 11;
@@ -28,13 +28,17 @@ public final class Constants {
 
     //Sensor ports
     public static final int HINGE_SWITCH = 6;
-    public static final int WRIST_SWITCH = -1;
+    
+    public static final int WRIST_SWITCH_LOW = -1;
+    public static final int WRIST_SWITCH_HIGH = -1;
+
     public static final int TELESCOPE_CONTRACTED_SWITCH = 3;
     public static final int TELESCOPE_EXTENDED_SWITCH = 5;
+
+    public static final int GRABBER_PROXIMITY_SENSOR = 9; //change
+    
     public static final int INTAKE_LEFT_SWITCH = 2;
     public static final int INTAKE_RIGHT_SWITCH = 7;
-
-    public static final int GRABBER_PROXIMITY_SENSOR = -1; //change
 
     //Drive constants
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(5.827); //meters
@@ -82,11 +86,14 @@ public final class Constants {
     public static final double kRamseteZeta = 0.7;
 
     //Grabber constants
-    public static final double CUBE_TIMER = 0;
-    public static final double CONE_TIMER = 0;
+    public static final double CUBE_TIMER = 1.5;
+    public static final double CONE_TIMER = 0.5;
 
-    public static final double GRAB_SPEED = 0.4;
-    public static final double RELEASE_SPEED = -0.4;
+    public static final double GRAB_SPEED = 0.5;
+    public static final double GRAB_SPEED_DEFAULT = 0.05;
+
+    public static final double RELEASE_SPEED_CUBE = -0.05;
+    public static final double RELEASE_SPEED_CONE = -0.2;
 
     //Hinge constants
     public static final double MIN_HINGE_POSITION = 1.0;
@@ -174,7 +181,7 @@ public final class Constants {
 
     //LED constants
     public static final int LED_PWM_PORT = 0;
-    public static final int LED_STRIP_LENGTH = 192;
+    public static final int LED_STRIP_LENGTH = 300;
 
     public static final double TOGGLE_INTERVAL = 0.5;
 

@@ -31,13 +31,14 @@ public class Grabber extends SubsystemBase {
         grabberLeaderMotor.restoreFactoryDefaults();
         grabberLeaderMotor.setSmartCurrentLimit(35);
         grabberLeaderMotor.setIdleMode(IdleMode.kBrake);
+        grabberLeaderMotor.setInverted(true);
 
-        grabberFollowerMotor = new CANSparkMax(Constants.GRABBER_MOTOR_LEADER, MotorType.kBrushless);
+        grabberFollowerMotor = new CANSparkMax(Constants.GRABBER_MOTOR_FOLLOWER, MotorType.kBrushless);
         grabberFollowerMotor.restoreFactoryDefaults();
         grabberFollowerMotor.setSmartCurrentLimit(35);
         grabberFollowerMotor.setIdleMode(IdleMode.kBrake);
 
-        grabberFollowerMotor.follow(grabberLeaderMotor);
+        grabberFollowerMotor.follow(grabberLeaderMotor, true);
 
         colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
         proximitySensor = new DigitalInput(Constants.GRABBER_PROXIMITY_SENSOR);
@@ -46,6 +47,11 @@ public class Grabber extends SubsystemBase {
     @Override
     public void periodic() {
         grabberSpark = Crashboard.toDashboard("Grabber Spark", SparkErrorHelper.HasSensorError(grabberLeaderMotor), Constants.SPARKS_TAB);
+        Crashboard.toDashboard("Cube Sensed", cubeSensed(), Constants.GRABBER_TAB);
+        Crashboard.toDashboard("Cone Sensed", coneSensed(), Constants.GRABBER_TAB);
+
+        Crashboard.toDashboard("Leader Amps", grabberLeaderMotor.getAppliedOutput(), Constants.GRABBER_TAB);
+        Crashboard.toDashboard("Follower Amps", grabberFollowerMotor.getAppliedOutput(), Constants.GRABBER_TAB);
     }
 
     public void spin(double speed) {
@@ -56,16 +62,14 @@ public class Grabber extends SubsystemBase {
         Color detectedColor = colorSensor.getColor();
 
         if(detectedColor.blue > 0.2) {
-            Crashboard.toDashboard("Cube Detected", true, Constants.COMPETITON_TAB);
             return true;
         } else {
-            Crashboard.toDashboard("Cube Detected", false, Constants.COMPETITON_TAB);
             return false;
         }
     }
 
     public boolean coneSensed() {
-        return proximitySensor.get();
+        return !proximitySensor.get();
     }
 
     public void stop() {
