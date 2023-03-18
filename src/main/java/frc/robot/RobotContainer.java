@@ -54,7 +54,7 @@ public class RobotContainer {
 	private Telescope telescope;
 	private LedStrip led;
 
-	private boolean TurnOnGrabber = false;
+	private boolean TurnOnGrabber = true;
 	private boolean TurnOnArm = false;
 	private boolean TurnOnDrive = false;
 	private boolean IsTesting = true;
@@ -125,11 +125,11 @@ public class RobotContainer {
 	}
 
 	private void BindTests() {
-		/*Trigger grabButton = operator.leftBumper();
+		Trigger grabButton = operator.leftBumper();
         grabButton.whileTrue(new GrabCommand(grabber));
 
 		Trigger releaseButton = operator.rightBumper();
-        releaseButton.whileTrue(new ReleaseCommand(grabber));*/
+        releaseButton.whileTrue(new ReleaseCommand(grabber));
 
 		/*Trigger alternateLed = operator.rightBumper();
 		alternateLed.whileTrue(new AlternateColorCommand(led));
