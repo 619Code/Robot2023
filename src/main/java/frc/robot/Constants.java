@@ -23,8 +23,7 @@ public final class Constants {
     //Sensor ports
     public static final int HINGE_SWITCH = 6;
     
-    public static final int WRIST_SWITCH_LOW = -1;
-    public static final int WRIST_SWITCH_HIGH = -1;
+    public static final int WRIST_ABSOLUTE_ENCODER = -1;
 
     public static final int TELESCOPE_CONTRACTED_SWITCH = 3;
     public static final int TELESCOPE_EXTENDED_SWITCH = 5;
@@ -108,6 +107,8 @@ public final class Constants {
     public static final double TELESCOPE_P = 0.04;
 
     //Wrist constants
+    public static final double POSITION_OFFSET = 0;
+
     public static final double MIN_WRIST_POSITION = 0;
     public static final double MAX_WRIST_POSITION = 100;
 
