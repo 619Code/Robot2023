@@ -8,6 +8,7 @@ import frc.robot.commands.arm.HingeZeroCommand;
 import frc.robot.commands.arm.HoldArmCommand;
 import frc.robot.commands.arm.MoveArmMasterCommand;
 import frc.robot.commands.auto.AutoDriveCommand;
+import frc.robot.commands.auto.AutoPlaceCommand;
 import frc.robot.commands.auto.PreMatchSettingsCommand;
 import frc.robot.commands.grabber.GrabCommand;
 import frc.robot.commands.grabber.GrabDefaultCommand;
@@ -17,8 +18,10 @@ import frc.robot.commands.intake.IntakeHolderCommand;
 import frc.robot.commands.intake.ToggleDeployIntakeCommand;
 import frc.robot.commands.manuals.HingeManualCommand;
 import frc.robot.commands.manuals.TelescopeManualCommand;
+import frc.robot.helpers.AutoCommandSwitcher;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.ArmPosition;
+import frc.robot.helpers.enums.AutoOption;
 import frc.robot.helpers.enums.LineupPosition;
 import frc.robot.helpers.limelight.PipelineHelper;
 import frc.robot.subsystems.Drivetrain;
@@ -28,6 +31,9 @@ import frc.robot.subsystems.arm.Telescope;
 import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.IntakeSub;
 import frc.robot.subsystems.LedStrip;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.ComplexWidget;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.ToggleColorCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -57,6 +63,9 @@ public class RobotContainer {
 	private boolean TurnOnArm = false;
 	private boolean TurnOnDrive = false;
 	private boolean IsTesting = true;
+
+	private SendableChooser<String> autoOptions = new SendableChooser<String>();
+	ComplexWidget optionEntry;
 
 	public RobotContainer() {
 		driver = new CommandXboxController(3);
@@ -94,6 +103,12 @@ public class RobotContainer {
 		}
 
 		configureBindings();
+		autoOptions.addOption("One", "One");
+		autoOptions.addOption("Two", "Two");
+		autoOptions.setDefaultOption("One", "One");
+		optionEntry = Crashboard.AddChooser("Selected Auto", autoOptions, Constants.COMPETITON_TAB, BuiltInWidgets.kComboBoxChooser);
+
+
 	}
 
 	private void LogInitialStatus()
@@ -181,19 +196,20 @@ public class RobotContainer {
 	}
 
 	public Command getAutonomousCommand() {
-		return new SequentialCommandGroup(
-			new HingeZeroCommand(hinge),
-			new MoveArmMasterCommand(hinge, telescope, ArmPosition.START)//,
-			//new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE)
-		);
+		AutoOption chosenAuto = AutoOption.valueOf(autoOptions.getSelected());
 
-		/*return new SequentialCommandGroup(
-			new AutoPlaceCommand(grabber, hinge, telescope),
-			new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE)
-		);*/
-
-		//return new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE);
-
-		//return null;
+		switch (chosenAuto) {
+			case Place: 
+				return new SequentialCommandGroup(
+					new AutoPlaceCommand(grabber, hinge, telescope),
+					new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE)
+				);
+			case Drive:
+				return new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE);
+			case Null:
+				return null;
+			default:
+				return null;
+		}
 	}
 }
