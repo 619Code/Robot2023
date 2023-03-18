@@ -7,9 +7,8 @@ import frc.robot.commands.arm.HoldArmCommand;
 import frc.robot.commands.arm.MoveArmMasterCommand;
 import frc.robot.commands.arm.SetHingeZeroCommand;
 import frc.robot.commands.auto.AutoDriveCommand;
+import frc.robot.commands.auto.AutoPlaceCommand;
 import frc.robot.commands.auto.PreMatchSettingsCommand;
-import frc.robot.commands.auto.TestAutoOne;
-import frc.robot.commands.auto.TestAutoTwo;
 import frc.robot.commands.grabber.GrabMasterCommand;
 import frc.robot.commands.intake.IntakeDefaultCommand;
 import frc.robot.commands.intake.IntakeHolderCommand;
@@ -20,6 +19,7 @@ import frc.robot.commands.manuals.TelescopeManualCommand;
 import frc.robot.helpers.AutoCommandSwitcher;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.ArmPosition;
+import frc.robot.helpers.enums.AutoOption;
 import frc.robot.helpers.enums.LineupPosition;
 import frc.robot.helpers.limelight.PipelineHelper;
 import frc.robot.subsystems.Drivetrain;
@@ -47,8 +47,6 @@ public class RobotContainer {
 	private HoldArmCommand holdArmCommand;
 	private HingeManualCommand hingeManualCommand;
 	private TelescopeManualCommand telescopeManualCommand;
-	private TestAutoOne testAutoOne;
-	private TestAutoTwo testAutoTwo;
 
 	private Drivetrain drive;
 	private IntakeSub intake;
@@ -64,20 +62,12 @@ public class RobotContainer {
 	private boolean TurnOnDrive = true;
 	private boolean IsTesting = false;
 
-	private Command[] commands = null;
 	private SendableChooser<String> autoOptions = new SendableChooser<String>();
 	ComplexWidget optionEntry;
-	enum ChosenAuto {
-		One,
-		Two,
-	}
-	ChosenAuto chosenAuto;
 
 	public RobotContainer() {
 		driver = new CommandXboxController(3);
 		operator = new CommandXboxController(1);
-
-		AutoCommandSwitcher.loadAutoCommandSwitcher(commands);
 
 		// Log Initial Status
 		this.LogInitialStatus();
@@ -231,26 +221,20 @@ public class RobotContainer {
 	}
 
 	public Command getAutonomousCommand() {
-		chosenAuto = ChosenAuto.valueOf(autoOptions.getSelected());
+		AutoOption chosenAuto = AutoOption.valueOf(autoOptions.getSelected());
 
 		switch (chosenAuto) {
-			case One: 
-				return new TestAutoOne();
-			case Two:
-				return new TestAutoTwo();
+			case Place: 
+				return new SequentialCommandGroup(
+					new AutoPlaceCommand(grabber, hinge, telescope),
+					new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE)
+				);
+			case Drive:
+				return new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE);
+			case Null:
+				return null;
 			default:
-				return new TestAutoOne();
-	}
-
-
-
-		/*return new SequentialCommandGroup(
-			new AutoPlaceCommand(grabber, hinge, telescope),
-			new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE)
-		);*/
-
-		//return new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE);
-
-		//return null;
+				return null;
+		}
 	}
 }
