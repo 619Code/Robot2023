@@ -2,6 +2,7 @@ package frc.robot.commands.grabber;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.Grabber;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -9,42 +10,42 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class GrabCommand extends CommandBase {
     private Grabber grabber;
 
-    private double limit;
-    private double maxSpeed;
+    boolean ending;
+    Timer endTimer;
+    double timeLimit;
 
-    public GrabCommand(Grabber grabber, boolean isCube) {
-        this(grabber, isCube, Constants.MAX_GRABBER_SPEED);
-    }
-
-    public GrabCommand(Grabber grabber, boolean isCube, double maxSpeed) {
+    public GrabCommand(Grabber grabber) {
         this.grabber = grabber;
-        this.maxSpeed = Math.min(maxSpeed, Constants.MAX_GRABBER_SPEED);
+
+        endTimer = new Timer();
 
         addRequirements(grabber);
-
-        if(isCube) {
-            limit = Constants.CUBE_POSITION;
-        } else {
-            limit = Constants.CONE_POSITION;
-        }
     }
 
     @Override
     public void initialize() {
+        endTimer.reset();
+        endTimer.stop();
+        ending = false;
     }
 
     @Override
     public void execute() {
-        if(limit > grabber.getPosition()) {
-            if(Math.abs(limit - grabber.getPosition()) < 5) {
-                grabber.spinMotor(1,maxSpeed/2.0);
-            } else {
-                grabber.spinMotor(1,maxSpeed);
+        if(!ending) {
+            if(grabber.cubeSensed()) {
+                timeLimit = Constants.CUBE_TIMER;
+                endTimer.reset();
+                endTimer.start();
+                ending = true;
+            } else if(grabber.coneSensed()) {
+                timeLimit = Constants.CONE_TIMER;
+                endTimer.reset();
+                endTimer.start();
+                ending = true;
             }
-        } else {
-            grabber.stop();
-            grabber.grabbing = true;
         }
+
+        grabber.spin(Constants.GRAB_SPEED);
     }
 
     @Override
@@ -54,6 +55,6 @@ public class GrabCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return ending && endTimer.hasElapsed(timeLimit);
     }
 }

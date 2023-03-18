@@ -1,16 +1,15 @@
 package frc.robot.commands.grabber;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Grabber;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
-public class ReleaseCommand extends CommandBase {
+public class GrabDefaultCommand extends CommandBase {
     private Grabber grabber;
 
-    public ReleaseCommand(Grabber grabber) {
+    boolean ending;
+
+    public GrabDefaultCommand(Grabber grabber) {
         this.grabber = grabber;
 
         addRequirements(grabber);
@@ -22,10 +21,10 @@ public class ReleaseCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if(grabber.coneSensed()) {
-            grabber.spin(Constants.RELEASE_SPEED_CONE);
+        if(!grabber.coneSensed() && grabber.cubeSensed()) {
+            grabber.spin(Constants.GRAB_SPEED_DEFAULT);
         } else {
-            grabber.spin(Constants.RELEASE_SPEED_CUBE);
+            grabber.stop();
         }
     }
 
