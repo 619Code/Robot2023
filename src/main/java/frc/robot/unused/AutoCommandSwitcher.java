@@ -1,10 +1,11 @@
-package frc.robot.helpers;
+package frc.robot.unused;
 
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.helpers.Crashboard;
 
 public class AutoCommandSwitcher {
     

@@ -1,4 +1,4 @@
-package frc.robot.commands.intake;
+package frc.robot.unused.intake;
 
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -7,7 +7,6 @@ import frc.robot.Constants;
 import frc.robot.States;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.IntakeArm;
-import frc.robot.subsystems.IntakeSub;
 
 public class IntakeHolderCommand extends CommandBase {
 

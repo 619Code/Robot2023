@@ -6,11 +6,11 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.arm.HingeZeroCommand;
 import frc.robot.commands.arm.TelescopeZeroCommand;
 import frc.robot.commands.grabber.ReleaseCommand;
-import frc.robot.commands.intake.IntakeZeroCommand;
 import frc.robot.subsystems.Grabber;
-import frc.robot.subsystems.IntakeSub;
 import frc.robot.subsystems.arm.Hinge;
 import frc.robot.subsystems.arm.Telescope;
+import frc.robot.unused.intake.IntakeSub;
+import frc.robot.unused.intake.IntakeZeroCommand;
 
 public class AutoZeroCommand extends SequentialCommandGroup {
     Grabber grabber;

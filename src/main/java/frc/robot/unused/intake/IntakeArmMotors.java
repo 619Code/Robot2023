@@ -1,4 +1,4 @@
-package frc.robot.helpers;
+package frc.robot.unused.intake;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -8,6 +8,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants;
+import frc.robot.helpers.Crashboard;
+import frc.robot.helpers.SparkErrorHelper;
 
 public class IntakeArmMotors {
 
