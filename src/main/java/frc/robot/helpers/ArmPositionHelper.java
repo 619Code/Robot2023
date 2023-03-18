@@ -50,6 +50,25 @@ public class ArmPositionHelper {
         }
     }
 
+    public static double fetchWristValue(ArmPosition position) {
+        switch(position) {
+            case START:
+                return Constants.START_POSITION_WRIST;
+            case PICKUP_LOW:
+                return Constants.PICKUP_LOW_POSITION_WRIST;
+            case PICKUP_HIGH:
+                return Constants.PICKUP_HIGH_POSITION_WRIST;
+            case GRID_MID:
+                return Constants.GRID_MID_POSITION_WRIST;
+            case GRID_HIGH:
+                return Constants.GRID_HIGH_POSITION_WRIST;
+            case PARALLEL_POSITION:
+                return Constants.PARALLEL_POSITION_WRIST;
+            default:
+                return Constants.START_POSITION_WRIST;
+        }
+    }
+
     public static ArmPositionSide fetchSide(ArmPosition position) {
         switch(position) {
             case START:

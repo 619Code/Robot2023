@@ -61,14 +61,14 @@ public class Hinge extends SubsystemBase {
         boolean move = true;
 
         if(speed > 0) {
-            if(!zeroing && getPosition() > Constants.MAXIMUM_EXTENSION) {
+            if(!zeroing && getPosition() > Constants.MAX_HINGE_POSITION) {
                 stop(); move = false;
             }
         } else if(speed < 0) {
             if(switchIsPressed()) {
                 stop(); move = false;
             }
-            if(!zeroing && getPosition() < Constants.MINIMUM_EXTENSION) {
+            if(!zeroing && getPosition() < Constants.MIN_HINGE_POSITION) {
                 stop(); move = false;
             }
         }
@@ -80,8 +80,8 @@ public class Hinge extends SubsystemBase {
 
     //boolean return says if it's at that position
     public boolean moveToPosition(double goal) {
-        goal = Math.min(goal,Constants.MAXIMUM_POSITION);
-        goal = Math.max(goal,Constants.MINIMUM_POSITION);
+        goal = Math.min(goal,Constants.MAX_HINGE_POSITION);
+        goal = Math.max(goal,Constants.MIN_HINGE_POSITION);
 
         double speed = Math.abs(getPosition() - goal) * Constants.HINGE_P; //proportional control
         speed = Math.min(speed, Constants.HINGE_SPEED);

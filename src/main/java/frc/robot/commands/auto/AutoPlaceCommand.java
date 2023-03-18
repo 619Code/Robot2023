@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.arm.HoldArmCommand;
 import frc.robot.commands.arm.MoveArmMasterCommand;
 import frc.robot.commands.arm.TelescopeZeroCommand;
-import frc.robot.commands.grabber.GrabMasterCommand;
 import frc.robot.commands.grabber.ReleaseCommand;
 import frc.robot.helpers.enums.ArmPosition;
 import frc.robot.subsystems.Grabber;
@@ -26,7 +25,7 @@ public class AutoPlaceCommand extends SequentialCommandGroup {
         addCommands(new HoldArmCommand(hinge).withTimeout(5));
         addCommands(new ParallelCommandGroup(
             new HoldArmCommand(hinge).withTimeout(3),
-            new ReleaseCommand(grabber)
+            new ReleaseCommand(grabber).withTimeout(3)
         ));
         addCommands(new MoveArmMasterCommand(hinge, telescope, ArmPosition.START));
     }
