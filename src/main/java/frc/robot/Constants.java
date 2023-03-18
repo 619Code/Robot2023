@@ -12,13 +12,13 @@ public final class Constants {
     public static final int RIGHT_FOLLOWER_0 = 4;
 
     //Grabber CANs
-    public static final int GRABBER_MOTOR_LEADER = 11;
-    public static final int GRABBER_MOTOR_FOLLOWER = 12; //change
+    public static final int GRABBER_MOTOR_LEADER = -1;
+    public static final int GRABBER_MOTOR_FOLLOWER = -1;
 
     //Arm CANs
     public static final int HINGE_MOTOR = 11;
     public static final int TELESCOPE_MOTOR = 10;
-    public static final int WRIST_MOTOR = -1; //change
+    public static final int WRIST_MOTOR = -1;
 
     //Intake CANs
     public static final int LEFT_ARM_MOTOR = 14; 
@@ -35,7 +35,7 @@ public final class Constants {
     public static final int TELESCOPE_CONTRACTED_SWITCH = 3;
     public static final int TELESCOPE_EXTENDED_SWITCH = 5;
 
-    public static final int GRABBER_PROXIMITY_SENSOR = 9; //change
+    public static final int GRABBER_PROXIMITY_SENSOR = -1;
     
     public static final int INTAKE_LEFT_SWITCH = 2;
     public static final int INTAKE_RIGHT_SWITCH = 7;
@@ -86,6 +86,8 @@ public final class Constants {
     public static final double kRamseteZeta = 0.7;
 
     //Grabber constants
+    public static final double CUBE_BLUE_THRESHOLD = 0.2;
+
     public static final double CUBE_TIMER = 1.5;
     public static final double CONE_TIMER = 0.5;
 
@@ -107,8 +109,8 @@ public final class Constants {
     public static final double TELESCOPE_CONTRACTED_SWITCH_POSITION = 0.0;
     public static final double TELESCOPE_EXTENDED_SWITCH_POSITION = 78;
     public static final double EXTENSION_TOLERANCE = 5.0;
-    public static final double MIN_HINGE_EXTENSION = TELESCOPE_CONTRACTED_SWITCH_POSITION + EXTENSION_TOLERANCE;
-    public static final double MAX_HINGE_EXTENSION = TELESCOPE_EXTENDED_SWITCH_POSITION - EXTENSION_TOLERANCE;
+    public static final double MIN_TELESCOPE_EXTENSION = TELESCOPE_CONTRACTED_SWITCH_POSITION + EXTENSION_TOLERANCE;
+    public static final double MAX_TELESCOPE_EXTENSION = TELESCOPE_EXTENDED_SWITCH_POSITION - EXTENSION_TOLERANCE;
 
     public static final double TELESCOPE_SPEED = 0.9; //0.8
     public static final double TELESCOPE_ZERO_SPEED = 0.2;
@@ -181,7 +183,7 @@ public final class Constants {
 
     //LED constants
     public static final int LED_PWM_PORT = 0;
-    public static final int LED_STRIP_LENGTH = 300;
+    public static final int LED_STRIP_LENGTH = 192;
 
     public static final double TOGGLE_INTERVAL = 0.5;
 

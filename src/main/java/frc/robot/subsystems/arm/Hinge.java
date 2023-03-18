@@ -61,14 +61,14 @@ public class Hinge extends SubsystemBase {
         boolean move = true;
 
         if(speed > 0) {
-            if(!zeroing && getPosition() > Constants.MAX_HINGE_EXTENSION) {
+            if(!zeroing && getPosition() > Constants.MAX_HINGE_POSITION) {
                 stop(); move = false;
             }
         } else if(speed < 0) {
             if(switchIsPressed()) {
                 stop(); move = false;
             }
-            if(!zeroing && getPosition() < Constants.MIN_HINGE_EXTENSION) {
+            if(!zeroing && getPosition() < Constants.MIN_HINGE_POSITION) {
                 stop(); move = false;
             }
         }

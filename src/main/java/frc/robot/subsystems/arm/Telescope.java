@@ -64,14 +64,14 @@ public class Telescope extends SubsystemBase {
             if(extendedSwitchIsPressed()) {
                 stop(); move = false;
             }
-            if(!zeroing && getPosition() > Constants.MAX_HINGE_EXTENSION) {
+            if(!zeroing && getPosition() > Constants.MAX_TELESCOPE_EXTENSION) {
                 stop(); move = false;
             }
         } else if(speed < 0) {
             if(contractedSwitchIsPressed()) {
                 stop(); move = false;
             }
-            if(!zeroing && getPosition() < Constants.MIN_HINGE_EXTENSION) {
+            if(!zeroing && getPosition() < Constants.MIN_TELESCOPE_EXTENSION) {
                 stop(); move = false;
             }
         }
@@ -83,14 +83,14 @@ public class Telescope extends SubsystemBase {
 
     //boolean return says if it's at that position
     public boolean moveToPosition(double goal) {
-        if(0 <= goal && goal < Constants.MIN_HINGE_EXTENSION) {
+        if(0 <= goal && goal < Constants.MIN_TELESCOPE_EXTENSION) {
             if(Math.abs(getPosition() - goal) < 1) {
                 return true;
             }
         }
 
-        goal = Math.min(goal,Constants.MAX_HINGE_EXTENSION);
-        goal = Math.max(goal,Constants.MIN_HINGE_EXTENSION);
+        goal = Math.min(goal,Constants.MAX_TELESCOPE_EXTENSION);
+        goal = Math.max(goal,Constants.MIN_TELESCOPE_EXTENSION);
 
         double speed = Math.abs(getPosition() - goal) * Constants.TELESCOPE_P; //proportional control
         speed = Math.min(speed, Constants.TELESCOPE_SPEED);
@@ -108,7 +108,7 @@ public class Telescope extends SubsystemBase {
     }
 
     public boolean retractFull() {
-        return moveToPosition(Constants.MIN_HINGE_EXTENSION);
+        return moveToPosition(Constants.MIN_TELESCOPE_EXTENSION);
     }
 
     public void checkSafety() {
@@ -116,14 +116,14 @@ public class Telescope extends SubsystemBase {
             if(contractedSwitchIsPressed()) {
                 stop();
             }
-            if(getPosition() < Constants.MIN_HINGE_EXTENSION) {
+            if(getPosition() < Constants.MIN_TELESCOPE_EXTENSION) {
                 stop();
             }
         } else if(getVelocity() > 0) {
             if(extendedSwitchIsPressed()) {
                 stop();
             }
-            if(getPosition() > Constants.MAX_HINGE_EXTENSION) {
+            if(getPosition() > Constants.MAX_TELESCOPE_EXTENSION) {
                 stop();
             }
         }

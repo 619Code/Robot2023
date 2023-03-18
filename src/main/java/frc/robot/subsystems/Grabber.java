@@ -61,7 +61,7 @@ public class Grabber extends SubsystemBase {
     public boolean cubeSensed() {
         Color detectedColor = colorSensor.getColor();
 
-        if(detectedColor.blue > 0.2) {
+        if(detectedColor.blue > Constants.CUBE_BLUE_THRESHOLD) {
             return true;
         } else {
             return false;
