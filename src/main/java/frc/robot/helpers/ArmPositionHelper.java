@@ -8,10 +8,6 @@ public class ArmPositionHelper {
     public static ArmPosition currentPosition = ArmPosition.START;
     public static double hingeAdjustment = 0;
 
-    public static boolean atHingePosition = true;
-    public static boolean retracted = true;
-    public static boolean atTelescopePosition = true;
-
     public static double fetchHingeValue(ArmPosition position) {
         switch(position) {
             case START:

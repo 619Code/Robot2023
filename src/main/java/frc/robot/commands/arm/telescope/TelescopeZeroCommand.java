@@ -1,4 +1,4 @@
-package frc.robot.commands.arm;
+package frc.robot.commands.arm.telescope;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.arm.Telescope;
