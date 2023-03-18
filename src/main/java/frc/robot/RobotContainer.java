@@ -54,7 +54,7 @@ public class RobotContainer {
 	private Telescope telescope;
 	private LedStrip led;
 
-	private boolean TurnOnGrabber = true;
+	private boolean TurnOnGrabber = false;
 	private boolean TurnOnArm = false;
 	private boolean TurnOnDrive = false;
 	private boolean IsTesting = true;
@@ -67,7 +67,7 @@ public class RobotContainer {
 		operator = new CommandXboxController(1);
 
 		// Log Initial Status
-		this.LogInitialStatus();
+		LogInitialStatus();
 
 		/*limelight = new Limelight();
 		PipelineHelper.limelight = limelight;
@@ -98,12 +98,7 @@ public class RobotContainer {
 		}
 
 		configureBindings();
-		autoOptions.addOption("One", "One");
-		autoOptions.addOption("Two", "Two");
-		autoOptions.setDefaultOption("One", "One");
-		optionEntry = Crashboard.AddChooser("Selected Auto", autoOptions, Constants.COMPETITON_TAB, BuiltInWidgets.kComboBoxChooser);
-
-
+		configureAutoSettings();
 	}
 
 	private void LogInitialStatus()
@@ -130,11 +125,11 @@ public class RobotContainer {
 	}
 
 	private void BindTests() {
-		Trigger grabButton = operator.leftBumper();
+		/*Trigger grabButton = operator.leftBumper();
         grabButton.whileTrue(new GrabCommand(grabber));
 
 		Trigger releaseButton = operator.rightBumper();
-        releaseButton.whileTrue(new ReleaseCommand(grabber));
+        releaseButton.whileTrue(new ReleaseCommand(grabber));*/
 
 		/*Trigger alternateLed = operator.rightBumper();
 		alternateLed.whileTrue(new AlternateColorCommand(led));
@@ -188,6 +183,14 @@ public class RobotContainer {
 
 		Trigger rightButton = driver.b();
 		rightButton.whileTrue(new AutoLineupCommand(drive, LineupPosition.RIGHT));
+	}
+
+	private void configureAutoSettings() {
+		autoOptions.addOption("Place", "Place");
+		autoOptions.addOption("Drive", "Drive");
+		autoOptions.addOption("Null", "Null");
+		autoOptions.setDefaultOption("Null", "Null");
+		optionEntry = Crashboard.AddChooser("Selected Auto", autoOptions, Constants.COMPETITON_TAB, BuiltInWidgets.kComboBoxChooser);
 	}
 
 	public Command getAutonomousCommand() {
