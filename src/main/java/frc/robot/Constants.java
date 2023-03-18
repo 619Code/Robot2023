@@ -20,12 +20,6 @@ public final class Constants {
     public static final int TELESCOPE_MOTOR = 10;
     public static final int WRIST_MOTOR = -1;
 
-    //Intake CANs
-    public static final int LEFT_ARM_MOTOR = 14; 
-    public static final int RIGHT_ARM_MOTOR = 9;
-    public static final int LEFT_WHEEL_MOTOR = 13;
-    public static final int RIGHT_WHEEL_MOTOR = 8;
-
     //Sensor ports
     public static final int HINGE_SWITCH = 6;
     
@@ -36,9 +30,6 @@ public final class Constants {
     public static final int TELESCOPE_EXTENDED_SWITCH = 5;
 
     public static final int GRABBER_PROXIMITY_SENSOR = -1;
-    
-    public static final int INTAKE_LEFT_SWITCH = 2;
-    public static final int INTAKE_RIGHT_SWITCH = 7;
 
     //Drive constants
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(5.827); //meters
@@ -157,23 +148,6 @@ public final class Constants {
     public static final double PARALLEL_POSITION_WRIST = 0.0;
     public static final ArmPositionSide PARALLEL_POSITION_SIDE = ArmPositionSide.FRONT;
 
-    //Intake constants
-    public static final double INTAKE_RETRACTED_POSITION = 0;
-    public static final double LEFT_INTAKE_DEPLOYED_POSITION = 37;
-    public static final double RIGHT_INTAKE_DEPLOYED_POSITION = 41;  
-    public static final double INTAKE_PADDLE_RANGE_LEFT = 6;
-    public static final double INTAKE_PADDLE_RANGE_RIGHT  = 6;
-    public static final double INTAKE_TOLERANCE = .5;
-    public static final double INTAKE_ALLOWED_POSITION_ERROR = .5;
-
-    public static final double INTAKE_MINSPEED = .1;
-    public static final double INTAKE_MAXSPEED = .3;
-    public static final double INTAKE_WHEEL_SPEED = 0.1;
-    public static final double INTAKE_ZERO_SPEED = -0.1;
-
-    public static final int INTAKE_CURRENT_LIMIT = 30;
-    public static final int INTAKE_ZERO_TIMEOUT = 10;
-
     //Limelight constants
     public static final int CENTER_PIPELINE = 0;
     public static final int RIGHT_PIPELINE = 1;
@@ -201,9 +175,40 @@ public final class Constants {
     public static String LIMELIGHT_TAB = "Limelight";
     public static String ARM_TAB = "Arm";
     public static String MOTORCONTROLLERS_TAB = "Motor Controllers";
-    public static String INTAKE_TAB = "Intake";
     public static String AUTOS_TAB = "Autos";
     public static String COMPETITON_TAB = "Competition";
     public static String SPARKS_TAB = "Sparks";
     public static String STATUS_TAB = "Status";
+
+    //LEGACY INTAKE CONSTANTS
+
+    //Intake CANs
+    public static final int LEFT_ARM_MOTOR = -1; 
+    public static final int RIGHT_ARM_MOTOR = -1;
+    public static final int LEFT_WHEEL_MOTOR = -1;
+    public static final int RIGHT_WHEEL_MOTOR = -1;
+
+    //Intake switches
+    public static final int INTAKE_LEFT_SWITCH = -1;
+    public static final int INTAKE_RIGHT_SWITCH = -1;
+
+    //Intake constants
+    public static final double INTAKE_RETRACTED_POSITION = 0;
+    public static final double LEFT_INTAKE_DEPLOYED_POSITION = 37;
+    public static final double RIGHT_INTAKE_DEPLOYED_POSITION = 41;  
+    public static final double INTAKE_PADDLE_RANGE_LEFT = 6;
+    public static final double INTAKE_PADDLE_RANGE_RIGHT  = 6;
+    public static final double INTAKE_TOLERANCE = .5;
+    public static final double INTAKE_ALLOWED_POSITION_ERROR = .5;
+
+    public static final double INTAKE_MINSPEED = .1;
+    public static final double INTAKE_MAXSPEED = .3;
+    public static final double INTAKE_WHEEL_SPEED = 0.1;
+    public static final double INTAKE_ZERO_SPEED = -0.1;
+
+    public static final int INTAKE_CURRENT_LIMIT = 30;
+    public static final int INTAKE_ZERO_TIMEOUT = 10;
+
+    //Intake tabs
+    public static String INTAKE_TAB = "Intake";
 }

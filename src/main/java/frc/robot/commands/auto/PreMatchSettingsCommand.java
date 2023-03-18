@@ -9,7 +9,6 @@ import frc.robot.helpers.enums.ArmPosition;
 import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.arm.Hinge;
 import frc.robot.subsystems.arm.Telescope;
-import frc.robot.unused.intake.IntakeSub;
 
 public class PreMatchSettingsCommand extends SequentialCommandGroup {
     Grabber grabber;

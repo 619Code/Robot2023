@@ -9,8 +9,6 @@ import frc.robot.commands.grabber.ReleaseCommand;
 import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.arm.Hinge;
 import frc.robot.subsystems.arm.Telescope;
-import frc.robot.unused.intake.IntakeSub;
-import frc.robot.unused.intake.IntakeZeroCommand;
 
 public class AutoZeroCommand extends SequentialCommandGroup {
     Grabber grabber;
