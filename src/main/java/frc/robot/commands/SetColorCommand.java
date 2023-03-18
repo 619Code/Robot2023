@@ -14,20 +14,21 @@ public class SetColorCommand extends CommandBase {
 
     @Override
     public void initialize() {
+        led.isYellow = !led.isYellow;
     }
 
     @Override
     public void execute() {
-        led.setColorPurple();
+        //led.setColorPurple();
     }
 
     @Override
     public void end(boolean interrupted) {
-        led.setColorYellow();
+        //led.setColorYellow();
     }
 
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 }

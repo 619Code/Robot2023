@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
@@ -16,7 +17,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    //AutoCommandSwitcher.loadAutoCommandSwitcher(new Command[] {null, null, null});
     robotContainer = new RobotContainer();
 
     // For Oblog uncomment, othewise use the Crashboard
@@ -66,6 +66,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    //
   }
 
   @Override

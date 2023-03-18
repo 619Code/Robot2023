@@ -130,21 +130,8 @@ public class RobotContainer {
 	}
 
 	private void BindTests() {
-		preMatchZeroing();
-
-		/*Trigger startPositionButton = operator.start();
-		startPositionButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.START));
-
-		Trigger pickupLowButton = operator.a();
-		pickupLowButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.PICKUP_LOW));
-
-		Trigger pickupHighButton = operator.y();
-		pickupHighButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.PICKUP_HIGH));
-
-		Trigger placeMidButton = operator.x();
-		placeMidButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.GRID_MID));
-
-		grabberBindings();*/
+		Trigger toggleLed = operator.back();
+		toggleLed.onTrue(new SetColorCommand(led)).debounce(0.5);
 	}
 
 	public void armBindings() {
