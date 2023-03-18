@@ -4,7 +4,6 @@ import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.helpers.Crashboard;
-import frc.robot.helpers.enums.IntakeArm;
 
 public class IntakeSub extends SubsystemBase {
   

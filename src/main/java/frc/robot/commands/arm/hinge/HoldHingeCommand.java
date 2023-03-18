@@ -1,4 +1,4 @@
-package frc.robot.commands.arm;
+package frc.robot.commands.arm.hinge;
 
 import frc.robot.Constants;
 import frc.robot.helpers.ArmPositionHelper;
@@ -7,12 +7,12 @@ import frc.robot.subsystems.arm.Hinge;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
-public class HoldArmCommand extends CommandBase {
+public class HoldHingeCommand extends CommandBase {
     private Hinge hinge;
     private ArmPosition currentPosition;
     private double hingeGoal;
 
-    public HoldArmCommand(Hinge hinge) {
+    public HoldHingeCommand(Hinge hinge) {
         this.hinge = hinge;
 
         addRequirements(hinge);

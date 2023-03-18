@@ -1,4 +1,4 @@
-package frc.robot.commands.arm;
+package frc.robot.commands.arm.hinge;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.arm.Hinge;

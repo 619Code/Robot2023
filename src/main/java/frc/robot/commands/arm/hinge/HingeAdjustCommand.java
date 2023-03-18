@@ -1,4 +1,4 @@
-package frc.robot.commands.arm;
+package frc.robot.commands.arm.hinge;
 
 import frc.robot.Constants;
 import frc.robot.helpers.ArmPositionHelper;
@@ -13,13 +13,13 @@ public class HingeAdjustCommand extends CommandBase {
 
     private CommandXboxController controller;
 
-    private HoldArmCommand myHoldCommand;
+    private HoldHingeCommand myHoldCommand;
 
     public HingeAdjustCommand(Hinge hinge, CommandXboxController controller) {
         this.hinge = hinge;
         this.controller = controller;
 
-        myHoldCommand = new HoldArmCommand(hinge);
+        myHoldCommand = new HoldHingeCommand(hinge);
 
         addRequirements(hinge);
     }

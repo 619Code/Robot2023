@@ -1,4 +1,4 @@
-package frc.robot.helpers.enums;
+package frc.robot.unused.intake;
 
 public enum IntakeArm {
     LeftArm,

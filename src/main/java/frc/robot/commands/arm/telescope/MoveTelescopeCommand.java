@@ -1,7 +1,8 @@
-package frc.robot.commands.arm;
+package frc.robot.commands.arm.telescope;
 
 import frc.robot.Constants;
 import frc.robot.States;
+import frc.robot.helpers.ArmLogicAssistant;
 import frc.robot.helpers.ArmPositionHelper;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.ArmPosition;
@@ -12,14 +13,13 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class MoveTelescopeCommand extends CommandBase {
     private Telescope telescope;
+    
     private double telescopeGoal;
-    private boolean retractOnly;
 
-    public MoveTelescopeCommand(Telescope telescope, boolean retractOnly) {
+    public MoveTelescopeCommand(Telescope telescope, ArmPosition telescopeGoalPosition) {
         this.telescope = telescope;
-        this.retractOnly = retractOnly;
 
-        telescopeGoal = ArmPositionHelper.fetchTelescopeValue(ArmPositionHelper.currentPosition);
+        telescopeGoal = ArmPositionHelper.fetchTelescopeValue(telescopeGoalPosition);
 
         addRequirements(telescope);
     }
@@ -30,13 +30,7 @@ public class MoveTelescopeCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if(retractOnly) {
-            ArmPositionHelper.retracted = telescope.retractFull();
-        } else {
-            ArmPositionHelper.atTelescopePosition = telescope.moveToPosition(telescopeGoal);
-        }
-
-        Crashboard.toDashboard("Retracted", ArmPositionHelper.retracted, Constants.ARM_TAB);
+        ArmLogicAssistant.atTelescopePosition = telescope.moveToPosition(telescopeGoal);
     }
 
     @Override
@@ -46,10 +40,6 @@ public class MoveTelescopeCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if(ArmPositionHelper.atTelescopePosition) {
-            return true;
-        }
-
-        return false;
+        return ArmLogicAssistant.atTelescopePosition;
     }
 }

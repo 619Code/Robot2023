@@ -1,7 +1,8 @@
-package frc.robot.commands.arm;
+package frc.robot.commands.arm.hinge;
 
 import frc.robot.Constants;
 import frc.robot.States;
+import frc.robot.helpers.ArmLogicAssistant;
 import frc.robot.helpers.ArmPositionHelper;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.ArmPosition;
@@ -13,15 +14,12 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class MoveHingeCommand extends CommandBase {
     private Hinge hinge;
     
-    private ArmPosition hingeGoalPosition;
+    ArmPosition hingeGoalPosition;
     private double hingeGoal;
-
-    public MoveHingeCommand(Hinge hinge) {
-        this(hinge, ArmPositionHelper.currentPosition);
-    }
-
+    
     public MoveHingeCommand(Hinge hinge, ArmPosition hingeGoalPosition) {
         this.hinge = hinge;
+        this.hingeGoalPosition = hingeGoalPosition;
 
         hingeGoal = ArmPositionHelper.fetchHingeValue(hingeGoalPosition);
 
@@ -34,24 +32,20 @@ public class MoveHingeCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if(hinge.moveToPosition(hingeGoal)) {
-            ArmPositionHelper.atHingePosition = true;
-        }
-
-        Crashboard.toDashboard("At Hinge Goal", ArmPositionHelper.atHingePosition, Constants.ARM_TAB);
+        ArmLogicAssistant.atHingePosition = hinge.moveToPosition(hingeGoal);
     }
 
     @Override
     public void end(boolean interrupted) {
+        if(!interrupted) {
+            ArmPositionHelper.currentPosition = hingeGoalPosition;
+        }
+
         hinge.stop();
     }
 
     @Override
-    public boolean isFinished() {        
-        if(ArmPositionHelper.atHingePosition) {
-            return true;
-        }
-
-        return false;
+    public boolean isFinished() {
+        return ArmLogicAssistant.atHingePosition;
     }
 }
