@@ -83,10 +83,13 @@ public final class Constants {
 
     public static final double GRAB_SPEED = 0.5;
     public static final double HOLD_SPEED = 0.3;
-    public static final double GRAB_SPEED_DEFAULT = 0.05;
+    public static final double GRAB_SPEED_DEFAULT = 0.1;
+
+    public static final double DEFAULT_WAIT_TIME = 3;
+    public static final double DEFAULT_PULSE_TIME = 0.5;
 
     public static final double RELEASE_SPEED_CUBE = -0.05;
-    public static final double RELEASE_SPEED_CONE = -0.2;
+    public static final double RELEASE_SPEED_CONE = -0.1;
 
     //Hinge constants
     public static final double MIN_HINGE_POSITION = 1.0;
