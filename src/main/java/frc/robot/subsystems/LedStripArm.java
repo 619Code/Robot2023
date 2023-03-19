@@ -111,13 +111,14 @@ public class LedStripArm extends SubsystemBase{
       }
 
     public void setColorYellow() {
-        setWholeStripHSV(270,66,60);
+        //setWholeStripHSV(270,66,60); //THIS USED TO BE YELLOW. NOW IT IS TEAL. WHAT AM I DOING WRONG.
+        setWholeStripHSV(0, 255, 127);  //THIS WAS RED AT THE TIME OF WRITING.
         isYellow = true;
         show();
     }
 
     public void setColorPurple() {
-        setWholeStripHSV(125,255,127);
+        setWholeStripHSV(125,255,127); //THIS USED TO BE OURPLE. ITS BLUE. WHY.
         isYellow = false;
         show();
     }

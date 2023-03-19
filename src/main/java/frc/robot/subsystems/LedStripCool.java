@@ -23,7 +23,7 @@ public class LedStripCool extends SubsystemBase{
     public LedStripCool(int length, int pwm) {
 
         sixoneninelights = new nightrider();
-
+        System.out.println(pwm);
         ledStrip = new AddressableLED(pwm);
         ledBuffer = new AddressableLEDBuffer(length);
         ledStrip.setLength(ledBuffer.getLength());

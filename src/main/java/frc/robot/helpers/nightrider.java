@@ -1,11 +1,11 @@
 package frc.robot.helpers;
 
 public class nightrider {
-    private static boolean[] ledStrip;
-    private static int startPos;
-    private static int endPos;
-    private static int size;
-    private static int direction;
+    private  boolean[] ledStrip;
+    private  int startPos;
+    private  int endPos;
+    private  int size;
+    private int direction;
 
     public nightrider() {
         ledStrip = new boolean[300];

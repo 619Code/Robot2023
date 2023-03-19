@@ -81,8 +81,8 @@ public class RobotContainer {
 
 		armLed = new LedStripArm(Constants.LED_ARM_STRIP_LENGTH, Constants.LED_ARM_PORT);
 
-		leftLeds = new LedStripCool(Constants.LED_BODY_1_STRIP_LENGTH, Constants.LED_BODY_1_PORT);
-		rightLeds = new LedStripCool(Constants.LED_BODY_2_STRIP_LENGTH, Constants.LED_BODY_2_PORT);
+		//leftLeds = new LedStripCool(Constants.LED_BODY_1_STRIP_LENGTH, Constants.LED_BODY_1_PORT);
+		//rightLeds = new LedStripCool(Constants.LED_BODY_2_STRIP_LENGTH, Constants.LED_BODY_2_PORT);
 
 		//end leds
 
