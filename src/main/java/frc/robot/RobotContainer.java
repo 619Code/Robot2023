@@ -3,18 +3,20 @@ package frc.robot;
 import frc.robot.commands.AlternateColorCommand;
 import frc.robot.commands.AutoLineupCommand;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.PreMatchSettingsCommand;
 import frc.robot.commands.arm.MoveArmMasterCommand;
 import frc.robot.commands.arm.hinge.HingeAdjustCommand;
 import frc.robot.commands.arm.hinge.HingeZeroCommand;
 import frc.robot.commands.arm.hinge.HoldHingeCommand;
+import frc.robot.commands.arm.wrist.HoldWristCommand;
 import frc.robot.commands.auto.AutoDriveCommand;
 import frc.robot.commands.auto.AutoPlaceCommand;
-import frc.robot.commands.auto.PreMatchSettingsCommand;
 import frc.robot.commands.grabber.GrabCommand;
 import frc.robot.commands.grabber.GrabDefaultCommand;
 import frc.robot.commands.grabber.ReleaseCommand;
 import frc.robot.commands.manuals.HingeManualCommand;
 import frc.robot.commands.manuals.TelescopeManualCommand;
+import frc.robot.helpers.ArmLogicAssistant;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.ArmPosition;
 import frc.robot.helpers.enums.AutoOption;
@@ -24,6 +26,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.arm.Hinge;
 import frc.robot.subsystems.arm.Telescope;
+import frc.robot.subsystems.arm.Wrist;
 import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.LedStrip;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -46,12 +49,14 @@ public class RobotContainer {
 	private GrabDefaultCommand grabDefaultCommand;
 	private HingeAdjustCommand hingeAdjustCommand;
 	private TelescopeManualCommand telescopeManualCommand;
+	private HoldWristCommand holdWristCommand;
 
 	private Drivetrain drive;
 	private Limelight limelight;
 	private Grabber grabber;
 	private Hinge hinge;
 	private Telescope telescope;
+	private Wrist wrist;
 	private LedStrip led;
 
 	private boolean TurnOnGrabber = true;
@@ -69,11 +74,11 @@ public class RobotContainer {
 		// Log Initial Status
 		LogInitialStatus();
 
-		/*limelight = new Limelight();
+		limelight = new Limelight();
 		PipelineHelper.limelight = limelight;
 		PipelineHelper.setCameraPipeline();
 
-		led = new LedStrip();*/
+		led = new LedStrip();
 
 		if (TurnOnDrive) {
 			drive = new Drivetrain();
@@ -95,6 +100,10 @@ public class RobotContainer {
 			telescope = new Telescope();
 			telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
 			telescope.setDefaultCommand(telescopeManualCommand);
+
+			wrist = new Wrist();
+			holdWristCommand = new HoldWristCommand(wrist);
+			wrist.setDefaultCommand(holdWristCommand);
 		}
 
 		configureBindings();
@@ -140,29 +149,33 @@ public class RobotContainer {
 
 	public void armBindings() {
 		Trigger startPositionButton = operator.start();
-		startPositionButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.START));
+		startPositionButton.onTrue(moveArmMasterCommandFactory(ArmPosition.START));
 
 		Trigger pickupLowButton = operator.a();
-		pickupLowButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.PICKUP_LOW));
+		pickupLowButton.onTrue(moveArmMasterCommandFactory(ArmPosition.PICKUP_LOW));
 
 		Trigger pickupHighButton = operator.y();
-		pickupHighButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.PICKUP_HIGH));
+		pickupHighButton.onTrue(moveArmMasterCommandFactory(ArmPosition.PICKUP_HIGH));
 
 		Trigger placeMidButton = operator.x();
-		placeMidButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.GRID_MID));
+		placeMidButton.onTrue(moveArmMasterCommandFactory(ArmPosition.GRID_MID));
 
 		Trigger placeHighButton = operator.b();
-		placeHighButton.onTrue(new MoveArmMasterCommand(hinge, telescope, ArmPosition.GRID_HIGH));
+		placeHighButton.onTrue(moveArmMasterCommandFactory(ArmPosition.GRID_HIGH));
+	}
+
+	public Command moveArmMasterCommandFactory(ArmPosition position) {
+		return (new MoveArmMasterCommand(hinge, telescope, wrist, grabber, ArmPosition.START)).until(ArmLogicAssistant::atBothPositions);
 	}
 
 	public void grabberBindings() {
-        Trigger grabButton = operator.leftBumper();
+        Trigger grabButton = operator.leftTrigger(0.5);
         grabButton.whileTrue(new ParallelDeadlineGroup(
 			new GrabCommand(grabber),
 			new AlternateColorCommand(led)
 		));
 
-		Trigger releaseButton = operator.rightBumper();
+		Trigger releaseButton = operator.rightTrigger(0.5);
         releaseButton.whileTrue(new ReleaseCommand(grabber));
 
 		Trigger toggleLed = operator.back();
@@ -171,7 +184,7 @@ public class RobotContainer {
 
 	public void preMatchZeroing() {
 		Trigger zeroAllButton = driver.back();
-		zeroAllButton.onTrue(new PreMatchSettingsCommand(grabber, hinge, telescope));
+		zeroAllButton.onTrue(new PreMatchSettingsCommand(hinge, telescope, wrist, grabber));
 	}
 
 	public void lineupTesting() {
@@ -199,7 +212,7 @@ public class RobotContainer {
 		switch (chosenAuto) {
 			case Place: 
 				return new SequentialCommandGroup(
-					new AutoPlaceCommand(grabber, hinge, telescope),
+					new AutoPlaceCommand(grabber, hinge, telescope, wrist),
 					new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE)
 				);
 			case Drive:

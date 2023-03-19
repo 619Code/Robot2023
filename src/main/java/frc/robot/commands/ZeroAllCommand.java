@@ -1,4 +1,4 @@
-package frc.robot.commands.auto;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -10,17 +10,14 @@ import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.arm.Hinge;
 import frc.robot.subsystems.arm.Telescope;
 
-public class AutoZeroCommand extends SequentialCommandGroup {
-    Grabber grabber;
+public class ZeroAllCommand extends SequentialCommandGroup {
     Hinge hinge;
     Telescope telescope;
 
-    public AutoZeroCommand(Grabber grabber, Hinge hinge, Telescope telescope) {
-        this.grabber = grabber;
+    public ZeroAllCommand(Hinge hinge, Telescope telescope) {
         this.hinge = hinge;
         this.telescope = telescope;
 
-        //addCommands(new InstantCommand(() -> hinge.zero(),hinge));
         addCommands(new TelescopeZeroCommand(telescope));
         addCommands(new HingeZeroCommand(hinge));
     }

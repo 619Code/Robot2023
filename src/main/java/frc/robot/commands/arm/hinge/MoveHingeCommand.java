@@ -37,10 +37,6 @@ public class MoveHingeCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        if(!interrupted) {
-            ArmPositionHelper.currentPosition = hingeGoalPosition;
-        }
-
         hinge.stop();
     }
 

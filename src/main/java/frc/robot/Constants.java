@@ -23,8 +23,7 @@ public final class Constants {
     //Sensor ports
     public static final int HINGE_SWITCH = 6;
     
-    public static final int WRIST_SWITCH_LOW = -1;
-    public static final int WRIST_SWITCH_HIGH = -1;
+    public static final int WRIST_ABSOLUTE_ENCODER = -1;
 
     public static final int TELESCOPE_CONTRACTED_SWITCH = 3;
     public static final int TELESCOPE_EXTENDED_SWITCH = 5;
@@ -83,6 +82,7 @@ public final class Constants {
     public static final double CONE_TIMER = 0.5;
 
     public static final double GRAB_SPEED = 0.5;
+    public static final double HOLD_SPEED = 0.3;
     public static final double GRAB_SPEED_DEFAULT = 0.1;
 
     public static final double DEFAULT_WAIT_TIME = 3;
@@ -95,7 +95,7 @@ public final class Constants {
     public static final double MIN_HINGE_POSITION = 1.0;
     public static final double MAX_HINGE_POSITION = 57.0;
 
-    public static final double HINGE_SPEED = 0.4; //0.4
+    public static final double HINGE_SPEED = 0.4;
     public static final double HINGE_ZERO_SPEED = 0.1;
     public static final double HINGE_P = 0.12;
 
@@ -111,6 +111,8 @@ public final class Constants {
     public static final double TELESCOPE_P = 0.04;
 
     //Wrist constants
+    public static final double POSITION_OFFSET = 0;
+
     public static final double MIN_WRIST_POSITION = 0;
     public static final double MAX_WRIST_POSITION = 100;
 

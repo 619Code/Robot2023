@@ -2,17 +2,16 @@ package frc.robot.helpers;
 
 import frc.robot.helpers.enums.ArmPosition;
 import frc.robot.helpers.enums.ArmPositionSide;
-import frc.robot.helpers.enums.HingeCommandOption;
-import frc.robot.helpers.enums.TelescopeCommandOption;
 
 public class ArmLogicAssistant {
-    private static ArmPosition startPosition = ArmPosition.START;
-    private static ArmPosition endPosition = ArmPosition.START;
+    public static ArmPosition startPosition = ArmPosition.START;
+    public static ArmPosition endPosition = ArmPosition.START;
 
     public static boolean movingToBack;
 
     public static boolean atHingePosition;
     public static boolean atTelescopePosition;
+    public static boolean atWristPosition;
 
     public static void updatePositions(ArmPosition endPositionNew) {
         startPosition = endPosition;
