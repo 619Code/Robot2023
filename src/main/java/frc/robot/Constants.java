@@ -82,6 +82,7 @@ public final class Constants {
     public static final double CONE_TIMER = 0.5;
 
     public static final double GRAB_SPEED = 0.5;
+    public static final double HOLD_SPEED = 0.3;
     public static final double GRAB_SPEED_DEFAULT = 0.05;
 
     public static final double RELEASE_SPEED_CUBE = -0.05;
@@ -91,7 +92,7 @@ public final class Constants {
     public static final double MIN_HINGE_POSITION = 1.0;
     public static final double MAX_HINGE_POSITION = 57.0;
 
-    public static final double HINGE_SPEED = 0.4; //0.4
+    public static final double HINGE_SPEED = 0.4;
     public static final double HINGE_ZERO_SPEED = 0.1;
     public static final double HINGE_P = 0.12;
 

@@ -4,8 +4,8 @@ import frc.robot.helpers.enums.ArmPosition;
 import frc.robot.helpers.enums.ArmPositionSide;
 
 public class ArmLogicAssistant {
-    private static ArmPosition startPosition = ArmPosition.START;
-    private static ArmPosition endPosition = ArmPosition.START;
+    public static ArmPosition startPosition = ArmPosition.START;
+    public static ArmPosition endPosition = ArmPosition.START;
 
     public static boolean movingToBack;
 
