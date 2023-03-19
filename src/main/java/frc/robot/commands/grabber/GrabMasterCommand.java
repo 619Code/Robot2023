@@ -6,17 +6,17 @@ import frc.robot.helpers.ArmPositionHelper;
 import frc.robot.helpers.ColorDetector;
 import frc.robot.helpers.enums.ArmPosition;
 import frc.robot.subsystems.Grabber;
-import frc.robot.subsystems.LedStrip;
+import frc.robot.subsystems.LedStripArm;
 
 public class GrabMasterCommand extends CommandBase {
     private Grabber grabber;
-    private LedStrip ledStrip;
+    private LedStripArm ledStrip;
 
     boolean isCube;
     boolean startState;
     Command myCommand;
     
-    public GrabMasterCommand(Grabber grabber, LedStrip ledStrip) {
+    public GrabMasterCommand(Grabber grabber, LedStripArm ledStrip) {
         this.grabber = grabber;
         this.ledStrip = ledStrip;
 

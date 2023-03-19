@@ -25,7 +25,8 @@ import frc.robot.subsystems.arm.Hinge;
 import frc.robot.subsystems.arm.Telescope;
 import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.IntakeSub;
-import frc.robot.subsystems.LedStrip;
+import frc.robot.subsystems.LedStripArm;
+import frc.robot.subsystems.LedStripCool;
 import frc.robot.commands.SetColorCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -48,7 +49,8 @@ public class RobotContainer {
 	private Grabber grabber;
 	private Hinge hinge;
 	private Telescope telescope;
-	private LedStrip led;
+	private LedStripArm armLed;
+	private LedStripCool leftLeds, rightLeds;
 
 	private boolean TurnOnGrabber = false;
 	private boolean TurnOnIntake = false;
@@ -59,6 +61,8 @@ public class RobotContainer {
 	public RobotContainer() {
 		driver = new CommandXboxController(3);
 		operator = new CommandXboxController(1);
+
+		System.out.println("DRIVER IS ON PORT 3; OPERATOR IS ON PORT 1.");
 
 		// Log Initial Status
 		this.LogInitialStatus();
@@ -73,7 +77,14 @@ public class RobotContainer {
 		PipelineHelper.limelight = limelight;
 		PipelineHelper.setCameraPipeline();
 
-		led = new LedStrip();
+		//leds
+
+		armLed = new LedStripArm(Constants.LED_ARM_STRIP_LENGTH, Constants.LED_ARM_PORT);
+
+		leftLeds = new LedStripCool(Constants.LED_BODY_1_STRIP_LENGTH, Constants.LED_BODY_1_PORT);
+		rightLeds = new LedStripCool(Constants.LED_BODY_2_STRIP_LENGTH, Constants.LED_BODY_2_PORT);
+
+		//end leds
 
 		if (TurnOnIntake) {
 			intake = new IntakeSub();
@@ -131,7 +142,7 @@ public class RobotContainer {
 
 	private void BindTests() {
 		Trigger toggleLed = operator.back();
-		toggleLed.onTrue(new SetColorCommand(led)).debounce(0.5);
+		toggleLed.onTrue(new SetColorCommand(armLed)).debounce(0.5);
 	}
 
 	public void armBindings() {
@@ -166,10 +177,10 @@ public class RobotContainer {
 
 	public void grabberBindings() {
         Trigger grabButton = operator.leftBumper();
-        grabButton.onTrue(new GrabMasterCommand(grabber, led));
+        grabButton.onTrue(new GrabMasterCommand(grabber, armLed));
 
 		Trigger toggleLed = operator.leftTrigger(0.5);
-		toggleLed.whileTrue(new SetColorCommand(led));
+		toggleLed.whileTrue(new SetColorCommand(armLed));
 	}
 
 	public void preMatchZeroing() {

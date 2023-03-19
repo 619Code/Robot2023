@@ -8,7 +8,7 @@ import frc.robot.Constants;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.nightrider;
 
-public class LedStrip extends SubsystemBase{
+public class LedStripCool extends SubsystemBase{
     AddressableLED ledStrip;
     AddressableLEDBuffer ledBuffer;
     int m_rainbowFirstPixelHue = 0;
@@ -20,12 +20,12 @@ public class LedStrip extends SubsystemBase{
 
     public boolean isYellow;
 
-    public LedStrip() {
+    public LedStripCool(int length, int pwm) {
 
         sixoneninelights = new nightrider();
 
-        ledStrip = new AddressableLED(0);
-        ledBuffer = new AddressableLEDBuffer(300);
+        ledStrip = new AddressableLED(pwm);
+        ledBuffer = new AddressableLEDBuffer(length);
         ledStrip.setLength(ledBuffer.getLength());
         //ledStrip.setData(ledBuffer);
         //off();

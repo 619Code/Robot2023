@@ -139,8 +139,14 @@ public final class Constants {
     public static final int CAMERA_PIPELINE = 4;
 
     //LED constants
-    public static final int LED_PWM_PORT = 0;
-    public static final int LED_STRIP_LENGTH = 200;
+    public static final int LED_BODY_1_PORT = -1;
+    public static final int LED_BODY_1_STRIP_LENGTH = 200;
+
+    public static final int LED_BODY_2_PORT = -1;
+    public static final int LED_BODY_2_STRIP_LENGTH = 200;
+
+    public static final int LED_ARM_PORT = -1;
+    public static final int LED_ARM_STRIP_LENGTH = 200;
 
     //Auto Constants
     public static final double AUTO_DRIVE_VELOCITY = 0.5;
