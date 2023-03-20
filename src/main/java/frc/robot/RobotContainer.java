@@ -16,6 +16,7 @@ import frc.robot.commands.grabber.GrabDefaultCommand;
 import frc.robot.commands.grabber.ReleaseCommand;
 import frc.robot.commands.manuals.HingeManualCommand;
 import frc.robot.commands.manuals.TelescopeManualCommand;
+import frc.robot.commands.manuals.WristManualCommand;
 import frc.robot.helpers.ArmLogicAssistant;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.ArmPosition;
@@ -59,8 +60,8 @@ public class RobotContainer {
 	private Wrist wrist;
 	private LedStrip led;
 
-	private boolean TurnOnGrabber = true;
-	private boolean TurnOnArm = false;
+	private boolean TurnOnGrabber = false;
+	private boolean TurnOnArm = true;
 	private boolean TurnOnDrive = false;
 	private boolean IsTesting = true;
 
@@ -78,7 +79,7 @@ public class RobotContainer {
 		PipelineHelper.limelight = limelight;
 		PipelineHelper.setCameraPipeline();
 
-		led = new LedStrip();
+		//led = new LedStrip();
 
 		if (TurnOnDrive) {
 			drive = new Drivetrain();
@@ -88,22 +89,26 @@ public class RobotContainer {
 
 		if (TurnOnGrabber) {
 			grabber = new Grabber();
-			grabDefaultCommand = new GrabDefaultCommand(grabber);
-			grabber.setDefaultCommand(grabDefaultCommand);
+			/*grabDefaultCommand = new GrabDefaultCommand(grabber);
+			grabber.setDefaultCommand(grabDefaultCommand);*/
 		}
 
 		if (TurnOnArm) {
 			hinge = new Hinge();
-			hingeAdjustCommand = new HingeAdjustCommand(hinge, operator);
-			hinge.setDefaultCommand(hingeAdjustCommand);
+			/*hingeAdjustCommand = new HingeAdjustCommand(hinge, operator);
+			hinge.setDefaultCommand(hingeAdjustCommand);*/
+			HingeManualCommand hingeManualCommand = new HingeManualCommand(hinge, operator);
+			hinge.setDefaultCommand(hingeManualCommand);
 
 			telescope = new Telescope();
 			telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
 			telescope.setDefaultCommand(telescopeManualCommand);
 
 			wrist = new Wrist();
-			holdWristCommand = new HoldWristCommand(wrist);
-			wrist.setDefaultCommand(holdWristCommand);
+			/*holdWristCommand = new HoldWristCommand(wrist);
+			wrist.setDefaultCommand(holdWristCommand);*/
+			WristManualCommand wristManualCommand = new WristManualCommand(wrist, driver);
+			wrist.setDefaultCommand(wristManualCommand);
 		}
 
 		configureBindings();
@@ -134,17 +139,7 @@ public class RobotContainer {
 	}
 
 	private void BindTests() {
-		Trigger grabButton = operator.leftBumper();
-        grabButton.whileTrue(new GrabCommand(grabber));
-
-		Trigger releaseButton = operator.rightBumper();
-        releaseButton.whileTrue(new ReleaseCommand(grabber));
-
-		/*Trigger alternateLed = operator.rightBumper();
-		alternateLed.whileTrue(new AlternateColorCommand(led));
-
-		Trigger toggleLed = operator.back();
-		toggleLed.onTrue(new ToggleColorCommand(led)).debounce(0.5);*/
+		
 	}
 
 	public void armBindings() {

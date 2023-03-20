@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.helpers.Crashboard;
 
 public class Wrist extends SubsystemBase {
     private CANSparkMax wristMotor;
@@ -20,6 +21,10 @@ public class Wrist extends SubsystemBase {
         wristMotor.setSmartCurrentLimit(40);
 
         wristEncoder = new DutyCycleEncoder(Constants.WRIST_ABSOLUTE_ENCODER);
+    }
+
+    public void periodic() {
+        Crashboard.toDashboard("Wrist Position", getAbsolutePosition(), Constants.ARM_TAB);
     }
 
     public void move(double speed) {

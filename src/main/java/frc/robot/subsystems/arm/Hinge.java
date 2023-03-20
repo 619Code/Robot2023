@@ -20,14 +20,11 @@ public class Hinge extends SubsystemBase {
 
     private DigitalInput magnetSwitch; 
 
-    public boolean lastMovingDown;
-
     private GenericEntry hingeSpark;
     private GenericEntry hingeSwitch;
 
     public Hinge() {
         hingeMotor = new CANSparkMax(Constants.HINGE_MOTOR, MotorType.kBrushless);
-
         hingeMotor.restoreFactoryDefaults();
         hingeMotor.setIdleMode(IdleMode.kBrake);
         hingeMotor.setSmartCurrentLimit(40);
@@ -35,8 +32,6 @@ public class Hinge extends SubsystemBase {
 
         hingeEncoder = hingeMotor.getEncoder();
         hingeEncoder.setPosition(Constants.HINGE_START);
-
-        lastMovingDown = true;
 
         magnetSwitch = new DigitalInput(Constants.HINGE_SWITCH);
     }
@@ -65,9 +60,9 @@ public class Hinge extends SubsystemBase {
                 stop(); move = false;
             }
         } else if(speed < 0) {
-            if(switchIsPressed()) {
+            /*if(switchIsPressed()) { //UNDO
                 stop(); move = false;
-            }
+            }*/
             if(!zeroing && getPosition() < Constants.MIN_HINGE_POSITION) {
                 stop(); move = false;
             }

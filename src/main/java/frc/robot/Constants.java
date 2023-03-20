@@ -12,23 +12,23 @@ public final class Constants {
     public static final int RIGHT_FOLLOWER_0 = 4;
 
     //Grabber CANs
-    public static final int GRABBER_MOTOR_LEADER = -1;
-    public static final int GRABBER_MOTOR_FOLLOWER = -1;
+    public static final int GRABBER_MOTOR_LEADER = 12; //left
+    public static final int GRABBER_MOTOR_FOLLOWER = 14; //right
 
     //Arm CANs
     public static final int HINGE_MOTOR = 11;
     public static final int TELESCOPE_MOTOR = 10;
-    public static final int WRIST_MOTOR = -1;
+    public static final int WRIST_MOTOR = 13;
 
     //Sensor ports
+    public static final int TELESCOPE_CONTRACTED_SWITCH = 1;
+    public static final int TELESCOPE_EXTENDED_SWITCH = 0;
+
+    public static final int GRABBER_PROXIMITY_SENSOR = 2;
+
+    public static final int WRIST_ABSOLUTE_ENCODER = 3;
+
     public static final int HINGE_SWITCH = 6;
-    
-    public static final int WRIST_ABSOLUTE_ENCODER = -1;
-
-    public static final int TELESCOPE_CONTRACTED_SWITCH = 3;
-    public static final int TELESCOPE_EXTENDED_SWITCH = 5;
-
-    public static final int GRABBER_PROXIMITY_SENSOR = -1;
 
     //Drive constants
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(5.827); //meters
@@ -116,14 +116,14 @@ public final class Constants {
     public static final double MIN_WRIST_POSITION = 0;
     public static final double MAX_WRIST_POSITION = 100;
 
-    public static final double WRIST_SPEED = 0.5;
+    public static final double WRIST_SPEED = 0.2;
     public static final double WRIST_ZERO_SPEED = 0.1;
     public static final double WRIST_P = 0.04;
 
     //Arm cases
     public static final double ARM_ADJUST_FACTOR = 1.15;
 
-    public static final double START_POSITION_HINGE = 26.0 * ARM_ADJUST_FACTOR;
+    public static final double START_POSITION_HINGE = 0.0;
     public static final double START_POSITION_TELESCOPE = 0.0;
     public static final double START_POSITION_WRIST = 0.0;
     public static final ArmPositionSide START_POSITION_SIDE = ArmPositionSide.FRONT;
@@ -164,7 +164,7 @@ public final class Constants {
     public static final int LED_PWM_PORT = 0;
     public static final int LED_STRIP_LENGTH = 192;
 
-    public static final double TOGGLE_INTERVAL = 0.5;
+    public static final double TOGGLE_INTERVAL = 0.25;
 
     //Auto Constants
     public static final double AUTO_DRIVE_VELOCITY = 0.5;
