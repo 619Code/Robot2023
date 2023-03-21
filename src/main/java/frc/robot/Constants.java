@@ -121,7 +121,7 @@ public final class Constants {
     public static final double WRIST_P = 0.04;
 
     //Arm cases
-    public static final double ARM_ADJUST_FACTOR = 1.15;
+    public static final double ARM_ADJUST_FACTOR = 1;
 
     public static final double START_POSITION_HINGE = 0.0;
     public static final double START_POSITION_TELESCOPE = 0.0;
@@ -133,12 +133,17 @@ public final class Constants {
     public static final double PICKUP_LOW_POSITION_WRIST = 0.0;
     public static final ArmPositionSide PICKUP_LOW_POSITION_SIDE = ArmPositionSide.FRONT;
 
-    public static final double PICKUP_HIGH_POSITION_HINGE = 19.5 * ARM_ADJUST_FACTOR;
+    public static final double PICKUP_HIGH_POSITION_HINGE = 19.5;
     public static final double PICKUP_HIGH_POSITION_TELESCOPE = 20.0;
     public static final double PICKUP_HIGH_POSITION_WRIST = 0.0;
     public static final ArmPositionSide PICKUP_HIGH_POSITION_SIDE = ArmPositionSide.FRONT;
 
-    public static final double GRID_MID_POSITION_HINGE = 18.0 * ARM_ADJUST_FACTOR;
+    public static final double CHUTE_POSITION_HINGE = 46.0;
+    public static final double CHUTE_POSITION_WRIST = 0.0;
+    public static final double CHUTE_POSITION_TELESCOPE = 0.0;
+    public static final ArmPositionSide CHUTE_POSITION_SIDE = ArmPositionSide.FRONT;
+
+    public static final double GRID_MID_POSITION_HINGE = 18.0;
     public static final double GRID_MID_POSITION_TELESCOPE = 74.0;
     public static final double GRID_MID_POSITION_WRIST = 0.0;
     public static final ArmPositionSide GRID_MID_POSITION_SIDE = ArmPositionSide.FRONT;
@@ -147,11 +152,6 @@ public final class Constants {
     public static final double GRID_HIGH_POSITION_TELESCOPE = 72.0;
     public static final double GRID_HIGH_POSITION_WRIST = 0.0;
     public static final ArmPositionSide GRID_HIGH_POSITION_SIDE = ArmPositionSide.BACK;
-
-    public static final double PARALLEL_POSITION_HINGE = 8.0;
-    public static final double PARALLEL_POSITION_TELESCOPE = 5.0;
-    public static final double PARALLEL_POSITION_WRIST = 0.0;
-    public static final ArmPositionSide PARALLEL_POSITION_SIDE = ArmPositionSide.FRONT;
 
     //Limelight constants
     public static final int CENTER_PIPELINE = 0;

@@ -16,12 +16,12 @@ public class ArmPositionHelper {
                 return Constants.PICKUP_LOW_POSITION_HINGE;
             case PICKUP_HIGH:
                 return Constants.PICKUP_HIGH_POSITION_HINGE;
+            case CHUTE:
+                return Constants.CHUTE_POSITION_HINGE;
             case GRID_MID:
                 return Constants.GRID_MID_POSITION_HINGE;
             case GRID_HIGH:
                 return Constants.GRID_HIGH_POSITION_HINGE;
-            case PARALLEL_POSITION:
-                return Constants.PARALLEL_POSITION_HINGE;
             default:
                 return Constants.START_POSITION_HINGE;
         }
@@ -35,12 +35,12 @@ public class ArmPositionHelper {
                 return Constants.PICKUP_LOW_POSITION_TELESCOPE;
             case PICKUP_HIGH:
                 return Constants.PICKUP_HIGH_POSITION_TELESCOPE;
+            case CHUTE:
+                return Constants.CHUTE_POSITION_TELESCOPE;
             case GRID_MID:
                 return Constants.GRID_MID_POSITION_TELESCOPE;
             case GRID_HIGH:
                 return Constants.GRID_HIGH_POSITION_TELESCOPE;
-            case PARALLEL_POSITION:
-                return Constants.PARALLEL_POSITION_TELESCOPE;
             default:
                 return Constants.START_POSITION_TELESCOPE;
         }
@@ -54,12 +54,12 @@ public class ArmPositionHelper {
                 return Constants.PICKUP_LOW_POSITION_WRIST;
             case PICKUP_HIGH:
                 return Constants.PICKUP_HIGH_POSITION_WRIST;
+            case CHUTE:
+                return Constants.CHUTE_POSITION_WRIST;
             case GRID_MID:
                 return Constants.GRID_MID_POSITION_WRIST;
             case GRID_HIGH:
                 return Constants.GRID_HIGH_POSITION_WRIST;
-            case PARALLEL_POSITION:
-                return Constants.PARALLEL_POSITION_WRIST;
             default:
                 return Constants.START_POSITION_WRIST;
         }
@@ -77,8 +77,8 @@ public class ArmPositionHelper {
                 return Constants.GRID_MID_POSITION_SIDE;
             case GRID_HIGH:
                 return Constants.GRID_HIGH_POSITION_SIDE;
-            case PARALLEL_POSITION:
-                return Constants.PARALLEL_POSITION_SIDE;
+            case CHUTE:
+                return Constants.CHUTE_POSITION_SIDE;
             default:
                 return Constants.START_POSITION_SIDE;
         }

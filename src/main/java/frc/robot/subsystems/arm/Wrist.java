@@ -1,6 +1,7 @@
 package frc.robot.subsystems.arm;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -12,7 +13,8 @@ import frc.robot.helpers.Crashboard;
 
 public class Wrist extends SubsystemBase {
     private CANSparkMax wristMotor;
-    private DutyCycleEncoder wristEncoder;
+    private DutyCycleEncoder wristAbsoluteEncoder;
+    private RelativeEncoder wristRelativeEncoder;
 
     public Wrist() {
         wristMotor = new CANSparkMax(Constants.WRIST_MOTOR, MotorType.kBrushless);
@@ -20,11 +22,14 @@ public class Wrist extends SubsystemBase {
         wristMotor.setIdleMode(IdleMode.kBrake);
         wristMotor.setSmartCurrentLimit(40);
 
-        wristEncoder = new DutyCycleEncoder(Constants.WRIST_ABSOLUTE_ENCODER);
+        wristAbsoluteEncoder = new DutyCycleEncoder(Constants.WRIST_ABSOLUTE_ENCODER);
+        wristRelativeEncoder = wristMotor.getEncoder();
+        zero();
     }
 
     public void periodic() {
-        Crashboard.toDashboard("Wrist Position", getAbsolutePosition(), Constants.ARM_TAB);
+        Crashboard.toDashboard("Wrist Absolute Position", getAbsolutePosition(), Constants.ARM_TAB);
+        Crashboard.toDashboard("Wrist Relative Position", getRelativePosition(), Constants.ARM_TAB);
     }
 
     public void move(double speed) {
@@ -35,11 +40,11 @@ public class Wrist extends SubsystemBase {
         boolean move = true;
 
         if(speed > 0) {
-            if(!zeroing && getAbsolutePosition() > Constants.MAX_WRIST_POSITION) {
+            if(!zeroing && getRelativePosition() > Constants.MAX_WRIST_POSITION) {
                 stop(); move = false;
             }
         } else if(speed < 0) {
-            if(!zeroing && getAbsolutePosition() < Constants.MIN_WRIST_POSITION) {
+            if(!zeroing && getRelativePosition() < Constants.MIN_WRIST_POSITION) {
                 stop(); move = false;
             }
         }
@@ -54,16 +59,16 @@ public class Wrist extends SubsystemBase {
         goal = Math.min(goal,Constants.MAX_WRIST_POSITION);
         goal = Math.max(goal,Constants.MIN_WRIST_POSITION);
 
-        double speed = Math.abs(getAbsolutePosition() - goal) * Constants.WRIST_P; //proportional control
+        double speed = Math.abs(getRelativePosition() - goal) * Constants.WRIST_P; //proportional control
         speed = Math.min(speed, Constants.WRIST_SPEED);
 
-        if(getAbsolutePosition() < goal) {
+        if(getRelativePosition() < goal) {
             move(speed);
         } else {
             move(-speed);
         }
 
-        if(Math.abs(getAbsolutePosition() - goal) < 1) {
+        if(Math.abs(getRelativePosition() - goal) < 1) {
             return true;
         } else {
             return false;
@@ -74,7 +79,15 @@ public class Wrist extends SubsystemBase {
         wristMotor.set(0);
     }
 
+    public void zero() {
+        wristRelativeEncoder.setPosition(0);
+    }
+
     public double getAbsolutePosition() {
-        return wristEncoder.getAbsolutePosition() - Constants.POSITION_OFFSET;
+        return wristAbsoluteEncoder.getAbsolutePosition() - Constants.POSITION_OFFSET;
+    }
+
+    public double getRelativePosition() {
+        return wristRelativeEncoder.getPosition();
     }
 }

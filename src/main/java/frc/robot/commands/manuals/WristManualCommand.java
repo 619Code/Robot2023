@@ -12,6 +12,7 @@ public class WristManualCommand extends CommandBase {
     private CommandXboxController controller;
 
     double wristSpeed;
+    double holdPosition;
 
     public WristManualCommand(Wrist wrist, CommandXboxController controller) {
         this.wrist = wrist;
@@ -21,13 +22,18 @@ public class WristManualCommand extends CommandBase {
     }
 
     @Override
+    public void initialize() {
+        holdPosition = wrist.getAbsolutePosition();
+    }
+
+    @Override
     public void execute() {
         wristSpeed = controller.getLeftY();
-        Crashboard.toDashboard("Wrist Speed", wristSpeed, Constants.ARM_TAB);
         if(Math.abs(wristSpeed) > Constants.JOYSTICK_DEADZONE) {
             wrist.move(wristSpeed * Constants.WRIST_SPEED);
+            holdPosition = wrist.getAbsolutePosition();
         } else {
-            wrist.stop();
+            wrist.moveToPosition(wrist.getAbsolutePosition());
         }
     }
 

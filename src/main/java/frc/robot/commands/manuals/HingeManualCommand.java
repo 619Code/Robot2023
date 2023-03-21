@@ -14,6 +14,7 @@ public class HingeManualCommand extends CommandBase {
     private CommandXboxController controller;
 
     double hingeSpeed;
+    double holdPosition;
 
     public HingeManualCommand(Hinge hinge, CommandXboxController controller) {
         this.hinge = hinge;
@@ -23,12 +24,18 @@ public class HingeManualCommand extends CommandBase {
     }
 
     @Override
+    public void initialize() {
+        holdPosition = hinge.getPosition();
+    }
+
+    @Override
     public void execute() {
         hingeSpeed = controller.getLeftY();
         if(Math.abs(hingeSpeed) > Constants.JOYSTICK_DEADZONE) {
             hinge.move(hingeSpeed * Constants.HINGE_SPEED);
+            holdPosition = hinge.getPosition();
         } else {
-            hinge.stop();
+            hinge.moveToPosition(hinge.getPosition());
         }
     }
 

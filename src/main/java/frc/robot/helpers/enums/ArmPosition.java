@@ -4,7 +4,7 @@ public enum ArmPosition {
     START,
     PICKUP_LOW,
     PICKUP_HIGH,
+    CHUTE,
     GRID_MID,
-    GRID_HIGH,
-    PARALLEL_POSITION
+    GRID_HIGH
 }
