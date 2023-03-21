@@ -60,7 +60,7 @@ public class RobotContainer {
 	private Wrist wrist;
 	private LedStrip led;
 
-	private boolean TurnOnGrabber = false;
+	private boolean TurnOnGrabber = true;
 	private boolean TurnOnArm = true;
 	private boolean TurnOnDrive = false;
 	private boolean IsTesting = true;
@@ -95,10 +95,10 @@ public class RobotContainer {
 
 		if (TurnOnArm) {
 			hinge = new Hinge();
-			/*hingeAdjustCommand = new HingeAdjustCommand(hinge, operator);
-			hinge.setDefaultCommand(hingeAdjustCommand);*/
-			HingeManualCommand hingeManualCommand = new HingeManualCommand(hinge, operator);
-			hinge.setDefaultCommand(hingeManualCommand);
+			hingeAdjustCommand = new HingeAdjustCommand(hinge, operator);
+			hinge.setDefaultCommand(hingeAdjustCommand);
+			/*HingeManualCommand hingeManualCommand = new HingeManualCommand(hinge, operator);
+			hinge.setDefaultCommand(hingeManualCommand);*/
 
 			telescope = new Telescope();
 			telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
@@ -139,7 +139,7 @@ public class RobotContainer {
 	}
 
 	private void BindTests() {
-		
+		//armBindings();
 	}
 
 	public void armBindings() {
@@ -160,7 +160,7 @@ public class RobotContainer {
 	}
 
 	public Command moveArmMasterCommandFactory(ArmPosition position) {
-		return (new MoveArmMasterCommand(hinge, telescope, wrist, grabber, ArmPosition.START)).until(ArmLogicAssistant::atBothPositions);
+		return (new MoveArmMasterCommand(hinge, telescope, wrist, grabber, position)).until(ArmLogicAssistant::atHingePosition); //.until(ArmLogicAssistant::atBothPositions); //UNDO
 	}
 
 	public void grabberBindings() {

@@ -95,9 +95,9 @@ public final class Constants {
     public static final double MIN_HINGE_POSITION = 1.0;
     public static final double MAX_HINGE_POSITION = 57.0;
 
-    public static final double HINGE_SPEED = 0.4;
+    public static final double HINGE_SPEED = 0.2; //0.4
     public static final double HINGE_ZERO_SPEED = 0.1;
-    public static final double HINGE_P = 0.12;
+    public static final double HINGE_P = 0.08;
 
     //Telescope constants
     public static final double TELESCOPE_CONTRACTED_SWITCH_POSITION = 0.0;
@@ -106,7 +106,7 @@ public final class Constants {
     public static final double MIN_TELESCOPE_EXTENSION = TELESCOPE_CONTRACTED_SWITCH_POSITION + EXTENSION_TOLERANCE;
     public static final double MAX_TELESCOPE_EXTENSION = TELESCOPE_EXTENDED_SWITCH_POSITION - EXTENSION_TOLERANCE;
 
-    public static final double TELESCOPE_SPEED = 0.9; //0.8
+    public static final double TELESCOPE_SPEED = 0.4; //0.9
     public static final double TELESCOPE_ZERO_SPEED = 0.2;
     public static final double TELESCOPE_P = 0.04;
 

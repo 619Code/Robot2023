@@ -23,7 +23,7 @@ public class WristManualCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        holdPosition = wrist.getAbsolutePosition();
+        holdPosition = wrist.getRelativePosition();
     }
 
     @Override
@@ -31,9 +31,9 @@ public class WristManualCommand extends CommandBase {
         wristSpeed = controller.getLeftY();
         if(Math.abs(wristSpeed) > Constants.JOYSTICK_DEADZONE) {
             wrist.move(wristSpeed * Constants.WRIST_SPEED);
-            holdPosition = wrist.getAbsolutePosition();
+            holdPosition = wrist.getRelativePosition();
         } else {
-            wrist.moveToPosition(wrist.getAbsolutePosition());
+            wrist.moveToPosition(holdPosition);
         }
     }
 

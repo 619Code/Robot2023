@@ -25,6 +25,9 @@ public class ArmLogicAssistant {
         } else {
             atHingePosition = false;
         }
+
+        atTelescopePosition = false;
+        atWristPosition = false;
     }
 
     public static boolean atHingePosition() {

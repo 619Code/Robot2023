@@ -35,7 +35,7 @@ public class HingeManualCommand extends CommandBase {
             hinge.move(hingeSpeed * Constants.HINGE_SPEED);
             holdPosition = hinge.getPosition();
         } else {
-            hinge.moveToPosition(hinge.getPosition());
+            hinge.moveToPosition(holdPosition);
         }
     }
 
