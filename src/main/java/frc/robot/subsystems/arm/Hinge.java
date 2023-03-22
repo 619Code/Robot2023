@@ -86,8 +86,12 @@ public class Hinge extends SubsystemBase {
 
     //boolean return says if it's at that position
     public boolean moveToPosition(double goal) {
+
         goal = Math.min(goal,Constants.MAX_HINGE_POSITION);
         goal = Math.max(goal,Constants.MIN_HINGE_POSITION);
+
+        if(Math.abs(getPosition() - goal) < .5) 
+            return true;
 
         hingePID.calculate(Math.abs(getPosition() - goal));
         double speed = Math.abs(hingePID.calculate(Math.abs(getPosition() - goal))); //PID control
@@ -98,12 +102,8 @@ public class Hinge extends SubsystemBase {
         } else {
             move(-speed);
         }
-
-        if(Math.abs(getPosition() - goal) < 1) {
-            return true;
-        } else {
-            return false;
-        }
+        
+        return false;
     }
 
     public void stop() {

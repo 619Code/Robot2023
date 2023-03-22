@@ -98,7 +98,7 @@ public final class Constants {
     public static final double HINGE_SPEED = 0.2; //0.4
     public static final double HINGE_ZERO_SPEED = 0.1;
 
-    public static final double HINGE_P = 0.12;
+    public static final double HINGE_P = 0.01;
     public static final double HINGE_D = 0.00;
 
     //Telescope constants

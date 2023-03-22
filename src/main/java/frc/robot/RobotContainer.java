@@ -97,7 +97,8 @@ public class RobotContainer {
 		if (TurnOnArm) {
 			hinge = new Hinge();
 			hingeAdjustCommand = new HingeAdjustCommand(hinge, operator);
-			hinge.setDefaultCommand(hingeAdjustCommand);
+			var hingeManualCommand = new HingeManualCommand(hinge, operator);
+			hinge.setDefaultCommand(hingeManualCommand);
 
 			telescope = new Telescope();
 			telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
@@ -227,4 +228,8 @@ public class RobotContainer {
     public void zeroTeliscopeCommand() {
 		new TelescopeZeroCommand(telescope).schedule();
     }
+
+	public void zeroHingeCommand() {
+		this.hinge.zero();
+	}
 }
