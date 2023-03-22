@@ -97,8 +97,6 @@ public class RobotContainer {
 			hinge = new Hinge();
 			hingeAdjustCommand = new HingeAdjustCommand(hinge, operator);
 			hinge.setDefaultCommand(hingeAdjustCommand);
-			/*HingeManualCommand hingeManualCommand = new HingeManualCommand(hinge, operator);
-			hinge.setDefaultCommand(hingeManualCommand);*/
 
 			telescope = new Telescope();
 			telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
@@ -139,7 +137,13 @@ public class RobotContainer {
 	}
 
 	private void BindTests() {
-		//armBindings();
+		armBindings();
+
+		Trigger grabButton = operator.leftBumper();
+        grabButton.whileTrue(new GrabCommand(grabber));
+
+		Trigger releaseButton = operator.rightBumper();
+        releaseButton.whileTrue(new ReleaseCommand(grabber));
 	}
 
 	public void armBindings() {
@@ -160,17 +164,17 @@ public class RobotContainer {
 	}
 
 	public Command moveArmMasterCommandFactory(ArmPosition position) {
-		return (new MoveArmMasterCommand(hinge, telescope, wrist, grabber, position)).until(ArmLogicAssistant::atHingePosition); //.until(ArmLogicAssistant::atBothPositions); //UNDO
+		return (new MoveArmMasterCommand(hinge, telescope, wrist, grabber, position)).until(ArmLogicAssistant::atBothPositions); //.until(ArmLogicAssistant::atBothPositions); //UNDO
 	}
 
 	public void grabberBindings() {
-        Trigger grabButton = operator.leftTrigger(0.5);
+        Trigger grabButton = operator.leftBumper();
         grabButton.whileTrue(new ParallelDeadlineGroup(
 			new GrabCommand(grabber),
 			new AlternateColorCommand(led)
 		));
 
-		Trigger releaseButton = operator.rightTrigger(0.5);
+		Trigger releaseButton = operator.rightBumper();
         releaseButton.whileTrue(new ReleaseCommand(grabber));
 
 		Trigger toggleLed = operator.back();

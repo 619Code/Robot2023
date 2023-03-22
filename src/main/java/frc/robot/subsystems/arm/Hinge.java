@@ -5,6 +5,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -26,6 +27,8 @@ public class Hinge extends SubsystemBase {
     private GenericEntry hingeSpark;
     private GenericEntry hingeSwitch;
 
+    private PIDController hingePID;
+
     public Hinge() {
         hingeMotor = new CANSparkMax(Constants.HINGE_MOTOR, MotorType.kBrushless);
         hingeMotor.restoreFactoryDefaults();
@@ -39,19 +42,20 @@ public class Hinge extends SubsystemBase {
         magnetSwitch = new DigitalInput(Constants.HINGE_SWITCH);
 
         ArmPositionHelper.currentPosition = ArmPosition.START;
+        ArmPositionHelper.hingeAdjustment = 0;
         ArmLogicAssistant.startPosition = ArmPosition.START;
         ArmLogicAssistant.endPosition = ArmPosition.START;
+
+        hingePID = new PIDController(Constants.HINGE_P, 0, Constants.HINGE_D);
     }
 
     @Override
     public void periodic() {
         Crashboard.toDashboard("Hinge Position", getPosition(), Constants.ARM_TAB);
-        Crashboard.toDashboard("Hinge Position", getPosition(), Constants.COMPETITON_TAB);
         Crashboard.toDashboard("Hinge Amps", hingeMotor.getOutputCurrent(), Constants.ARM_TAB);
         hingeSpark = Crashboard.toDashboard("Hinge Spark", SparkErrorHelper.HasSensorError(hingeMotor), Constants.SPARKS_TAB);
         hingeSwitch = Crashboard.toDashboard("Hinge Switch Triggd?", switchIsPressed(), Constants.STATUS_TAB);
-
-        Crashboard.toDashboard("Hinge Velocity", hingeEncoder.getVelocity(), Constants.ARM_TAB);
+        
         Crashboard.toDashboard("Hinge Amps", hingeMotor.getAppliedOutput(), Constants.ARM_TAB);
     }
 
@@ -85,7 +89,8 @@ public class Hinge extends SubsystemBase {
         goal = Math.min(goal,Constants.MAX_HINGE_POSITION);
         goal = Math.max(goal,Constants.MIN_HINGE_POSITION);
 
-        double speed = Math.abs(getPosition() - goal) * Constants.HINGE_P; //proportional control
+        hingePID.calculate(Math.abs(getPosition() - goal));
+        double speed = Math.abs(hingePID.calculate(Math.abs(getPosition() - goal))); //PID control
         speed = Math.min(speed, Constants.HINGE_SPEED);
 
         if(getPosition() < goal) {

@@ -6,7 +6,7 @@ import frc.robot.helpers.enums.ArmPositionSide;
 
 public class ArmPositionHelper {
     public static ArmPosition currentPosition = ArmPosition.START;
-    public static double hingeAdjustment = 0;
+    public static double hingeAdjustment;
 
     public static double fetchHingeValue(ArmPosition position) {
         switch(position) {

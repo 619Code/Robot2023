@@ -21,6 +21,7 @@ public class Wrist extends SubsystemBase {
         wristMotor.restoreFactoryDefaults();
         wristMotor.setIdleMode(IdleMode.kBrake);
         wristMotor.setSmartCurrentLimit(40);
+        wristMotor.setInverted(true);;
 
         wristAbsoluteEncoder = new DutyCycleEncoder(Constants.WRIST_ABSOLUTE_ENCODER);
         wristRelativeEncoder = wristMotor.getEncoder();

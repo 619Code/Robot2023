@@ -28,9 +28,7 @@ public class HoldHingeCommand extends CommandBase {
     public void execute() {
         currentPosition = ArmPositionHelper.currentPosition;
         hingeGoal = ArmPositionHelper.fetchHingeValue(currentPosition) + ArmPositionHelper.hingeAdjustment;
-        System.out.println(currentPosition.toString());
-        Crashboard.toDashboard("Hinge Goal 1", ArmPositionHelper.fetchHingeValue(currentPosition), Constants.ARM_TAB);
-        Crashboard.toDashboard("Hinge Goal 2", ArmPositionHelper.hingeAdjustment, Constants.ARM_TAB);
+        Crashboard.toDashboard("Hinge Adjustment", ArmPositionHelper.hingeAdjustment, Constants.ARM_TAB);
         hinge.moveToPosition(hingeGoal);
     }
 

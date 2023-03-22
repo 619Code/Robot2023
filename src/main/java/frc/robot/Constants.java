@@ -92,18 +92,20 @@ public final class Constants {
     public static final double RELEASE_SPEED_CONE = -0.1;
 
     //Hinge constants
-    public static final double MIN_HINGE_POSITION = 1.0;
+    public static final double MIN_HINGE_POSITION = 0.0;
     public static final double MAX_HINGE_POSITION = 57.0;
 
     public static final double HINGE_SPEED = 0.2; //0.4
     public static final double HINGE_ZERO_SPEED = 0.1;
-    public static final double HINGE_P = 0.08;
+
+    public static final double HINGE_P = 0.12;
+    public static final double HINGE_D = 0.00;
 
     //Telescope constants
     public static final double TELESCOPE_CONTRACTED_SWITCH_POSITION = 0.0;
-    public static final double TELESCOPE_EXTENDED_SWITCH_POSITION = 78;
+    public static final double TELESCOPE_EXTENDED_SWITCH_POSITION = 184;
     public static final double EXTENSION_TOLERANCE = 5.0;
-    public static final double MIN_TELESCOPE_EXTENSION = TELESCOPE_CONTRACTED_SWITCH_POSITION + EXTENSION_TOLERANCE;
+    public static final double MIN_TELESCOPE_EXTENSION = 0;
     public static final double MAX_TELESCOPE_EXTENSION = TELESCOPE_EXTENDED_SWITCH_POSITION - EXTENSION_TOLERANCE;
 
     public static final double TELESCOPE_SPEED = 0.4; //0.9
@@ -114,7 +116,7 @@ public final class Constants {
     public static final double POSITION_OFFSET = 0;
 
     public static final double MIN_WRIST_POSITION = 0;
-    public static final double MAX_WRIST_POSITION = 100;
+    public static final double MAX_WRIST_POSITION = 25.9;
 
     public static final double WRIST_SPEED = 0.2;
     public static final double WRIST_ZERO_SPEED = 0.1;
@@ -123,12 +125,12 @@ public final class Constants {
     //Arm cases
     public static final double ARM_ADJUST_FACTOR = 1;
 
-    public static final double START_POSITION_HINGE = 0.0;
+    public static final double START_POSITION_HINGE = 1.0;
     public static final double START_POSITION_TELESCOPE = 0.0;
-    public static final double START_POSITION_WRIST = 0.0;
+    public static final double START_POSITION_WRIST = 17.0;
     public static final ArmPositionSide START_POSITION_SIDE = ArmPositionSide.FRONT;
 
-    public static final double PICKUP_LOW_POSITION_HINGE = 3;
+    public static final double PICKUP_LOW_POSITION_HINGE = 0;
     public static final double PICKUP_LOW_POSITION_TELESCOPE = 5.0;
     public static final double PICKUP_LOW_POSITION_WRIST = 0.0;
     public static final ArmPositionSide PICKUP_LOW_POSITION_SIDE = ArmPositionSide.FRONT;
@@ -143,9 +145,9 @@ public final class Constants {
     public static final double CHUTE_POSITION_TELESCOPE = 0.0;
     public static final ArmPositionSide CHUTE_POSITION_SIDE = ArmPositionSide.FRONT;
 
-    public static final double GRID_MID_POSITION_HINGE = 18.0;
-    public static final double GRID_MID_POSITION_TELESCOPE = 74.0;
-    public static final double GRID_MID_POSITION_WRIST = 0.0;
+    public static final double GRID_MID_POSITION_HINGE = 14.6;
+    public static final double GRID_MID_POSITION_TELESCOPE = 161.0;
+    public static final double GRID_MID_POSITION_WRIST = 14.4;
     public static final ArmPositionSide GRID_MID_POSITION_SIDE = ArmPositionSide.FRONT;
 
     public static final double GRID_HIGH_POSITION_HINGE = 46.0;
@@ -170,7 +172,7 @@ public final class Constants {
     public static final double AUTO_DRIVE_VELOCITY = 0.5;
     public static final double AUTO_DRIVE_DISTANCE = 5;
 
-    public static final double HINGE_START = START_POSITION_HINGE;
+    public static final double HINGE_START = 0;
     public static final double TELESCOPE_START = START_POSITION_TELESCOPE;
     public static final double WRIST_START = 0;
 

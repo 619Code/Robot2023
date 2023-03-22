@@ -30,7 +30,9 @@ public class HingeAdjustCommand extends CommandBase {
 
     @Override
     public void execute() {
-        ArmPositionHelper.hingeAdjustment += controller.getLeftY() * 0.1;
+        double adjustment = controller.getLeftY() * 0.3;
+        ArmPositionHelper.hingeAdjustment += adjustment;
+        ArmPositionHelper.hingeAdjustment = Math.max(0,ArmPositionHelper.hingeAdjustment);
         myHoldCommand.execute();
     }
 

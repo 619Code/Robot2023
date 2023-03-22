@@ -20,12 +20,13 @@ public class ArmLogicAssistant {
         movingToBack = ArmPositionHelper.fetchSide(startPosition) == ArmPositionSide.FRONT && 
         ArmPositionHelper.fetchSide(endPosition) == ArmPositionSide.BACK;
 
-        if(startPosition == endPosition) {
+        /*if(startPosition == endPosition) {
             atHingePosition = true;
         } else {
             atHingePosition = false;
-        }
+        }*/
 
+        atHingePosition = false;
         atTelescopePosition = false;
         atWristPosition = false;
     }
@@ -40,5 +41,9 @@ public class ArmLogicAssistant {
 
     public static boolean atBothPositions() {
         return atHingePosition && atTelescopePosition;
+    }
+
+    public static boolean movingToBack() {
+        return movingToBack;
     }
 }

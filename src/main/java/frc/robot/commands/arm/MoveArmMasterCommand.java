@@ -1,5 +1,6 @@
 package frc.robot.commands.arm;
 
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -47,15 +48,14 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
             new HoldHingeCommand(hinge)
         ));
 
-        //telescope commands
-        /*if(ArmLogicAssistant.movingToBack) { //if moving front to back, retract while moving
-            addCommands(new SequentialCommandGroup(
-                new RetractTelescopeCommand(telescope).until(ArmLogicAssistant::atHingePosition),
+        addCommands(new ConditionalCommand(
+            new SequentialCommandGroup(
+                new RetractTelescopeCommand(telescope),
                 new MoveTelescopeCommand(telescope, goal)
-            ));
-        } else {
-            addCommands(new MoveTelescopeCommand(telescope, goal));
-        }*/
+            ), 
+            new MoveTelescopeCommand(telescope, goal),
+            ArmLogicAssistant::movingToBack)
+        );
 
         //wrist commands
         /*if(ArmLogicAssistant.startPosition == ArmPosition.START) { //if the wrist doesn't have space to move, wait

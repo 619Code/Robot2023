@@ -11,30 +11,32 @@ public class WristManualCommand extends CommandBase {
     private Wrist wrist;
     private CommandXboxController controller;
 
-    double wristSpeed;
-    double holdPosition;
+    double wristAdjustment;
+    double adjustment;
 
     public WristManualCommand(Wrist wrist, CommandXboxController controller) {
         this.wrist = wrist;
         this.controller = controller;
+
+        wristAdjustment = 0;
+        adjustment = 0;
 
         addRequirements(wrist);
     }
 
     @Override
     public void initialize() {
-        holdPosition = wrist.getRelativePosition();
+        adjustment = 0;
     }
 
     @Override
     public void execute() {
-        wristSpeed = controller.getLeftY();
-        if(Math.abs(wristSpeed) > Constants.JOYSTICK_DEADZONE) {
-            wrist.move(wristSpeed * Constants.WRIST_SPEED);
-            holdPosition = wrist.getRelativePosition();
-        } else {
-            wrist.moveToPosition(holdPosition);
-        }
+        adjustment = controller.getLeftY() * 0.5;
+        wristAdjustment += adjustment;
+        wristAdjustment = Math.max(0,wristAdjustment);
+
+        Crashboard.toDashboard("Wrist Adjustment", wristAdjustment, Constants.ARM_TAB);
+        wrist.moveToPosition(wristAdjustment);
     }
 
     @Override
