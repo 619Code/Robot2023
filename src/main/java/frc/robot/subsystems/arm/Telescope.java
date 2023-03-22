@@ -50,10 +50,19 @@ public class Telescope extends SubsystemBase {
         telescopeSpark = Crashboard.toDashboard("Telescope Spark", SparkErrorHelper.HasSensorError(telescopeMotor), Constants.SPARKS_TAB);
         contractedSwitchTrigged = Crashboard.toDashboard("Contracted Switch Triggd?", contractedSwitchIsPressed(), Constants.STATUS_TAB);
         extendedSwitchTrigged = Crashboard.toDashboard("Extended Swtich Triggd?", extendedSwitchIsPressed(), Constants.STATUS_TAB);
+        States.ArmLength = this.getExtensionLength();
     }
 
     public void move(double speed) {
         move(speed, false);
+    }
+
+    private double getExtensionLength() {
+        double ticks = 139;
+        double lenghForTicksInInches = 15;
+        double contractedLengthInInches = 24;
+
+        return contractedLengthInInches + this.getPosition() * (lenghForTicksInInches/ticks);
     }
 
     public void move(double speed, boolean zeroing) {
