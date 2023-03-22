@@ -8,6 +8,7 @@ import frc.robot.commands.arm.MoveArmMasterCommand;
 import frc.robot.commands.arm.hinge.HingeAdjustCommand;
 import frc.robot.commands.arm.hinge.HingeZeroCommand;
 import frc.robot.commands.arm.hinge.HoldHingeCommand;
+import frc.robot.commands.arm.telescope.TelescopeZeroCommand;
 import frc.robot.commands.arm.wrist.HoldWristCommand;
 import frc.robot.commands.auto.AutoDriveCommand;
 import frc.robot.commands.auto.AutoPlaceCommand;
@@ -222,4 +223,8 @@ public class RobotContainer {
 				return null;
 		}
 	}
+
+    public void zeroTeliscopeCommand() {
+		new TelescopeZeroCommand(telescope).schedule();
+    }
 }
