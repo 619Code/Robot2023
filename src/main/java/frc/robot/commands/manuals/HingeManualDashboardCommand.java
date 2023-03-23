@@ -40,3 +40,4 @@ public class HingeManualDashboardCommand extends CommandBase {
         holdPosition = Math.max(0, targetPositionEntry.getDouble(0));
         hinge.moveToPosition(this.holdPosition);
     }
+}
