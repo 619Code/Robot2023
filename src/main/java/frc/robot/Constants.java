@@ -95,11 +95,19 @@ public final class Constants {
     public static final double MIN_HINGE_POSITION = 0.0;
     public static final double MAX_HINGE_POSITION = 57.0;
 
-    public static final double HINGE_SPEED = 0.2; //0.4
+    public static final double HINGE_MAX_SPEED = 0.3; //0.4
+    public static final double HINGE_SLOW_SPEED = 0.075;
     public static final double HINGE_ZERO_SPEED = 0.1;
 
-    public static final double HINGE_P = 0.12;
-    public static final double HINGE_D = 0.00;
+    public static final double HINGE_P = 0.05;
+    public static final double HINGE_FF = 0.003; 
+    public static final double TOLERANCE = 0.5;
+    public static final double CLOSE_POSITION = 6;
+
+    public static final double UP_POSITION = 35.09;
+    public static final double FRONT_HORIZONTAL_POSITION = 8.09;
+    public static final double DEGREES_PER_TICK = 90.0 / (Constants.UP_POSITION - Constants.FRONT_HORIZONTAL_POSITION);
+    public static final double BASE_ANGLE = -30;
 
     //Telescope constants
     public static final double TELESCOPE_CONTRACTED_SWITCH_POSITION = 0.0;
@@ -111,6 +119,9 @@ public final class Constants {
     public static final double TELESCOPE_SPEED = 0.4; //0.9
     public static final double TELESCOPE_ZERO_SPEED = 0.2;
     public static final double TELESCOPE_P = 0.04;
+
+    public static final double INCHES_PER_TICK = 15.0 / 139.0;
+    public static final double CONTRACTED_LENGTH = 24.0; //inches
 
     //Wrist constants
     public static final double POSITION_OFFSET = 0;

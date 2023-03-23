@@ -18,13 +18,7 @@ public class ArmLogicAssistant {
         endPosition = endPositionNew;
         
         movingToBack = ArmPositionHelper.fetchSide(startPosition) == ArmPositionSide.FRONT && 
-        ArmPositionHelper.fetchSide(endPosition) == ArmPositionSide.BACK;
-
-        /*if(startPosition == endPosition) {
-            atHingePosition = true;
-        } else {
-            atHingePosition = false;
-        }*/
+            ArmPositionHelper.fetchSide(endPosition) == ArmPositionSide.BACK;
 
         atHingePosition = false;
         atTelescopePosition = false;

@@ -32,7 +32,7 @@ public class HingeManualCommand extends CommandBase {
     public void execute() {
         hingeSpeed = controller.getLeftY();
         if(Math.abs(hingeSpeed) > Constants.JOYSTICK_DEADZONE) {
-            hinge.move(hingeSpeed * Constants.HINGE_SPEED);
+            hinge.move(hingeSpeed * Constants.HINGE_MAX_SPEED);
             holdPosition = hinge.getPosition();
         } else {
             hinge.moveToPosition(holdPosition);

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.States;
+import frc.robot.commands.arm.telescope.TelescopeZeroCommand;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.SparkErrorHelper;
 
@@ -42,17 +43,20 @@ public class Telescope extends SubsystemBase {
     @Override
     public void periodic() {
         checkSafety();
+        States.ArmLength = getExtensionLength(); //update arm length
 
-        //Crashboard.toDashboard("Contracted Switch", contractedSwitchIsPressed());
-        //Crashboard.toDashboard("Extended Switch", extendedSwitchIsPressed());
         Crashboard.toDashboard("Telescope Position", getPosition(), Constants.ARM_TAB);
         telescopeSpark = Crashboard.toDashboard("Telescope Spark", SparkErrorHelper.HasSensorError(telescopeMotor), Constants.SPARKS_TAB);
-        contractedSwitchTrigged = Crashboard.toDashboard("Contracted Switch Triggd?", contractedSwitchIsPressed(), Constants.STATUS_TAB);
-        extendedSwitchTrigged = Crashboard.toDashboard("Extended Swtich Triggd?", extendedSwitchIsPressed(), Constants.STATUS_TAB);
+        contractedSwitchTrigged = Crashboard.toDashboard("Contracted Switch", contractedSwitchIsPressed(), Constants.STATUS_TAB);
+        extendedSwitchTrigged = Crashboard.toDashboard("Extended Switch", extendedSwitchIsPressed(), Constants.STATUS_TAB);
     }
 
     public void move(double speed) {
         move(speed, false);
+    }
+
+    private double getExtensionLength() {
+        return Constants.CONTRACTED_LENGTH + getPosition() * Constants.INCHES_PER_TICK;
     }
 
     public void move(double speed, boolean zeroing) {

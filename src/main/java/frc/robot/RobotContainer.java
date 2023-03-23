@@ -8,6 +8,7 @@ import frc.robot.commands.arm.MoveArmMasterCommand;
 import frc.robot.commands.arm.hinge.HingeAdjustCommand;
 import frc.robot.commands.arm.hinge.HingeZeroCommand;
 import frc.robot.commands.arm.hinge.HoldHingeCommand;
+import frc.robot.commands.arm.telescope.TelescopeZeroCommand;
 import frc.robot.commands.arm.wrist.HoldWristCommand;
 import frc.robot.commands.auto.AutoDriveCommand;
 import frc.robot.commands.auto.AutoPlaceCommand;
@@ -15,8 +16,10 @@ import frc.robot.commands.grabber.GrabCommand;
 import frc.robot.commands.grabber.GrabDefaultCommand;
 import frc.robot.commands.grabber.ReleaseCommand;
 import frc.robot.commands.manuals.HingeManualCommand;
+import frc.robot.commands.manuals.HingeManualDashboardCommand;
 import frc.robot.commands.manuals.TelescopeManualCommand;
 import frc.robot.commands.manuals.WristManualCommand;
+import frc.robot.commands.manuals.WristManualNewCommand;
 import frc.robot.helpers.ArmLogicAssistant;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.ArmPosition;
@@ -95,8 +98,8 @@ public class RobotContainer {
 
 		if (TurnOnArm) {
 			hinge = new Hinge();
-			hingeAdjustCommand = new HingeAdjustCommand(hinge, operator);
-			hinge.setDefaultCommand(hingeAdjustCommand);
+			HingeManualDashboardCommand hingeManualDashboardCommand = new HingeManualDashboardCommand(hinge);
+			hinge.setDefaultCommand(hingeManualDashboardCommand);
 
 			telescope = new Telescope();
 			telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
@@ -105,8 +108,10 @@ public class RobotContainer {
 			wrist = new Wrist();
 			/*holdWristCommand = new HoldWristCommand(wrist);
 			wrist.setDefaultCommand(holdWristCommand);*/
-			WristManualCommand wristManualCommand = new WristManualCommand(wrist, driver);
-			wrist.setDefaultCommand(wristManualCommand);
+			//WristManualCommand wristManualCommand = new WristManualCommand(wrist, driver);
+			//var wristManualCommand = new WristManualNewCommand(wrist);
+			var wristManualNewCommand = new WristManualNewCommand(wrist);
+			wrist.setDefaultCommand(wristManualNewCommand);
 		}
 
 		configureBindings();
@@ -220,6 +225,21 @@ public class RobotContainer {
 				return null;
 			default:
 				return null;
+		}
+	}
+
+	public void startupActions() {
+		if(telescope != null) {
+			new TelescopeZeroCommand(telescope).schedule();
+		}
+
+		if(hinge != null) {
+			hinge.zero();
+		}
+
+		if (this.wrist != null)
+		{
+			this.wrist.zero();
 		}
 	}
 }

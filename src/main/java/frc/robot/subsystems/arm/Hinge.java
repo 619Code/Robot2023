@@ -2,6 +2,7 @@ package frc.robot.subsystems.arm;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -27,13 +28,23 @@ public class Hinge extends SubsystemBase {
     private GenericEntry hingeSpark;
     private GenericEntry hingeSwitch;
 
-    private PIDController hingePID;
+    private double slowSpeed = Constants.SLOW_MODE_SPEED;
+    private double maxSpeed = Constants.HINGE_MAX_SPEED;
+    private double ffBaseValue = Constants.HINGE_FF;
+    private double tolerance = Constants.TOLERANCE;
+    private double closePosition = Constants.CLOSE_POSITION;
+
+    private GenericEntry toleranceEntry;
+    private GenericEntry minSpeedEntry;
+    private GenericEntry ffEntry;
+    private GenericEntry maxSpeedEntry;
+    private GenericEntry closePostionEntry;
 
     public Hinge() {
         hingeMotor = new CANSparkMax(Constants.HINGE_MOTOR, MotorType.kBrushless);
         hingeMotor.restoreFactoryDefaults();
         hingeMotor.setIdleMode(IdleMode.kBrake);
-        hingeMotor.setSmartCurrentLimit(40);
+        hingeMotor.setSmartCurrentLimit(30);
         hingeMotor.setInverted(true);
 
         hingeEncoder = hingeMotor.getEncoder();
@@ -46,16 +57,29 @@ public class Hinge extends SubsystemBase {
         ArmLogicAssistant.startPosition = ArmPosition.START;
         ArmLogicAssistant.endPosition = ArmPosition.START;
 
-        hingePID = new PIDController(Constants.HINGE_P, 0, Constants.HINGE_D);
+        maxSpeedEntry = Crashboard.toDashboard("Max Speed", maxSpeed , Constants.ARM_TAB);
+        minSpeedEntry = Crashboard.toDashboard("Min Speed", slowSpeed , Constants.ARM_TAB);
+        ffEntry = Crashboard.toDashboard("FF", ffBaseValue , Constants.ARM_TAB);
+        toleranceEntry = Crashboard.toDashboard("Tolerance", tolerance , Constants.ARM_TAB);
+        closePostionEntry = Crashboard.toDashboard("Close Position", closePosition , Constants.ARM_TAB);
+    }
+
+    public void GetFromDashboard() {
+        // maxSpeed = maxSpeedEntry.getDouble(this.maxSpeed);
+        // minSpeed = minSpeedEntry.getDouble(this.minSpeed);
+        // tolerance = toleranceEntry.getDouble(this.tolernace);
+        // ffBaseValue = ffEntry.getDouble(this.ffBaseValue);
+        // closePosition = closePostionEntry.getDouble(closePosition);
     }
 
     @Override
     public void periodic() {
-        Crashboard.toDashboard("Hinge Position", getPosition(), Constants.ARM_TAB);
-        Crashboard.toDashboard("Hinge Amps", hingeMotor.getOutputCurrent(), Constants.ARM_TAB);
-        hingeSpark = Crashboard.toDashboard("Hinge Spark", SparkErrorHelper.HasSensorError(hingeMotor), Constants.SPARKS_TAB);
-        hingeSwitch = Crashboard.toDashboard("Hinge Switch Triggd?", switchIsPressed(), Constants.STATUS_TAB);
+        GetFromDashboard();
+        checkSafety();
         
+        Crashboard.toDashboard("Hinge Position", getPosition(), Constants.ARM_TAB);
+        hingeSpark = Crashboard.toDashboard("Hinge Spark", SparkErrorHelper.HasSensorError(hingeMotor), Constants.SPARKS_TAB);
+        hingeSwitch = Crashboard.toDashboard("Hinge Switch", switchIsPressed(), Constants.STATUS_TAB);
         Crashboard.toDashboard("Hinge Amps", hingeMotor.getAppliedOutput(), Constants.ARM_TAB);
     }
 
@@ -64,6 +88,13 @@ public class Hinge extends SubsystemBase {
     }
 
     public void move(double speed, boolean zeroing) {
+
+        if (speed == 0)
+        {
+            stop();
+            return;
+        }
+
         boolean move = true;
 
         if(speed > 0) {
@@ -74,7 +105,7 @@ public class Hinge extends SubsystemBase {
             /*if(switchIsPressed()) { //UNDO
                 stop(); move = false;
             }*/
-            if(!zeroing && getPosition() < Constants.MIN_HINGE_POSITION) {
+            if(!zeroing && getPosition() <= Constants.MIN_HINGE_POSITION) {
                 stop(); move = false;
             }
         }
@@ -84,25 +115,64 @@ public class Hinge extends SubsystemBase {
         }
     }
 
-    //boolean return says if it's at that position
+    // Calculate speed based off of position difference
+    protected double calculateSpeed(double diff) {
+        if (Math.abs(diff) <= closePosition) { //slow speed if we're close enough
+            return Math.min(slowSpeed, Constants.HINGE_P * Math.abs(diff));
+        } else { //otherwise, move with full speed
+            return maxSpeed;
+        }
+    }
+
+    // Calculate FF based on side, length, and angle of arm
+    public double calculateFF() {
+        double angleFactor = Math.cos(Math.toRadians(getAngle()));
+        double ff = Math.abs(ffBaseValue * (States.ArmLength * angleFactor)); 
+        
+        Crashboard.toDashboard("Angle", getAngle(), Constants.ARM_TAB);
+        Crashboard.toDashboard("FF Calculated Value", ff, Constants.ARM_TAB);
+
+        //invert feedforward based on side
+        if (getPosition() > Constants.UP_POSITION + 3) //invert feedforward if we're in the back
+            return ff * -1;
+        else
+            return ff;
+    }
+
+    public double getAngle() {
+        return getPosition() * Constants.DEGREES_PER_TICK + Constants.BASE_ANGLE;
+    }
+
     public boolean moveToPosition(double goal) {
         goal = Math.min(goal,Constants.MAX_HINGE_POSITION);
         goal = Math.max(goal,Constants.MIN_HINGE_POSITION);
 
-        hingePID.calculate(Math.abs(getPosition() - goal));
-        double speed = Math.abs(hingePID.calculate(Math.abs(getPosition() - goal))); //PID control
-        speed = Math.min(speed, Constants.HINGE_SPEED);
+        double diff = goal - getPosition();
+        double speed = calculateSpeed(diff);
+        double ff = calculateFF();
 
-        if(getPosition() < goal) {
-            move(speed);
-        } else {
-            move(-speed);
-        }
-
-        if(Math.abs(getPosition() - goal) < 1) {
-            return true;
-        } else {
+        if (Math.abs(diff) > tolerance ) {
+            if (diff > 0) {
+                move(speed + ff, false);
+            } else {
+                move(-speed + ff);
+            }
             return false;
+        } else {
+            move(ff);
+            return true;
+        }
+    }
+
+    public void checkSafety() {
+        if(getDirectVelocity() > 0) {
+            if(getPosition() > Constants.MAX_HINGE_POSITION) {
+                stop();
+            }
+        } else {
+            if(getPosition() <= Constants.MIN_HINGE_POSITION) {
+                stop();
+            }
         }
     }
 
@@ -114,6 +184,11 @@ public class Hinge extends SubsystemBase {
         return hingeEncoder.getPosition();
     }
 
+    //directly fetches the percent speed of the motor
+    public double getDirectVelocity() {
+        return hingeMotor.get();
+    }
+
     public boolean switchIsPressed() {
         return !magnetSwitch.get();
     }
@@ -122,3 +197,4 @@ public class Hinge extends SubsystemBase {
         hingeEncoder.setPosition(0);
     }
 }
+
