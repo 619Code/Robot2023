@@ -63,10 +63,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    this.robotContainer.zeroTeliscopeCommand();
-    this.robotContainer.zeroHingeCommand();
-    this.robotContainer.zeroWristCommand();
-    
+    robotContainer.startupActions();
   }
 
   @Override

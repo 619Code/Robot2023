@@ -22,13 +22,11 @@ public class RetractTelescopeCommand extends CommandBase {
 
     @Override
     public void execute() {
-        System.out.println("Retracting");
         retracted = telescope.retractFull();
     }
 
     @Override
     public void end(boolean interrupted) {
-        System.out.println("Stopped");
         telescope.stop();
     }
 
