@@ -21,8 +21,7 @@ public class HingeManualNewCommand extends CommandBase {
     public HingeManualNewCommand(Hinge hinge) {
         this.hinge = hinge;
 
-        //if (targetPosition == null)
-            targetPosition = Crashboard.toDashboard("Manual Arm Target", 0, Constants.ARM_TAB);
+        targetPosition = Crashboard.toDashboard("Manual Arm Target", 0, Constants.ARM_TAB);
 
         addRequirements(hinge);
     }

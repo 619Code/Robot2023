@@ -65,6 +65,7 @@ public class Robot extends TimedRobot {
 
     this.robotContainer.zeroTeliscopeCommand();
     this.robotContainer.zeroHingeCommand();
+    this.robotContainer.zeroWristCommand();
     
   }
 

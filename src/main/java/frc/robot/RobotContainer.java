@@ -19,6 +19,7 @@ import frc.robot.commands.manuals.HingeManualCommand;
 import frc.robot.commands.manuals.HingeManualNewCommand;
 import frc.robot.commands.manuals.TelescopeManualCommand;
 import frc.robot.commands.manuals.WristManualCommand;
+import frc.robot.commands.manuals.WristManualNewCommand;
 import frc.robot.helpers.ArmLogicAssistant;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.ArmPosition;
@@ -99,8 +100,9 @@ public class RobotContainer {
 			hinge = new Hinge();
 			//hingeAdjustCommand = new HingeAdjustCommand(hinge, operator);
 			//var hingeManualCommand = new HingeManualCommand(hinge, operator);
-			var hingeManualNewCommand = new HingeManualNewCommand(hinge);
-			hinge.setDefaultCommand(hingeManualNewCommand);
+
+			// var hingeManualNewCommand = new HingeManualNewCommand(hinge);
+			// hinge.setDefaultCommand(hingeManualNewCommand);
 
 			telescope = new Telescope();
 			telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
@@ -109,8 +111,10 @@ public class RobotContainer {
 			wrist = new Wrist();
 			/*holdWristCommand = new HoldWristCommand(wrist);
 			wrist.setDefaultCommand(holdWristCommand);*/
-			WristManualCommand wristManualCommand = new WristManualCommand(wrist, driver);
-			wrist.setDefaultCommand(wristManualCommand);
+			//WristManualCommand wristManualCommand = new WristManualCommand(wrist, driver);
+			//var wristManualCommand = new WristManualNewCommand(wrist);
+			var wristManualNewCommand = new WristManualNewCommand(wrist);
+			wrist.setDefaultCommand(wristManualNewCommand);
 		}
 
 		configureBindings();
@@ -235,5 +239,12 @@ public class RobotContainer {
 	public void zeroHingeCommand() {
 		if (this.hinge != null)
 			this.hinge.zero();
+	}
+
+	public void zeroWristCommand() {
+		if (this.wrist != null)
+		{
+			this.wrist.zero();
+		}
 	}
 }
