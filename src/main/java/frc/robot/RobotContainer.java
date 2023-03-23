@@ -16,7 +16,7 @@ import frc.robot.commands.grabber.GrabCommand;
 import frc.robot.commands.grabber.GrabDefaultCommand;
 import frc.robot.commands.grabber.ReleaseCommand;
 import frc.robot.commands.manuals.HingeManualCommand;
-import frc.robot.commands.manuals.HingeManualNewCommand;
+import frc.robot.commands.manuals.HingeManualDashboardCommand;
 import frc.robot.commands.manuals.TelescopeManualCommand;
 import frc.robot.commands.manuals.WristManualCommand;
 import frc.robot.helpers.ArmLogicAssistant;
@@ -97,10 +97,8 @@ public class RobotContainer {
 
 		if (TurnOnArm) {
 			hinge = new Hinge();
-			//hingeAdjustCommand = new HingeAdjustCommand(hinge, operator);
-			//var hingeManualCommand = new HingeManualCommand(hinge, operator);
-			var hingeManualNewCommand = new HingeManualNewCommand(hinge);
-			hinge.setDefaultCommand(hingeManualNewCommand);
+			HingeManualDashboardCommand hingeManualDashboardCommand = new HingeManualDashboardCommand(hinge);
+			hinge.setDefaultCommand(hingeManualDashboardCommand);
 
 			telescope = new Telescope();
 			telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
@@ -227,13 +225,13 @@ public class RobotContainer {
 		}
 	}
 
-    public void zeroTeliscopeCommand() {
-		if (telescope != null)
+	public void startupActions() {
+		if(telescope != null) {
 			new TelescopeZeroCommand(telescope).schedule();
-    }
+		}
 
-	public void zeroHingeCommand() {
-		if (this.hinge != null)
-			this.hinge.zero();
+		if(hinge != null) {
+			hinge.zero();
+		}
 	}
 }

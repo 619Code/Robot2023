@@ -10,45 +10,35 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
-public class HingeManualNewCommand extends CommandBase {
+public class HingeManualDashboardCommand extends CommandBase {
     private Hinge hinge;
 
     double hingeSpeed;
     double holdPosition;
 
-    GenericEntry targetPosition;
+    GenericEntry targetPositionEntry;
 
-    public HingeManualNewCommand(Hinge hinge) {
+    public HingeManualDashboardCommand(Hinge hinge) {
         this.hinge = hinge;
 
-        //if (targetPosition == null)
-            targetPosition = Crashboard.toDashboard("Manual Arm Target", 0, Constants.ARM_TAB);
+        targetPositionEntry = Crashboard.toDashboard("Manual Arm Target", 0, Constants.ARM_TAB);
 
         addRequirements(hinge);
     }
 
     @Override
     public void initialize() {
-
-        //targetPosition = Crashboard.toDashboard("Manual Arm Target", 0, Constants.ARM_TAB);
-
-        if (targetPosition != null)
-        {
-            holdPosition = targetPosition.getDouble(hinge.getPosition());
-        }
-        else
-        {
+        if (targetPositionEntry != null) {
+            holdPosition = targetPositionEntry.getDouble(hinge.getPosition());
+        } else {
             holdPosition = hinge.getPosition();
         }
     }
 
     @Override
     public void execute() {
-
-        this.holdPosition = Math.max(0, targetPosition.getDouble(0));
-        System.out.println("New Position: " + this.holdPosition);
-        //this.hinge.moveToPositionSparkPID(holdPosition);
-        this.hinge.moveToPositionSimple(this.holdPosition);
+        holdPosition = Math.max(0, targetPositionEntry.getDouble(0));
+        hinge.moveToPosition(this.holdPosition);
     }
 
     @Override
