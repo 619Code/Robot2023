@@ -81,6 +81,8 @@ public class Hinge extends SubsystemBase {
         hingeSpark = Crashboard.toDashboard("Hinge Spark", SparkErrorHelper.HasSensorError(hingeMotor), Constants.SPARKS_TAB);
         hingeSwitch = Crashboard.toDashboard("Hinge Switch", switchIsPressed(), Constants.STATUS_TAB);
         Crashboard.toDashboard("Hinge Amps", hingeMotor.getAppliedOutput(), Constants.ARM_TAB);
+
+        Crashboard.toDashboard("Hinge Angle", getAngle(), Constants.ARM_TAB);
     }
 
     public void move(double speed) {
@@ -111,7 +113,6 @@ public class Hinge extends SubsystemBase {
         }
 
         if(move) {
-            Crashboard.toDashboard("Arm True Speed", speed, Constants.ARM_TAB);
             hingeMotor.set(speed);
         } else {
             stop();
@@ -151,10 +152,6 @@ public class Hinge extends SubsystemBase {
         double speed = calculateSpeed(diff);
         double ff = calculateFF();
 
-        Crashboard.toDashboard("Angle", getAngle(), Constants.ARM_TAB);
-        Crashboard.toDashboard("FF Calculated Value", ff, Constants.ARM_TAB);
-        Crashboard.toDashboard("Speed Calculated Value", speed, Constants.ARM_TAB);
-
         if (Math.abs(diff) > Constants.SMALL_TOLERANCE) {
             if (diff > 0) {
                 move(speed + ff);
@@ -185,7 +182,6 @@ public class Hinge extends SubsystemBase {
     }
 
     public void stop() {
-        Crashboard.toDashboard("Arm True Speed", 0, Constants.ARM_TAB);
         hingeMotor.set(0);
     }
 

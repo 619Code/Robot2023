@@ -145,13 +145,13 @@ public class RobotContainer {
 	}
 
 	private void BindTests() {
-		armBindings();
+		/*armBindings();
 
 		Trigger grabButton = operator.leftBumper();
         grabButton.whileTrue(new GrabCommand(grabber));
 
 		Trigger releaseButton = operator.rightBumper();
-        releaseButton.whileTrue(new ReleaseCommand(grabber));
+        releaseButton.whileTrue(new ReleaseCommand(grabber));*/
 	}
 
 	public void armBindings() {
@@ -242,7 +242,7 @@ public class RobotContainer {
 
 	public void startupActions() {
 		if(telescope != null) {
-			new TelescopeZeroCommand(telescope).schedule();
+			//new TelescopeZeroCommand(telescope).schedule();
 		}
 
 		if(hinge != null) {
