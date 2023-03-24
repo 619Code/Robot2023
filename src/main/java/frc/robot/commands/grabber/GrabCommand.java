@@ -31,13 +31,22 @@ public class GrabCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if(!ending) {
+        /*if(!ending) {
             if(grabber.cubeSensed()) {
                 timeLimit = Constants.CUBE_TIMER;
                 endTimer.reset();
                 endTimer.start();
                 ending = true;
             } else if(grabber.coneSensed()) {
+                timeLimit = Constants.CONE_TIMER;
+                endTimer.reset();
+                endTimer.start();
+                ending = true;
+            }
+        }*/
+
+        if(!ending) { //UNDO
+            if(grabber.coneSensed()) {
                 timeLimit = Constants.CONE_TIMER;
                 endTimer.reset();
                 endTimer.start();

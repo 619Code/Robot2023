@@ -66,7 +66,7 @@ public class RobotContainer {
 
 	private boolean TurnOnGrabber = true;
 	private boolean TurnOnArm = true;
-	private boolean TurnOnDrive = false;
+	private boolean TurnOnDrive = true;
 	private boolean IsTesting = true;
 
 	private SendableChooser<String> autoOptions = new SendableChooser<String>();
@@ -101,12 +101,12 @@ public class RobotContainer {
 			hinge = new Hinge();
 			/*HingeManualDashboardCommand hingeManualDashboardCommand = new HingeManualDashboardCommand(hinge);
 			hinge.setDefaultCommand(hingeManualDashboardCommand);*/
-			// HoldHingeCommand holdHingeCommand = new HoldHingeCommand(hinge, true);
-			// hinge.setDefaultCommand(holdHingeCommand);
+			HoldHingeCommand holdHingeCommand = new HoldHingeCommand(hinge, true);
+			hinge.setDefaultCommand(holdHingeCommand);
 
 			telescope = new Telescope();
-			// telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
-			// telescope.setDefaultCommand(telescopeManualCommand);
+			telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
+			telescope.setDefaultCommand(telescopeManualCommand);
 
 			wrist = new Wrist();
 			holdWristCommand = new HoldWristCommand(wrist);
@@ -150,13 +150,11 @@ public class RobotContainer {
 
 		armBindings();
 
-		/*armBindings();
-
 		Trigger grabButton = operator.leftBumper();
         grabButton.whileTrue(new GrabCommand(grabber));
 
 		Trigger releaseButton = operator.rightBumper();
-        releaseButton.whileTrue(new ReleaseCommand(grabber));*/
+        releaseButton.whileTrue(new ReleaseCommand(grabber));
 	}
 
 	public void armBindings() {
@@ -184,7 +182,7 @@ public class RobotContainer {
                 ArmPositionHelper.currentPosition = goal;				
             }),
 			(new MoveArmMasterCommand(hinge, telescope, wrist, grabber, goal))
-			.until(ArmLogicAssistant::atWristPosition)
+			.until(ArmLogicAssistant::atAllPositions)
 			.withTimeout(Constants.ARM_MOVEMENT_TIMEOUT)
 		);
 	}
@@ -248,11 +246,12 @@ public class RobotContainer {
 	public void startupActions() {
 		if(telescope != null) {
 			//new TelescopeZeroCommand(telescope).schedule();
+			telescope.zero();
 		}
 
-		// if(hinge != null) {
-		// 	hinge.zero();
-		// }
+		if(hinge != null) {
+			hinge.zero();
+		}
 
 		if (this.wrist != null)
 		{

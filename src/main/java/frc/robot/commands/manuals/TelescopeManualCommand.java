@@ -26,7 +26,7 @@ public class TelescopeManualCommand extends CommandBase {
     public void execute() {
         telescopeSpeed = -controller.getRightY();
         if(Math.abs(telescopeSpeed) > Constants.JOYSTICK_DEADZONE) {
-            telescope.move(telescopeSpeed * Constants.TELESCOPE_SPEED, true);
+            telescope.move(telescopeSpeed * Constants.TELESCOPE_ZERO_SPEED, true);
         } else {
             telescope.stop();
         }

@@ -45,7 +45,7 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
             ArmPositionHelper.currentPosition = goal;
         }));
 
-        /*addCommands(new ConditionalCommand(
+        addCommands(new ConditionalCommand(
             new ParallelCommandGroup(
                 new SequentialCommandGroup(
                     new MoveHingeCommand(hinge, goal),
@@ -67,7 +67,7 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
                 )
             ),
             this::startIsEnd)
-        );*/
+        );
 
         //wrist commands - TODO: add at wrist position
         addCommands(new ConditionalCommand(
@@ -84,7 +84,7 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
         );
 
         //grabber commands
-        //addCommands(new HoldInCommand(grabber));
+        addCommands(new HoldInCommand(grabber));
 
         //information commands
         addCommands(new RunCommand(() -> Crashboard.toDashboard("At Hinge Position", ArmLogicAssistant.atHingePosition, Constants.ARM_TAB)));

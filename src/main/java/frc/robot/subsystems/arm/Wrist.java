@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -203,10 +204,10 @@ public class Wrist extends SubsystemBase {
             incrementGoal = getRelativePosition();
         } else {
             if(goal < getRelativePosition()) {
-                incrementGoal = getRelativePosition() - 4;
+                incrementGoal = getRelativePosition() - Constants.INCREMENT_VALUE;
                 incrementGoal = Math.max(incrementGoal, goal);
             } else {
-                incrementGoal = getRelativePosition() + 4;
+                incrementGoal = getRelativePosition() + Constants.INCREMENT_VALUE;
                 incrementGoal = Math.min(incrementGoal, goal);
             }
         }

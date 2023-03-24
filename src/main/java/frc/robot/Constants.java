@@ -137,6 +137,8 @@ public final class Constants {
     public static final double WRIST_ZERO_SPEED = 0.1;
     public static final double WRIST_P = 0.04;
 
+    public static final double INCREMENT_VALUE = 4;
+
     //Arm cases
     public static final double ARM_ADJUST_FACTOR = 1;
 
@@ -146,29 +148,29 @@ public final class Constants {
     public static final ArmPositionSide START_POSITION_SIDE = ArmPositionSide.FRONT;
 
     public static final double PICKUP_LOW_POSITION_HINGE = 0.5;
-    public static final double PICKUP_LOW_POSITION_TELESCOPE = 5.0;
-    public static final double PICKUP_LOW_POSITION_WRIST = 17.0;
+    public static final double PICKUP_LOW_POSITION_TELESCOPE = 14.0;
+    public static final double PICKUP_LOW_POSITION_WRIST = 20.0;
     public static final ArmPositionSide PICKUP_LOW_POSITION_SIDE = ArmPositionSide.FRONT;
 
-    public static final double PICKUP_HIGH_POSITION_HINGE = 19.5;
-    public static final double PICKUP_HIGH_POSITION_TELESCOPE = 20.0;
-    public static final double PICKUP_HIGH_POSITION_WRIST = 23.0;
+    public static final double PICKUP_HIGH_POSITION_HINGE = 20;
+    public static final double PICKUP_HIGH_POSITION_TELESCOPE = 66.0;
+    public static final double PICKUP_HIGH_POSITION_WRIST = 25.0;
     public static final ArmPositionSide PICKUP_HIGH_POSITION_SIDE = ArmPositionSide.FRONT;
 
-    public static final double CHUTE_POSITION_HINGE = 46.0;
-    public static final double CHUTE_POSITION_WRIST = 0.0;
-    public static final double CHUTE_POSITION_TELESCOPE = 0.0;
-    public static final ArmPositionSide CHUTE_POSITION_SIDE = ArmPositionSide.FRONT;
-
-    public static final double GRID_MID_POSITION_HINGE = 14.6;
+    public static final double GRID_MID_POSITION_HINGE = 13;
     public static final double GRID_MID_POSITION_TELESCOPE = 161.0;
-    public static final double GRID_MID_POSITION_WRIST = 14.4;
+    public static final double GRID_MID_POSITION_WRIST = 12;
     public static final ArmPositionSide GRID_MID_POSITION_SIDE = ArmPositionSide.FRONT;
 
     public static final double GRID_HIGH_POSITION_HINGE = 46.0;
     public static final double GRID_HIGH_POSITION_TELESCOPE = 72.0;
     public static final double GRID_HIGH_POSITION_WRIST = 0.0;
     public static final ArmPositionSide GRID_HIGH_POSITION_SIDE = ArmPositionSide.BACK;
+
+    public static final double CHUTE_POSITION_HINGE = 46.0;
+    public static final double CHUTE_POSITION_WRIST = 0.0;
+    public static final double CHUTE_POSITION_TELESCOPE = 0.0;
+    public static final ArmPositionSide CHUTE_POSITION_SIDE = ArmPositionSide.FRONT;
 
     //Limelight constants
     public static final int CENTER_PIPELINE = 0;
