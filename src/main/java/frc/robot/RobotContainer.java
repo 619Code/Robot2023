@@ -174,15 +174,13 @@ public class RobotContainer {
 	public Command moveArmMasterCommandFactory(ArmPosition goal) {
 		return new SequentialCommandGroup(
 			new InstantCommand(() -> {
-				Crashboard.toDashboard("Moving", true, Constants.ARM_TAB);
-			}),
-			new InstantCommand(() -> {
                 ArmPositionHelper.hingeAdjustment = 0;
                 ArmLogicAssistant.updatePositions(goal);
                 ArmPositionHelper.currentPosition = goal;				
             }),
-			(new MoveArmMasterCommand(hinge, telescope, wrist, grabber, goal)).until(ArmLogicAssistant::atBothPositions),
-			new InstantCommand(() -> Crashboard.toDashboard("Moving", false, Constants.ARM_TAB))
+			(new MoveArmMasterCommand(hinge, telescope, wrist, grabber, goal))
+			.until(ArmLogicAssistant::atBothPositions)
+			.withTimeout(Constants.ARM_MOVEMENT_TIMEOUT)
 		);
 	}
 

@@ -8,4 +8,5 @@ public class States {
     public static double ArmAngleInDegreesFromStart = 0;
     public static boolean hasCone = false;
     public static boolean hasCube = false;
+    public static boolean lightsAreYellow = true;
 }

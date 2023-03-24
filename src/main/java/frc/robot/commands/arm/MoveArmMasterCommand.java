@@ -59,16 +59,14 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
             new SequentialCommandGroup(
                 new ParallelDeadlineGroup(
                     new RetractTelescopeCommand(telescope),
-                    new HoldHingeCommand(hinge, false),
-                    new RunCommand(() -> Crashboard.toDashboard("Retracting", true, Constants.ARM_TAB))
+                    new HoldHingeCommand(hinge, false)
                 ),
                 new ParallelCommandGroup(
                     new SequentialCommandGroup(
                         new MoveHingeCommand(hinge, goal),
                         new HoldHingeCommand(hinge, true)
                     ),
-                    new MoveTelescopeCommand(telescope, goal),
-                    new RunCommand(() -> Crashboard.toDashboard("Retracting", false, Constants.ARM_TAB))
+                    new MoveTelescopeCommand(telescope, goal)
                 )
             ),
 
@@ -90,7 +88,7 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
         }*/
 
         //grabber commands
-        //addCommands(new HoldInCommand(grabber));
+        addCommands(new HoldInCommand(grabber));
     }
 
     public boolean startIsEnd() {

@@ -110,12 +110,15 @@ public final class Constants {
     public static final double DEGREES_PER_TICK = 90.0 / (Constants.UP_POSITION - Constants.FRONT_HORIZONTAL_POSITION);
     public static final double BASE_ANGLE = -21.3;
 
+    public static final double ARM_MOVEMENT_TIMEOUT = 20.0;
+
     //Telescope constants
     public static final double TELESCOPE_CONTRACTED_SWITCH_POSITION = 0.0;
     public static final double TELESCOPE_EXTENDED_SWITCH_POSITION = 184;
     public static final double EXTENSION_TOLERANCE = 5.0;
     public static final double MIN_TELESCOPE_EXTENSION = 0;
     public static final double MAX_TELESCOPE_EXTENSION = TELESCOPE_EXTENDED_SWITCH_POSITION - EXTENSION_TOLERANCE;
+    public static final double TELESCOPE_SLOWDOWN_ZONE = 10;
 
     public static final double TELESCOPE_SPEED = 0.8; //0.9
     public static final double TELESCOPE_ZERO_SPEED = 0.2;
