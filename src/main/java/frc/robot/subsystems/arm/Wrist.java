@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.States;
 import frc.robot.helpers.Crashboard;
 
 public class Wrist extends SubsystemBase {
@@ -20,16 +21,18 @@ public class Wrist extends SubsystemBase {
     private RelativeEncoder wristRelativeEncoder;
     private GenericEntry pEntry;
 
+    double baseAngleRelativeToEndOfArm = 90;
     private double ninetyDegreesPosition = 0;
     private double zeroDegreesPosition = 13.905;
     private double closePosition = 6;
-    private double slowSpeed = .12;
-    private double ffBaseValue = .05;
+    //private double slowSpeed = .12;
+    //private double ffBaseValue = .05;
     private double maxSpeed = .15; 
     private double tolerance = .5;
-    private GenericEntry ffEntry;
+    private GenericEntry maxFFEntry;
     private GenericEntry maxSpeedEntry;
-    private GenericEntry slowSpeedEntry;
+    //private GenericEntry slowSpeedEntry;
+    private double maxFF = .1;
 
     public Wrist() {
         wristMotor = new CANSparkMax(Constants.WRIST_MOTOR, MotorType.kBrushless);
@@ -41,9 +44,8 @@ public class Wrist extends SubsystemBase {
         wristAbsoluteEncoder = new DutyCycleEncoder(Constants.WRIST_ABSOLUTE_ENCODER);
         wristRelativeEncoder = wristMotor.getEncoder();
 
-        ffEntry = Crashboard.toDashboard("Wrist FF Base Value", ffBaseValue, Constants.ARM_TAB);
-        maxSpeedEntry = Crashboard.toDashboard("Wrist Slow Value", slowSpeed, Constants.ARM_TAB);
-        slowSpeedEntry = Crashboard.toDashboard("Wrist Max Value", maxSpeed, Constants.ARM_TAB);
+        maxFFEntry = Crashboard.toDashboard("Wrist FF Base Value", maxFF, Constants.ARM_TAB);
+        maxSpeedEntry = Crashboard.toDashboard("Wrist Max Value", maxSpeed, Constants.ARM_TAB);
         zero();
     }
     
@@ -51,9 +53,8 @@ public class Wrist extends SubsystemBase {
     public void periodic() {
         Crashboard.toDashboard("Wrist Absolute Position", getAbsolutePosition(), Constants.ARM_TAB);
         Crashboard.toDashboard("Wrist Relative Position", getRelativePosition(), Constants.ARM_TAB);
-        //this.ffBaseValue = ffEntry.getDouble(ffBaseValue);
-        this.maxSpeed = maxSpeedEntry.getDouble(maxSpeed);
-        this.slowSpeed = slowSpeedEntry.getDouble(slowSpeed);
+        //maxFF = this.maxFFEntry.getDouble(maxFF);
+        //maxSpeed = maxSpeedEntry.getDouble(maxSpeed);
     }
 
     public void move(double speed) {
@@ -80,84 +81,69 @@ public class Wrist extends SubsystemBase {
         }
     }
 
-    //boolean return says if it's at that position
-    public boolean moveToPosition(double goal) {
-
-        goal = Math.min(goal,Constants.MAX_WRIST_POSITION);
-        goal = Math.max(goal,Constants.MIN_WRIST_POSITION);
-
-        if(Math.abs(getRelativePosition() - goal) < 1) {
-            return true;
-        }
-
-        double wristP = Constants.WRIST_P;
-        if (pEntry != null)
-            wristP = pEntry.getDouble(wristP);
-
-
-        double speed = Math.abs(getRelativePosition() - goal) * wristP; //proportional control
-        speed = Math.min(speed, Constants.WRIST_SPEED);
-        
-        if(getRelativePosition() < goal) {
-            move(speed);
-        } else {
-            move(-speed);
-        }
-        
-        return false;
-    }
-
     protected double calculateSpeed(double diff)
     {
-
+        double pValue = .02;
         double speed = 0;
         if (Math.abs(diff) <= this.closePosition)
         {
-            speed = slowSpeed * diff * .05 ;
+            speed = diff * pValue ;
         }
         else
         {
             speed = maxSpeed;
         }
 
-        // if (diff > 0)
-        //     speed = speed / 2;
-
-        return speed;
+        return speed * this.getDirectionalSpeedMultiplier();
     }
 
-    // Calculate FF based on side, length, and angle of arm
-    public double calculateFF() {
+    // speed and ff will always be opposit of each other
+    public double getDirectionalSpeedMultiplier() {
+        return -getDirectionalFFMultiplier();
+    }
 
-        // double angleForCalc = 0.0;
-        
-        // angleForCalc = Math.abs(this.getAngle());
-        
+    public double getDirectionalFFMultiplier() {
+        double directionalValue;
+        double currentAngleRelativeToGround = this.getFFAngleForCalculating();
 
-        // // Not using this yet
-        // var angleFactor = (Math.abs(Math.cos(angleForCalc) * 8) * ffBaseValue);
-        
-        // var ff = (ffBaseValue * angleFactor) + .001; 
-        
-        //Crashboard.toDashboard("FF Wrist Calculated Value", ff, Constants.ARM_TAB);
-        
-        if (this.getAngle() > 91)
-            return .025;
-        if (this.getAngle() > 85)
-            return -.015;
-        if (this.getAngle() > 75)
-            return -.04;
+        // If our angle is over 90 then our ff flips and becomes positive otherwise
+        //  the ff is going to be negative to hold up the grabber
+        if (currentAngleRelativeToGround > 90 && currentAngleRelativeToGround < 180)
+        {
+            directionalValue = 1;
+        }
         else
-            return -.10;
+        {
+            directionalValue = -1;
+        }
+        return directionalValue;
+    }
+
+    // Calculate ff taking into account the the angle of the grabber in respect to the 
+    //  ground
+    public double calculateFF() {
+        return Math.abs(Math.cos(Math.toRadians(this.getFFAngleForCalculating()))) * this.getDirectionalFFMultiplier() * maxFF;
+        // if (this.getAngle() > 91)
+        //     return .025;
+        // if (this.getAngle() > 85)
+        //     return -.015;
+        // if (this.getAngle() > 75)
+        //     return -.04;
+        // else
+        //     return -.10;
         
         //return Math.abs(ff);
     }
 
+    // Gets the angle from the ground taking into account the arm angle in addition to 
+    //  the wrist
+    public double getFFAngleForCalculating() {
+        return States.ArmAngleInDegreesFromStart + this.getAngle();
+    }
+
     public double getAngle() {
 
-        double baseAngle = 90;
-
-        double degreesPerTick = 90/zeroDegreesPosition;
+        double degreesPerTick = baseAngleRelativeToEndOfArm/zeroDegreesPosition;
 
         if (this.getRelativePosition() >= zeroDegreesPosition )
         {
@@ -165,18 +151,23 @@ public class Wrist extends SubsystemBase {
         }
         else
         {
-            return baseAngle - (this.getRelativePosition() * degreesPerTick);
+            return baseAngleRelativeToEndOfArm - (this.getRelativePosition() * degreesPerTick);
         }
     }
 
-      //Front to Back is at 35
     public boolean moveToPositionSimple(double goal) {
 
-        goal = Math.min(goal,Constants.MAX_HINGE_POSITION);
-        goal = Math.max(goal,Constants.MIN_HINGE_POSITION);
+        goal = Math.min(goal,Constants.MAX_WRIST_POSITION);
+        goal = Math.max(goal,Constants.MIN_WRIST_POSITION);
 
         double diff = goal - this.getRelativePosition();
+
+        // speed could be positive or negative depending 
+        //  on where the arm is
         double speed = calculateSpeed(diff);
+
+        // ff could be positive or negative depending
+        //  on where the arm is
         double ff = calculateFF();
 
         if (Math.abs(diff) > this.tolerance )
@@ -187,19 +178,22 @@ public class Wrist extends SubsystemBase {
             }
             else
             {
-                if (this.getAngle() > 75 && this.getAngle() < 90)
-                    this.move((ff - speed)*1.10);
-                else
-                    this.move(ff - speed, false );
+                // commenting out to get a decent baseline for new code changes
+                //  the following commented code was put in to overcome a power
+                //  hump
+                //if (this.getAngle() > 75 && this.getAngle() < 90)
+                //    this.move((ff - speed)*1.10);
+                //else
+                this.move(ff - speed, false );
             }
             return false;
         }
         else
         {
+            // Move at the ff rate
             this.move(ff);
             return true;
         }
-
     }
 
     public void stop() {

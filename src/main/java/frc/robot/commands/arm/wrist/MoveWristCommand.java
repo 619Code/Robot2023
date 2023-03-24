@@ -25,7 +25,7 @@ public class MoveWristCommand extends CommandBase {
 
     @Override
     public void execute() {
-        ArmLogicAssistant.atWristPosition = wrist.moveToPosition(wristGoal);
+        ArmLogicAssistant.atWristPosition = wrist.moveToPositionSimple(wristGoal);
     }
 
     @Override

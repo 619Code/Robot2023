@@ -24,7 +24,7 @@ public class HoldWristCommand extends CommandBase {
     public void execute() {
         currentPosition = ArmPositionHelper.currentPosition;
         wristGoal = ArmPositionHelper.fetchWristValue(currentPosition);
-        wrist.moveToPosition(wristGoal);
+        wrist.moveToPositionSimple(wristGoal);
     }
 
     @Override
