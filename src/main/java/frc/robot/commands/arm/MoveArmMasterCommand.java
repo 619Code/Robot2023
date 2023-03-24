@@ -39,6 +39,11 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
         this.grabber = grabber;
         this.goal = goal;
 
+        addCommands(new InstantCommand(() -> {
+            ArmPositionHelper.hingeAdjustment = 0;
+            ArmLogicAssistant.updatePositions(goal);
+            ArmPositionHelper.currentPosition = goal;
+        }));
         addCommands(new RunCommand(() -> Crashboard.toDashboard("At Hinge Position", ArmLogicAssistant.atHingePosition, Constants.ARM_TAB)));
         addCommands(new RunCommand(() -> Crashboard.toDashboard("At Telescope Position", ArmLogicAssistant.atTelescopePosition, Constants.ARM_TAB)));
 

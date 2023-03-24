@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.States;
@@ -44,17 +45,20 @@ public class Wrist extends SubsystemBase {
         wristAbsoluteEncoder = new DutyCycleEncoder(Constants.WRIST_ABSOLUTE_ENCODER);
         wristRelativeEncoder = wristMotor.getEncoder();
 
-        maxFFEntry = Crashboard.toDashboard("Wrist FF Base Value", maxFF, Constants.ARM_TAB);
-        maxSpeedEntry = Crashboard.toDashboard("Wrist Max Value", maxSpeed, Constants.ARM_TAB);
+        maxFFEntry = Crashboard.toDashboard("Wrist FF Base Value", maxFF, Constants.WRIST_TAB);
+        maxSpeedEntry = Crashboard.toDashboard("Wrist Max Value", maxSpeed, Constants.WRIST_TAB);
         zero();
     }
     
 
     public void periodic() {
-        Crashboard.toDashboard("Wrist Absolute Position", getAbsolutePosition(), Constants.ARM_TAB);
-        Crashboard.toDashboard("Wrist Relative Position", getRelativePosition(), Constants.ARM_TAB);
+        Crashboard.toDashboard("Wrist Absolute Position", getAbsolutePosition(), Constants.WRIST_TAB);
+        Crashboard.toDashboard("Wrist Relative Position", getRelativePosition(), Constants.WRIST_TAB);
+        Crashboard.toDashboard("Wrist Motor Speed", this.wristMotor.get(), Constants.WRIST_TAB);
+        Crashboard.toDashboard("Wrist V", wristRelativeEncoder.getVelocity(), Constants.WRIST_TAB);
         //maxFF = this.maxFFEntry.getDouble(maxFF);
         //maxSpeed = maxSpeedEntry.getDouble(maxSpeed);
+        //this.TempDashbaord();
     }
 
     public void move(double speed) {
@@ -63,6 +67,7 @@ public class Wrist extends SubsystemBase {
 
     public void move(double speed, boolean zeroing) {
         boolean move = true;
+        Crashboard.toDashboard("Wrist Attempted Power", speed, Constants.WRIST_TAB);
 
         if(speed > 0) {
             if(!zeroing && getRelativePosition() > Constants.MAX_WRIST_POSITION) {
@@ -74,28 +79,30 @@ public class Wrist extends SubsystemBase {
             }
         }
 
-        if(move) {
-            Crashboard.toDashboard("Wrist Speed", speed, Constants.ARM_TAB);
+
+
+        if(move) {            
             wristMotor.set(speed);
-            System.out.println("Wrist Speed: " + wristMotor.get());
         }
+            
     }
 
     protected double calculateSpeed(double diff)
     {
         double pValue = .02;
         double speed = 0;
-        if (Math.abs(diff) <= this.closePosition)
+        //if (Math.abs(diff) <= this.closePosition)
         {
             // Never want the speed to over the max
             speed = Math.min(maxSpeed, diff * pValue);
         }
-        else
-        {
-            speed = maxSpeed;
-        }
+        // else
+        // {
+        //     speed = maxSpeed;
+        // }
 
-        return speed * this.getDirectionalSpeedMultiplier();
+        return speed; 
+        //* this.getDirectionalSpeedMultiplier();
     }
 
     // speed and ff will always be opposit of each other
@@ -156,20 +163,43 @@ public class Wrist extends SubsystemBase {
         }
     }
 
+    public void CalculateStuff(double goal) {
+        
+        Crashboard.toDashboard("Verified Target Value", goal, Constants.WRIST_TAB);
+        goal = Math.min(goal,Constants.MAX_WRIST_POSITION);
+        goal = Math.max(goal,Constants.MIN_WRIST_POSITION);
+
+        double diff = goal - this.getRelativePosition();
+        Crashboard.toDashboard("Wrist Diff", diff, Constants.WRIST_TAB);
+
+        // speed could be positive or negative depending 
+        //  on where the arm is
+        double speed = calculateSpeed(diff);
+        Crashboard.toDashboard("Wrist Calculated Speed", speed, Constants.WRIST_TAB);
+
+        // ff could be positive or negative depending
+        //  on where the arm is
+        double ff = calculateFF();
+        Crashboard.toDashboard("Wrist Calculated FF", ff, Constants.WRIST_TAB);
+    }
+
     public boolean moveToPositionSimple(double goal) {
 
         goal = Math.min(goal,Constants.MAX_WRIST_POSITION);
         goal = Math.max(goal,Constants.MIN_WRIST_POSITION);
 
         double diff = goal - this.getRelativePosition();
+        Crashboard.toDashboard("Wrist Diff", diff, Constants.WRIST_TAB);
 
         // speed could be positive or negative depending 
         //  on where the arm is
         double speed = calculateSpeed(diff);
+        Crashboard.toDashboard("Wrist Calculated Speed", speed, Constants.WRIST_TAB);
 
         // ff could be positive or negative depending
         //  on where the arm is
         double ff = calculateFF();
+        Crashboard.toDashboard("Wrist Calculated FF", ff, Constants.WRIST_TAB);
 
         if (Math.abs(diff) > this.tolerance )
         {

@@ -22,7 +22,7 @@ public class WristManualDashboardCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        targetPositionEntry = Crashboard.toDashboard("Manual Wrist Target", 0, Constants.ARM_TAB);
+        targetPositionEntry = Crashboard.toDashboard("Manual Wrist Target", 0, Constants.WRIST_TAB);
 
         if (targetPositionEntry != null) {
             targetPosition = targetPositionEntry.getDouble(this.wrist.getRelativePosition());
@@ -34,7 +34,8 @@ public class WristManualDashboardCommand extends CommandBase {
     @Override
     public void execute() {
         targetPosition = targetPositionEntry.getDouble(this.wrist.getRelativePosition());
-        wrist.moveToPositionSimple(targetPosition);
+        //wrist.moveToPositionSimple(targetPosition);
+        wrist.CalculateStuff(targetPosition);
 
         //Crashboard.toDashboard("Wrist Angle", wrist.getAngle(), Constants.ARM_TAB);
         //System.out.println("Wrist Angle: " + wrist.getAngle());
