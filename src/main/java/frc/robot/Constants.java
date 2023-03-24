@@ -118,6 +118,7 @@ public final class Constants {
     public static final double EXTENSION_TOLERANCE = 5.0;
     public static final double MIN_TELESCOPE_EXTENSION = 0;
     public static final double MAX_TELESCOPE_EXTENSION = TELESCOPE_EXTENDED_SWITCH_POSITION - EXTENSION_TOLERANCE;
+    public static final double TELESCOPE_SLOWDOWN_ZONE = 10;
 
     public static final double TELESCOPE_SPEED = 0.8; //0.9
     public static final double TELESCOPE_ZERO_SPEED = 0.2;

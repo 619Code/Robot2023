@@ -76,6 +76,9 @@ public class Telescope extends SubsystemBase {
             if(!zeroing && getPosition() < Constants.MIN_TELESCOPE_EXTENSION) {
                 stop(); move = false;
             }
+            if(!zeroing && getPosition() < Constants.TELESCOPE_SLOWDOWN_ZONE) {
+                speed = -Math.min(Constants.TELESCOPE_ZERO_SPEED, -speed);
+            }
         }
 
         if(move) {
