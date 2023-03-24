@@ -79,7 +79,7 @@ public class Hinge extends SubsystemBase {
 
         States.ArmAngleInDegrees = this.getAngle();
         States.ArmAngleInDegreesFromStart = this.getPosition() * Constants.DEGREES_PER_TICK;
-
+        Crashboard.toDashboard("Hinge Angle", getAngle(), Constants.WRIST_TAB);
         Crashboard.toDashboard("Hinge Position", getPosition(), Constants.ARM_TAB);
         hingeSpark = Crashboard.toDashboard("Hinge Spark", SparkErrorHelper.HasSensorError(hingeMotor), Constants.SPARKS_TAB);
         hingeSwitch = Crashboard.toDashboard("Hinge Switch", switchIsPressed(), Constants.STATUS_TAB);

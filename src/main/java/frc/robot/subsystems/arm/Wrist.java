@@ -22,13 +22,13 @@ public class Wrist extends SubsystemBase {
     private RelativeEncoder wristRelativeEncoder;
     private GenericEntry pEntry;
 
-    double baseAngleRelativeToEndOfArm = 95;
-    private double ninetyDegreesPosition = 0;
-    private double zeroDegreesPosition = 13.905;
+    double baseAngleRelativeToEndOfArm = 95.06;
+    private double ninetyDegreesPosition = 4.428;
+    private double zeroDegreesPosition = 19.4;
     private double closePosition = 6;
     //private double slowSpeed = .12;
     //private double ffBaseValue = .05;
-    private double maxSpeed = .15; 
+    private double maxSpeed = .1; 
     private double tolerance = .5;
     private GenericEntry maxFFEntry;
     private GenericEntry maxSpeedEntry;
@@ -56,6 +56,8 @@ public class Wrist extends SubsystemBase {
         Crashboard.toDashboard("Wrist Relative Position", getRelativePosition(), Constants.WRIST_TAB);
         Crashboard.toDashboard("Wrist Motor Speed", this.wristMotor.get(), Constants.WRIST_TAB);
         Crashboard.toDashboard("Wrist V", wristRelativeEncoder.getVelocity(), Constants.WRIST_TAB);
+        Crashboard.toDashboard("Wrist Angle", this.getAngle(), Constants.WRIST_TAB);
+        Crashboard.toDashboard("FF Angle", this.getFFAngleForCalculating(), Constants.WRIST_TAB);
         maxFF = this.maxFFEntry.getDouble(maxFF);
         //maxSpeed = maxSpeedEntry.getDouble(maxSpeed);
         //this.TempDashbaord();
@@ -95,7 +97,14 @@ public class Wrist extends SubsystemBase {
         {
             // Never want the speed to over the max
             speed = Math.min(maxSpeed, Math.abs(diff) * pValue);
+
         }
+
+        // if (Math.abs(this.wristRelativeEncoder.getVelocity()) > 100)
+        // {
+        //     speed = 0;
+        // }
+
         // else
         // {
         //     speed = maxSpeed;
@@ -205,6 +214,7 @@ public class Wrist extends SubsystemBase {
             if (diff > 0)
             {
                 this.move(ff + speed, false);
+                //this.move(ff);
             }
             else
             {
@@ -215,6 +225,7 @@ public class Wrist extends SubsystemBase {
                 //    this.move((ff - speed)*1.10);
                 //else
                 this.move(ff - speed, false );
+                //this.move(ff);
             }
             return false;
         }

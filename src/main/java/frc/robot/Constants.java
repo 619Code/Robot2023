@@ -105,10 +105,10 @@ public final class Constants {
     public static final double BIG_TOLERANCE = 1.5;
     public static final double CLOSE_POSITION = 6;
 
-    public static final double UP_POSITION = 35.09;
-    public static final double FRONT_HORIZONTAL_POSITION = 8.09;
+    public static final double UP_POSITION = 32.4;
+    public static final double FRONT_HORIZONTAL_POSITION = 6.2;
     public static final double DEGREES_PER_TICK = 90.0 / (Constants.UP_POSITION - Constants.FRONT_HORIZONTAL_POSITION);
-    public static final double BASE_ANGLE = -30;
+    public static final double BASE_ANGLE = -21.3;
 
     //Telescope constants
     public static final double TELESCOPE_CONTRACTED_SWITCH_POSITION = 0.0;

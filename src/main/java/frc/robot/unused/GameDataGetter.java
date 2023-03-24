@@ -23,11 +23,11 @@ public class GameDataGetter {
                     }
                     return gameData.charAt(0);
                 default :
-                    System.out.println("Alliance Not Found");
+                    //System.out.println("Alliance Not Found");
                     return '#';
             }
         } else {
-            System.out.println("Alliance Not Found");
+            //System.out.println("Alliance Not Found");
             return '#';
         }
     }

@@ -27,7 +27,7 @@ public class AutoCommandSwitcher {
         chooser.setDefaultOption("TEst", "test");
 
         //autoChooser = Crashboard.toDashboard("Chosen Auto", chooser, Constants.COMPETITON_TAB, BuiltInWidgets.kComboBoxChooser);
-        System.out.println("your mother");
+        //System.out.println("your mother");
     }
 
     public static Command getAutoCommand() {
