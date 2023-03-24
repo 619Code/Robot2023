@@ -19,8 +19,9 @@ import frc.robot.commands.manuals.HingeManualCommand;
 import frc.robot.commands.manuals.HingeManualDashboardCommand;
 import frc.robot.commands.manuals.TelescopeManualCommand;
 import frc.robot.commands.manuals.WristManualCommand;
-import frc.robot.commands.manuals.WristManualNewCommand;
+import frc.robot.commands.manuals.WristManualDashboardCommand;
 import frc.robot.helpers.ArmLogicAssistant;
+import frc.robot.helpers.ArmPositionHelper;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.ArmPosition;
 import frc.robot.helpers.enums.AutoOption;
@@ -98,8 +99,10 @@ public class RobotContainer {
 
 		if (TurnOnArm) {
 			hinge = new Hinge();
-			HingeManualDashboardCommand hingeManualDashboardCommand = new HingeManualDashboardCommand(hinge);
-			hinge.setDefaultCommand(hingeManualDashboardCommand);
+			/*HingeManualDashboardCommand hingeManualDashboardCommand = new HingeManualDashboardCommand(hinge);
+			hinge.setDefaultCommand(hingeManualDashboardCommand);*/
+			HoldHingeCommand holdHingeCommand = new HoldHingeCommand(hinge, true);
+			hinge.setDefaultCommand(holdHingeCommand);
 
 			telescope = new Telescope();
 			telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
@@ -110,8 +113,8 @@ public class RobotContainer {
 			wrist.setDefaultCommand(holdWristCommand);*/
 			//WristManualCommand wristManualCommand = new WristManualCommand(wrist, driver);
 			//var wristManualCommand = new WristManualNewCommand(wrist);
-			var wristManualNewCommand = new WristManualNewCommand(wrist);
-			wrist.setDefaultCommand(wristManualNewCommand);
+			/*WristManualDashboardCommand wristManualDashboardCommand = new WristManualDashboardCommand(wrist);
+			wrist.setDefaultCommand(wristManualDashboardCommand);*/
 		}
 
 		configureBindings();
@@ -168,8 +171,17 @@ public class RobotContainer {
 		placeHighButton.onTrue(moveArmMasterCommandFactory(ArmPosition.GRID_HIGH));
 	}
 
-	public Command moveArmMasterCommandFactory(ArmPosition position) {
-		return (new MoveArmMasterCommand(hinge, telescope, wrist, grabber, position)).until(ArmLogicAssistant::atBothPositions); //.until(ArmLogicAssistant::atBothPositions); //UNDO
+	public Command moveArmMasterCommandFactory(ArmPosition goal) {
+		return new SequentialCommandGroup(
+			new InstantCommand(() -> Crashboard.toDashboard("Moving", true, Constants.ARM_TAB)),
+			new InstantCommand(() -> {
+                ArmPositionHelper.hingeAdjustment = 0;
+                ArmLogicAssistant.updatePositions(goal);
+                ArmPositionHelper.currentPosition = goal;
+            }),
+			(new MoveArmMasterCommand(hinge, telescope, wrist, grabber, goal)).until(ArmLogicAssistant::atBothPositions),
+			new InstantCommand(() -> Crashboard.toDashboard("Moving", false, Constants.ARM_TAB))
+		);
 	}
 
 	public void grabberBindings() {

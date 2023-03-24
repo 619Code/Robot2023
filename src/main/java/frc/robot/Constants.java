@@ -95,13 +95,14 @@ public final class Constants {
     public static final double MIN_HINGE_POSITION = 0.0;
     public static final double MAX_HINGE_POSITION = 57.0;
 
-    public static final double HINGE_MAX_SPEED = 0.3; //0.4
+    public static final double HINGE_MAX_SPEED = 0.4; //0.4
     public static final double HINGE_SLOW_SPEED = 0.075;
     public static final double HINGE_ZERO_SPEED = 0.1;
 
     public static final double HINGE_P = 0.05;
-    public static final double HINGE_FF = 0.003; 
-    public static final double TOLERANCE = 0.5;
+    public static final double HINGE_FF = 0.004; 
+    public static final double SMALL_TOLERANCE = 0.5;
+    public static final double BIG_TOLERANCE = 1.5;
     public static final double CLOSE_POSITION = 6;
 
     public static final double UP_POSITION = 35.09;
@@ -116,7 +117,7 @@ public final class Constants {
     public static final double MIN_TELESCOPE_EXTENSION = 0;
     public static final double MAX_TELESCOPE_EXTENSION = TELESCOPE_EXTENDED_SWITCH_POSITION - EXTENSION_TOLERANCE;
 
-    public static final double TELESCOPE_SPEED = 0.4; //0.9
+    public static final double TELESCOPE_SPEED = 0.8; //0.9
     public static final double TELESCOPE_ZERO_SPEED = 0.2;
     public static final double TELESCOPE_P = 0.04;
 
@@ -136,12 +137,12 @@ public final class Constants {
     //Arm cases
     public static final double ARM_ADJUST_FACTOR = 1;
 
-    public static final double START_POSITION_HINGE = 1.0;
+    public static final double START_POSITION_HINGE = 0.5;
     public static final double START_POSITION_TELESCOPE = 0.0;
     public static final double START_POSITION_WRIST = 17.0;
     public static final ArmPositionSide START_POSITION_SIDE = ArmPositionSide.FRONT;
 
-    public static final double PICKUP_LOW_POSITION_HINGE = 0;
+    public static final double PICKUP_LOW_POSITION_HINGE = 0.5;
     public static final double PICKUP_LOW_POSITION_TELESCOPE = 5.0;
     public static final double PICKUP_LOW_POSITION_WRIST = 0.0;
     public static final ArmPositionSide PICKUP_LOW_POSITION_SIDE = ArmPositionSide.FRONT;

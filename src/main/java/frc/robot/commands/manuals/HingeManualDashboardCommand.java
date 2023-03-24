@@ -21,13 +21,13 @@ public class HingeManualDashboardCommand extends CommandBase {
     public HingeManualDashboardCommand(Hinge hinge) {
         this.hinge = hinge;
 
-        targetPositionEntry = Crashboard.toDashboard("Manual Arm Target", 0, Constants.ARM_TAB);
-
         addRequirements(hinge);
     }
 
     @Override
     public void initialize() {
+        targetPositionEntry = Crashboard.toDashboard("Manual Arm Target", 0, Constants.ARM_TAB);
+        
         if (targetPositionEntry != null) {
             holdPosition = targetPositionEntry.getDouble(hinge.getPosition());
         } else {

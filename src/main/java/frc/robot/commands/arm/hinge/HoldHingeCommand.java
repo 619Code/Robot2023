@@ -1,6 +1,7 @@
 package frc.robot.commands.arm.hinge;
 
 import frc.robot.Constants;
+import frc.robot.helpers.ArmLogicAssistant;
 import frc.robot.helpers.ArmPositionHelper;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.ArmPosition;
@@ -11,11 +12,14 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class HoldHingeCommand extends CommandBase {
     private Hinge hinge;
-    private ArmPosition currentPosition;
+    private ArmPosition goalPosition;
     private double hingeGoal;
 
-    public HoldHingeCommand(Hinge hinge) {
+    private boolean holdAtCurrent;
+
+    public HoldHingeCommand(Hinge hinge, boolean holdAtCurrent) {
         this.hinge = hinge;
+        this.holdAtCurrent = holdAtCurrent;
 
         addRequirements(hinge);
     }
@@ -26,8 +30,13 @@ public class HoldHingeCommand extends CommandBase {
 
     @Override
     public void execute() {
-        currentPosition = ArmPositionHelper.currentPosition;
-        hingeGoal = ArmPositionHelper.fetchHingeValue(currentPosition) + ArmPositionHelper.hingeAdjustment;
+        if(holdAtCurrent){
+            goalPosition = ArmPositionHelper.currentPosition;
+        } else {
+            goalPosition = ArmLogicAssistant.startPosition;
+        }
+
+        hingeGoal = ArmPositionHelper.fetchHingeValue(goalPosition) + ArmPositionHelper.hingeAdjustment;
         Crashboard.toDashboard("Hinge Adjustment", ArmPositionHelper.hingeAdjustment, Constants.ARM_TAB);
         hinge.moveToPosition(hingeGoal);
     }

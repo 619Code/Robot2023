@@ -31,7 +31,7 @@ public class Hinge extends SubsystemBase {
     private double slowSpeed = Constants.SLOW_MODE_SPEED;
     private double maxSpeed = Constants.HINGE_MAX_SPEED;
     private double ffBaseValue = Constants.HINGE_FF;
-    private double tolerance = Constants.TOLERANCE;
+    private double tolerance = Constants.BIG_TOLERANCE;
     private double closePosition = Constants.CLOSE_POSITION;
 
     private GenericEntry toleranceEntry;
@@ -99,19 +99,22 @@ public class Hinge extends SubsystemBase {
 
         if(speed > 0) {
             if(!zeroing && getPosition() > Constants.MAX_HINGE_POSITION) {
-                stop(); move = false;
+                move = false;
             }
         } else if(speed < 0) {
             /*if(switchIsPressed()) { //UNDO
                 stop(); move = false;
             }*/
             if(!zeroing && getPosition() <= Constants.MIN_HINGE_POSITION) {
-                stop(); move = false;
+                move = false;
             }
         }
 
         if(move) {
+            Crashboard.toDashboard("Arm True Speed", speed, Constants.ARM_TAB);
             hingeMotor.set(speed);
+        } else {
+            stop();
         }
     }
 
@@ -128,12 +131,9 @@ public class Hinge extends SubsystemBase {
     public double calculateFF() {
         double angleFactor = Math.cos(Math.toRadians(getAngle()));
         double ff = Math.abs(ffBaseValue * (States.ArmLength * angleFactor)); 
-        
-        Crashboard.toDashboard("Angle", getAngle(), Constants.ARM_TAB);
-        Crashboard.toDashboard("FF Calculated Value", ff, Constants.ARM_TAB);
 
         //invert feedforward based on side
-        if (getPosition() > Constants.UP_POSITION + 3) //invert feedforward if we're in the back
+        if (getPosition() > Constants.UP_POSITION) //invert feedforward if we're in the back
             return ff * -1;
         else
             return ff;
@@ -151,15 +151,23 @@ public class Hinge extends SubsystemBase {
         double speed = calculateSpeed(diff);
         double ff = calculateFF();
 
-        if (Math.abs(diff) > tolerance ) {
+        Crashboard.toDashboard("Angle", getAngle(), Constants.ARM_TAB);
+        Crashboard.toDashboard("FF Calculated Value", ff, Constants.ARM_TAB);
+        Crashboard.toDashboard("Speed Calculated Value", speed, Constants.ARM_TAB);
+
+        if (Math.abs(diff) > Constants.SMALL_TOLERANCE) {
             if (diff > 0) {
-                move(speed + ff, false);
+                move(speed + ff);
             } else {
                 move(-speed + ff);
             }
-            return false;
         } else {
             move(ff);
+        }
+
+        if(Math.abs(diff) > Constants.BIG_TOLERANCE) {
+            return false;
+        } else {
             return true;
         }
     }
@@ -177,6 +185,7 @@ public class Hinge extends SubsystemBase {
     }
 
     public void stop() {
+        Crashboard.toDashboard("Arm True Speed", 0, Constants.ARM_TAB);
         hingeMotor.set(0);
     }
 

@@ -19,7 +19,7 @@ public class HingeAdjustCommand extends CommandBase {
         this.hinge = hinge;
         this.controller = controller;
 
-        myHoldCommand = new HoldHingeCommand(hinge);
+        myHoldCommand = new HoldHingeCommand(hinge,true);
 
         addRequirements(hinge);
     }

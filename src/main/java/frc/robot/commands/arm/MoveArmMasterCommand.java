@@ -3,6 +3,7 @@ package frc.robot.commands.arm;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -29,32 +30,44 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
     Wrist wrist;
     Grabber grabber;
 
+    ArmPosition goal;
+
     public MoveArmMasterCommand(Hinge hinge, Telescope telescope, Wrist wrist, Grabber grabber, ArmPosition goal) {
         this.hinge = hinge;
         this.telescope = telescope;
         this.wrist = wrist;
         this.grabber = grabber;
+        this.goal = goal;
 
         addCommands(new RunCommand(() -> Crashboard.toDashboard("At Hinge Position", ArmLogicAssistant.atHingePosition, Constants.ARM_TAB)));
-
-        //hinge commands
-        addCommands(new SequentialCommandGroup(
-            new InstantCommand(() -> {
-                ArmPositionHelper.hingeAdjustment = 0;
-                ArmLogicAssistant.updatePositions(goal);
-                ArmPositionHelper.currentPosition = goal;
-            }),
-            new MoveHingeCommand(hinge, goal),
-            new HoldHingeCommand(hinge)
-        ));
+        addCommands(new RunCommand(() -> Crashboard.toDashboard("At Telescope Position", ArmLogicAssistant.atTelescopePosition, Constants.ARM_TAB)));
 
         addCommands(new ConditionalCommand(
-            new SequentialCommandGroup(
-                new RetractTelescopeCommand(telescope),
+            new ParallelCommandGroup(
+                new SequentialCommandGroup(
+                    new MoveHingeCommand(hinge, goal),
+                    new HoldHingeCommand(hinge, true)
+                ),
                 new MoveTelescopeCommand(telescope, goal)
-            ), 
-            new MoveTelescopeCommand(telescope, goal),
-            ArmLogicAssistant::movingToBack)
+            ),
+
+            new SequentialCommandGroup(
+                new ParallelDeadlineGroup(
+                    new RetractTelescopeCommand(telescope),
+                    new HoldHingeCommand(hinge, false),
+                    new RunCommand(() -> Crashboard.toDashboard("Retracting", true, Constants.ARM_TAB))
+                ),
+                new ParallelCommandGroup(
+                    new SequentialCommandGroup(
+                        new MoveHingeCommand(hinge, goal),
+                        new HoldHingeCommand(hinge, true)
+                    ),
+                    new MoveTelescopeCommand(telescope, goal),
+                    new RunCommand(() -> Crashboard.toDashboard("Retracting", false, Constants.ARM_TAB))
+                )
+            ),
+
+            this::startIsEnd)
         );
 
         //wrist commands
@@ -73,5 +86,9 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
 
         //grabber commands
         //addCommands(new HoldInCommand(grabber));
+    }
+
+    public boolean startIsEnd() {
+        return ArmLogicAssistant.startPosition == ArmLogicAssistant.endPosition;
     }
 }

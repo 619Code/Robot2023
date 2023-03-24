@@ -40,4 +40,8 @@ public class ArmLogicAssistant {
     public static boolean movingToBack() {
         return movingToBack;
     }
+
+    public static boolean goalIsCurrent(ArmPosition goal) {
+        return goal == ArmPositionHelper.currentPosition;
+    }
 }

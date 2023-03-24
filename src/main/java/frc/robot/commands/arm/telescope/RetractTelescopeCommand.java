@@ -32,6 +32,6 @@ public class RetractTelescopeCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return ArmLogicAssistant.atHingePosition();
+        return retracted;
     }
 }
