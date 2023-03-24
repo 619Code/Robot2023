@@ -56,7 +56,7 @@ public class Wrist extends SubsystemBase {
         Crashboard.toDashboard("Wrist Relative Position", getRelativePosition(), Constants.WRIST_TAB);
         Crashboard.toDashboard("Wrist Motor Speed", this.wristMotor.get(), Constants.WRIST_TAB);
         Crashboard.toDashboard("Wrist V", wristRelativeEncoder.getVelocity(), Constants.WRIST_TAB);
-        //maxFF = this.maxFFEntry.getDouble(maxFF);
+        maxFF = this.maxFFEntry.getDouble(maxFF);
         //maxSpeed = maxSpeedEntry.getDouble(maxSpeed);
         //this.TempDashbaord();
     }
@@ -94,15 +94,14 @@ public class Wrist extends SubsystemBase {
         //if (Math.abs(diff) <= this.closePosition)
         {
             // Never want the speed to over the max
-            speed = Math.min(maxSpeed, diff * pValue);
+            speed = Math.min(maxSpeed, Math.abs(diff) * pValue);
         }
         // else
         // {
         //     speed = maxSpeed;
         // }
 
-        return speed; 
-        //* this.getDirectionalSpeedMultiplier();
+        return speed; //* this.getDirectionalSpeedMultiplier();
     }
 
     // speed and ff will always be opposit of each other

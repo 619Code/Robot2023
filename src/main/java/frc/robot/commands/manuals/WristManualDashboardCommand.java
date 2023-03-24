@@ -34,7 +34,7 @@ public class WristManualDashboardCommand extends CommandBase {
     @Override
     public void execute() {
         targetPosition = targetPositionEntry.getDouble(this.wrist.getRelativePosition());
-        //wrist.moveToPositionSimple(targetPosition);
+        wrist.moveToPositionSimple(targetPosition);
         wrist.CalculateStuff(targetPosition);
 
         //Crashboard.toDashboard("Wrist Angle", wrist.getAngle(), Constants.ARM_TAB);

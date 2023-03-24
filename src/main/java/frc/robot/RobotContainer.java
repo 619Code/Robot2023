@@ -101,8 +101,8 @@ public class RobotContainer {
 			hinge = new Hinge();
 			/*HingeManualDashboardCommand hingeManualDashboardCommand = new HingeManualDashboardCommand(hinge);
 			hinge.setDefaultCommand(hingeManualDashboardCommand);*/
-			HoldHingeCommand holdHingeCommand = new HoldHingeCommand(hinge, true);
-			hinge.setDefaultCommand(holdHingeCommand);
+			// HoldHingeCommand holdHingeCommand = new HoldHingeCommand(hinge, true);
+			// hinge.setDefaultCommand(holdHingeCommand);
 
 			telescope = new Telescope();
 			// telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
@@ -243,13 +243,13 @@ public class RobotContainer {
 	}
 
 	public void startupActions() {
-		if(telescope != null) {
-			new TelescopeZeroCommand(telescope).schedule();
-		}
+		// if(telescope != null) {
+		// 	new TelescopeZeroCommand(telescope).schedule();
+		// }
 
-		if(hinge != null) {
-			hinge.zero();
-		}
+		// if(hinge != null) {
+		// 	hinge.zero();
+		// }
 
 		if (this.wrist != null)
 		{
