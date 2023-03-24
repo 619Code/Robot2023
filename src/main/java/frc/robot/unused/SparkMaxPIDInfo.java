@@ -62,7 +62,7 @@ public class SparkMaxPIDInfo {
         this.kFF = this.entry_kFF.getDouble(0);
         this.kMaxOutput = this.entry_kMaxOutput.getDouble(0);
         this.kMaxOutput = this.entry_kMinOutput.getDouble(-.2);
-        System.out.println("kP: " + this.entry_kP.getDouble(0));
+        //System.out.println("kP: " + this.entry_kP.getDouble(0));
     }
 
     public void toPIDController(SparkMaxPIDController sparkMaxPIDController)
@@ -74,7 +74,7 @@ public class SparkMaxPIDInfo {
         if (sparkMaxPIDController.getI() != kI)
             sparkMaxPIDController.setI(kI);
 
-        System.out.println("D Value: " + kD);
+        //System.out.println("D Value: " + kD);
         if (sparkMaxPIDController.getD() != kD)
             sparkMaxPIDController.setD(kD);
         

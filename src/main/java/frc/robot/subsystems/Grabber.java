@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.States;
 import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.SparkErrorHelper;
 
@@ -44,8 +45,28 @@ public class Grabber extends SubsystemBase {
         proximitySensor = new DigitalInput(Constants.GRABBER_PROXIMITY_SENSOR);
     }
 
+    private void UpdateGlobalStates(boolean cubeSensed, boolean coneSensed) 
+    {
+        if (cubeSensed)
+            States.hasCube = true;
+        else
+            States.hasCube = false;
+
+
+        if (coneSensed)
+            States.hasCone = true;
+        else
+            States.hasCone = false;
+    }
+
     @Override
     public void periodic() {
+
+        var cubeSensedValue = cubeSensed();
+        var coneSensedValue = coneSensed();
+
+        this.UpdateGlobalStates(cubeSensedValue, coneSensedValue);
+
         grabberSpark = Crashboard.toDashboard("Grabber Spark", SparkErrorHelper.HasSensorError(grabberLeaderMotor), Constants.SPARKS_TAB);
         Crashboard.toDashboard("Cube Sensed", cubeSensed(), Constants.GRABBER_TAB);
         Crashboard.toDashboard("Cone Sensed", coneSensed(), Constants.GRABBER_TAB);

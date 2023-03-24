@@ -176,7 +176,7 @@ public class Drivetrain extends SubsystemBase implements Loggable {
     }
 
     public void resetGyro() {
-        System.out.println("Resetting gyro");
+        //System.out.println("Resetting gyro");
         navx.reset();
     }
 

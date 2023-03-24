@@ -130,7 +130,7 @@ public final class Constants {
     //Wrist constants
     public static final double POSITION_OFFSET = 0;
 
-    public static final double MIN_WRIST_POSITION = 0;
+    public static final double MIN_WRIST_POSITION = -.5;
     public static final double MAX_WRIST_POSITION = 25.9;
 
     public static final double WRIST_SPEED = 0.2;
@@ -179,7 +179,7 @@ public final class Constants {
 
     //LED constants
     public static final int LED_PWM_PORT = 0;
-    public static final int LED_STRIP_LENGTH = 192;
+    public static final int LED_STRIP_LENGTH = 300;
 
     public static final double TOGGLE_INTERVAL = 0.25;
 
@@ -196,6 +196,7 @@ public final class Constants {
     public static String GRABBER_TAB = "Grab";
     public static String LIMELIGHT_TAB = "Limelight";
     public static String ARM_TAB = "Arm";
+    public static String WRIST_TAB = "Wrist";
     public static String MOTORCONTROLLERS_TAB = "Motor Controllers";
     public static String AUTOS_TAB = "Autos";
     public static String COMPETITON_TAB = "Competition";

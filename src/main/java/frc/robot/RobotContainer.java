@@ -83,7 +83,7 @@ public class RobotContainer {
 		PipelineHelper.limelight = limelight;
 		PipelineHelper.setCameraPipeline();
 
-		//led = new LedStrip();
+		led = new LedStrip();
 
 		if (TurnOnDrive) {
 			drive = new Drivetrain();
@@ -101,20 +101,20 @@ public class RobotContainer {
 			hinge = new Hinge();
 			/*HingeManualDashboardCommand hingeManualDashboardCommand = new HingeManualDashboardCommand(hinge);
 			hinge.setDefaultCommand(hingeManualDashboardCommand);*/
-			HoldHingeCommand holdHingeCommand = new HoldHingeCommand(hinge, true);
-			hinge.setDefaultCommand(holdHingeCommand);
+			// HoldHingeCommand holdHingeCommand = new HoldHingeCommand(hinge, true);
+			// hinge.setDefaultCommand(holdHingeCommand);
 
 			telescope = new Telescope();
-			telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
-			telescope.setDefaultCommand(telescopeManualCommand);
+			// telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
+			// telescope.setDefaultCommand(telescopeManualCommand);
 
 			wrist = new Wrist();
 			/*holdWristCommand = new HoldWristCommand(wrist);
 			wrist.setDefaultCommand(holdWristCommand);*/
 			//WristManualCommand wristManualCommand = new WristManualCommand(wrist, driver);
 			//var wristManualCommand = new WristManualNewCommand(wrist);
-			/*WristManualDashboardCommand wristManualDashboardCommand = new WristManualDashboardCommand(wrist);
-			wrist.setDefaultCommand(wristManualDashboardCommand);*/
+			WristManualDashboardCommand wristManualDashboardCommand = new WristManualDashboardCommand(wrist);
+			wrist.setDefaultCommand(wristManualDashboardCommand);
 		}
 
 		configureBindings();
@@ -167,8 +167,8 @@ public class RobotContainer {
 		Trigger placeMidButton = operator.x();
 		placeMidButton.onTrue(moveArmMasterCommandFactory(ArmPosition.GRID_MID));
 
-		/*Trigger placeHighButton = operator.b();
-		placeHighButton.onTrue(moveArmMasterCommandFactory(ArmPosition.GRID_HIGH));*/
+		// Trigger placeHighButton = operator.b();
+		// placeHighButton.onTrue(moveArmMasterCommandFactory(ArmPosition.GRID_HIGH));
 	}
 
 	public Command moveArmMasterCommandFactory(ArmPosition goal) {
@@ -176,7 +176,7 @@ public class RobotContainer {
 			new InstantCommand(() -> {
                 ArmPositionHelper.hingeAdjustment = 0;
                 ArmLogicAssistant.updatePositions(goal);
-                ArmPositionHelper.currentPosition = goal;
+                ArmPositionHelper.currentPosition = goal;				
             }),
 			(new MoveArmMasterCommand(hinge, telescope, wrist, grabber, goal))
 			.until(ArmLogicAssistant::atBothPositions)
@@ -245,9 +245,9 @@ public class RobotContainer {
 			//new TelescopeZeroCommand(telescope).schedule();
 		}
 
-		if(hinge != null) {
-			hinge.zero();
-		}
+		// if(hinge != null) {
+		// 	hinge.zero();
+		// }
 
 		if (this.wrist != null)
 		{
