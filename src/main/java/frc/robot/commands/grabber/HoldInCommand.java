@@ -19,7 +19,11 @@ public class HoldInCommand extends CommandBase {
 
     @Override
     public void execute() {
-        grabber.spin(Constants.HOLD_SPEED);
+        if(grabber.coneSensed() || grabber.cubeSensed()) {
+            grabber.spin(Constants.HOLD_SPEED);
+        } else {
+            grabber.stop();
+        }
     }
 
     @Override
