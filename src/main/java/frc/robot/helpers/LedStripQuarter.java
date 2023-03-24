@@ -1,6 +1,7 @@
-package frc.robot.subsystems;
+package frc.robot.helpers;
 
 import frc.robot.States;
+import frc.robot.helpers.enums.LEDQuarterTypes;
 
 public class LedStripQuarter {
     private int[][] ledRGBs;
@@ -17,13 +18,13 @@ public class LedStripQuarter {
         if (type.equals(LEDQuarterTypes.Communication)) {
             for (int i = 0; i < ledRGBs.length; i ++) {
                 if (States.lightsAreYellow) {
-                ledRGBs[i][0] = 255;
-                ledRGBs[i][1] = 128;
-                ledRGBs[i][2] = 0; //V value reduced to darken LEDs and lower power draw.
+                    ledRGBs[i][0] = 255;
+                    ledRGBs[i][1] = 128;
+                    ledRGBs[i][2] = 0; //V value reduced to darken LEDs and lower power draw.
                 } else {
-                ledRGBs[i][0] = 168;
-                ledRGBs[i][1] = 0;
-                ledRGBs[i][2] = 149; //V value reduced to darken LEDs and lower power draw.
+                    ledRGBs[i][0] = 168;
+                    ledRGBs[i][1] = 0;
+                    ledRGBs[i][2] = 149; //V value reduced to darken LEDs and lower power draw.
                 }
             } return ledRGBs;
         } else { //is KnightRider

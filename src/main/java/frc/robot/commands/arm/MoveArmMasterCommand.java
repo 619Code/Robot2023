@@ -44,10 +44,8 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
             ArmLogicAssistant.updatePositions(goal);
             ArmPositionHelper.currentPosition = goal;
         }));
-        addCommands(new RunCommand(() -> Crashboard.toDashboard("At Hinge Position", ArmLogicAssistant.atHingePosition, Constants.ARM_TAB)));
-        addCommands(new RunCommand(() -> Crashboard.toDashboard("At Telescope Position", ArmLogicAssistant.atTelescopePosition, Constants.ARM_TAB)));
 
-        addCommands(new ConditionalCommand(
+        /*addCommands(new ConditionalCommand(
             new ParallelCommandGroup(
                 new SequentialCommandGroup(
                     new MoveHingeCommand(hinge, goal),
@@ -55,7 +53,6 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
                 ),
                 new MoveTelescopeCommand(telescope, goal)
             ),
-
             new SequentialCommandGroup(
                 new ParallelDeadlineGroup(
                     new RetractTelescopeCommand(telescope),
@@ -69,29 +66,47 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
                     new MoveTelescopeCommand(telescope, goal)
                 )
             ),
-
             this::startIsEnd)
-        );
+        );*/
 
-        //wrist commands
-        /*if(ArmLogicAssistant.startPosition == ArmPosition.START) { //if the wrist doesn't have space to move, wait
-            addCommands(new SequentialCommandGroup(
+        //wrist commands - TODO: add at wrist position
+        addCommands(new ConditionalCommand(
+            new SequentialCommandGroup(
                 new WaitCommand(2),
                 new MoveWristCommand(wrist, goal),
                 new HoldWristCommand(wrist)
-            ));
-        } else {
-            addCommands(new SequentialCommandGroup(
+            ), 
+            new SequentialCommandGroup(
                 new MoveWristCommand(wrist, goal),
                 new HoldWristCommand(wrist)
-            ));
-        }*/
+            ),
+            this::dangerousMove)
+        );
 
         //grabber commands
-        addCommands(new HoldInCommand(grabber));
+        //addCommands(new HoldInCommand(grabber));
+
+        //information commands
+        addCommands(new RunCommand(() -> Crashboard.toDashboard("At Hinge Position", ArmLogicAssistant.atHingePosition, Constants.ARM_TAB)));
+        addCommands(new RunCommand(() -> Crashboard.toDashboard("At Telescope Position", ArmLogicAssistant.atTelescopePosition, Constants.ARM_TAB)));
+        addCommands(new RunCommand(() -> Crashboard.toDashboard("At Wrist Position", ArmLogicAssistant.atTelescopePosition, Constants.ARM_TAB)));
     }
 
     public boolean startIsEnd() {
         return ArmLogicAssistant.startPosition == ArmLogicAssistant.endPosition;
+    }
+
+    public boolean dangerousMove() {
+        /*if(ArmLogicAssistant.startPosition == ArmPosition.START || ArmLogicAssistant.startPosition == ArmPosition.PICKUP_LOW) {
+            if(ArmLogicAssistant.endPosition == ArmPosition.START || ArmLogicAssistant.endPosition == ArmPosition.PICKUP_LOW) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }*/
+
+        return false;
     }
 }

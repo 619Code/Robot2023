@@ -235,14 +235,7 @@ public class Wrist extends SubsystemBase {
             }
             else
             {
-                // commenting out to get a decent baseline for new code changes
-                //  the following commented code was put in to overcome a power
-                //  hump
-                //if (this.getAngle() > 75 && this.getAngle() < 90)
-                //    this.move((ff - speed)*1.10);
-                //else
                 this.move(ff - speed, false );
-                //this.move(ff);
             }
             return false;
         }

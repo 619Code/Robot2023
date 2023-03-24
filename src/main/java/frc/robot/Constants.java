@@ -142,17 +142,17 @@ public final class Constants {
 
     public static final double START_POSITION_HINGE = 0.5;
     public static final double START_POSITION_TELESCOPE = 0.0;
-    public static final double START_POSITION_WRIST = 17.0;
+    public static final double START_POSITION_WRIST = 0.0;
     public static final ArmPositionSide START_POSITION_SIDE = ArmPositionSide.FRONT;
 
     public static final double PICKUP_LOW_POSITION_HINGE = 0.5;
     public static final double PICKUP_LOW_POSITION_TELESCOPE = 5.0;
-    public static final double PICKUP_LOW_POSITION_WRIST = 0.0;
+    public static final double PICKUP_LOW_POSITION_WRIST = 17.0;
     public static final ArmPositionSide PICKUP_LOW_POSITION_SIDE = ArmPositionSide.FRONT;
 
     public static final double PICKUP_HIGH_POSITION_HINGE = 19.5;
     public static final double PICKUP_HIGH_POSITION_TELESCOPE = 20.0;
-    public static final double PICKUP_HIGH_POSITION_WRIST = 0.0;
+    public static final double PICKUP_HIGH_POSITION_WRIST = 23.0;
     public static final ArmPositionSide PICKUP_HIGH_POSITION_SIDE = ArmPositionSide.FRONT;
 
     public static final double CHUTE_POSITION_HINGE = 46.0;

@@ -62,17 +62,17 @@ public class Grabber extends SubsystemBase {
     @Override
     public void periodic() {
 
-        var cubeSensedValue = cubeSensed();
+        //var cubeSensedValue = cubeSensed();
         var coneSensedValue = coneSensed();
 
-        this.UpdateGlobalStates(cubeSensedValue, coneSensedValue);
+        //this.UpdateGlobalStates(cubeSensedValue, coneSensedValue);
 
-        grabberSpark = Crashboard.toDashboard("Grabber Spark", SparkErrorHelper.HasSensorError(grabberLeaderMotor), Constants.SPARKS_TAB);
+        /*grabberSpark = Crashboard.toDashboard("Grabber Spark", SparkErrorHelper.HasSensorError(grabberLeaderMotor), Constants.SPARKS_TAB);
         Crashboard.toDashboard("Cube Sensed", cubeSensed(), Constants.GRABBER_TAB);
         Crashboard.toDashboard("Cone Sensed", coneSensed(), Constants.GRABBER_TAB);
 
         Crashboard.toDashboard("Leader Amps", grabberLeaderMotor.getAppliedOutput(), Constants.GRABBER_TAB);
-        Crashboard.toDashboard("Follower Amps", grabberFollowerMotor.getAppliedOutput(), Constants.GRABBER_TAB);
+        Crashboard.toDashboard("Follower Amps", grabberFollowerMotor.getAppliedOutput(), Constants.GRABBER_TAB);*/
     }
 
     public void spin(double speed) {

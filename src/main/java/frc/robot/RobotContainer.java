@@ -109,12 +109,12 @@ public class RobotContainer {
 			// telescope.setDefaultCommand(telescopeManualCommand);
 
 			wrist = new Wrist();
-			/*holdWristCommand = new HoldWristCommand(wrist);
-			wrist.setDefaultCommand(holdWristCommand);*/
+			holdWristCommand = new HoldWristCommand(wrist);
+			wrist.setDefaultCommand(holdWristCommand);
 			//WristManualCommand wristManualCommand = new WristManualCommand(wrist, driver);
 			//var wristManualCommand = new WristManualNewCommand(wrist);
-			WristManualDashboardCommand wristManualDashboardCommand = new WristManualDashboardCommand(wrist);
-			wrist.setDefaultCommand(wristManualDashboardCommand);
+			/*WristManualDashboardCommand wristManualDashboardCommand = new WristManualDashboardCommand(wrist);
+			wrist.setDefaultCommand(wristManualDashboardCommand);*/
 		}
 
 		configureBindings();
@@ -145,6 +145,11 @@ public class RobotContainer {
 	}
 
 	private void BindTests() {
+		Trigger toggleLed = operator.back();
+		toggleLed.onTrue(new ToggleColorCommand(led)).debounce(0.5);
+
+		armBindings();
+
 		/*armBindings();
 
 		Trigger grabButton = operator.leftBumper();
@@ -179,7 +184,7 @@ public class RobotContainer {
                 ArmPositionHelper.currentPosition = goal;				
             }),
 			(new MoveArmMasterCommand(hinge, telescope, wrist, grabber, goal))
-			.until(ArmLogicAssistant::atBothPositions)
+			.until(ArmLogicAssistant::atWristPosition)
 			.withTimeout(Constants.ARM_MOVEMENT_TIMEOUT)
 		);
 	}

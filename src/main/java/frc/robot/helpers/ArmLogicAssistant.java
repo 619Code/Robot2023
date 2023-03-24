@@ -33,7 +33,11 @@ public class ArmLogicAssistant {
         return atTelescopePosition;
     }
 
-    public static boolean atBothPositions() {
+    public static boolean atWristPosition() {
+        return atTelescopePosition;
+    }
+
+    public static boolean atAllPositions() {
         return atHingePosition && atTelescopePosition;
     }
 

@@ -3,7 +3,9 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystems.LEDQuarterTypes;
+import frc.robot.States;
+import frc.robot.helpers.LedStripQuarter;
+import frc.robot.helpers.enums.LEDQuarterTypes;
 
 public class LedStrip extends SubsystemBase{
     AddressableLED ledStrip;
@@ -41,6 +43,8 @@ public class LedStrip extends SubsystemBase{
     }
 
     public void periodic() {
+        States.lightsAreYellow = isYellow;
+        
         //rainbow();
         readFromStrips();
         // setWholeStripRGB(0, 0, 255, 0, ledBuffer.getLength()/4);
@@ -48,8 +52,6 @@ public class LedStrip extends SubsystemBase{
         // setWholeStripRGB(0, 255, 0, ledBuffer.getLength()/2, 3*ledBuffer.getLength()/4);
         // setWholeStripRGB(255, 0, 255, 3*ledBuffer.getLength()/4,ledBuffer.getLength());
 
-
-        //funnymode();
         ledStrip.setData(ledBuffer);
     }
 
