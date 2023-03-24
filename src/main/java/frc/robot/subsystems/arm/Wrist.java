@@ -191,12 +191,29 @@ public class Wrist extends SubsystemBase {
         Crashboard.toDashboard("Wrist Calculated FF", ff, Constants.WRIST_TAB);
     }
 
+    double startingGoal = -100.0;
+    double incrementGoal = -100.0;
     public boolean moveToPositionSimple(double goal) {
 
         goal = Math.min(goal,Constants.MAX_WRIST_POSITION);
         goal = Math.max(goal,Constants.MIN_WRIST_POSITION);
 
-        double diff = goal - this.getRelativePosition();
+        if(goal != startingGoal) {
+            startingGoal = goal;
+            incrementGoal = getRelativePosition();
+        } else {
+            if(goal < getRelativePosition()) {
+                incrementGoal = getRelativePosition() - 4;
+                incrementGoal = Math.max(incrementGoal, goal);
+            } else {
+                incrementGoal = getRelativePosition() + 4;
+                incrementGoal = Math.min(incrementGoal, goal);
+            }
+        }
+
+        Crashboard.toDashboard("Increment Goal", incrementGoal, Constants.WRIST_TAB);
+
+        double diff = incrementGoal - this.getRelativePosition();
         Crashboard.toDashboard("Wrist Diff", diff, Constants.WRIST_TAB);
 
         // speed could be positive or negative depending 
