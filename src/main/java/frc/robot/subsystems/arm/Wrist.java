@@ -21,7 +21,7 @@ public class Wrist extends SubsystemBase {
     private RelativeEncoder wristRelativeEncoder;
     private GenericEntry pEntry;
 
-    double baseAngleRelativeToEndOfArm = 90;
+    double baseAngleRelativeToEndOfArm = 95;
     private double ninetyDegreesPosition = 0;
     private double zeroDegreesPosition = 13.905;
     private double closePosition = 6;
@@ -87,7 +87,8 @@ public class Wrist extends SubsystemBase {
         double speed = 0;
         if (Math.abs(diff) <= this.closePosition)
         {
-            speed = diff * pValue ;
+            // Never want the speed to over the max
+            speed = Math.min(maxSpeed, diff * pValue);
         }
         else
         {

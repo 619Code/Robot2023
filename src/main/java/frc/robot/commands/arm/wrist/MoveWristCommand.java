@@ -14,13 +14,14 @@ public class MoveWristCommand extends CommandBase {
     public MoveWristCommand(Wrist wrist, ArmPosition wristGoalPosition) {
         this.wrist = wrist;
 
-        wristGoal = ArmPositionHelper.fetchHingeValue(wristGoalPosition);
+        wristGoal = ArmPositionHelper.fetchWristValue(wristGoalPosition);
 
         addRequirements(wrist);
     }
 
     @Override
     public void initialize() {
+        ArmLogicAssistant.atWristPosition = false;
     }
 
     @Override

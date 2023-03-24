@@ -113,8 +113,8 @@ public class RobotContainer {
 			wrist.setDefaultCommand(holdWristCommand);*/
 			//WristManualCommand wristManualCommand = new WristManualCommand(wrist, driver);
 			//var wristManualCommand = new WristManualNewCommand(wrist);
-			/*WristManualDashboardCommand wristManualDashboardCommand = new WristManualDashboardCommand(wrist);
-			wrist.setDefaultCommand(wristManualDashboardCommand);*/
+			WristManualDashboardCommand wristManualDashboardCommand = new WristManualDashboardCommand(wrist);
+			wrist.setDefaultCommand(wristManualDashboardCommand);
 		}
 
 		configureBindings();
