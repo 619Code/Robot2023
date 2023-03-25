@@ -37,11 +37,11 @@ public final class Constants {
     public static final double DRIVE_SPEED = 0.8;
     public static final double DRIVE_ROTATION = 0.3;
 
-    public static final double SLOW_MODE_SPEED = 0.6 * 0.5;
-    public static final double SLOW_MODE_ROTATION = 0.3 * 0.5;
+    public static final double SLOW_MODE_SPEED = 0.3;
+    public static final double SLOW_MODE_ROTATION = 0.15;
 
-    public static final double SUPER_SLOW_MODE_SPEED = 0.6 * 0.2;
-    public static final double SUPER_SLOW_MODE_ROTATION = 0.3 *0.2;
+    public static final double SUPER_SLOW_MODE_SPEED = 0.12;
+    public static final double SUPER_SLOW_MODE_ROTATION = 0.12; //0.06
 
     public static final double DRIVE_SLEW_RATE_LIMIT = 1.5;
     public static final double DRIVE_SLEW_RATE_LIMIT_HIGH = 2;
@@ -79,16 +79,16 @@ public final class Constants {
     public static final double CUBE_BLUE_THRESHOLD = 0.2;
 
     public static final double CUBE_TIMER = 1.5;
-    public static final double CONE_TIMER = 0.5;
+    public static final double CONE_TIMER = 1;
 
-    public static final double GRAB_SPEED = 0.5;
+    public static final double GRAB_SPEED = 0.3;
     public static final double HOLD_SPEED = 0.3;
     public static final double GRAB_SPEED_DEFAULT = 0.1;
 
     public static final double DEFAULT_WAIT_TIME = 3;
     public static final double DEFAULT_PULSE_TIME = 0.5;
 
-    public static final double RELEASE_SPEED_CUBE_HIGH = -0.5;
+    public static final double RELEASE_SPEED_CUBE_HIGH = -0.15;
     public static final double RELEASE_SPEED_CUBE_MID = -0.05;
     public static final double RELEASE_SPEED_CONE = -0.1;
 
@@ -98,9 +98,10 @@ public final class Constants {
     public static final double HINGE_ZERO_SPEED = 0.1;
 
     public static final double HINGE_P = 0.05;
-    public static final double HINGE_FF = 0.004; 
+    public static final double HINGE_FF_EMPTY = 0.005;
+    public static final double HINGE_FF_CONE = 0.009; //0.007
     public static final double SMALL_TOLERANCE = 0.5;
-    public static final double BIG_TOLERANCE = 1.5;
+    public static final double BIG_TOLERANCE = 2.0; //1.5
     public static final double CLOSE_POSITION = 6;
 
     public static final double UP_POSITION = 32.4;
@@ -108,7 +109,7 @@ public final class Constants {
     public static final double DEGREES_PER_TICK = 90.0 / (Constants.UP_POSITION - Constants.FRONT_HORIZONTAL_POSITION);
     public static final double BASE_ANGLE = -21.3;
 
-    public static final double ARM_MOVEMENT_TIMEOUT = 20.0;
+    public static final double ARM_MOVEMENT_TIMEOUT = 10.0;
 
     public static final double MIN_HINGE_POSITION = 0.0;
     public static final double MAX_HINGE_POSITION = UP_POSITION; //57.0
@@ -122,7 +123,7 @@ public final class Constants {
     public static final double TELESCOPE_SLOWDOWN_ZONE = 10;
 
     public static final double TELESCOPE_SPEED = 0.8; //0.9
-    public static final double TELESCOPE_ZERO_SPEED = 0.2;
+    public static final double TELESCOPE_ZERO_SPEED = 0.1; //0.2 UNDO
     public static final double TELESCOPE_P = 0.04;
 
     public static final double INCHES_PER_TICK = 15.0 / 139.0;
@@ -138,19 +139,22 @@ public final class Constants {
     public static final double WRIST_ZERO_SPEED = 0.1;
     public static final double WRIST_P = 0.04;
 
-    public static final double INCREMENT_VALUE = 4;
+    public static final double INCREMENT_VALUE = 6;
+
+    public static final double WRIST_FF_EMPTY = 0.1;
+    public static final double WRIST_FF_CONE = 0.15;
 
     //Arm cases
     public static final double ARM_ADJUST_FACTOR = 1;
 
-    public static final double START_POSITION_HINGE = 0.5;
+    public static final double START_POSITION_HINGE = 0;
     public static final double START_POSITION_TELESCOPE = 0.0;
-    public static final double START_POSITION_WRIST = 0.0;
+    public static final double START_POSITION_WRIST = 1.0;
     public static final ArmPositionSide START_POSITION_SIDE = ArmPositionSide.FRONT;
 
-    public static final double PICKUP_LOW_POSITION_HINGE = 0.5;
+    public static final double PICKUP_LOW_POSITION_HINGE = 0;
     public static final double PICKUP_LOW_POSITION_TELESCOPE = 14.0;
-    public static final double PICKUP_LOW_POSITION_WRIST = 20.0;
+    public static final double PICKUP_LOW_POSITION_WRIST = 18.0; //20.0
     public static final ArmPositionSide PICKUP_LOW_POSITION_SIDE = ArmPositionSide.FRONT;
 
     public static final double PICKUP_HIGH_POSITION_HINGE = 20.0;
@@ -192,8 +196,8 @@ public final class Constants {
     public static final double TOGGLE_INTERVAL = 0.25;
 
     //Auto Constants
-    public static final double AUTO_DRIVE_VELOCITY = 0.5;
-    public static final double AUTO_DRIVE_DISTANCE = 5;
+    public static final double AUTO_DRIVE_VELOCITY = -0.6;
+    public static final double AUTO_DRIVE_DISTANCE = -5;
 
     public static final double HINGE_START = 0;
     public static final double TELESCOPE_START = START_POSITION_TELESCOPE;

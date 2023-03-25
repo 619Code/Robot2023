@@ -10,16 +10,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
-public class HoldHingeCommand extends CommandBase {
+public class HoldHingeDefault extends CommandBase {
     private Hinge hinge;
     private ArmPosition goalPosition;
     private double hingeGoal;
 
-    private boolean holdAtEnd;
+    private boolean holdAtCurrent;
 
-    public HoldHingeCommand(Hinge hinge, boolean holdAtEnd) {
+    public HoldHingeDefault(Hinge hinge, boolean holdAtCurrent) {
         this.hinge = hinge;
-        this.holdAtEnd = holdAtEnd;
+        this.holdAtCurrent = holdAtCurrent;
 
         addRequirements(hinge);
     }
@@ -31,8 +31,8 @@ public class HoldHingeCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if(holdAtEnd){
-            goalPosition = ArmLogicAssistant.endPosition;
+        if(holdAtCurrent){
+            goalPosition = ArmPositionHelper.currentPosition;
             Crashboard.toDashboard("Holding At Start", false, Constants.ARM_TAB);
         } else {
             goalPosition = ArmLogicAssistant.startPosition;

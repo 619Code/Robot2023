@@ -27,30 +27,12 @@ public class GrabDefaultCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if(!waiting) {
-            if(grabber.coneSensed() || grabber.cubeSensed()) {
-                grabber.spin(Constants.GRAB_SPEED_DEFAULT);
-            } else {
-                grabber.stop();
-            }
+        //alternative constant rate default
+        if(!grabber.coneSensed()) {
+            grabber.spin(Constants.GRAB_SPEED_DEFAULT);
         } else {
             grabber.stop();
         }
-
-        if(waiting && timer.hasElapsed(Constants.DEFAULT_WAIT_TIME)) {
-            waiting = false;
-            timer.reset();
-            timer.start();
-        } else if(!waiting && timer.hasElapsed(Constants.DEFAULT_PULSE_TIME)) {
-            waiting = true;
-            timer.reset();
-            timer.start();
-        }
-
-        //alternative constant rate default
-        /*if(!grabber.coneSensed() && grabber.cubeSensed()) {
-            grabber.spin(Constants.GRAB_SPEED_DEFAULT);
-        }*/
     }
 
     @Override

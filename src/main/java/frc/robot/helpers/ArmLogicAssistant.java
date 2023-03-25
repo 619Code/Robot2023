@@ -14,7 +14,7 @@ public class ArmLogicAssistant {
     public static boolean atWristPosition;
 
     public static void updatePositions(ArmPosition endPositionNew) {
-        startPosition = endPosition;
+        startPosition = ArmPositionHelper.currentPosition;
         endPosition = endPositionNew;
         
         movingToBack = ArmPositionHelper.fetchSide(startPosition) == ArmPositionSide.FRONT && 

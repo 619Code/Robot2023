@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.arm.MoveArmMasterCommand;
-import frc.robot.commands.arm.hinge.HoldHingeCommand;
 import frc.robot.commands.grabber.GrabCommand;
 import frc.robot.helpers.ArmLogicAssistant;
 import frc.robot.helpers.ArmPositionHelper;
@@ -36,12 +35,14 @@ public class PreMatchSettingsCommand extends SequentialCommandGroup {
 		return new SequentialCommandGroup(
 			new InstantCommand(() -> {
                 ArmPositionHelper.hingeAdjustment = 0;
-                ArmLogicAssistant.updatePositions(goal);
-                ArmPositionHelper.currentPosition = goal;				
+                ArmLogicAssistant.updatePositions(goal);				
             }),
 			(new MoveArmMasterCommand(hinge, telescope, wrist, grabber, goal))
-			.until(ArmLogicAssistant::atWristPosition)
-			.withTimeout(Constants.ARM_MOVEMENT_TIMEOUT)
+			.until(ArmLogicAssistant::atAllPositions)
+			.withTimeout(Constants.ARM_MOVEMENT_TIMEOUT),
+			new InstantCommand(() -> {
+                ArmPositionHelper.currentPosition = goal;				
+            })
 		);
 	}
 }

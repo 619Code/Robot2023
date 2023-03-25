@@ -34,7 +34,7 @@ public class Wrist extends SubsystemBase {
     private GenericEntry maxFFEntry;
     private GenericEntry maxSpeedEntry;
     //private GenericEntry slowSpeedEntry;
-    private double maxFF = .1;
+    private double maxFF = Constants.WRIST_FF_EMPTY;
 
     public Wrist() {
         wristMotor = new CANSparkMax(Constants.WRIST_MOTOR, MotorType.kBrushless);
@@ -59,9 +59,15 @@ public class Wrist extends SubsystemBase {
         Crashboard.toDashboard("Wrist V", wristRelativeEncoder.getVelocity(), Constants.WRIST_TAB);
         Crashboard.toDashboard("Wrist Angle", this.getAngle(), Constants.WRIST_TAB);
         Crashboard.toDashboard("FF Angle", this.getFFAngleForCalculating(), Constants.WRIST_TAB);
-        maxFF = this.maxFFEntry.getDouble(maxFF);
+        //maxFF = this.maxFFEntry.getDouble(maxFF);
         //maxSpeed = maxSpeedEntry.getDouble(maxSpeed);
         //this.TempDashbaord();
+
+        if(States.hasCone) {
+            maxFF = Constants.WRIST_FF_CONE;
+        } else {
+            maxFF = Constants.WRIST_FF_EMPTY;
+        }
     }
 
     public void move(double speed) {
@@ -82,8 +88,6 @@ public class Wrist extends SubsystemBase {
             }
         }
 
-
-
         if(move) {            
             wristMotor.set(speed);
         }
@@ -92,7 +96,7 @@ public class Wrist extends SubsystemBase {
 
     protected double calculateSpeed(double diff)
     {
-        double pValue = .02;
+        double pValue = .04; //0.02
         double speed = 0;
         //if (Math.abs(diff) <= this.closePosition)
         {

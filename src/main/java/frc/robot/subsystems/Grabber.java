@@ -21,8 +21,6 @@ import edu.wpi.first.wpilibj.util.Color;
 public class Grabber extends SubsystemBase {
     private CANSparkMax grabberLeaderMotor;
     private CANSparkMax grabberFollowerMotor;
-
-    private ColorSensorV3 colorSensor;
     private DigitalInput proximitySensor;
 
     boolean checkForCube = false;
@@ -43,7 +41,6 @@ public class Grabber extends SubsystemBase {
 
         grabberFollowerMotor.follow(grabberLeaderMotor, true);
 
-        colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
         proximitySensor = new DigitalInput(Constants.GRABBER_PROXIMITY_SENSOR);
     }
 
@@ -73,10 +70,10 @@ public class Grabber extends SubsystemBase {
     public void periodic() {
 
         boolean cubeSensedValue = false;
-        if (checkForCube)
+        /*if (checkForCube)
         {
             cubeSensedValue = cubeSensed();
-        }
+        }*/
 
         var coneSensedValue = coneSensed();
 
@@ -92,16 +89,6 @@ public class Grabber extends SubsystemBase {
 
     public void spin(double speed) {
         grabberLeaderMotor.set(speed);
-    }
-
-    public boolean cubeSensed() {
-        Color detectedColor = colorSensor.getColor();
-
-        if(detectedColor.blue > Constants.CUBE_BLUE_THRESHOLD) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public boolean coneSensed() {

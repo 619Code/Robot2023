@@ -36,7 +36,7 @@ public class WristManualCommand extends CommandBase {
         wristAdjustment += adjustment;
         wristAdjustment = Math.max(0,wristAdjustment);
 
-        Crashboard.toDashboard("Wrist Adjustment", wristAdjustment, Constants.ARM_TAB);
+        //Crashboard.toDashboard("Wrist Adjustment", wristAdjustment, Constants.ARM_TAB);
         wrist.moveToPositionSimple(wristAdjustment);
     }
 

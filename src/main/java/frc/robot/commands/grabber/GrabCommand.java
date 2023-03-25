@@ -46,7 +46,7 @@ public class GrabCommand extends CommandBase {
             }
         }*/
 
-        if(!ending) { //UNDO
+        if(!ending) {
             if(grabber.coneSensed()) {
                 timeLimit = Constants.CONE_TIMER;
                 endTimer.reset();

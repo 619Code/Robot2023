@@ -6,7 +6,7 @@ import frc.robot.commands.DriveCommand;
 import frc.robot.commands.arm.MoveArmMasterCommand;
 import frc.robot.commands.arm.hinge.HingeAdjustCommand;
 import frc.robot.commands.arm.hinge.HingeZeroCommand;
-import frc.robot.commands.arm.hinge.HoldHingeCommand;
+import frc.robot.commands.arm.hinge.HoldHingeDefault;
 import frc.robot.commands.arm.telescope.TelescopeZeroCommand;
 import frc.robot.commands.arm.wrist.HoldWristCommand;
 import frc.robot.commands.auto.AutoDriveCommand;
@@ -68,7 +68,7 @@ public class RobotContainer {
 	private boolean TurnOnGrabber = true;
 	private boolean TurnOnArm = true;
 	private boolean TurnOnDrive = true;
-	private boolean IsTesting = true;
+	private boolean IsTesting = false;
 
 	private SendableChooser<String> autoOptions = new SendableChooser<String>();
 	ComplexWidget optionEntry;
@@ -94,16 +94,16 @@ public class RobotContainer {
 
 		if (TurnOnGrabber) {
 			grabber = new Grabber();
-			/*grabDefaultCommand = new GrabDefaultCommand(grabber);
-			grabber.setDefaultCommand(grabDefaultCommand);*/
+			grabDefaultCommand = new GrabDefaultCommand(grabber);
+			grabber.setDefaultCommand(grabDefaultCommand);
 		}
 
 		if (TurnOnArm) {
 			hinge = new Hinge();
 			/*HingeManualDashboardCommand hingeManualDashboardCommand = new HingeManualDashboardCommand(hinge);
 			hinge.setDefaultCommand(hingeManualDashboardCommand);*/
-			HoldHingeCommand holdHingeCommand = new HoldHingeCommand(hinge, true);
-			hinge.setDefaultCommand(holdHingeCommand);
+			HoldHingeDefault HoldHingeDefault = new HoldHingeDefault(hinge, true);
+			hinge.setDefaultCommand(HoldHingeDefault);
 
 			telescope = new Telescope();
 			telescopeManualCommand = new TelescopeManualCommand(telescope, operator);
@@ -147,14 +147,6 @@ public class RobotContainer {
 	private void BindTests() {
 		Trigger toggleLed = operator.back();
 		toggleLed.onTrue(new ToggleColorCommand(led)).debounce(0.5);
-
-		armBindings();
-
-		Trigger grabButton = operator.leftBumper();
-        grabButton.whileTrue(new GrabCommand(grabber));
-
-		Trigger releaseButton = operator.rightBumper();
-        releaseButton.whileTrue(new ReleaseCommand(grabber));
 	}
 
 	public void armBindings() {
@@ -182,21 +174,25 @@ public class RobotContainer {
 		return new SequentialCommandGroup(
 			new InstantCommand(() -> {
                 ArmPositionHelper.hingeAdjustment = 0;
-                ArmLogicAssistant.updatePositions(goal);
-                ArmPositionHelper.currentPosition = goal;				
+                ArmLogicAssistant.updatePositions(goal);				
             }),
 			(new MoveArmMasterCommand(hinge, telescope, wrist, grabber, goal))
 			.until(ArmLogicAssistant::atAllPositions)
-			.withTimeout(Constants.ARM_MOVEMENT_TIMEOUT)
+			.withTimeout(Constants.ARM_MOVEMENT_TIMEOUT),
+			new InstantCommand(() -> {
+                ArmPositionHelper.currentPosition = goal;				
+            })
 		);
 	}
 
 	public void grabberBindings() {
-        Trigger grabButton = operator.leftBumper();
+        /*Trigger grabButton = operator.leftBumper();
         grabButton.whileTrue(new ParallelDeadlineGroup(
 			new GrabCommand(grabber),
 			new AlternateColorCommand(led)
-		));
+		));*/
+		Trigger grabButton = operator.leftBumper();
+        grabButton.whileTrue(new GrabCommand(grabber));
 
 		Trigger releaseButton = operator.rightBumper();
         releaseButton.whileTrue(new ReleaseCommand(grabber));
@@ -217,6 +213,7 @@ public class RobotContainer {
 	}
 
 	private void configureAutoSettings() {
+		autoOptions.addOption("PlaceAndDrive", "PlaceAndDrive");
 		autoOptions.addOption("Place", "Place");
 		autoOptions.addOption("Drive", "Drive");
 		autoOptions.addOption("Null", "Null");
@@ -229,11 +226,14 @@ public class RobotContainer {
 		Command autoCommand = null;
 
 		switch (chosenAuto) {
-			case Place: 
+			case PlaceAndDrive: 
 				autoCommand = new SequentialCommandGroup(
 					new AutoPlaceCommand(grabber, hinge, telescope, wrist),
 					new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE)
 				);
+				break;
+			case Place:
+				autoCommand = new AutoPlaceCommand(grabber, hinge, telescope, wrist);
 				break;
 			case Drive:
 				autoCommand = new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE);
@@ -247,13 +247,12 @@ public class RobotContainer {
 		}
 
 		return new SequentialCommandGroup(
-			//new TelescopeZeroCommand(telescope).withTimeout(2),
+			new TelescopeZeroCommand(telescope).withTimeout(1),
 			new InstantCommand(() -> {
-				telescope.zero();
 				hinge.zero();
 				wrist.zero();
 			}),
-			autoCommand.withTimeout(13),
+			autoCommand.withTimeout(14),
 			new InstantCommand(() -> {
 				States.autoComplete = true;
 			})
@@ -263,8 +262,7 @@ public class RobotContainer {
 	public void startupActions() {
 		if(!States.autoComplete) {
 			if(telescope != null) {
-				//((new TelescopeZeroCommand(telescope)).withTimeout(2)).schedule();
-				telescope.zero();
+				((new TelescopeZeroCommand(telescope)).withTimeout(2)).schedule();
 			}
 	
 			if(hinge != null) {

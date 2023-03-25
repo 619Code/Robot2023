@@ -28,7 +28,7 @@ public class AutoDriveCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return -drive.getLeftPosition() >= goal;
+        return -drive.getLeftPosition() <= goal;
     }
 
     @Override

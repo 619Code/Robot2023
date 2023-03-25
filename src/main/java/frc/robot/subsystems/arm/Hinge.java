@@ -30,7 +30,7 @@ public class Hinge extends SubsystemBase {
 
     private double slowSpeed = Constants.SLOW_MODE_SPEED;
     private double maxSpeed = Constants.HINGE_MAX_SPEED;
-    private double ffBaseValue = Constants.HINGE_FF;
+    private double ffBaseValue = Constants.HINGE_FF_EMPTY;
     private double tolerance = Constants.BIG_TOLERANCE;
     private double closePosition = Constants.CLOSE_POSITION;
 
@@ -79,13 +79,19 @@ public class Hinge extends SubsystemBase {
 
         States.ArmAngleInDegrees = this.getAngle();
         States.ArmAngleInDegreesFromStart = this.getPosition() * Constants.DEGREES_PER_TICK;
-        Crashboard.toDashboard("Hinge Angle", getAngle(), Constants.WRIST_TAB);
+        //Crashboard.toDashboard("Hinge Angle", getAngle(), Constants.WRIST_TAB);
         Crashboard.toDashboard("Hinge Position", getPosition(), Constants.ARM_TAB);
         hingeSpark = Crashboard.toDashboard("Hinge Spark", SparkErrorHelper.HasSensorError(hingeMotor), Constants.SPARKS_TAB);
         hingeSwitch = Crashboard.toDashboard("Hinge Switch", switchIsPressed(), Constants.STATUS_TAB);
-        Crashboard.toDashboard("Hinge Amps", hingeMotor.getAppliedOutput(), Constants.ARM_TAB);
+        //Crashboard.toDashboard("Hinge Amps", hingeMotor.getAppliedOutput(), Constants.ARM_TAB);
 
         Crashboard.toDashboard("Hinge Angle", getAngle(), Constants.ARM_TAB);
+
+        if(States.hasCone) {
+            ffBaseValue = Constants.HINGE_FF_CONE;
+        } else {
+            ffBaseValue = Constants.HINGE_FF_EMPTY;
+        }
     }
 
     public void move(double speed) {

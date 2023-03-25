@@ -37,7 +37,7 @@ public class DriveCommand extends CommandBase implements Loggable {
         //driveSpeed = Crashboard.toDashboard("Drive Speed", Constants.DRIVE_SPEED, Constants.COMPETITON_TAB);
         //lastSlewRateLimit = 0.1;
 
-        speedLimiter = new SlewRateLimiter(Constants.DRIVE_SLEW_RATE_LIMIT);
+        speedLimiter = new SlewRateLimiter(Constants.DRIVE_SLEW_RATE_LIMIT_HIGH);
     }
 
     @Override

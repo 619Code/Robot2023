@@ -45,7 +45,7 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
             ArmPositionHelper.currentPosition = goal;
         }));
 
-        addCommands(new ConditionalCommand(
+        /*addCommands(new ConditionalCommand(
             new ParallelCommandGroup(
                 new SequentialCommandGroup(
                     new MoveHingeCommand(hinge, goal),
@@ -67,7 +67,20 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
                 )
             ),
             this::startIsEnd)
-        );
+        );*/
+        addCommands(new SequentialCommandGroup(
+            new ParallelDeadlineGroup(
+                new RetractTelescopeCommand(telescope),
+                new HoldHingeCommand(hinge, false)
+            ),
+            new SequentialCommandGroup(
+                new MoveHingeCommand(hinge, goal),
+                new ParallelCommandGroup(
+                    new MoveTelescopeCommand(telescope, goal),
+                    new HoldHingeCommand(hinge, true)
+                )
+            )
+        ));
 
         //wrist commands - TODO: add at wrist position
         addCommands(new ConditionalCommand(
@@ -90,6 +103,8 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
         addCommands(new RunCommand(() -> Crashboard.toDashboard("At Hinge Position", ArmLogicAssistant.atHingePosition, Constants.ARM_TAB)));
         addCommands(new RunCommand(() -> Crashboard.toDashboard("At Telescope Position", ArmLogicAssistant.atTelescopePosition, Constants.ARM_TAB)));
         addCommands(new RunCommand(() -> Crashboard.toDashboard("At Wrist Position", ArmLogicAssistant.atTelescopePosition, Constants.ARM_TAB)));
+        addCommands(new RunCommand(() -> System.out.println("Start: " + ArmLogicAssistant.startPosition)));
+        addCommands(new RunCommand(() -> System.out.println("End: " + ArmLogicAssistant.endPosition)));
     }
 
     public boolean startIsEnd() {

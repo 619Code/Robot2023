@@ -1,6 +1,7 @@
 package frc.robot.commands.grabber;
 
 import frc.robot.Constants;
+import frc.robot.States;
 import frc.robot.helpers.ArmPositionHelper;
 import frc.robot.helpers.enums.ArmPosition;
 import frc.robot.subsystems.Grabber;
@@ -11,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class ReleaseCommand extends CommandBase {
     private Grabber grabber;
+    private boolean releasingCone;
 
     public ReleaseCommand(Grabber grabber) {
         this.grabber = grabber;
@@ -20,13 +22,18 @@ public class ReleaseCommand extends CommandBase {
 
     @Override
     public void initialize() {
+        if(States.hasCone) {
+            releasingCone = true;
+        } else {
+            releasingCone = false;
+        }
     }
 
     @Override
     public void execute() {
         double speed = 0;
 
-        if(grabber.coneSensed()) {
+        if(releasingCone) {
             speed = Constants.RELEASE_SPEED_CONE;
         } else {
             if(ArmPositionHelper.currentPosition == ArmPosition.CUBE_HIGH) {

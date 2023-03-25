@@ -9,7 +9,10 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.arm.MoveArmMasterCommand;
 import frc.robot.commands.arm.hinge.HoldHingeCommand;
+import frc.robot.commands.arm.hinge.HoldHingeDefault;
 import frc.robot.commands.arm.telescope.TelescopeZeroCommand;
+import frc.robot.commands.arm.wrist.HoldWristCommand;
+import frc.robot.commands.grabber.GrabDefaultCommand;
 import frc.robot.commands.grabber.ReleaseCommand;
 import frc.robot.helpers.ArmLogicAssistant;
 import frc.robot.helpers.ArmPositionHelper;
@@ -31,13 +34,14 @@ public class AutoPlaceCommand extends SequentialCommandGroup {
         this.telescope = telescope;
         this.wrist = wrist;
 
-        addCommands(moveArmMasterCommandFactory(ArmPosition.CONE_MID));
+        addCommands(moveArmMasterCommandFactory(ArmPosition.CUBE_HIGH));
         addCommands(new ParallelDeadlineGroup(
             new SequentialCommandGroup(
-                new WaitCommand(5),
-                new ReleaseCommand(grabber).withTimeout(3)
+                new WaitCommand(1),
+                new ReleaseCommand(grabber).withTimeout(1)
             ),
-            new HoldHingeCommand(hinge,true)
+            new HoldHingeDefault(hinge, true),
+            new HoldWristCommand(wrist)
         ));
         addCommands(moveArmMasterCommandFactory(ArmPosition.START));
     }
@@ -46,12 +50,14 @@ public class AutoPlaceCommand extends SequentialCommandGroup {
 		return new SequentialCommandGroup(
 			new InstantCommand(() -> {
                 ArmPositionHelper.hingeAdjustment = 0;
-                ArmLogicAssistant.updatePositions(goal);
-                ArmPositionHelper.currentPosition = goal;				
+                ArmLogicAssistant.updatePositions(goal);				
             }),
 			(new MoveArmMasterCommand(hinge, telescope, wrist, grabber, goal))
-			.until(ArmLogicAssistant::atWristPosition)
-			.withTimeout(Constants.ARM_MOVEMENT_TIMEOUT)
+			.until(ArmLogicAssistant::atAllPositions)
+			.withTimeout(Constants.ARM_MOVEMENT_TIMEOUT),
+			new InstantCommand(() -> {
+                ArmPositionHelper.currentPosition = goal;				
+            })
 		);
 	}
 }
