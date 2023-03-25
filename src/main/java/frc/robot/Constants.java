@@ -90,16 +90,16 @@ public final class Constants {
 
     public static final double RELEASE_SPEED_CUBE_HIGH = -0.15;
     public static final double RELEASE_SPEED_CUBE_MID = -0.05;
-    public static final double RELEASE_SPEED_CONE = -0.1;
+    public static final double RELEASE_SPEED_CONE = -0.12;
 
     //Hinge constants
     public static final double HINGE_MAX_SPEED = 0.4;
     public static final double HINGE_SLOW_SPEED = 0.075;
     public static final double HINGE_ZERO_SPEED = 0.1;
 
-    public static final double HINGE_P = 0.05;
-    public static final double HINGE_FF_EMPTY = 0.005;
-    public static final double HINGE_FF_CONE = 0.009; //0.007
+    public static final double HINGE_P = 0.07; //0.05
+    public static final double HINGE_FF_EMPTY = 0.005; //0.005
+    public static final double HINGE_FF_CONE = 0.009; //0.009
     public static final double SMALL_TOLERANCE = 0.5;
     public static final double BIG_TOLERANCE = 2.0; //1.5
     public static final double CLOSE_POSITION = 6;
@@ -109,7 +109,7 @@ public final class Constants {
     public static final double DEGREES_PER_TICK = 90.0 / (Constants.UP_POSITION - Constants.FRONT_HORIZONTAL_POSITION);
     public static final double BASE_ANGLE = -21.3;
 
-    public static final double ARM_MOVEMENT_TIMEOUT = 10.0;
+    public static final double ARM_MOVEMENT_TIMEOUT = 15.0;
 
     public static final double MIN_HINGE_POSITION = 0.0;
     public static final double MAX_HINGE_POSITION = UP_POSITION; //57.0
@@ -132,7 +132,7 @@ public final class Constants {
     //Wrist constants
     public static final double POSITION_OFFSET = 0;
 
-    public static final double MIN_WRIST_POSITION = -.5;
+    public static final double MIN_WRIST_POSITION = 0.0; //-0.5
     public static final double MAX_WRIST_POSITION = 25.9;
 
     public static final double WRIST_SPEED = 0.2;
@@ -143,6 +143,10 @@ public final class Constants {
 
     public static final double WRIST_FF_EMPTY = 0.1;
     public static final double WRIST_FF_CONE = 0.15;
+
+    public static final double MIN_WRIST_ABS_POS = 0.1755;
+    public static final double MAX_WRIST_ABS_POS = 0.632;
+    public static final double ABS_TO_REL_FACTOR = (MAX_WRIST_POSITION - MIN_WRIST_POSITION) / (MAX_WRIST_ABS_POS - MIN_WRIST_ABS_POS);
 
     //Arm cases
     public static final double ARM_ADJUST_FACTOR = 1;
@@ -162,9 +166,9 @@ public final class Constants {
     public static final double PICKUP_HIGH_POSITION_WRIST = 25.0;
     public static final ArmPositionSide PICKUP_HIGH_POSITION_SIDE = ArmPositionSide.FRONT;
 
-    public static final double CONE_MID_POSITION_HINGE = 13.0;
-    public static final double CONE_MID_POSITION_TELESCOPE = 161.0;
-    public static final double CONE_MID_POSITION_WRIST = 12;
+    public static final double CONE_MID_POSITION_HINGE = 12.4;
+    public static final double CONE_MID_POSITION_TELESCOPE = 130.0;
+    public static final double CONE_MID_POSITION_WRIST = 14;
     public static final ArmPositionSide CONE_MID_POSITION_SIDE = ArmPositionSide.FRONT;
 
     public static final double CUBE_MID_POSITION_HINGE = 12.0;

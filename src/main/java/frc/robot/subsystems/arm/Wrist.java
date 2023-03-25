@@ -54,6 +54,7 @@ public class Wrist extends SubsystemBase {
 
     public void periodic() {
         Crashboard.toDashboard("Wrist Absolute Position", getAbsolutePosition(), Constants.WRIST_TAB);
+        Crashboard.toDashboard("Wrist Converted Absolute Position", getConvertedAbsolutePosition(), Constants.WRIST_TAB);
         Crashboard.toDashboard("Wrist Relative Position", getRelativePosition(), Constants.WRIST_TAB);
         Crashboard.toDashboard("Wrist Motor Speed", this.wristMotor.get(), Constants.WRIST_TAB);
         Crashboard.toDashboard("Wrist V", wristRelativeEncoder.getVelocity(), Constants.WRIST_TAB);
@@ -96,7 +97,7 @@ public class Wrist extends SubsystemBase {
 
     protected double calculateSpeed(double diff)
     {
-        double pValue = .04; //0.02
+        double pValue = .06; //0.04
         double speed = 0;
         //if (Math.abs(diff) <= this.closePosition)
         {
@@ -264,7 +265,12 @@ public class Wrist extends SubsystemBase {
         return wristAbsoluteEncoder.getAbsolutePosition() - Constants.POSITION_OFFSET;
     }
 
+    public double getConvertedAbsolutePosition() {
+        return (getAbsolutePosition() - Constants.MIN_WRIST_ABS_POS) * Constants.ABS_TO_REL_FACTOR;
+    }
+
     public double getRelativePosition() {
-        return wristRelativeEncoder.getPosition();
+        //return wristRelativeEncoder.getPosition();
+        return getConvertedAbsolutePosition();
     }
 }

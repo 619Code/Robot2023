@@ -103,8 +103,8 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
         addCommands(new RunCommand(() -> Crashboard.toDashboard("At Hinge Position", ArmLogicAssistant.atHingePosition, Constants.ARM_TAB)));
         addCommands(new RunCommand(() -> Crashboard.toDashboard("At Telescope Position", ArmLogicAssistant.atTelescopePosition, Constants.ARM_TAB)));
         addCommands(new RunCommand(() -> Crashboard.toDashboard("At Wrist Position", ArmLogicAssistant.atTelescopePosition, Constants.ARM_TAB)));
-        addCommands(new RunCommand(() -> System.out.println("Start: " + ArmLogicAssistant.startPosition)));
-        addCommands(new RunCommand(() -> System.out.println("End: " + ArmLogicAssistant.endPosition)));
+        //addCommands(new RunCommand(() -> System.out.println("Start: " + ArmLogicAssistant.startPosition)));
+        //addCommands(new RunCommand(() -> System.out.println("End: " + ArmLogicAssistant.endPosition)));
     }
 
     public boolean startIsEnd() {

@@ -161,7 +161,7 @@ public class Hinge extends SubsystemBase {
         double speed = calculateSpeed(diff);
         double ff = calculateFF();
 
-        if (Math.abs(diff) > Constants.SMALL_TOLERANCE) {
+        /*if (Math.abs(diff) > Constants.SMALL_TOLERANCE) {
             if (diff > 0) {
                 move(speed + ff);
             } else {
@@ -169,6 +169,12 @@ public class Hinge extends SubsystemBase {
             }
         } else {
             move(ff);
+        }*/
+
+        if (diff > 0) {
+            move(speed + ff);
+        } else {
+            move(-speed + ff);
         }
 
         if(Math.abs(diff) > Constants.BIG_TOLERANCE) {

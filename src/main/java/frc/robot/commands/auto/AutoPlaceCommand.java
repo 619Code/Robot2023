@@ -36,10 +36,7 @@ public class AutoPlaceCommand extends SequentialCommandGroup {
 
         addCommands(moveArmMasterCommandFactory(ArmPosition.CUBE_HIGH));
         addCommands(new ParallelDeadlineGroup(
-            new SequentialCommandGroup(
-                new WaitCommand(1),
-                new ReleaseCommand(grabber).withTimeout(1)
-            ),
+            new ReleaseCommand(grabber).withTimeout(1),
             new HoldHingeDefault(hinge, true),
             new HoldWristCommand(wrist)
         ));
@@ -54,7 +51,7 @@ public class AutoPlaceCommand extends SequentialCommandGroup {
             }),
 			(new MoveArmMasterCommand(hinge, telescope, wrist, grabber, goal))
 			.until(ArmLogicAssistant::atAllPositions)
-			.withTimeout(Constants.ARM_MOVEMENT_TIMEOUT),
+			.withTimeout(7),
 			new InstantCommand(() -> {
                 ArmPositionHelper.currentPosition = goal;				
             })

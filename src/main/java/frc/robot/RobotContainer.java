@@ -145,8 +145,8 @@ public class RobotContainer {
 	}
 
 	private void BindTests() {
-		Trigger toggleLed = operator.back();
-		toggleLed.onTrue(new ToggleColorCommand(led)).debounce(0.5);
+		Trigger zero = operator.back();
+		zero.onTrue(new TelescopeZeroCommand(telescope));
 	}
 
 	public void armBindings() {
@@ -247,22 +247,22 @@ public class RobotContainer {
 		}
 
 		return new SequentialCommandGroup(
-			new TelescopeZeroCommand(telescope).withTimeout(1),
 			new InstantCommand(() -> {
 				hinge.zero();
 				wrist.zero();
 			}),
-			autoCommand.withTimeout(14),
+			new TelescopeZeroCommand(telescope).withTimeout(4),
 			new InstantCommand(() -> {
 				States.autoComplete = true;
-			})
+			}),
+			autoCommand.withTimeout(14)
 		);
 	}
 
 	public void startupActions() {
 		if(!States.autoComplete) {
 			if(telescope != null) {
-				((new TelescopeZeroCommand(telescope)).withTimeout(2)).schedule();
+				((new TelescopeZeroCommand(telescope)).withTimeout(4)).schedule();
 			}
 	
 			if(hinge != null) {
