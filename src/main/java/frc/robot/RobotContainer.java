@@ -3,7 +3,6 @@ package frc.robot;
 import frc.robot.commands.AlternateColorCommand;
 import frc.robot.commands.AutoLineupCommand;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.PreMatchSettingsCommand;
 import frc.robot.commands.arm.MoveArmMasterCommand;
 import frc.robot.commands.arm.hinge.HingeAdjustCommand;
 import frc.robot.commands.arm.hinge.HingeZeroCommand;
@@ -44,6 +43,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -141,8 +141,7 @@ public class RobotContainer {
 	private void competitionBindings() {
 		armBindings();
 		grabberBindings();
-		lineupTesting();
-		preMatchZeroing();
+		//lineupTesting();
 	}
 
 	private void BindTests() {
@@ -206,11 +205,6 @@ public class RobotContainer {
 		toggleLed.onTrue(new ToggleColorCommand(led)).debounce(0.5);
 	}
 
-	public void preMatchZeroing() {
-		Trigger zeroAllButton = driver.back();
-		zeroAllButton.onTrue(new PreMatchSettingsCommand(hinge, telescope, wrist, grabber));
-	}
-
 	public void lineupTesting() {
 		Trigger leftButton = driver.x();
 		leftButton.whileTrue(new AutoLineupCommand(drive, LineupPosition.LEFT));
@@ -232,35 +226,55 @@ public class RobotContainer {
 
 	public Command getAutonomousCommand() {
 		AutoOption chosenAuto = AutoOption.valueOf(autoOptions.getSelected());
+		Command autoCommand = null;
 
 		switch (chosenAuto) {
 			case Place: 
-				return new SequentialCommandGroup(
+				autoCommand = new SequentialCommandGroup(
 					new AutoPlaceCommand(grabber, hinge, telescope, wrist),
 					new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE)
 				);
+				break;
 			case Drive:
-				return new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE);
+				autoCommand = new AutoDriveCommand(drive, Constants.AUTO_DRIVE_DISTANCE);
+				break;
 			case Null:
-				return null;
+				autoCommand = new WaitCommand(0);
+				break;
 			default:
-				return null;
+				autoCommand = new WaitCommand(0);
+				break;
 		}
+
+		return new SequentialCommandGroup(
+			//new TelescopeZeroCommand(telescope).withTimeout(2),
+			new InstantCommand(() -> {
+				telescope.zero();
+				hinge.zero();
+				wrist.zero();
+			}),
+			autoCommand.withTimeout(13),
+			new InstantCommand(() -> {
+				States.autoComplete = true;
+			})
+		);
 	}
 
 	public void startupActions() {
-		if(telescope != null) {
-			//new TelescopeZeroCommand(telescope).schedule();
-			telescope.zero();
-		}
-
-		if(hinge != null) {
-			hinge.zero();
-		}
-
-		if (this.wrist != null)
-		{
-			this.wrist.zero();
+		if(!States.autoComplete) {
+			if(telescope != null) {
+				//((new TelescopeZeroCommand(telescope)).withTimeout(2)).schedule();
+				telescope.zero();
+			}
+	
+			if(hinge != null) {
+				hinge.zero();
+			}
+	
+			if (this.wrist != null)
+			{
+				this.wrist.zero();
+			}
 		}
 	}
 }
