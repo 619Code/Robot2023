@@ -1,6 +1,8 @@
 package frc.robot.commands.grabber;
 
 import frc.robot.Constants;
+import frc.robot.helpers.ArmPositionHelper;
+import frc.robot.helpers.enums.ArmPosition;
 import frc.robot.subsystems.Grabber;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
@@ -22,11 +24,19 @@ public class ReleaseCommand extends CommandBase {
 
     @Override
     public void execute() {
+        double speed = 0;
+
         if(grabber.coneSensed()) {
-            grabber.spin(Constants.RELEASE_SPEED_CONE);
+            speed = Constants.RELEASE_SPEED_CONE;
         } else {
-            grabber.spin(Constants.RELEASE_SPEED_CUBE);
+            if(ArmPositionHelper.currentPosition == ArmPosition.CUBE_HIGH) {
+                speed = Constants.RELEASE_SPEED_CUBE_HIGH;
+            } else {
+                speed = Constants.RELEASE_SPEED_CUBE_MID;
+            }
         }
+
+        grabber.spin(speed);
     }
 
     @Override

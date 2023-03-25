@@ -88,14 +88,12 @@ public final class Constants {
     public static final double DEFAULT_WAIT_TIME = 3;
     public static final double DEFAULT_PULSE_TIME = 0.5;
 
-    public static final double RELEASE_SPEED_CUBE = -0.05;
+    public static final double RELEASE_SPEED_CUBE_HIGH = -0.5;
+    public static final double RELEASE_SPEED_CUBE_MID = -0.05;
     public static final double RELEASE_SPEED_CONE = -0.1;
 
     //Hinge constants
-    public static final double MIN_HINGE_POSITION = 0.0;
-    public static final double MAX_HINGE_POSITION = 57.0;
-
-    public static final double HINGE_MAX_SPEED = 0.4; //0.4
+    public static final double HINGE_MAX_SPEED = 0.4;
     public static final double HINGE_SLOW_SPEED = 0.075;
     public static final double HINGE_ZERO_SPEED = 0.1;
 
@@ -111,6 +109,9 @@ public final class Constants {
     public static final double BASE_ANGLE = -21.3;
 
     public static final double ARM_MOVEMENT_TIMEOUT = 20.0;
+
+    public static final double MIN_HINGE_POSITION = 0.0;
+    public static final double MAX_HINGE_POSITION = UP_POSITION; //57.0
 
     //Telescope constants
     public static final double TELESCOPE_CONTRACTED_SWITCH_POSITION = 0.0;
@@ -152,20 +153,25 @@ public final class Constants {
     public static final double PICKUP_LOW_POSITION_WRIST = 20.0;
     public static final ArmPositionSide PICKUP_LOW_POSITION_SIDE = ArmPositionSide.FRONT;
 
-    public static final double PICKUP_HIGH_POSITION_HINGE = 20;
+    public static final double PICKUP_HIGH_POSITION_HINGE = 20.0;
     public static final double PICKUP_HIGH_POSITION_TELESCOPE = 66.0;
     public static final double PICKUP_HIGH_POSITION_WRIST = 25.0;
     public static final ArmPositionSide PICKUP_HIGH_POSITION_SIDE = ArmPositionSide.FRONT;
 
-    public static final double GRID_MID_POSITION_HINGE = 13;
-    public static final double GRID_MID_POSITION_TELESCOPE = 161.0;
-    public static final double GRID_MID_POSITION_WRIST = 12;
-    public static final ArmPositionSide GRID_MID_POSITION_SIDE = ArmPositionSide.FRONT;
+    public static final double CONE_MID_POSITION_HINGE = 13.0;
+    public static final double CONE_MID_POSITION_TELESCOPE = 161.0;
+    public static final double CONE_MID_POSITION_WRIST = 12;
+    public static final ArmPositionSide CONE_MID_POSITION_SIDE = ArmPositionSide.FRONT;
 
-    public static final double GRID_HIGH_POSITION_HINGE = 46.0;
-    public static final double GRID_HIGH_POSITION_TELESCOPE = 72.0;
-    public static final double GRID_HIGH_POSITION_WRIST = 0.0;
-    public static final ArmPositionSide GRID_HIGH_POSITION_SIDE = ArmPositionSide.BACK;
+    public static final double CUBE_MID_POSITION_HINGE = 12.0;
+    public static final double CUBE_MID_POSITION_TELESCOPE = 68.0;
+    public static final double CUBE_MID_POSITION_WRIST = 18.0;
+    public static final ArmPositionSide CUBE_MID_POSITION_SIDE = ArmPositionSide.FRONT;
+
+    public static final double CUBE_HIGH_POSITION_HINGE = 13.0;
+    public static final double CUBE_HIGH_POSITION_TELESCOPE = 175.0;
+    public static final double CUBE_HIGH_POSITION_WRIST = 12.0;
+    public static final ArmPositionSide CUBE_HIGH_POSITION_SIDE = ArmPositionSide.FRONT;
 
     public static final double CHUTE_POSITION_HINGE = 46.0;
     public static final double CHUTE_POSITION_WRIST = 0.0;

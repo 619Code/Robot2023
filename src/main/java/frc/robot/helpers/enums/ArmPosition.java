@@ -5,6 +5,7 @@ public enum ArmPosition {
     PICKUP_LOW,
     PICKUP_HIGH,
     CHUTE,
-    GRID_MID,
-    GRID_HIGH
+    CONE_MID,
+    CUBE_MID,
+    CUBE_HIGH
 }

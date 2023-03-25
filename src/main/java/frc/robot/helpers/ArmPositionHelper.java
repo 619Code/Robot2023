@@ -18,10 +18,12 @@ public class ArmPositionHelper {
                 return Constants.PICKUP_HIGH_POSITION_HINGE;
             case CHUTE:
                 return Constants.CHUTE_POSITION_HINGE;
-            case GRID_MID:
-                return Constants.GRID_MID_POSITION_HINGE;
-            case GRID_HIGH:
-                return Constants.GRID_HIGH_POSITION_HINGE;
+            case CONE_MID:
+                return Constants.CONE_MID_POSITION_HINGE;
+            case CUBE_MID:
+                return Constants.CUBE_MID_POSITION_HINGE;
+            case CUBE_HIGH:
+                return Constants.CUBE_HIGH_POSITION_HINGE;
             default:
                 return Constants.START_POSITION_HINGE;
         }
@@ -37,10 +39,12 @@ public class ArmPositionHelper {
                 return Constants.PICKUP_HIGH_POSITION_TELESCOPE;
             case CHUTE:
                 return Constants.CHUTE_POSITION_TELESCOPE;
-            case GRID_MID:
-                return Constants.GRID_MID_POSITION_TELESCOPE;
-            case GRID_HIGH:
-                return Constants.GRID_HIGH_POSITION_TELESCOPE;
+            case CONE_MID:
+                return Constants.CONE_MID_POSITION_TELESCOPE;
+            case CUBE_MID:
+                return Constants.CUBE_MID_POSITION_TELESCOPE;
+            case CUBE_HIGH:
+                return Constants.CUBE_HIGH_POSITION_TELESCOPE;
             default:
                 return Constants.START_POSITION_TELESCOPE;
         }
@@ -56,10 +60,12 @@ public class ArmPositionHelper {
                 return Constants.PICKUP_HIGH_POSITION_WRIST;
             case CHUTE:
                 return Constants.CHUTE_POSITION_WRIST;
-            case GRID_MID:
-                return Constants.GRID_MID_POSITION_WRIST;
-            case GRID_HIGH:
-                return Constants.GRID_HIGH_POSITION_WRIST;
+            case CONE_MID:
+                return Constants.CONE_MID_POSITION_WRIST;
+            case CUBE_MID:
+                return Constants.CUBE_MID_POSITION_WRIST;
+            case CUBE_HIGH:
+                return Constants.CUBE_HIGH_POSITION_WRIST;
             default:
                 return Constants.START_POSITION_WRIST;
         }
@@ -73,10 +79,12 @@ public class ArmPositionHelper {
                 return Constants.PICKUP_LOW_POSITION_SIDE;
             case PICKUP_HIGH:
                 return Constants.PICKUP_HIGH_POSITION_SIDE;
-            case GRID_MID:
-                return Constants.GRID_MID_POSITION_SIDE;
-            case GRID_HIGH:
-                return Constants.GRID_HIGH_POSITION_SIDE;
+            case CONE_MID:
+                return Constants.CONE_MID_POSITION_SIDE;
+            case CUBE_MID:
+                return Constants.CUBE_MID_POSITION_SIDE;
+            case CUBE_HIGH:
+                return Constants.CUBE_HIGH_POSITION_SIDE;
             case CHUTE:
                 return Constants.CHUTE_POSITION_SIDE;
             default:

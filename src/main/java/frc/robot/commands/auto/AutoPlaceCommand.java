@@ -31,7 +31,7 @@ public class AutoPlaceCommand extends SequentialCommandGroup {
         this.telescope = telescope;
         this.wrist = wrist;
 
-        addCommands(moveArmMasterCommandFactory(ArmPosition.GRID_MID));
+        addCommands(moveArmMasterCommandFactory(ArmPosition.CONE_MID));
         addCommands(new ParallelDeadlineGroup(
             new SequentialCommandGroup(
                 new WaitCommand(5),

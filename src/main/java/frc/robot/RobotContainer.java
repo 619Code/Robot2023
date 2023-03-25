@@ -39,6 +39,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ComplexWidget;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.ToggleColorCommand;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -168,10 +169,14 @@ public class RobotContainer {
 		pickupHighButton.onTrue(moveArmMasterCommandFactory(ArmPosition.PICKUP_HIGH));
 
 		Trigger placeMidButton = operator.x();
-		placeMidButton.onTrue(moveArmMasterCommandFactory(ArmPosition.GRID_MID));
+		placeMidButton.onTrue(new ConditionalCommand( //place cube or cone, depending on state
+			moveArmMasterCommandFactory(ArmPosition.CONE_MID),
+			moveArmMasterCommandFactory(ArmPosition.CUBE_MID),
+			grabber::coneSensed
+		));
 
-		// Trigger placeHighButton = operator.b();
-		// placeHighButton.onTrue(moveArmMasterCommandFactory(ArmPosition.GRID_HIGH));
+		Trigger placeCubeHighButton = operator.b();
+		placeCubeHighButton.onTrue(moveArmMasterCommandFactory(ArmPosition.CUBE_HIGH));
 	}
 
 	public Command moveArmMasterCommandFactory(ArmPosition goal) {
