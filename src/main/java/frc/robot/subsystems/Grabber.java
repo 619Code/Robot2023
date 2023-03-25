@@ -25,6 +25,8 @@ public class Grabber extends SubsystemBase {
     private ColorSensorV3 colorSensor;
     private DigitalInput proximitySensor;
 
+    boolean checkForCube = false;
+
     private GenericEntry grabberSpark;
 
     public Grabber() {
@@ -59,13 +61,26 @@ public class Grabber extends SubsystemBase {
             States.hasCone = false;
     }
 
+    public void startSensingCube() {
+        checkForCube = true;
+    }
+
+    public void stopSensingCube() {
+        checkForCube = false;
+    }
+
     @Override
     public void periodic() {
 
-        //var cubeSensedValue = cubeSensed();
+        boolean cubeSensedValue = false;
+        if (checkForCube)
+        {
+            cubeSensedValue = cubeSensed();
+        }
+
         var coneSensedValue = coneSensed();
 
-        //this.UpdateGlobalStates(cubeSensedValue, coneSensedValue);
+        this.UpdateGlobalStates(cubeSensedValue, coneSensedValue);
 
         /*grabberSpark = Crashboard.toDashboard("Grabber Spark", SparkErrorHelper.HasSensorError(grabberLeaderMotor), Constants.SPARKS_TAB);
         Crashboard.toDashboard("Cube Sensed", cubeSensed(), Constants.GRABBER_TAB);

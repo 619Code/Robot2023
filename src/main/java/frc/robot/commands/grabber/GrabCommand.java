@@ -27,6 +27,7 @@ public class GrabCommand extends CommandBase {
         endTimer.reset();
         endTimer.stop();
         ending = false;
+        this.grabber.startSensingCube();
     }
 
     @Override
@@ -59,6 +60,7 @@ public class GrabCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        grabber.stopSensingCube();
         grabber.stop();
     }
 
