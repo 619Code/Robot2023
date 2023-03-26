@@ -2,6 +2,7 @@ package frc.robot.commands.arm.hinge;
 
 import frc.robot.Constants;
 import frc.robot.helpers.ArmPositionHelper;
+import frc.robot.helpers.Crashboard;
 import frc.robot.helpers.enums.ArmPosition;
 import frc.robot.subsystems.arm.Hinge;
 import edu.wpi.first.math.controller.HolonomicDriveController;
@@ -13,13 +14,13 @@ public class HingeAdjustCommand extends CommandBase {
 
     private CommandXboxController controller;
 
-    private HoldHingeCommand myHoldCommand;
+    private HoldHingeDefault myHoldCommand;
 
     public HingeAdjustCommand(Hinge hinge, CommandXboxController controller) {
         this.hinge = hinge;
         this.controller = controller;
 
-        myHoldCommand = new HoldHingeCommand(hinge,true);
+        myHoldCommand = new HoldHingeDefault(hinge,true);
 
         addRequirements(hinge);
     }
@@ -30,9 +31,8 @@ public class HingeAdjustCommand extends CommandBase {
 
     @Override
     public void execute() {
-        double adjustment = controller.getLeftY() * 0.3;
+        double adjustment = controller.getLeftY() * 0.2;
         ArmPositionHelper.hingeAdjustment += adjustment;
-        ArmPositionHelper.hingeAdjustment = Math.max(0,ArmPositionHelper.hingeAdjustment);
         myHoldCommand.execute();
     }
 

@@ -44,17 +44,8 @@ public class AutoPlaceCommand extends SequentialCommandGroup {
     }
 
     public Command moveArmMasterCommandFactory(ArmPosition goal) {
-		return new SequentialCommandGroup(
-			new InstantCommand(() -> {
-                ArmPositionHelper.hingeAdjustment = 0;
-                ArmLogicAssistant.updatePositions(goal);				
-            }),
-			(new MoveArmMasterCommand(hinge, telescope, wrist, grabber, goal))
-			.until(ArmLogicAssistant::atAllPositions)
-			.withTimeout(7),
-			new InstantCommand(() -> {
-                ArmPositionHelper.currentPosition = goal;				
-            })
-		);
+		return (new MoveArmMasterCommand(hinge, telescope, wrist, grabber, goal))
+		.until(ArmLogicAssistant::atAllPositions)
+		.withTimeout(7);
 	}
 }

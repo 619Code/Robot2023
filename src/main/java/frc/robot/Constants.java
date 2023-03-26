@@ -124,6 +124,7 @@ public final class Constants {
 
     public static final double TELESCOPE_SPEED = 0.8; //0.9
     public static final double TELESCOPE_ZERO_SPEED = 0.1; //0.2 UNDO
+    public static final double TELESCOPE_MANUAL_SPEED = 0.2;
     public static final double TELESCOPE_P = 0.04;
 
     public static final double INCHES_PER_TICK = 15.0 / 139.0;
