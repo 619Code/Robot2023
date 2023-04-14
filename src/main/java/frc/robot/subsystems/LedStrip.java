@@ -31,9 +31,9 @@ public class LedStrip extends SubsystemBase{
 
         ledStrip.setData(ledBuffer);
 
-        ledSections[0] = new LedStripQuarter(LEDQuarterTypes.Communication, 76);
-        ledSections[1] = new LedStripQuarter(LEDQuarterTypes.Communication, 94);
-        ledSections[2] = new LedStripQuarter(LEDQuarterTypes.Communication, 99);
+        ledSections[0] = new LedStripQuarter(LEDQuarterTypes.KnightRider, 76);
+        ledSections[1] = new LedStripQuarter(LEDQuarterTypes.KnightRider, 94);
+        ledSections[2] = new LedStripQuarter(LEDQuarterTypes.KnightRider, 99);
 
         isYellow = true;
     }
