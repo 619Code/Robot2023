@@ -31,7 +31,6 @@ public class Hinge extends SubsystemBase {
     private double slowSpeed = Constants.SLOW_MODE_SPEED;
     private double maxSpeed = Constants.HINGE_MAX_SPEED;
     private double ffBaseValue = Constants.HINGE_FF_EMPTY;
-    private double tolerance = Constants.BIG_TOLERANCE;
     private double closePosition = Constants.CLOSE_POSITION;
 
     private GenericEntry toleranceEntry;
@@ -60,8 +59,9 @@ public class Hinge extends SubsystemBase {
         maxSpeedEntry = Crashboard.toDashboard("Max Speed", maxSpeed , Constants.ARM_TAB);
         minSpeedEntry = Crashboard.toDashboard("Min Speed", slowSpeed , Constants.ARM_TAB);
         ffEntry = Crashboard.toDashboard("FF", ffBaseValue , Constants.ARM_TAB);
-        toleranceEntry = Crashboard.toDashboard("Tolerance", tolerance , Constants.ARM_TAB);
         closePostionEntry = Crashboard.toDashboard("Close Position", closePosition , Constants.ARM_TAB);
+
+        hingeMotor.enableVoltageCompensation(12.5);
     }
 
     public void GetFromDashboard() {
@@ -86,6 +86,8 @@ public class Hinge extends SubsystemBase {
         //Crashboard.toDashboard("Hinge Amps", hingeMotor.getAppliedOutput(), Constants.ARM_TAB);
 
         Crashboard.toDashboard("Hinge Angle", getAngle(), Constants.ARM_TAB);
+        Crashboard.toDashboard("Voltage", getMotorVoltage(), Constants.ARM_TAB);
+        Crashboard.toDashboard("Speed", hingeMotor.get(), Constants.ARM_TAB);
 
         if(States.hasCone) {
             ffBaseValue = Constants.HINGE_FF_CONE;
@@ -215,6 +217,10 @@ public class Hinge extends SubsystemBase {
 
     public void zero() {
         hingeEncoder.setPosition(0);
+    }
+
+    public double getMotorVoltage() {
+        return hingeMotor.getBusVoltage();
     }
 }
 
