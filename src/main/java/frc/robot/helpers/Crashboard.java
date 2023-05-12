@@ -2,6 +2,7 @@ package frc.robot.helpers;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.Map;
 
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.util.sendable.Sendable;
@@ -36,6 +37,22 @@ public class Crashboard {
         return Shuffleboard.getTab(tab).add(identifier, value).withWidget(widget);
     }
 
+    public static GenericEntry AddSlider(String identifier, double value, String tab, double minValue, double maxValue) {
+        GenericEntry genericEntry = DashboardEntries.get(getKey(identifier, tab));
+        if (genericEntry == null) {
+            genericEntry =  Shuffleboard.getTab(tab)
+                .add(getKey(identifier, tab), value)
+                .withWidget(BuiltInWidgets.kNumberSlider)
+                .withProperties(Map.of("min", minValue, "max", maxValue)) // specify widget properties here
+                .getEntry();
+        }
+        else
+        {
+            genericEntry.setValue(value);
+        }
+        return genericEntry;
+    }
+
     private static String getKey(String identifier, String tab) {
         return identifier + "-" + tab;
     }
@@ -56,13 +73,4 @@ public class Crashboard {
             in = max;
         return in;
     }
-
-    /*
-     * public static boolean scaleSlider(String identifier) {
-     * 
-     * SmartDashboard.getEntry(identifier).
-     * 
-     * return false;
-     * }
-     */
 }
