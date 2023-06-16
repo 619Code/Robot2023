@@ -27,7 +27,7 @@ public class WristManualCommand extends CommandBase {
     @Override
     public void initialize() {
         adjustment = 0;
-        wristAdjustment = wrist.getRelativePosition();
+        wristAdjustment = wrist.getCurrentPositionInDegrees();
     }
 
     @Override
