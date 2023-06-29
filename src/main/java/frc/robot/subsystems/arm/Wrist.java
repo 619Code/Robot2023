@@ -54,7 +54,7 @@ public class Wrist extends SubsystemBase {
 
     public void periodic() {
         Crashboard.toDashboard("Wrist Absolute Position", getAbsolutePosition(), Constants.WRIST_TAB);
-        Crashboard.toDashboard("Absolute angle", getCurrentPositionInDegrees(), Constants.WRIST_TAB);
+        Crashboard.toDashboard("Angle (degrees)", getCurrentPositionInDegrees(), Constants.WRIST_TAB);
         //Crashboard.toDashboard("Wrist Converted Absolute Position", getConvertedAbsolutePosition(), Constants.WRIST_TAB);
         //Crashboard.toDashboard("Wrist Relative Position", getRelativePosition(), Constants.WRIST_TAB);
         Crashboard.toDashboard("Wrist Motor Speed", this.wristMotor.get(), Constants.WRIST_TAB);
@@ -176,8 +176,8 @@ public class Wrist extends SubsystemBase {
     //returns angle relative to arm
     public double getCurrentPositionInDegrees(){
         //this model is based on collected data
-        //Issues to bring up next time 
-        // talk about the runover of the motor
+        //Issues to bring up next time motor runover
+        // Note: the motor seems to go from 0.8 ish to 1 then from 0 to 0.1 in its motion
         double position = getAbsolutePosition();
         double m = 0, x1 = 0, c = 0;
         if (position > 0.6)
@@ -187,7 +187,7 @@ public class Wrist extends SubsystemBase {
             c = 90;
         } 
         else{
-            m = 120.393349225;
+            m = -717.070776681;
             x1 = 0.01855040046376;
         }
         double angle = m*(getAbsolutePosition()- x1) + c;
