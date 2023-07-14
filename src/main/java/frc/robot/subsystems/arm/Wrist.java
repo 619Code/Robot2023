@@ -7,6 +7,9 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
@@ -36,6 +39,25 @@ public class Wrist extends SubsystemBase {
     //private GenericEntry slowSpeedEntry;
     private double maxFF = Constants.WRIST_FF_EMPTY;
 
+
+    //These can be later added to main constants
+    //Note for now we should focus on feedforward since PID system is mainly optional
+    private static final double KP = 0.1;  
+    private static final double KI = 0.01;  
+    private static final double KD = 0.0;   
+
+    private static final double kS = 0.0;     // Static friction gain
+    private static final double kV = 0.0;     // Velocity gain
+    private static final double kA = 0.0;     // Acceleration gain
+    //we could also use a Armfeedforward which does include kG (gravity gain)
+    //private static final double kG = 0.0;     // Gravity gain
+
+
+    //These are for getting the voltage
+    SimpleMotorFeedforward feedforward;
+    //ArmFeedforward feedforward; also an option
+    PIDController pidController;
+
     public Wrist() {
         wristMotor = new CANSparkMax(Constants.WRIST_MOTOR, MotorType.kBrushless);
         wristMotor.restoreFactoryDefaults();
@@ -45,6 +67,12 @@ public class Wrist extends SubsystemBase {
 
         wristAbsoluteEncoder = new DutyCycleEncoder(Constants.WRIST_ABSOLUTE_ENCODER);
         wristRelativeEncoder = wristMotor.getEncoder();
+
+        //feedforward = new ArmFeedforward(kS, kG, kV, kA); alternate
+        feedforward = new SimpleMotorFeedforward(kS, kV, kA);
+
+        pidController = new PIDController(KP, KI, KD);
+
 
         //maxFFEntry = Crashboard.toDashboard("Wrist FF Base Value", maxFF, Constants.WRIST_TAB);
         //maxSpeedEntry = Crashboard.toDashboard("Wrist Max Value", maxSpeed, Constants.WRIST_TAB);
@@ -70,6 +98,66 @@ public class Wrist extends SubsystemBase {
         } else {
             maxFF = Constants.WRIST_FF_EMPTY;
         }
+    }
+
+
+    // 0.01855040046376 at 0
+    // 0.01855040046376
+    
+    // 0.7661~~~~~~~~~~ at 90
+    
+    // 116.4 -- 0.68559
+
+    //returns angle relative to arm
+    public double getCurrentPositionInDegrees(){
+        //this model is based on collected data
+        //Issues to bring up next time motor runover
+        // Note: the motor seems to go from 0.8 ish to 1 then from 0 to 0.1 in its motion
+        double position = getAbsolutePosition();
+        double m = 0, x1 = 0, c = 0;
+        if (position > 0.6)
+        {
+            m = -327.90957645;
+            x1 = 0.7661;
+            c = 90;
+        } 
+        else{
+            m = -717.070776681;
+            x1 = 0.01855040046376;
+        }
+        double angle = m*(getAbsolutePosition()- x1) + c;
+        return angle; 
+    }
+
+    //this is mainly here as a reminder to convert to radians before using angles
+    public double convertToRadians(double angle)
+    {
+        return Math.toRadians(angle);
+    }
+
+
+    public void moveArm() {
+        //These constants can be moved around after
+        double feedforwardOutput = 0.0;
+        double pidOutput = 0.0;
+        double wristVoltage = 0.0;
+
+        double velocity = 0.0;
+        double acceleration = 0.0;
+        //All angles need to be in radians
+        double currentAngle = 0;
+        double desiredAngle = 0;
+
+        // Calculate the feed-forward output based on desired velocity, and aceleration (can be omitted)
+        feedforwardOutput = feedforward.calculate(velocity, acceleration);
+
+        // Calculate the PID output based on curret position and desired position
+        pidOutput = pidController.calculate(currentAngle, desiredAngle);
+
+        // Combine the feed-forward and PID outputs to get the final motor voltage
+        wristVoltage = feedforwardOutput + pidOutput;
+
+        //wristMotor.set(wristVoltage);
     }
 
     //public void move(double speed) {
@@ -163,37 +251,6 @@ public class Wrist extends SubsystemBase {
     // public double getFFAngleForCalculating() {
     //     return States.ArmAngleInDegreesFromStart + this.getAngle();
     // }
-
-
-
-    // 0.01855040046376 at 0
-    // 0.01855040046376
-    
-    // 0.7661~~~~~~~~~~ at 90
-    
-    // 116.4 -- 0.68559
-
-    //returns angle relative to arm
-    public double getCurrentPositionInDegrees(){
-        //this model is based on collected data
-        //Issues to bring up next time motor runover
-        // Note: the motor seems to go from 0.8 ish to 1 then from 0 to 0.1 in its motion
-        double position = getAbsolutePosition();
-        double m = 0, x1 = 0, c = 0;
-        if (position > 0.6)
-        {
-            m = -327.90957645;
-            x1 = 0.7661;
-            c = 90;
-        } 
-        else{
-            m = -717.070776681;
-            x1 = 0.01855040046376;
-        }
-        double angle = m*(getAbsolutePosition()- x1) + c;
-        return angle; 
-    }
-
 
     public double getAngle() {
 
