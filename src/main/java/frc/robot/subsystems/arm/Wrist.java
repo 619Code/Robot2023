@@ -41,7 +41,7 @@ public class Wrist extends SubsystemBase {
         wristMotor.restoreFactoryDefaults();
         wristMotor.setIdleMode(IdleMode.kBrake);
         wristMotor.setSmartCurrentLimit(30);
-        wristMotor.setInverted(true);
+        //wristMotor.setInverted(true);
 
         wristAbsoluteEncoder = new DutyCycleEncoder(Constants.WRIST_ABSOLUTE_ENCODER);
         wristRelativeEncoder = wristMotor.getEncoder();
@@ -266,7 +266,22 @@ public class Wrist extends SubsystemBase {
     }
 
     public double getConvertedAbsolutePosition() {
-        return (getAbsolutePosition() - Constants.MIN_WRIST_ABS_POS) * Constants.ABS_TO_REL_FACTOR;
+        double position = getAbsolutePosition();
+        double y, m, x;
+        if (position > 0.5) {
+            m = 73.0689655172;
+            x = Constants.MAX_WRIST_ABS_POS;
+            y = Constants.MIN_WRIST_POSITION;
+        } 
+        else{
+            m = 76.0340909091;
+            x = Constants.MIN_WRIST_ABS_POS;
+            y = Constants.MAX_WRIST_POSITION;
+        }
+
+        double relativePos = m*(position - x) + y;
+
+        return relativePos;
     }
 
     public double getRelativePosition() {

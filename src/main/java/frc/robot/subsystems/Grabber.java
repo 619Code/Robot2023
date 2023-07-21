@@ -89,6 +89,7 @@ public class Grabber extends SubsystemBase {
 
     public void spin(double speed) {
         grabberLeaderMotor.set(speed);
+        grabberFollowerMotor.set(speed); //
     }
 
     public boolean coneSensed() {
@@ -97,5 +98,6 @@ public class Grabber extends SubsystemBase {
 
     public void stop() {
         grabberLeaderMotor.set(0);
+        grabberFollowerMotor.set(0);
     }
 }
