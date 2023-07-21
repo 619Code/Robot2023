@@ -171,7 +171,7 @@ public final class Constants {
 
     public static final double PICKUP_LOW_POSITION_HINGE = 0;
     public static final double PICKUP_LOW_POSITION_TELESCOPE = 14.0;
-    public static final double PICKUP_LOW_POSITION_WRIST = 20.8494208494; //20.0
+    public static final double PICKUP_LOW_POSITION_WRIST = 23.8494208494; //20.0
     public static final ArmPositionSide PICKUP_LOW_POSITION_SIDE = ArmPositionSide.FRONT;
 
     public static final double PICKUP_HIGH_POSITION_HINGE = 19.75; //20.0
@@ -181,7 +181,7 @@ public final class Constants {
 
     public static final double CONE_MID_POSITION_HINGE = 12.4;
     public static final double CONE_MID_POSITION_TELESCOPE = 130.0;
-    public static final double CONE_MID_POSITION_WRIST = 16.2162162162;
+    public static final double CONE_MID_POSITION_WRIST = 19.2162162162;
     public static final ArmPositionSide CONE_MID_POSITION_SIDE = ArmPositionSide.FRONT;
 
     public static final double CUBE_MID_POSITION_HINGE = 12.0;
