@@ -174,7 +174,7 @@ public final class Constants {
     public static final double PICKUP_LOW_POSITION_WRIST = 23.8494208494; //20.0
     public static final ArmPositionSide PICKUP_LOW_POSITION_SIDE = ArmPositionSide.FRONT;
 
-    public static final double PICKUP_HIGH_POSITION_HINGE = 19.75; //20.0
+    public static final double PICKUP_HIGH_POSITION_HINGE = 18; //19.75; //20.0
     public static final double PICKUP_HIGH_POSITION_TELESCOPE = 66.0;
     public static final double PICKUP_HIGH_POSITION_WRIST = 28.9575289575;
     public static final ArmPositionSide PICKUP_HIGH_POSITION_SIDE = ArmPositionSide.FRONT;
