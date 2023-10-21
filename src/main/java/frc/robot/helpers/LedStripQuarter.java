@@ -22,6 +22,11 @@ public class LedStripQuarter {
         nr = new nightrider(length);
     }
 
+    public void SetLEDMode(LEDQuarterTypes type)
+    {
+        this.type = type;
+    }
+
     public int[][] getValues() {
         switch(type)
         {

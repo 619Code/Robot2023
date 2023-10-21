@@ -21,7 +21,8 @@ public class Robot extends TimedRobot {
 
     // For Oblog uncomment, othewise use the Crashboard
     //Logger.configureLoggingAndConfig(robotContainer, false);
-
+    States.isEnabled = false;
+    States.inAuto = false;
     CameraServer.startAutomaticCapture();
   }
 
@@ -32,14 +33,18 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit() {
+    States.isEnabled = false;
+    States.inAuto = false;
   }
 
   @Override
   public void disabledPeriodic() {
+    
   }
 
   @Override
   public void autonomousInit() {
+    States.isEnabled = true;
     States.inAuto = true;
     Crashboard.toDashboard("Autonomous", States.inAuto, Constants.STATUS_TAB);
 
@@ -52,11 +57,14 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
+    
   }
 
   @Override
   public void teleopInit() {
+    States.isEnabled = true;
     States.inAuto = false;
+    
     Crashboard.toDashboard("Autonomous", States.inAuto, Constants.STATUS_TAB);
 
     if (m_autonomousCommand != null) {
@@ -68,7 +76,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    //
+    States.isEnabled = true;
   }
 
   @Override

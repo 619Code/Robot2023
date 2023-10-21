@@ -12,6 +12,7 @@ public class LedStrip extends SubsystemBase{
     int rIndex = 0;
     int gIndex = 1;
     int bIndex = 2;
+    private boolean isEnabled = false;
 
     AddressableLED ledStrip;
     AddressableLEDBuffer ledBuffer;
@@ -39,6 +40,15 @@ public class LedStrip extends SubsystemBase{
     }
 
     public void periodic() {
+
+        // Only run if enabled state changes
+        if (States.isEnabled != isEnabled)
+        {
+            isEnabled = States.isEnabled;
+            for (int i = 0; i < ledSections.length; i++)
+                ledSections[i].SetLEDMode(isEnabled ? LEDQuarterTypes.Communication : LEDQuarterTypes.KnightRider);            
+        }
+
         States.lightsAreYellow = isYellow;
 
         //rainbow();

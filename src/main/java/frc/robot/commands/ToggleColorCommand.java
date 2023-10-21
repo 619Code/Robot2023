@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LedStrip;
 
 public class ToggleColorCommand extends CommandBase {
+    
     private LedStrip led;
 
     public ToggleColorCommand(LedStrip led) {
@@ -14,6 +15,7 @@ public class ToggleColorCommand extends CommandBase {
 
     @Override
     public void initialize() {
+        
         if(led.isYellow) {
             led.setColorPurple();
         } else {

@@ -1,6 +1,7 @@
 package frc.robot;
 
 public class States {
+    public static boolean isEnabled = false;
     public static boolean intakeDeployed = false;
     public static boolean inAuto = false;
     public static boolean autoComplete = false;
