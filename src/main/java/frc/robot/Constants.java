@@ -134,7 +134,7 @@ public final class Constants {
     public static final double POSITION_OFFSET = 0;
 
     public static final double MIN_WRIST_POSITION = 0.0; //-0.5
-    public static final double MAX_WRIST_POSITION = 30;
+    public static final double MAX_WRIST_POSITION = 53.0;
 
     public static final double WRIST_SPEED = 0.2;
     public static final double WRIST_ZERO_SPEED = 0.1;
@@ -145,7 +145,7 @@ public final class Constants {
     public static final double WRIST_FF_EMPTY = 0.1;
     public static final double WRIST_FF_CONE = 0.15;
 
-    public static final double MIN_WRIST_ABS_POS = 0.088;
+    public static final double MIN_WRIST_ABS_POS = 0.139;
     public static final double MAX_WRIST_ABS_POS = 0.681;
 
     public static final double WRIST_REL_POINT_SWITCH = 23.309;
@@ -154,12 +154,15 @@ public final class Constants {
 
     public static final double ABS_TO_REL_UP_FACTOR = (WRIST_REL_POINT_SWITCH - MIN_WRIST_POSITION) / (1 - MAX_WRIST_ABS_POS);
     public static final double ABS_TO_REL_DOWN_FACTOR = (WRIST_REL_POINT_SWITCH - MAX_WRIST_POSITION) / (0 - MIN_WRIST_ABS_POS);
+    //public static final double val = ABS_TO_REL_DOWN_FACTOR * 0.14 + WRIST_REL_POINT_SWITCH;
 
     // | Wrist Position | Wrist Abs. Pos. | Rel. Pos.
     // | 90 Deg. Up     | 0.763           | 5.333
     // | Upper Limit    | 0.681           | 0
     // | Level w/ Floor | 0.008           | 23.309
-    // | Bottom Limit   | 0.088           | 30
+    // | Bottom Limit   | 0.139           | 42.8.0
+
+    // Higher wrist values move wrist 
 
     //Arm cases
     public static final double ARM_ADJUST_FACTOR = 1;
@@ -174,9 +177,9 @@ public final class Constants {
     public static final double PICKUP_LOW_POSITION_WRIST = 23.8494208494; //20.0
     public static final ArmPositionSide PICKUP_LOW_POSITION_SIDE = ArmPositionSide.FRONT;
 
-    public static final double PICKUP_HIGH_POSITION_HINGE = 18; //19.75; //20.0
-    public static final double PICKUP_HIGH_POSITION_TELESCOPE = 66.0;
-    public static final double PICKUP_HIGH_POSITION_WRIST = 28.9575289575;
+    public static final double PICKUP_HIGH_POSITION_HINGE = 19; //19.75; //20.0
+    public static final double PICKUP_HIGH_POSITION_TELESCOPE = 96.0; //66
+    public static final double PICKUP_HIGH_POSITION_WRIST = 50.6;
     public static final ArmPositionSide PICKUP_HIGH_POSITION_SIDE = ArmPositionSide.FRONT;
 
     public static final double CONE_MID_POSITION_HINGE = 12.4;

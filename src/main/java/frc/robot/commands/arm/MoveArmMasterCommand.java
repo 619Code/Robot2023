@@ -68,6 +68,20 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
             ),
             this::startIsEnd)
         );*/
+        //wrist commands - TODO: add at wrist position
+        addCommands(new ConditionalCommand(
+            new SequentialCommandGroup(
+                new WaitCommand(2),
+                new MoveWristCommand(wrist, goal),
+                new HoldWristCommand(wrist)
+            ), 
+            new SequentialCommandGroup(
+                new MoveWristCommand(wrist, goal),
+                new HoldWristCommand(wrist)
+            ),
+            this::dangerousMove)
+        );
+
         addCommands(new SequentialCommandGroup(
             new ParallelDeadlineGroup(
                 new RetractTelescopeCommand(telescope),
@@ -83,18 +97,18 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
         ));
 
         //wrist commands - TODO: add at wrist position
-        addCommands(new ConditionalCommand(
-            new SequentialCommandGroup(
-                new WaitCommand(2),
-                new MoveWristCommand(wrist, goal),
-                new HoldWristCommand(wrist)
-            ), 
-            new SequentialCommandGroup(
-                new MoveWristCommand(wrist, goal),
-                new HoldWristCommand(wrist)
-            ),
-            this::dangerousMove)
-        );
+        // addCommands(new ConditionalCommand(
+        //     new SequentialCommandGroup(
+        //         new WaitCommand(2),
+        //         new MoveWristCommand(wrist, goal),
+        //         new HoldWristCommand(wrist)
+        //     ), 
+        //     new SequentialCommandGroup(
+        //         new MoveWristCommand(wrist, goal),
+        //         new HoldWristCommand(wrist)
+        //     ),
+        //     this::dangerousMove)
+        // );
 
         //grabber commands
         addCommands(new HoldInCommand(grabber));
