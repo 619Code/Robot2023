@@ -13,6 +13,7 @@ import frc.robot.commands.arm.hinge.MoveHingeCommand;
 import frc.robot.commands.arm.telescope.MoveTelescopeCommand;
 import frc.robot.commands.arm.telescope.RetractTelescopeCommand;
 import frc.robot.commands.arm.wrist.HoldWristCommand;
+import frc.robot.commands.arm.wrist.InterimHoldWristCommand;
 import frc.robot.commands.arm.wrist.MoveWristCommand;
 import frc.robot.commands.grabber.HoldInCommand;
 import frc.robot.helpers.ArmLogicAssistant;
@@ -45,43 +46,23 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
             ArmPositionHelper.currentPosition = goal;
         }));
 
-        /*addCommands(new ConditionalCommand(
-            new ParallelCommandGroup(
-                new SequentialCommandGroup(
-                    new MoveHingeCommand(hinge, goal),
-                    new HoldHingeCommand(hinge, true)
-                ),
-                new MoveTelescopeCommand(telescope, goal)
-            ),
-            new SequentialCommandGroup(
-                new ParallelDeadlineGroup(
-                    new RetractTelescopeCommand(telescope),
-                    new HoldHingeCommand(hinge, false)
-                ),
-                new ParallelCommandGroup(
-                    new SequentialCommandGroup(
-                        new MoveHingeCommand(hinge, goal),
-                        new HoldHingeCommand(hinge, true)
-                    ),
-                    new MoveTelescopeCommand(telescope, goal)
-                )
-            ),
-            this::startIsEnd)
-        );*/
-        //wrist commands - TODO: add at wrist position
-        addCommands(new ConditionalCommand(
-            new SequentialCommandGroup(
-                new WaitCommand(2),
-                new MoveWristCommand(wrist, goal),
-                new HoldWristCommand(wrist)
-            ), 
-            new SequentialCommandGroup(
-                new MoveWristCommand(wrist, goal),
-                new HoldWristCommand(wrist)
-            ),
-            this::dangerousMove)
-        );
+        //this.OriginalVersion();
 
+        // New version of arm, wrist, and teliscope movement
+        this.Version2();
+
+        //grabber commands
+        addCommands(new HoldInCommand(grabber));
+
+        //information commands
+        addCommands(new RunCommand(() -> Crashboard.toDashboard("At Hinge Position", ArmLogicAssistant.atHingePosition, Constants.ARM_TAB)));
+        addCommands(new RunCommand(() -> Crashboard.toDashboard("At Telescope Position", ArmLogicAssistant.atTelescopePosition, Constants.ARM_TAB)));
+        addCommands(new RunCommand(() -> Crashboard.toDashboard("At Wrist Position", ArmLogicAssistant.atTelescopePosition, Constants.ARM_TAB)));
+        //addCommands(new RunCommand(() -> System.out.println("Start: " + ArmLogicAssistant.startPosition)));
+        //addCommands(new RunCommand(() -> System.out.println("End: " + ArmLogicAssistant.endPosition)));
+    }
+
+    public void OriginalVersion() {
         addCommands(new SequentialCommandGroup(
             new ParallelDeadlineGroup(
                 new RetractTelescopeCommand(telescope),
@@ -96,29 +77,47 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
             )
         ));
 
-        //wrist commands - TODO: add at wrist position
-        // addCommands(new ConditionalCommand(
-        //     new SequentialCommandGroup(
-        //         new WaitCommand(2),
-        //         new MoveWristCommand(wrist, goal),
-        //         new HoldWristCommand(wrist)
-        //     ), 
-        //     new SequentialCommandGroup(
-        //         new MoveWristCommand(wrist, goal),
-        //         new HoldWristCommand(wrist)
-        //     ),
-        //     this::dangerousMove)
-        // );
+        addCommands(new ConditionalCommand(
+            new SequentialCommandGroup(
+                new WaitCommand(2),
+                new MoveWristCommand(wrist, goal),
+                new HoldWristCommand(wrist)
+            ), 
+            new SequentialCommandGroup(
+                new MoveWristCommand(wrist, goal),
+                new HoldWristCommand(wrist)
+            ),
+            this::dangerousMove)
+        );
+    }
 
-        //grabber commands
-        addCommands(new HoldInCommand(grabber));
+    // Attempt to do more in parallel
+    public void Version2() {
 
-        //information commands
-        addCommands(new RunCommand(() -> Crashboard.toDashboard("At Hinge Position", ArmLogicAssistant.atHingePosition, Constants.ARM_TAB)));
-        addCommands(new RunCommand(() -> Crashboard.toDashboard("At Telescope Position", ArmLogicAssistant.atTelescopePosition, Constants.ARM_TAB)));
-        addCommands(new RunCommand(() -> Crashboard.toDashboard("At Wrist Position", ArmLogicAssistant.atTelescopePosition, Constants.ARM_TAB)));
-        //addCommands(new RunCommand(() -> System.out.println("Start: " + ArmLogicAssistant.startPosition)));
-        //addCommands(new RunCommand(() -> System.out.println("End: " + ArmLogicAssistant.endPosition)));
+        // 1. Retract teliscope and move wrist to start position (prevents wrist from hitting things)
+        // 2. After retracted move arm to new position
+        // 3. Extend and move wrist to final position
+
+        var moveToNewPosition = new SequentialCommandGroup(
+            new ParallelDeadlineGroup(
+                new RetractTelescopeCommand(telescope),
+                new HoldHingeCommand(hinge, false),
+                new InterimHoldWristCommand(wrist, Constants.WRIST_START)
+            ),
+            new SequentialCommandGroup(
+                new ParallelDeadlineGroup(
+                    new MoveHingeCommand(hinge, goal),
+                    new InterimHoldWristCommand(wrist, Constants.WRIST_START)),
+                new ParallelDeadlineGroup(
+                    new ParallelCommandGroup(
+                        new MoveTelescopeCommand(telescope, goal),
+                        new MoveWristCommand(wrist, goal)),
+                    new HoldHingeCommand(hinge, true)
+                )
+            )
+        );
+
+        this.addCommands(moveToNewPosition);
     }
 
     public boolean startIsEnd() {
