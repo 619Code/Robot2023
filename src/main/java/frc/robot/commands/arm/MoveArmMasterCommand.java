@@ -46,10 +46,10 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
             ArmPositionHelper.currentPosition = goal;
         }));
 
-        //this.OriginalVersion();
+        this.OriginalVersion();
 
         // New version of arm, wrist, and teliscope movement
-        this.Version2();
+        //this.Version2();
 
         //grabber commands
         addCommands(new HoldInCommand(grabber));
@@ -101,13 +101,13 @@ public class MoveArmMasterCommand extends ParallelCommandGroup {
         var moveToNewPosition = new SequentialCommandGroup(
             new ParallelDeadlineGroup(
                 new RetractTelescopeCommand(telescope),
-                new HoldHingeCommand(hinge, false),
-                new InterimHoldWristCommand(wrist, Constants.WRIST_START)
+                new HoldHingeCommand(hinge, false)
+                //new InterimHoldWristCommand(wrist, Constants.PICKUP_LOW_POSITION_WRIST)
             ),
             new SequentialCommandGroup(
                 new ParallelDeadlineGroup(
                     new MoveHingeCommand(hinge, goal),
-                    new InterimHoldWristCommand(wrist, Constants.WRIST_START)),
+                    new InterimHoldWristCommand(wrist, Constants.PICKUP_LOW_POSITION_WRIST)),
                 new ParallelDeadlineGroup(
                     new ParallelCommandGroup(
                         new MoveTelescopeCommand(telescope, goal),

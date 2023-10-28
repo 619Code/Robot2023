@@ -194,7 +194,7 @@ public final class Constants {
 
     public static final double CUBE_HIGH_POSITION_HINGE = 13.0;
     public static final double CUBE_HIGH_POSITION_TELESCOPE = 175.0;
-    public static final double CUBE_HIGH_POSITION_WRIST = 13.8996138996;
+    public static final double CUBE_HIGH_POSITION_WRIST = 16.8996138996;//13.8996138996;
     public static final ArmPositionSide CUBE_HIGH_POSITION_SIDE = ArmPositionSide.FRONT;
 
     public static final double CHUTE_POSITION_HINGE = 46.0;
